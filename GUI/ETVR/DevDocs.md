@@ -15,13 +15,13 @@
 1. Clone the repository
 
     ```bash
-        git clone https://github.com/ZanzyTHEbar/ESP32GreenHouseTowerDIY.git
+        git clone https://github.com/RedHawk989/EyeTrackVR.git
     ```
 
     1. Checkout the branch you want to work on
 
         ```bash
-            git checkout docs
+            git checkout SolidJS
         ```
 
     2. Open the Workspace file in VSCode
