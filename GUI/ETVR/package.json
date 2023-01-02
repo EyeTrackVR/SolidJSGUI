@@ -18,6 +18,8 @@
     "@babel/core": "^7.20.2",
     "@babel/preset-env": "^7.18.0",
     "@tailwindcss/forms": "^0.5.3",
+    "@tauri-apps/api": "^1.2.0",
+    "@tauri-apps/cli": "^1.2.1",
     "@types/node": "^18.11.9",
     "@typescript-eslint/eslint-plugin": "^5.46.1",
     "@typescript-eslint/parser": "^5.46.1",
@@ -38,7 +40,8 @@
     "solid-start-node": "^0.2.0",
     "tailwindcss": "^3.2.0",
     "typescript": "^4.8.4",
-    "vite": "^3.1.8"
+    "vite": "^3.1.8",
+    "https-localhost": "^4.7.1"
   },
   "dependencies": {
     "@builder.io/partytown": "^0.7.3",
@@ -63,7 +66,8 @@
     "solidjs-icons": "^1.0.11",
     "undici": "^5.11.0",
     "yarn": "^1.22.19",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#9bd993a"
   },
   "engines": {
     "node": ">=16"
