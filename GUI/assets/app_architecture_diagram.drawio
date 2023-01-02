@@ -1,0 +1,40 @@
+<mxfile host="65bd71144e">
+    <diagram id="2ExmXDlNceDCxwzVH3O8" name="Page-1">
+        <mxGraphModel dx="416" dy="263" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#666666" math="0" shadow="1">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="App Network Architecture" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6a00ff;fontColor=#ffffff;strokeColor=default;gradientColor=none;dashed=1;glass=1;shadow=1;fontFamily=Helvetica;fontSize=22;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="20" width="1020" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="" style="pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#4495D1;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;shape=mxgraph.veeam.cpu;rounded=1;glass=1;fontFamily=Helvetica;fontSize=22;" vertex="1" parent="1">
+                    <mxGeometry x="510" y="145" width="80" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="ESP32Cam" style="text;html=1;resizable=0;autosize=1;align=center;verticalAlign=middle;points=[];fillColor=none;strokeColor=none;rounded=1;shadow=1;glass=1;dashed=1;fontFamily=Helvetica;fontSize=12;" vertex="1" parent="1">
+                    <mxGeometry x="510" y="120" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="" style="endArrow=classic;html=1;rounded=1;fontFamily=Helvetica;fontSize=12;" edge="1" parent="1" source="3">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="520" y="260" as="sourcePoint"/>
+                        <mxPoint x="550" y="280" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="12" value="REST API" style="edgeLabel;resizable=0;html=1;align=center;verticalAlign=middle;rounded=1;shadow=1;glass=1;dashed=1;fontFamily=Helvetica;fontSize=12;strokeColor=default;gradientColor=none;labelBackgroundColor=#666666;" connectable="0" vertex="1" parent="11">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="" style="edgeStyle=none;rounded=1;html=1;fontFamily=Helvetica;fontSize=12;" edge="1" parent="1" source="13" target="3">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="" style="strokeWidth=1;html=1;shadow=0;dashed=0;shape=mxgraph.android.split_action_bar;fillColor=#E6E6E6;rounded=1;glass=1;labelBackgroundColor=#666666;fontFamily=Helvetica;fontSize=12;" vertex="1" parent="1">
+                    <mxGeometry x="457.5" y="280" width="185" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="Split" style="strokeWidth=1;html=1;shadow=0;dashed=0;shape=mxgraph.android.anchor;fontStyle=1;rounded=1;glass=1;labelBackgroundColor=#666666;fontFamily=Helvetica;fontSize=12;gradientColor=none;" vertex="1" parent="13">
+                    <mxGeometry width="185" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="Action" style="strokeWidth=1;html=1;shadow=0;dashed=0;shape=mxgraph.android.anchor;fontStyle=1;rounded=1;glass=1;labelBackgroundColor=#666666;fontFamily=Helvetica;fontSize=12;gradientColor=none;" vertex="1" parent="13">
+                    <mxGeometry y="40" width="185" height="30" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
