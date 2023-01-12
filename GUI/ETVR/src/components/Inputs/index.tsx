@@ -9,10 +9,11 @@ interface InputsProps {
     error?: boolean
 }
 
+// we need to refactor this
 const Inputs: Component<InputsProps> = (props) => {
     return (
-        <>
-            <div class="flex-it py-2">
+        <div>
+            {/* <div class="flex-it py-2">
                 <label class="block text-sm font-medium text-gray-700">{props.label}</label>
                 <input
                     type={props.type}
@@ -32,8 +33,8 @@ const Inputs: Component<InputsProps> = (props) => {
                         : 'hidden'
                 }>
                 {props.errorMsg}
-            </div>
-        </>
+            </div> */}
+        </div>
     )
 }
 

@@ -2,10 +2,7 @@ import type { JSXElement } from 'solid-js'
 
 export interface IRoutes {
     path: string
-    name: string
-    index: string
     element: () => JSXElement
-    icon?: () => JSXElement
 }
 
 export interface Iinternal {

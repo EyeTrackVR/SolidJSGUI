@@ -1,20 +1,10 @@
-/* Icons */
-
-/* Interfaces and components */
-import { lazy } from 'solid-js'
 import { IRoutes } from '@static/types/interfaces'
+import { lazy } from 'solid-js'
 
-const SIZE = 24
-//onst NotFound = lazy(() => import('@pages/notFound'))
-//onst About = lazy(() => import('@pages/about'))
-//onst Home = lazy(() => import('@pages/Home'))
+const Home = lazy(() => import('@pages/Home'))
+const page404 = lazy(() => import('@pages/404/index'))
 
 export const routes: IRoutes[] = [
-    {
-        path: '/',
-        element: Home,
-        name: 'Home',
-        index: 'home',
-        icon: () => <AiOutlineHome size={SIZE} />,
-    },
+    { path: '/', element: Home },
+    { path: '**', element: page404 },
 ]

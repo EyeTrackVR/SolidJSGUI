@@ -1,9 +1,9 @@
-//import { Header } from '@components/Header'
-import { /* createEffect, */ For } from 'solid-js'
-import { Routes, Route, FileRoutes } from 'solid-start'
+// TODO: Implement a settings page that allows the user to change the settings of the application
+import { For, lazy } from 'solid-js'
+import { FileRoutes, Route, Routes } from 'solid-start'
 import { routes } from '.'
 
-// TODO: Implement a settings page that allows the user to change the settings of the application
+const Header = lazy(() => import('@components/header/index'))
 
 const AppRoutes = () => {
     const getUserName = () => {
@@ -11,18 +11,19 @@ const AppRoutes = () => {
         if (typeof userName === 'string') return JSON.parse(userName)
         return ''
     }
+
     return (
-        <>
-            {/* <Header
+        <div>
+            <Header
                 name={getUserName()['name'] ? `Welcome ${getUserName()['name']}` : 'Welcome!'}
-            /> */}
+            />
             <Routes>
                 <FileRoutes />
                 <For each={routes}>
                     {({ path, element }) => <Route path={path} element={element()} />}
                 </For>
             </Routes>
-        </>
+        </div>
     )
 }
 
