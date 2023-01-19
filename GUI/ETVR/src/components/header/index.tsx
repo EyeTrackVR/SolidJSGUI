@@ -1,6 +1,6 @@
-import icons from '@assets/images/index'
 import { CustomPopover } from './CustomPopover'
 import { Logo } from './Logo'
+import icons from '@assets/images/index'
 import './styles.css'
 interface Iprops {
     name: string
@@ -9,7 +9,7 @@ interface Iprops {
 export default function Header(props: Iprops) {
     return (
         <header>
-            <div class="flex flex-grow justify-around items-center mt-[1rem]">
+            <div class="flex flex-grow justify-between items-center mt-[1rem]">
                 <div>
                     <Logo />
                 </div>

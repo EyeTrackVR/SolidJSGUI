@@ -1,20 +1,25 @@
-//! temporary just for debugging and testing
-const CameraStatus = Object.freeze({
-    active: 'active',
-    loading: 'loading',
-    inactive: 'inactive',
-})
+import { Text } from '@hope-ui/core'
+import { For } from 'solid-js'
+import { Camera } from '@components/Camera'
+import { cameras } from '@src/store/mdns/selectors'
 
 const Main = () => {
     return (
-        <div class="flex justify-start">
-            {/* <CameraContainer
-                class="pb-[5rem] h-[100%] xl:pb-[1rem] pt-6 py-6 px-8 max-w-md"
-                activeStatus={CameraStatus.active}
-                cameraType={true}
-                cameraAddress="192.168.0.204"
-                cameraLabel="Left Eye"
-            /> */}
+        <div class="py-[40px]">
+            <div>
+                <Text size="4xl" class="font-bold tracking-[0.10rem] text-[#FFFFFF]">
+                    CAMERAS
+                </Text>
+            </div>
+            <div class="py-[40px] flex flex-wrap">
+                <For each={cameras()}>
+                    {(camera) => (
+                        <div>
+                            <Camera {...camera} />
+                        </div>
+                    )}
+                </For>
+            </div>
         </div>
     )
 }
