@@ -1,5 +1,5 @@
-import { ISkeletonHandlerProps, ISkeletonProps } from '@static/types/interfaces'
 import { Component, For, Match, Switch } from 'solid-js'
+import { ISkeletonHandlerProps, ISkeletonProps } from '@static/types/interfaces'
 
 const Skeleton: Component<ISkeletonProps> = (props: ISkeletonProps) => {
     return (

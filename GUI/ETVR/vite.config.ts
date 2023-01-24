@@ -1,9 +1,10 @@
 import * as path from 'path'
-import solid from 'solid-start/vite'
 import { defineConfig } from 'vite'
+import solidPlugin from 'vite-plugin-solid'
 
 export default defineConfig({
     clearScreen: false,
+    envPrefix: ['VITE_', 'TAURI_'],
     resolve: {
         alias: {
             '@interfaces': path.resolve(__dirname, './src/interfaces'),
@@ -19,7 +20,20 @@ export default defineConfig({
             '@utils': path.resolve(__dirname, './src/utils'),
         },
     },
-    plugins: [solid({ ssr: false })],
+    plugins: [solidPlugin()],
+    server: {
+        port: 3000,
+        host: true,
+        strictPort: true,
+    },
+    build: {
+        // Tauri supports es2021
+        target: ['es2021', 'chrome100', 'safari13', 'esnext'],
+        // don't minify for debug builds
+        minify: !process.env.TAURI_DEBUG ? 'esbuild' : false,
+        // produce sourcemaps for debug builds
+        sourcemap: !!process.env.TAURI_DEBUG,
+    },
     ssr: {
         noExternal: ['@hope-ui/core', '@hope-ui/styles'],
     },

@@ -16,7 +16,7 @@ const labelsClasses = ['indigo', 'gray', 'green', 'blue', 'red', 'purple']
 // eslint-disable-next-line no-undef
 module.exports = {
     darkMode: 'class', // add class='dark' to <html> to enable dark mode - https://tailwindcss.com/docs/dark-mode
-    content: ['./src/**/*.{html,js,jsx,ts,tsx}'],
+    content: ['./index.html', './src/**/*.{js,ts,jsx,tsx,css,md,mdx,html,json,scss}'],
     purge: {
         //Because we made a dynamic class with the label we need to add those classes
         // to the safe list so the purge does not remove that

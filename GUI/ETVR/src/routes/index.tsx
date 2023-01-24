@@ -1,10 +1,12 @@
 import { lazy } from 'solid-js'
-import { IRoutes } from '@static/types/interfaces'
+import type { RouteDefinition } from '@solidjs/router'
 
-const Home = lazy(() => import('@pages/Home'))
-const page404 = lazy(() => import('@pages/404/index'))
+import Home from '@pages/Home'
+const Settings = lazy(() => import('@pages/Settings'))
+const page404 = lazy(() => import('@pages/errors/index'))
 
-export const routes: IRoutes[] = [
-    { path: '/', element: Home },
-    { path: '**', element: page404 },
+export const routes: RouteDefinition[] = [
+    { path: '/', component: Home },
+    { path: '/settings', component: Settings },
+    { path: '**', component: page404 },
 ]

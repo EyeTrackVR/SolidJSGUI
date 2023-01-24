@@ -1,10 +1,5 @@
 import type { JSXElement } from 'solid-js'
 
-export interface IRoutes {
-    path: string
-    element: () => JSXElement
-}
-
 export interface Iinternal {
     errorMsg?: string
     error?: boolean
