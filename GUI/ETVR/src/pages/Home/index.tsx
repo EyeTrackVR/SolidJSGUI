@@ -1,6 +1,6 @@
 import { Text } from '@hope-ui/core'
 import { createSignal, For } from 'solid-js'
-import icons from '@assets/images'
+import icons from '@assets/images/index'
 import { Camera } from '@components/Camera'
 import { CustomPopover } from '@components/header/CustomPopover'
 import { cameras } from '@src/store/mdns/selectors'
@@ -16,7 +16,7 @@ const Main = () => {
                     CAMERAS
                 </Text>
             </div>
-            <div class=" ml-[auto] mt-[20px] flex flex-grow content-center justify-between h-[100%] leading-5 font-sans font-medium rounded-[14px] p-[5px] bg-[#0e0e0e] w-[145px]">
+            <div class="ml-[auto] mt-[20px] flex flex-grow content-center justify-between h-[100%] leading-5 font-sans font-medium rounded-[14px] p-[5px] bg-[#0e0e0e] w-[145px]">
                 <div class="flex pr-[5px]">
                     <CustomPopover icon={icons.grip} disablePopover={true} />
                 </div>
@@ -25,13 +25,7 @@ const Main = () => {
                 </div>
             </div>
             <div class="py-[40px] flex flex-wrap">
-                <For each={cameras()}>
-                    {(camera) => (
-                        <div>
-                            <Camera {...camera} />
-                        </div>
-                    )}
-                </For>
+                <For each={cameras()}>{(camera) => <Camera {...camera} />}</For>
             </div>
         </div>
     )

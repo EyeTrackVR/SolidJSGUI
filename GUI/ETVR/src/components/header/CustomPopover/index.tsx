@@ -1,5 +1,5 @@
 import { Image, Popover } from '@hope-ui/core'
-import { Match, Show } from 'solid-js'
+import { Show } from 'solid-js'
 
 export interface ICusomPopover {
     icon: string

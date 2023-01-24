@@ -4,6 +4,8 @@ import { createStore, produce } from 'solid-js/store'
 export enum CameraStatus {
     ACTIVE = 'ACTIVE',
     DISABLED = 'DISABLED',
+    LOADING = 'LOADING',
+    FAILED = 'FAILED',
 }
 
 export enum CameraType {
@@ -23,8 +25,8 @@ interface IMdnsStore {
     cameras: ICamera[]
 }
 
-const staticCamerasGenerator = new Array(10).fill(0).map(() => ({
-    status: CameraStatus.ACTIVE,
+const staticCamerasGenerator = new Array(5).fill(0).map(() => ({
+    status: CameraStatus.LOADING,
     type: CameraType.WIRELESS,
     address: '192.168.0.204',
     activeCameraSection: 'left eye',
