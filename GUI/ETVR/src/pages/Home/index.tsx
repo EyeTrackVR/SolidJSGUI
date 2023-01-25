@@ -10,26 +10,22 @@ import { CAMERA_VIEW_MODE } from '@src/utils/enums'
 const CameraHandler = () => {
     const _cameras = cameras()
     return (
-        <>
-            <Show
-                when={_cameras.size > 0}
-                fallback={
-                    <div class="flex flex-col items-center justify-center w-full h-full">
-                        <Text size="2xl" class="font-bold tracking-[0.10rem] text-[white]">
-                            No cameras found
-                        </Text>
-                    </div>
-                }>
-                <For each={Array.from({ length: _cameras.size })}>
-                    {() => {
-                        createEffect(() =>
-                            console.log('increment:', _cameras.values().next().value)
-                        )
-                        return <Camera {...(_cameras.values().next().value as ICamera)} />
-                    }}
-                </For>
-            </Show>
-        </>
+        <Show
+            when={_cameras.size > 0}
+            fallback={
+                <div class="flex flex-col items-center justify-center w-full h-full">
+                    <Text size="2xl" class="font-bold tracking-[0.10rem] text-[white]">
+                        No cameras found
+                    </Text>
+                </div>
+            }>
+            <For each={Array.from({ length: _cameras.size })}>
+                {() => {
+                    createEffect(() => console.log('increment:', _cameras.values().next().value))
+                    return <Camera {...(_cameras.values().next().value as ICamera)} />
+                }}
+            </For>
+        </Show>
     )
 }
 
