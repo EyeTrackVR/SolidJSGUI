@@ -1,5 +1,5 @@
 import { createMemo } from 'solid-js'
-import { restState } from './restAPI'
+import { restState, endpointsMap } from './restAPI'
 
 export const restStatus = createMemo(() => restState().status)
-export const cameras = createMemo(() => restState().cameras)
+export const endpoints = createMemo(() => endpointsMap)

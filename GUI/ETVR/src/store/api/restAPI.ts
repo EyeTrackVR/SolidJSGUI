@@ -8,19 +8,39 @@ export enum RESTStatus {
     FAILED = 'FAILED',
 }
 
+export enum RESTType {
+    GET = 'GET',
+    POST = 'POST',
+    PUT = 'PUT',
+    DELETE = 'DELETE',
+}
+
+export interface IEndpoint {
+    url: string
+    type: RESTType
+}
+
 export interface IRest {
     status: RESTStatus
     type: RESTType
-    endpoints: IEndpoint[]
     data: object
 }
 
 export const defaultState = {
     status: RESTStatus.DISABLED,
     type: RESTType.GET,
-    endpoints: [],
     data: {},
 }
+
+export const endpointsMap = new Map<string, IEndpoint>(
+    [
+        ['ping', { url: '/ping', type: RESTType.GET }],
+        ['save', { url: '/save', type: RESTType.GET }],
+        ['resetConfig', { url: '/resetConfig', type: RESTType.GET }],
+        ['rebootDevice', { url: '/rebootDevice', type: RESTType.GET }],
+        ['restartCamera', { url: '/restartCamera', type: RESTType.GET }]
+    ]
+)
 
 const [state, setState] = createStore<IRest>(defaultState)
 

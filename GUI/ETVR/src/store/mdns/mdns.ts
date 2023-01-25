@@ -1,3 +1,4 @@
+import { ReactiveMap } from '@solid-primitives/map'
 import { createMemo } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
 
@@ -15,7 +16,6 @@ export enum CameraType {
 export interface ICamera {
     status: CameraStatus
     type: CameraType
-    name: string
     address: string
     activeCameraSection: string
 }
@@ -23,21 +23,22 @@ export interface ICamera {
 interface IMdnsStore {
     connectedUser: string
     restClient: string
-    cameras: ICamera[]
+    camerasMap: ReactiveMap<string, ICamera>
 }
 
 const staticCamerasGenerator = new Array(5).fill(0).map(() => ({
     status: CameraStatus.LOADING,
     type: CameraType.WIRELESS,
-    address: '192.168.0.204',
-    name: 'left-eye',
+    address: `${Math.floor(Math.random() * 255)}`,
     activeCameraSection: 'Left Eye',
 }))
 
 export const defaultState = {
     connectedUser: '',
     restClient: '',
-    cameras: staticCamerasGenerator,
+    camerasMap: new ReactiveMap<string, ICamera>(
+        staticCamerasGenerator.map((c) => [c.address, c])
+    ),
 }
 
 const [state, setState] = createStore<IMdnsStore>(defaultState)
@@ -46,6 +47,14 @@ export const setConnectedUser = (userName: string) => {
     setState(
         produce((s) => {
             s.connectedUser = userName
+        })
+    )
+}
+
+export const addCamera = (camera: ICamera) => {
+    setState(
+        produce((s) => {
+            s.camerasMap.set(camera.address, camera)
         })
     )
 }

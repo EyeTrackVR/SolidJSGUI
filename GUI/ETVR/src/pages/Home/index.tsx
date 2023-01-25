@@ -1,10 +1,37 @@
 import { Text } from '@hope-ui/core'
-import { createSignal, For } from 'solid-js'
+import { createSignal, Show, For, onCleanup, createEffect } from 'solid-js'
 import icons from '@assets/images/index'
 import { Camera } from '@components/Camera'
 import { CustomPopover } from '@components/header/CustomPopover'
+import { ICamera } from '@src/store/mdns/mdns'
 import { cameras } from '@src/store/mdns/selectors'
 import { CAMERA_VIEW_MODE } from '@src/utils/enums'
+
+const CameraHandler = () => {
+    const _cameras = cameras()
+    return (
+        <>
+            <Show
+                when={_cameras.size > 0}
+                fallback={
+                    <div class="flex flex-col items-center justify-center w-full h-full">
+                        <Text size="2xl" class="font-bold tracking-[0.10rem] text-[white]">
+                            No cameras found
+                        </Text>
+                    </div>
+                }>
+                <For each={Array.from({ length: _cameras.size })}>
+                    {() => {
+                        createEffect(() =>
+                            console.log('increment:', _cameras.values().next().value)
+                        )
+                        return <Camera {...(_cameras.values().next().value as ICamera)} />
+                    }}
+                </For>
+            </Show>
+        </>
+    )
+}
 
 const Main = () => {
     const [selectMode, setSelectMode] = createSignal(CAMERA_VIEW_MODE.GRIP)
@@ -24,7 +51,7 @@ const Main = () => {
                 </div>
             </div>
             <div class="py-[40px] flex flex-wrap overflow-auto">
-                <For each={cameras()}>{(camera) => <Camera {...camera} />}</For>
+                <CameraHandler />
             </div>
         </div>
     )
