@@ -17,8 +17,12 @@ const AppRoutes = () => {
     })
 
     return (
-        <main class="pb-[5rem] w-[100%] m-auto  px-8 max-w-[1920px]" style={{ margin: 'auto' }}>
-            <Header name={connectedUserName() ? `Welcome ${connectedUserName()}` : 'Welcome!'} />
+        <main class="pb-[5rem] w-[100%] px-8 max-w-[1920px]">
+            <div class="header-wrapper">
+                <Header
+                    name={connectedUserName() ? `Welcome ${connectedUserName()}` : 'Welcome!'}
+                />
+            </div>
             <Path />
         </main>
     )

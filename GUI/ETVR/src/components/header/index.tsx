@@ -8,14 +8,14 @@ interface Iprops {
 
 export default function Header(props: Iprops) {
     return (
-        <header>
-            <div class="flex flex-grow justify-between items-center mt-[1rem]">
+        <header class='pr-4 pl-4 grow content-center'>
+            <div class="flex grow justify-between items-center mt-[1rem]">
                 <div>
                     <Logo />
                 </div>
                 <div class="flex h-[55%] content-center items-center mt-[5px]">
-                    <div class="flex flex-grow justify-center border-none shadow-lg content-center leading-5 font-sans font-medium text-[.75rem] rounded-[15px] h-[100%] w-[100%] bg-[#0e0e0e] text-[#5f5f5f]">
-                        <div class="flex flex-grow content-center justify-between h-[100%] leading-5 font-sans font-medium rounded-[14px] p-[5px] bg-[#0e0e0e] w-[145px]">
+                    <div class="flex grow justify-center border-none shadow-lg content-center leading-5 font-sans font-medium text-[.75rem] rounded-[15px] h-[100%] w-[100%] bg-[#0e0e0e] text-[#5f5f5f]">
+                        <div class="flex grow content-center justify-between h-[100%] leading-5 font-sans font-medium rounded-[14px] p-[5px] bg-[#0e0e0e] w-[145px]">
                             <CustomPopover
                                 icon={icons.cameraSolid}
                                 popoverContent="Tracker manager"
