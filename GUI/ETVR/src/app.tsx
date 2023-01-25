@@ -8,6 +8,7 @@ const app = () => {
     injectCriticalStyle()
     onMount(() => {
         /* invoke('toggle_decorations') */
+        document.documentElement.style.setProperty('--window-opacity', '0')
         document.addEventListener('DOMContentLoaded', () => {
             invoke('get_user')
                 .then((config) => {
