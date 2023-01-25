@@ -6,7 +6,6 @@ import { setOpenModal } from '@src/store/ui/ui'
 import { ActiveStatus } from '@src/utils/utils'
 
 // TODO: switch camera based on status
-// TODO: add modal for settings
 // TODO: create grid to make it flexible
 
 export const Camera = (props: ICamera) => {
@@ -23,11 +22,11 @@ export const Camera = (props: ICamera) => {
                 </div>
                 <div class="bg-[#292D36] ml-[14px] rounded-[14px] h-[100%] p-[14px] ">
                     <div class="text-center  pb-[14px]">
-                        <div class=" text-[#FFFF]">camera 1</div>
+                        <div class=" text-[#FFFF]"> {props.activeCameraSection} </div>
                     </div>
                     <div>
                         <div class="flex text-[#FFFF] justify-between">
-                            <div class="pr-[25px] pb-[14px]">Camera IP</div>
+                            <div class="pr-[25px] pb-[14px]">Camera Address</div>
                             <div>{props.address}</div>
                         </div>
                         <div class="flex text-[#FFFF] justify-between">

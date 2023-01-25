@@ -31,7 +31,7 @@ const staticCamerasGenerator = new Array(5).fill(0).map(() => ({
     type: CameraType.WIRELESS,
     address: '192.168.0.204',
     name: 'left-eye',
-    activeCameraSection: 'left eye',
+    activeCameraSection: 'Left Eye',
 }))
 
 export const defaultState = {
