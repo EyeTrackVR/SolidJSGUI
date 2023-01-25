@@ -1,20 +1,8 @@
 /* @refresh reload */
 import { Router } from '@solidjs/router'
-import { invoke } from '@tauri-apps/api/tauri'
-import { isServer, render } from 'solid-js/web'
-import App from './app'
+import { render } from 'solid-js/web'
 import '@styles/imports.css'
-
-!isServer &&
-    document.addEventListener('DOMContentLoaded', () => {
-        invoke('get_user')
-            .then((config) => {
-                console.log(config)
-                localStorage.setItem('settings', JSON.stringify(config))
-            })
-            .catch((e) => console.error(e))
-        setTimeout(() => invoke('close_splashscreen'), 500)
-    })
+import App from './app'
 
 render(
     () => (
