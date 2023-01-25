@@ -8,7 +8,6 @@
 	width: fit-content;
 	border-radius: 3px;
 	z-index: 999;
-	visibility: var(--menu-visibility);
 }
 
 .context-menu button {

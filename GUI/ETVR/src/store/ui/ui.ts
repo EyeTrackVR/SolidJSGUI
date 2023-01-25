@@ -18,6 +18,11 @@ export interface INewMenu {
     cssVariable: string
 }
 
+export interface IModalMenu {
+    children: JSXElement
+    ref: HTMLElement | null
+}
+
 interface IUiStore {
     loader?: { [key in loaderType]: boolean }
     connecting?: boolean

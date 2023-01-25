@@ -11,12 +11,10 @@ const NewMenu = (props: INewMenu) => {
         if (e.target instanceof HTMLElement) {
             if (ref() && (ref()?.contains(e.target) || ref()?.isSameNode(e.target))) return
             console.log('clicked outside')
-            document.documentElement.style.setProperty(props.cssVariable, 'hidden')
             setMenu(null)
         }
     }
     onMount(() => {
-        document.documentElement.style.setProperty(props.cssVariable, 'hidden')
         if (props.ref) {
             props.ref.addEventListener('contextmenu', (e) => {
                 e.preventDefault()
@@ -35,7 +33,7 @@ const NewMenu = (props: INewMenu) => {
     })
     return (
         <div>
-            <Show when={menuOpenStatus}>
+            <Show when={menuOpenStatus() ?? false}>
                 <Portal mount={props?.ref as HTMLElement}>
                     <div
                         ref={setRef}
