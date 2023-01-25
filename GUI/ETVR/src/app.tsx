@@ -1,8 +1,16 @@
-import { ColorModeScript, HopeProvider, injectCriticalStyle, Button } from '@hope-ui/core'
+import {
+    ColorModeScript,
+    HopeProvider,
+    injectCriticalStyle,
+    HStack,
+    Button,
+    Text,
+} from '@hope-ui/core'
 import { invoke } from '@tauri-apps/api/tauri'
 import { appWindow } from '@tauri-apps/api/window'
 import { onMount, Suspense } from 'solid-js'
 import AppRoutes from './routes/Routes'
+import ModalMenu from '@components/Modal'
 import NewWindow from '@components/NewWindow'
 
 const handleTitlebar = () => {
@@ -52,6 +60,19 @@ const Menu = () => {
     )
 }
 
+const ModalHandler = () => {
+    return (
+        <ModalMenu initialFocus="#first-field">
+            <Text mb={4}>The content of the Modal.</Text>
+            <HStack justifyContent="flex-end" spacing={4}>
+                <Button id="initial-focus" _focus={{ color: 'red' }}>
+                    Action
+                </Button>
+            </HStack>
+        </ModalMenu>
+    )
+}
+
 const App = () => {
     const ref = document.getElementById('titlebar')
     injectCriticalStyle()
@@ -68,6 +89,7 @@ const App = () => {
                     <NewWindow ref={ref} name="test" cssVariable="--menu-visibility">
                         <Menu />
                     </NewWindow>
+                    <ModalHandler />
                 </Suspense>
             </HopeProvider>
         </div>

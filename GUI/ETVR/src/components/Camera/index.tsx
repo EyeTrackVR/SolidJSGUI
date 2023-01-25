@@ -1,7 +1,8 @@
-import { Image } from '@hope-ui/core'
+import { IconButton } from '@hope-ui/core'
+import { FaSolidGear } from 'solid-icons/fa'
 import CameraStatusIndicator from './CameraIndicator/CameraIndicator'
-import icons from '@assets/images'
 import { ICamera } from '@src/store/mdns/mdns'
+import { setOpenModal } from '@src/store/ui/ui'
 import { ActiveStatus } from '@src/utils/utils'
 
 // TODO: switch camera based on status
@@ -40,13 +41,14 @@ export const Camera = (props: ICamera) => {
                             <div>{props.type.toLocaleLowerCase()}</div>
                         </div>
                         <div class="flex text-[#FFFF] justify-end ">
-                            <Image
-                                src={icons.gearSolid}
-                                objectFit={'contain'}
-                                alt="logo"
-                                width="20px"
-                                height="100%"
-                            />
+                            <IconButton
+                                aria-label="Settings"
+                                variant="plain"
+                                colorScheme="neutral"
+                                size="lg"
+                                onClick={() => setOpenModal(true)}>
+                                <FaSolidGear />
+                            </IconButton>
                         </div>
                     </div>
                 </div>

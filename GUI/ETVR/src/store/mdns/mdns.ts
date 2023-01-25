@@ -15,6 +15,7 @@ export enum CameraType {
 export interface ICamera {
     status: CameraStatus
     type: CameraType
+    name: string
     address: string
     activeCameraSection: string
 }
@@ -29,6 +30,7 @@ const staticCamerasGenerator = new Array(5).fill(0).map(() => ({
     status: CameraStatus.LOADING,
     type: CameraType.WIRELESS,
     address: '192.168.0.204',
+    name: 'left-eye',
     activeCameraSection: 'left eye',
 }))
 

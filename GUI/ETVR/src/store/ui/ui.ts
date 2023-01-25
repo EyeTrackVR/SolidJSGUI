@@ -20,7 +20,7 @@ export interface INewMenu {
 
 export interface IModalMenu {
     children: JSXElement
-    ref: HTMLElement | null
+    initialFocus?: string
 }
 
 interface IUiStore {

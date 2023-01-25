@@ -8,7 +8,6 @@ import { CAMERA_VIEW_MODE } from '@src/utils/enums'
 
 const Main = () => {
     const [selectMode, setSelectMode] = createSignal(CAMERA_VIEW_MODE.GRIP)
-
     return (
         <div class="py-[40px]">
             <div>
