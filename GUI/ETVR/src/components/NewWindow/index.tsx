@@ -1,4 +1,4 @@
-import { children, createSignal, createEffect, Show, Component, onMount } from 'solid-js'
+import { children, createSignal, createEffect, Show, onMount } from 'solid-js'
 import { Portal } from 'solid-js/web'
 import { menuOpenStatus } from '@src/store/ui/selectors'
 import { setMenu, type INewMenu } from '@src/store/ui/ui'
@@ -11,18 +11,17 @@ const NewMenu = (props: INewMenu) => {
         if (e.target instanceof HTMLElement) {
             if (ref() && (ref()?.contains(e.target) || ref()?.isSameNode(e.target))) return
             console.log('clicked outside')
-            document.documentElement.style.setProperty('--menu-visibility', 'hidden')
+            document.documentElement.style.setProperty(props.cssVariable, 'hidden')
             setMenu(null)
         }
     }
     onMount(() => {
-        setMenu(null)
-        document.documentElement.style.setProperty('--menu-visibility', 'hidden')
+        document.documentElement.style.setProperty(props.cssVariable, 'hidden')
         if (props.ref) {
             props.ref.addEventListener('contextmenu', (e) => {
                 e.preventDefault()
                 setMenu({ x: e.clientX, y: e.clientY })
-                document.documentElement.style.setProperty('--menu-visibility', 'visible')
+                document.documentElement.style.setProperty(props.cssVariable, 'visible')
                 //console.log(menuOpenStatus)
             })
         }
@@ -40,7 +39,7 @@ const NewMenu = (props: INewMenu) => {
                 <Portal mount={props?.ref as HTMLElement}>
                     <div
                         ref={setRef}
-                        id="menu"
+                        id={props.name}
                         class="context-menu"
                         style={{
                             top: `${menuOpenStatus()?.y ?? 0}px`,

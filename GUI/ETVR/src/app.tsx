@@ -1,4 +1,4 @@
-import { ColorModeScript, HopeProvider, injectCriticalStyle } from '@hope-ui/core'
+import { ColorModeScript, HopeProvider, injectCriticalStyle, Button } from '@hope-ui/core'
 import { invoke } from '@tauri-apps/api/tauri'
 import { appWindow } from '@tauri-apps/api/window'
 import { onMount, Suspense } from 'solid-js'
@@ -33,14 +33,23 @@ const handleAppBoot = () => {
     })
 }
 
-const Button = () => {
+const Menu = () => {
     return (
-        <button
-            onClick={() => {
-                console.log('clicked')
-            }}>
-            Test
-        </button>
+        <>
+            <h1 class="text-lg">Sub Menu</h1>
+            <hr class="divider" />
+            <label class="context-menu-labels" for="test-button">
+                Test Button
+            </label>
+            <Button
+                id="test-button"
+                onClick={() => {
+                    console.log('clicked')
+                }}>
+                Test
+            </Button>
+            <hr class="divider" />
+        </>
     )
 }
 
@@ -57,7 +66,9 @@ const app = () => {
             <HopeProvider>
                 <Suspense>
                     <AppRoutes />
-                    <NewWindow ref={ref} children={Button()} />
+                    <NewWindow ref={ref} name="test" cssVariable="--menu-visibility">
+                        <Menu />
+                    </NewWindow>
                 </Suspense>
             </HopeProvider>
         </div>

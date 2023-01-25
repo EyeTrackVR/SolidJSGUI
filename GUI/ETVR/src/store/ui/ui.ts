@@ -14,6 +14,8 @@ interface IMenuOpen {
 export interface INewMenu {
     children: JSXElement
     ref: HTMLElement | null
+    name: string
+    cssVariable: string
 }
 
 interface IUiStore {
