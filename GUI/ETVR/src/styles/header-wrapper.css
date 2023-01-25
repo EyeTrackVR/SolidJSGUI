@@ -15,7 +15,7 @@
     flex-direction: row;
     justify-content: space-around;
     position: fixed;
-    top: calc(titlebar - 35px);
+    top: calc(titlebar - 30px);
     left: 0;
     right: 0;
     z-index: 1;

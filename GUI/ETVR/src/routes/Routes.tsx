@@ -23,7 +23,9 @@ const AppRoutes = () => {
                     name={connectedUserName() ? `Welcome ${connectedUserName()}` : 'Welcome!'}
                 />
             </div>
-            <Path />
+            <div class="pt-[70px]">
+                <Path />
+            </div>
         </main>
     )
 }
