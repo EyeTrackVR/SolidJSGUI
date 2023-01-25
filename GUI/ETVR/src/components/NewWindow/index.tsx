@@ -29,9 +29,9 @@ const NewMenu = (props: INewMenu) => {
     createEffect(() => {
         if (menuOpenStatus()) {
             document.addEventListener('click', clickOutside)
-        } else {
-            document.removeEventListener('click', clickOutside)
+            return
         }
+        document.removeEventListener('click', clickOutside)
     })
     return (
         <div>
