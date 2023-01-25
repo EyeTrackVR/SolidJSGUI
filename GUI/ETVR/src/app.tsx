@@ -62,7 +62,7 @@ const Menu = () => {
 
 const ModalHandler = () => {
     return (
-        <ModalMenu initialFocus="#first-field">
+        <ModalMenu initialFocus="#initial-focus">
             <Text mb={4}>The content of the Modal.</Text>
             <HStack justifyContent="flex-end" spacing={4}>
                 <Button id="initial-focus" _focus={{ color: 'red' }}>
