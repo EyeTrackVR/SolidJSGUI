@@ -1,5 +1,6 @@
 import type { JSXElement } from 'solid-js'
 
+//* Component Interfaces
 export interface Iinternal {
     errorMsg?: string
     error?: boolean

@@ -8,3 +8,7 @@ export const connectingStatus = createMemo(() => {
 export const openModalStatus = createMemo(() => {
     return uiState().openModal
 })
+
+export const menuOpenStatus = createMemo(() => {
+    return uiState().menuOpen
+})

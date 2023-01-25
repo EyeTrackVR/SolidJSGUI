@@ -3,14 +3,11 @@ import { invoke } from '@tauri-apps/api/tauri'
 import { appWindow } from '@tauri-apps/api/window'
 import { onMount, Suspense } from 'solid-js'
 import AppRoutes from './routes/Routes'
+import NewWindow from '@components/NewWindow'
 
 const handleTitlebar = () => {
     const titlebar = document.getElementsByClassName('titlebar')
     if (titlebar) {
-        /* titlebar.addEventListener('contextmenu', (e) => {
-                    e.preventDefault()
-                    setState('menuOpen', { x: e.clientX, y: e.clientY })
-                }) */
         document
             .getElementById('titlebar-minimize')
             ?.addEventListener('click', () => appWindow.minimize())
@@ -36,7 +33,19 @@ const handleAppBoot = () => {
     })
 }
 
+const Button = () => {
+    return (
+        <button
+            onClick={() => {
+                console.log('clicked')
+            }}>
+            Test
+        </button>
+    )
+}
+
 const app = () => {
+    const ref = document.getElementById('titlebar')
     injectCriticalStyle()
     onMount(() => {
         handleTitlebar()
@@ -48,6 +57,7 @@ const app = () => {
             <HopeProvider>
                 <Suspense>
                     <AppRoutes />
+                    <NewWindow ref={ref} children={Button()} />
                 </Suspense>
             </HopeProvider>
         </div>
