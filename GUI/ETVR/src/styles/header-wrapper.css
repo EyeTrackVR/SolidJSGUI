@@ -13,7 +13,7 @@
     align-content: center;
     flex-grow: 1;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     position: fixed;
     top: calc(titlebar - 35px);
     left: 0;
