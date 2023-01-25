@@ -18,7 +18,6 @@ const NewMenu = (props: INewMenu) => {
     onMount(() => {
         setMenu(null)
         document.documentElement.style.setProperty('--menu-visibility', 'hidden')
-        //document.addEventListener('click', clickOutside)
         if (props.ref) {
             props.ref.addEventListener('contextmenu', (e) => {
                 e.preventDefault()
@@ -38,7 +37,7 @@ const NewMenu = (props: INewMenu) => {
     return (
         <div>
             <Show when={menuOpenStatus}>
-                <Portal mount={props.ref!}>
+                <Portal mount={props?.ref as HTMLElement}>
                     <div
                         ref={setRef}
                         id="menu"
