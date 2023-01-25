@@ -24,7 +24,7 @@ const Main = () => {
                     <CustomPopover icon={icons.list} disablePopover={true} />
                 </div>
             </div>
-            <div class="py-[40px] flex flex-wrap">
+            <div class="py-[40px] flex flex-wrap overflow-auto">
                 <For each={cameras()}>{(camera) => <Camera {...camera} />}</For>
             </div>
         </div>

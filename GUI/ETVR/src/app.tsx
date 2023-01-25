@@ -37,14 +37,14 @@ const app = () => {
         }
     })
     return (
-        <>
+        <div class="App overflow-y-auto">
             <ColorModeScript />
             <HopeProvider>
                 <Suspense>
                     <AppRoutes />
                 </Suspense>
             </HopeProvider>
-        </>
+        </div>
     )
 }
 
