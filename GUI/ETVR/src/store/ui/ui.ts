@@ -25,7 +25,6 @@ interface IUiStore {
     menuOpen?: IMenuOpen | null
 }
 
-
 export const defaultState = {
     loader: { [loaderType.MDNS_CONNECTING]: false, [loaderType.REST_CLIENT]: false },
     connecting: false,

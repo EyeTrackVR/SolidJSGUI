@@ -8,7 +8,7 @@ interface Iprops {
 
 export default function Header(props: Iprops) {
     return (
-        <header class='pr-4 pl-4 grow content-center'>
+        <header class="pr-4 pl-4 grow content-center">
             <div class="flex grow justify-between items-center mt-[1rem]">
                 <div>
                     <Logo />

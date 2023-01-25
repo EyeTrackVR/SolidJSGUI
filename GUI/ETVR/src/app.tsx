@@ -21,7 +21,6 @@ const handleTitlebar = () => {
 }
 
 const handleAppBoot = () => {
-    document.documentElement.style.setProperty('--window-opacity', '0')
     document.addEventListener('DOMContentLoaded', () => {
         invoke('get_user')
             .then((config) => {
@@ -53,7 +52,7 @@ const Menu = () => {
     )
 }
 
-const app = () => {
+const App = () => {
     const ref = document.getElementById('titlebar')
     injectCriticalStyle()
     onMount(() => {
@@ -75,4 +74,4 @@ const app = () => {
     )
 }
 
-export default app
+export default App
