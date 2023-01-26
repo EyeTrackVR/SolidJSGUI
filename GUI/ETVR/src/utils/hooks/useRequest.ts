@@ -1,5 +1,6 @@
 import { invoke } from '@tauri-apps/api/tauri'
 import { createSignal, createEffect } from 'solid-js'
+import { setRestStatus, RESTStatus } from '@src/store/api/restAPI'
 import { endpoints } from '@src/store/api/selectors'
 import { cameras } from '@src/store/mdns/selectors'
 
@@ -11,22 +12,21 @@ interface IProps {
 
 export const useRequestHook = () => {
     const [data, setData] = createSignal({})
-    const [loading, setLoading] = createSignal(false)
-    const [error, setError] = createSignal<Error>()
     const _cameras = cameras()
     const _endpoints = endpoints()
     const doRequest = (props: IProps) => {
         createEffect(() => {
             let endpoint: string = _endpoints.get(props.endpointName)?.url ?? ''
             if (!_cameras.get(props.deviceName)) {
-                setError(Error('No camera found'))
+                setRestStatus(RESTStatus.NO_CAMERA)
+                console.log('No camera found at that address')
                 return
             }
 
             if (props.args) {
                 endpoint += props.args
             }
-            setLoading(true)
+            setRestStatus(RESTStatus.LOADING)
             invoke('do_rest_request', {
                 endpoint: endpoint,
                 deviceName: _cameras.get(props.deviceName)?.address,
@@ -34,6 +34,7 @@ export const useRequestHook = () => {
             })
                 .then((response) => {
                     if (typeof response === 'string') {
+                        setRestStatus(RESTStatus.ACTIVE)
                         const parsedResponse = JSON.parse(response)
                         setData((prevData) => ({
                             ...prevData,
@@ -42,13 +43,13 @@ export const useRequestHook = () => {
                     }
                 })
                 .catch((err) => {
+                    setRestStatus(RESTStatus.FAILED)
                     console.log(err)
-                    setError(err)
                 })
                 .finally(() => {
-                    setLoading(false)
+                    setRestStatus(RESTStatus.COMPLETE)
                 })
         })
     }
-    return { data, loading, error, doRequest }
+    return { data, doRequest }
 }

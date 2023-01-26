@@ -37,9 +37,7 @@ const staticCamerasGenerator = new Array(5).fill(0).map(() => ({
 export const defaultState = {
     connectedUser: '',
     restClient: '',
-    camerasMap: new ReactiveMap<string, ICamera>(
-        staticCamerasGenerator.map((c) => [c.address, c])
-    ),
+    camerasMap: new ReactiveMap<string, ICamera>(staticCamerasGenerator.map((c) => [c.address, c])),
 }
 
 const [state, setState] = createStore<IMdnsStore>(defaultState)
@@ -52,10 +50,18 @@ export const setConnectedUser = (userName: string) => {
     )
 }
 
-export const addCamera = (camera: ICamera) => {
+export const setAddCamera = (camera: ICamera) => {
     setState(
         produce((s) => {
             s.camerasMap.set(camera.address, camera)
+        })
+    )
+}
+
+export const setRemoveCamera = (cameraAddress: string) => {
+    setState(
+        produce((s) => {
+            s.camerasMap.delete(cameraAddress)
         })
     )
 }
