@@ -26,6 +26,7 @@ interface IMdnsStore {
     camerasMap: ReactiveMap<string, ICamera>
 }
 
+/* TEMPORARY - REMOVE WHEN NOT NEEDED */
 const staticCamerasGenerator = new Array(5).fill(0).map(() => ({
     status: CameraStatus.LOADING,
     type: CameraType.WIRELESS,

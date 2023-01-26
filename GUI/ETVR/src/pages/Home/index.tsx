@@ -1,5 +1,5 @@
 import { Text } from '@hope-ui/core'
-import { createSignal, Show, For, onCleanup, createEffect } from 'solid-js'
+import { createSignal, Show, For, createEffect } from 'solid-js'
 import icons from '@assets/images/index'
 import { Camera } from '@components/Camera'
 import { CustomPopover } from '@components/header/CustomPopover'
@@ -35,7 +35,7 @@ const Main = () => {
         <div class="py-[40px]">
             <div>
                 <Text size="4xl" class="font-bold tracking-[0.10rem] text-[#FFFFFF]">
-                    CAMERAS
+                    TRACKERS
                 </Text>
             </div>
             <div class="ml-[auto] mt-[20px] flex flex-grow content-center justify-between h-[100%] leading-5 font-sans font-medium rounded-[14px] p-[5px] bg-[#0e0e0e] w-[145px]">
