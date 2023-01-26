@@ -27,17 +27,35 @@ interface IMdnsStore {
 }
 
 /* TEMPORARY - REMOVE WHEN NOT NEEDED */
-const staticCamerasGenerator = new Array(5).fill(0).map(() => ({
+/* const staticCamerasGenerator = new Array(5).fill(0).map(() => ({
     status: CameraStatus.LOADING,
     type: CameraType.WIRELESS,
     address: `${Math.floor(Math.random() * 255)}`,
     activeCameraSection: 'Left Eye',
-}))
+})) */
 
-export const defaultState = {
+const tempCameraComponents: ReactiveMap<string, ICamera> = new ReactiveMap<string, ICamera>(
+    [
+        ['left_eye_tracker', {
+            status: CameraStatus.LOADING,
+            type: CameraType.WIRELESS,
+            address: '192.168.0.204',
+            activeCameraSection: 'Left Eye',
+        }],
+        ['right_eye_tracker', {
+            status: CameraStatus.LOADING,
+            type: CameraType.WIRELESS,
+            address: '192.168.0.232',
+            activeCameraSection: 'Right Eye',
+        }],
+
+    ]
+)
+// new ReactiveMap<string, ICamera>(staticCamerasGenerator.map((c) => [c.address, c])),
+export const defaultState: IMdnsStore = {
     connectedUser: '',
     restClient: '',
-    camerasMap: new ReactiveMap<string, ICamera>(staticCamerasGenerator.map((c) => [c.address, c])),
+    camerasMap: tempCameraComponents
 }
 
 const [state, setState] = createStore<IMdnsStore>(defaultState)

@@ -23,14 +23,14 @@ export interface IEndpoint {
 
 export interface IRest {
     status: RESTStatus
-    type: RESTType
-    data: object
+    device: string
+    response: object
 }
 
-export const defaultState = {
+export const defaultState: IRest = {
     status: RESTStatus.COMPLETE,
-    type: RESTType.GET,
-    data: {},
+    device: '',
+    response: {},
 }
 
 /**
@@ -66,6 +66,22 @@ export const setRestStatus = (status: RESTStatus) => {
     setState(
         produce((s) => {
             s.status = status
+        })
+    )
+}
+
+export const setRestDevice = (device: string) => {
+    setState(
+        produce((s) => {
+            s.device = device
+        })
+    )
+}
+
+export const setRestResponse = (response: object) => {
+    setState(
+        produce((s) => {
+            s.response = response
         })
     )
 }

@@ -9,6 +9,7 @@ import { CAMERA_VIEW_MODE } from '@src/utils/enums'
 
 const CameraHandler = () => {
     const _cameras = cameras()
+    console.log('cameras:', _cameras.size)
     return (
         <Show
             when={_cameras.size > 0}
@@ -19,15 +20,21 @@ const CameraHandler = () => {
                     </Text>
                 </div>
             }>
-            <For each={Array.from({ length: _cameras.size })}>
-                {() => {
-                    createEffect(() => console.log('increment:', _cameras.values().next().value))
-                    return <Camera {...(_cameras.values().next().value as ICamera)} />
-                }}
+            <For each={Array.from(_cameras.keys())}>
+                {(key) => <Camera {...(_cameras.get(key) as ICamera)} />}
             </For>
         </Show>
     )
 }
+
+/* {
+    ;() => {
+        for (const values of _cameras.values()) {
+            const value = values as ICamera
+            return <Camera {...value} />
+        }
+    }
+} */
 
 const Main = () => {
     const [selectMode, setSelectMode] = createSignal(CAMERA_VIEW_MODE.GRIP)

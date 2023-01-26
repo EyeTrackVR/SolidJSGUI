@@ -1,6 +1,8 @@
 import { IconButton } from '@hope-ui/core'
 import { FaSolidGear } from 'solid-icons/fa'
 import CameraStatusIndicator from './CameraIndicator/CameraIndicator'
+import { setRestDevice } from '@src/store/api/restAPI'
+import { restDevice } from '@src/store/api/selectors'
 import { ICamera } from '@src/store/mdns/mdns'
 import { setOpenModal } from '@src/store/ui/ui'
 import { ActiveStatus } from '@src/utils/utils'
@@ -9,6 +11,11 @@ import { ActiveStatus } from '@src/utils/utils'
 // TODO: create grid to make it flexible
 
 export const Camera = (props: ICamera) => {
+    const settingsHandler = () => {
+        setRestDevice(props.address)
+        setOpenModal(true)
+        console.log(restDevice())
+    }
     return (
         <div class=" m-[10px] pr-[14px] pl-[14px] py-[14px] pb-[14px] rounded-[14px] bg-[#333742] flex">
             <div class="flex">
@@ -45,7 +52,7 @@ export const Camera = (props: ICamera) => {
                                 variant="plain"
                                 colorScheme="neutral"
                                 size="lg"
-                                onClick={() => setOpenModal(true)}>
+                                onClick={settingsHandler}>
                                 <FaSolidGear />
                             </IconButton>
                         </div>
