@@ -1,4 +1,3 @@
-import { ReactiveMap } from '@solid-primitives/map'
 import { createMemo } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
 
@@ -23,7 +22,11 @@ export interface ICamera {
 interface IMdnsStore {
     connectedUser: string
     restClient: string
-    camerasMap: ReactiveMap<string, ICamera>
+    camerasMap: ICameraComponents
+}
+
+interface ICameraComponents {
+    [key: string]: ICamera
 }
 
 /* TEMPORARY - REMOVE WHEN NOT NEEDED */
@@ -34,24 +37,22 @@ interface IMdnsStore {
     activeCameraSection: 'Left Eye',
 })) */
 
-const tempCameraComponents: ReactiveMap<string, ICamera> = new ReactiveMap<string, ICamera>(
-    [
-        ['left_eye_tracker', {
-            status: CameraStatus.LOADING,
-            type: CameraType.WIRELESS,
-            address: '192.168.0.204',
-            activeCameraSection: 'Left Eye',
-        }],
-        ['right_eye_tracker', {
-            status: CameraStatus.LOADING,
-            type: CameraType.WIRELESS,
-            address: '192.168.0.232',
-            activeCameraSection: 'Right Eye',
-        }],
+const tempCameraComponents: ICameraComponents = {
+    '192.168.0.204': {
+        status: CameraStatus.LOADING,
+        type: CameraType.WIRELESS,
+        address: '192.168.0.204',
+        activeCameraSection: 'Left Eye',
+    },
+    '192.168.0.232': {
+        status: CameraStatus.LOADING,
+        type: CameraType.WIRELESS,
+        address: '192.168.0.232',
+        activeCameraSection: 'Left Eye',
+    },
 
-    ]
-)
-// new ReactiveMap<string, ICamera>(staticCamerasGenerator.map((c) => [c.address, c])),
+}
+
 export const defaultState: IMdnsStore = {
     connectedUser: '',
     restClient: '',
@@ -71,7 +72,7 @@ export const setConnectedUser = (userName: string) => {
 export const setAddCamera = (camera: ICamera) => {
     setState(
         produce((s) => {
-            s.camerasMap.set(camera.address, camera)
+            s.camerasMap[camera.address] = camera
         })
     )
 }
@@ -79,7 +80,7 @@ export const setAddCamera = (camera: ICamera) => {
 export const setRemoveCamera = (cameraAddress: string) => {
     setState(
         produce((s) => {
-            s.camerasMap.delete(cameraAddress)
+            delete s.camerasMap[cameraAddress]
         })
     )
 }

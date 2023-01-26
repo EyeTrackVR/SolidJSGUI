@@ -3,4 +3,4 @@ import { mdnsState } from './mdns'
 
 export const connectedUserName = createMemo(() => mdnsState().connectedUser)
 export const cameras = createMemo(() => mdnsState().camerasMap)
-export const cameraAddresses = createMemo(() => [...cameras().keys()])
+export const cameraAddresses = createMemo(() => Object.keys(mdnsState().camerasMap))

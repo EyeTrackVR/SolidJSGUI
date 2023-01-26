@@ -8,11 +8,9 @@ import { cameras } from '@src/store/mdns/selectors'
 import { CAMERA_VIEW_MODE } from '@src/utils/enums'
 
 const CameraHandler = () => {
-    const _cameras = cameras()
-    console.log('cameras:', _cameras.size)
     return (
         <Show
-            when={_cameras.size > 0}
+            when={Object.keys(cameras()).length > 0}
             fallback={
                 <div class="flex flex-col items-center justify-center w-full h-full">
                     <Text size="2xl" class="font-bold tracking-[0.10rem] text-[white]">
@@ -20,8 +18,11 @@ const CameraHandler = () => {
                     </Text>
                 </div>
             }>
-            <For each={Array.from(_cameras.keys())}>
-                {(key) => <Camera {...(_cameras.get(key) as ICamera)} />}
+            <For each={Object.values(cameras())}>
+                {(value) => {
+                    const camera = value as ICamera
+                    return <Camera {...camera} />
+                }}
             </For>
         </Show>
     )
