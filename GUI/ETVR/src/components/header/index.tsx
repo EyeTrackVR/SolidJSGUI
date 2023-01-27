@@ -2,6 +2,7 @@ import { CustomPopover } from './CustomPopover'
 import { Logo } from './Logo'
 import icons from '@assets/images/index'
 import './styles.css'
+
 interface Iprops {
     name: string
 }
@@ -17,11 +18,13 @@ export default function Header(props: Iprops) {
                     <div class="flex grow justify-center border-none shadow-lg items-center content-center leading-5 font-sans font-medium text-[.75rem] rounded-[15px] h-[100%] w-[100%] bg-[#0e0e0e] text-[#5f5f5f]">
                         <div class="flex grow content-center justify-between h-[100%] leading-5 font-sans font-medium rounded-[14px] pl-[5px] pr-[5px] pt-[5px] bg-[#0e0e0e] w-[145px]">
                             <CustomPopover
+                                id="tracker-manager-popover"
                                 icon={icons.cameraSolid}
                                 path="/"
                                 popoverContent="Tracker manager"
                             />
                             <CustomPopover
+                                id="settings-popover"
                                 path="/settings"
                                 icon={icons.gearSolid}
                                 popoverContent="Settings"

@@ -33,3 +33,7 @@ export const ActiveStatus = (activeStatus: CameraStatus) => {
             return DEFAULT_COLOR
     }
 }
+
+export const classNames = (...classes: (string | boolean | undefined)[]): string => {
+    return classes.filter(Boolean).join(' ')
+}

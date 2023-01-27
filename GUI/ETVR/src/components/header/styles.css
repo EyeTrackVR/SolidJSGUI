@@ -3,7 +3,6 @@
     --text-title-color: hsl(240 6% 10%);
     --text-description-color: hsl(240 6% 10%);
 }
-
 .popover__content {
     @apply z-50 rounded-md p-3 bg-[#0071fe];
     max-width: min(calc(100vw - 16px), 380px);
@@ -13,9 +12,9 @@
 .popover__header {
     @apply flex justify-between items-baseline mb-2;
 }
-.popover__close-button {
+/* .popover__close-button {
     @apply h-4 w-4 text-[var(--text-close-color)] hover:text-[var(--text-close-color)] focus:text-[var(--text-close-color)] focus:outline-none;
-}
+} */
 .popover__title {
     @apply text-[var(--text-title-color)] font-bold text-sm;
 }

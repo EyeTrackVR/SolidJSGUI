@@ -1131,46 +1131,12 @@
   resolved "https://registry.yarnpkg.com/@floating-ui/core/-/core-1.1.0.tgz#0a1dee4bbce87ff71602625d33f711cafd8afc08"
   integrity sha512-zbsLwtnHo84w1Kc8rScAo5GMk1GdecSlrflIbfnEBJwvTSj1SL6kkOYV+nHraMCPEy+RNZZUaZyL8JosDGCtGQ==
 
-"@floating-ui/dom@^1.0.4", "@floating-ui/dom@^1.0.7":
+"@floating-ui/dom@^1.0.7":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@floating-ui/dom/-/dom-1.1.0.tgz#29fea1344fdef15b6ba270a733d20b7134fee5c2"
   integrity sha512-TSogMPVxbRe77QCj1dt8NmRiJasPvuc+eT5jnJ6YpLqgOD2zXc5UA3S1qwybN+GVCDNdKfpKy1oj8RpzLJvh6A==
   dependencies:
     "@floating-ui/core" "^1.0.5"
-
-"@hope-ui/core@^1.0.0-next.11":
-  version "1.0.0-next.11"
-  resolved "https://registry.yarnpkg.com/@hope-ui/core/-/core-1.0.0-next.11.tgz#3f89e26bbbce45f230c27ede8544f807c76833dc"
-  integrity sha512-IkMbZc6gSHKSp8jZEfqigEg8GP81TCG8CdRNOX+M+zERDBWX5aGSqn9ZllLqCjKtxplGGyFvO3w+ixUqbvrJcg==
-  dependencies:
-    "@floating-ui/dom" "^1.0.4"
-    "@hope-ui/primitives" "^1.0.0-next.11"
-    "@hope-ui/styles" "^1.0.0-next.11"
-    "@hope-ui/utils" "^1.0.0-next.11"
-
-"@hope-ui/primitives@^1.0.0-next.11":
-  version "1.0.0-next.11"
-  resolved "https://registry.yarnpkg.com/@hope-ui/primitives/-/primitives-1.0.0-next.11.tgz#4f450665bfe5c59675439e06b640e5891cc57b3e"
-  integrity sha512-72nN44BWVgD84YfQUfEjThEzp6rZ0fMllyXdMG1yOrZO4UCxmfDOr0R4QORtzL77kAcKkGSjlNi2/Kfwvl95xw==
-  dependencies:
-    "@hope-ui/utils" "^1.0.0-next.11"
-    "@solid-primitives/media" "^2.0.4"
-
-"@hope-ui/styles@^1.0.0-next.11":
-  version "1.0.0-next.11"
-  resolved "https://registry.yarnpkg.com/@hope-ui/styles/-/styles-1.0.0-next.11.tgz#bebb2c49068a097653ba6d25cef6aaa601048e74"
-  integrity sha512-DbSHUFjtoM9hFR86jUG5E9YUOr3fnqT3wyvxx75mespv1AA8h8xp0qjv4hcq7s6gdRtAix6nHInhZG23ng5dCg==
-  dependencies:
-    "@hope-ui/utils" "^1.0.0-next.11"
-    dset "3.1.2"
-
-"@hope-ui/utils@^1.0.0-next.11":
-  version "1.0.0-next.11"
-  resolved "https://registry.yarnpkg.com/@hope-ui/utils/-/utils-1.0.0-next.11.tgz#b9887ca2dc0fd98d657533257311a505c75c9999"
-  integrity sha512-uNa2D6QIFfKw0mzBakKtWl659omRTjPrP2+Yt4e2ckr/8t11a8R5S8CNTPRQ34aH9r7L9vTJNAIaZ5awKuw/zA==
-  dependencies:
-    "@solid-primitives/refs" "^0.3.4"
-    "@solid-primitives/utils" "^4.0.0"
 
 "@humanwhocodes/config-array@^0.11.8":
   version "0.11.8"
@@ -2390,11 +2356,6 @@ doctypes@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/doctypes/-/doctypes-1.1.0.tgz#ea80b106a87538774e8a3a4a5afe293de489e0a9"
   integrity sha512-LLBi6pEqS6Do3EKQ3J0NqHWV5hhb78Pi8vvESYwyOy2c31ZEZVdtitdzsQsKb7878PEERhzUk0ftqGhG6Mz+pQ==
-
-dset@3.1.2:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/dset/-/dset-3.1.2.tgz#89c436ca6450398396dc6538ea00abc0c54cd45a"
-  integrity sha512-g/M9sqy3oHe477Ar4voQxWtaPIFw1jTdKZuomOjhCcBx9nHUNn0pu6NopuFFrTh/TRZIKEj+76vLWFu9BNKk+Q==
 
 ee-first@1.1.1:
   version "1.1.1"

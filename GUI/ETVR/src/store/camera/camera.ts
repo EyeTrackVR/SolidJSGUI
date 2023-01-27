@@ -48,7 +48,7 @@ export const setAddCamera = (camera: ICamera) => {
     setState(
         produce((s) => {
             s.cameras.push(camera)
-        })
+        }),
     )
 }
 
@@ -56,7 +56,7 @@ export const setRemoveCamera = (camera: ICamera) => {
     setState(
         produce((s) => {
             s.cameras = s.cameras.filter((c: { address: string }) => c.address !== camera.address)
-        })
+        }),
     )
 }
 
@@ -65,7 +65,7 @@ export const setCameraStatus = (camera: ICamera, status: CameraStatus) => {
         produce((s) => {
             s.cameras = s.cameras.filter((c: { address: string }) => c.address !== camera.address)
             s.cameras.push({ ...camera, status })
-        })
+        }),
     )
 }
 

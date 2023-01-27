@@ -33,8 +33,5 @@ export default defineConfig({
         minify: !process.env.TAURI_DEBUG ? 'esbuild' : false,
         // produce sourcemaps for debug builds
         sourcemap: !!process.env.TAURI_DEBUG,
-    },
-    ssr: {
-        noExternal: ['@hope-ui/core', '@hope-ui/styles'],
-    },
+    }
 })

@@ -1,10 +1,12 @@
-import { HStack, Button, Text } from '@hope-ui/core'
+import { Button } from '@kobalte/core'
 import { invoke } from '@tauri-apps/api/tauri'
 import { appWindow } from '@tauri-apps/api/window'
 import { onMount, Suspense } from 'solid-js'
 import AppRoutes from './routes/Routes'
 import ModalMenu from '@components/Modal'
 import NewWindow from '@components/NewWindow'
+import { setOpenModal } from '@src/store/ui/ui'
+import { BUTTON } from '@static/custom/button'
 
 const handleTitlebar = () => {
     const titlebar = document.getElementsByClassName('titlebar')
@@ -41,28 +43,33 @@ const Menu = () => {
             <label class="context-menu-labels" for="test-button">
                 Test Button
             </label>
-            <Button
+            <Button.Root
                 id="test-button"
                 onClick={() => {
                     console.log('clicked')
                 }}>
                 Test
-            </Button>
+            </Button.Root>
             <hr class="divider" />
         </>
     )
 }
 
-const ModalHandler = () => {
+const ModalContent = () => {
     return (
-        <ModalMenu initialFocus="#initial-focus" title="This is a modal">
-            <Text mb={4}>The content of the Modal.</Text>
-            <HStack justifyContent="flex-end" spacing={4}>
-                <Button id="initial-focus" _focus={{ color: 'red' }}>
-                    Action
-                </Button>
-            </HStack>
-        </ModalMenu>
+        <>
+            <div class="mt-2">
+                <p class="text-sm text-gray-900 dark:text-gray-50">
+                    Your payment has been successfully submitted. We've sent your an email with all
+                    of the details of your order.
+                </p>
+            </div>
+            <div class="mt-4">
+                <button type="button" class={BUTTON} onClick={() => setOpenModal(false)}>
+                    Got it, thanks!
+                </button>
+            </div>
+        </>
     )
 }
 
@@ -77,10 +84,12 @@ const App = () => {
         <div class="App overflow-y-auto">
             <Suspense>
                 <AppRoutes />
-                <NewWindow ref={ref} name="test" cssVariable="--menu-visibility">
+                <NewWindow ref={ref} name="test">
                     <Menu />
                 </NewWindow>
-                <ModalHandler />
+                <ModalMenu>
+                    <ModalContent />
+                </ModalMenu>
             </Suspense>
         </div>
     )

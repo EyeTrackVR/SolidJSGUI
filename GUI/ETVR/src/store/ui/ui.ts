@@ -15,7 +15,6 @@ export interface INewMenu {
     children: JSXElement
     ref: HTMLElement | null
     name: string
-    cssVariable: string
 }
 
 export interface IModalMenu {
@@ -47,7 +46,7 @@ export const setMenu = (menuOpen: IMenuOpen | null) => {
     setState(
         produce((s) => {
             s.menuOpen = menuOpen || null
-        })
+        }),
     )
 }
 
@@ -56,7 +55,7 @@ export const setConnecting = (connecting: boolean) => {
     setState(
         produce((s) => {
             s.connecting = connecting
-        })
+        }),
     )
 }
 
@@ -65,7 +64,7 @@ export const setOpenModal = (openModal: boolean) => {
     setState(
         produce((s) => {
             s.openModal = openModal
-        })
+        }),
     )
 }
 
@@ -73,7 +72,7 @@ export const setConnectedUser = (userName: string) => {
     setState(
         produce((s) => {
             s.connectedUser = userName
-        })
+        }),
     )
 }
 

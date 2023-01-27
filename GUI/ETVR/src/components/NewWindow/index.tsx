@@ -19,7 +19,6 @@ const NewMenu = (props: INewMenu) => {
             props.ref.addEventListener('contextmenu', (e) => {
                 e.preventDefault()
                 setMenu({ x: e.clientX, y: e.clientY })
-                document.documentElement.style.setProperty(props.cssVariable, 'visible')
                 //console.log(menuOpenStatus)
             })
         }

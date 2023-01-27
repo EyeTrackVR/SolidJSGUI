@@ -1,4 +1,4 @@
-import { IconButton } from '@hope-ui/core'
+import { Button } from '@kobalte/core'
 import { FaSolidGear } from 'solid-icons/fa'
 import CameraStatusIndicator from './CameraIndicator/CameraIndicator'
 import { setRestDevice } from '@src/store/api/restAPI'
@@ -47,14 +47,12 @@ export const Camera = (props: ICamera) => {
                             <div>{props.type.toLocaleLowerCase()}</div>
                         </div>
                         <div class="flex text-[#FFFF] justify-end ">
-                            <IconButton
+                            <Button.Root
+                                class="camera__button"
                                 aria-label="Settings"
-                                variant="plain"
-                                colorScheme="neutral"
-                                size="lg"
                                 onClick={settingsHandler}>
                                 <FaSolidGear />
-                            </IconButton>
+                            </Button.Root>
                         </div>
                     </div>
                 </div>

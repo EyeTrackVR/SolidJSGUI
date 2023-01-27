@@ -1,38 +1,30 @@
 .context-menu {
-	position: fixed;
-	display: flex;
-	flex-direction: column;
-	background-color: #313131;
-	padding: 10px;
-	gap: 10px;
-	width: fit-content;
-	border-radius: 3px;
-	z-index: 999;
+    @apply text-white fixed flex flex-col bg-[#313131] p-3 gap-3 w-fit rounded-sm z-[999];
 }
 
 .context-menu button {
-	appearance: none;
-	outline: none;
-	border: none;
-	width: 100%;
-	background-color: #414141;
-	padding: 10px;
-	border-radius: 3px;
-	user-select: none;
-	pointer-events: all;
+    appearance: none;
+    outline: none;
+    border: none;
+    width: 100%;
+    background-color: #414141;
+    padding: 10px;
+    border-radius: 3px;
+    user-select: none;
+    pointer-events: all;
 }
 
 .context-menu button:hover {
-	background-color: #515151;
+    background-color: #515151;
 }
 
 .context-menu-labels {
-	margin-bottom: -10px;
-	font-size: 14px;
+    margin-bottom: -10px;
+    font-size: 14px;
 }
 
 .divider {
-	width: 100%;
-	border-color: #515151;
-	border-style: solid;
+    width: 100%;
+    border-color: #515151;
+    border-style: solid;
 }

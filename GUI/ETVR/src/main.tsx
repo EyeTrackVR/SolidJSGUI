@@ -1,20 +1,15 @@
 /* @refresh reload */
-import { ColorModeScript, HopeProvider } from '@hope-ui/core'
 import { Router } from '@solidjs/router'
 import { render } from 'solid-js/web'
-import theme from '@static/theme/theme'
 import '@styles/imports.css'
 import App from './app'
 
 render(
     () => (
         <>
-            <ColorModeScript />
-            <HopeProvider theme={theme}>
-                <Router>
-                    <App />
-                </Router>
-            </HopeProvider>
+            <Router>
+                <App />
+            </Router>
         </>
     ),
     document.getElementById('root') as HTMLElement,

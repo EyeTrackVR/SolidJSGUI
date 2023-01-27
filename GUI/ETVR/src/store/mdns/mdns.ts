@@ -22,7 +22,7 @@ export const setMdnsStatus = (status: MdnsStatus) => {
     setState(
         produce((s) => {
             s.mdnsStatus = status
-        })
+        }),
     )
 }
 
