@@ -1,5 +1,5 @@
-import { HStack, Modal, Center } from '@hope-ui/core'
-import { children, createEffect } from 'solid-js'
+import { HStack, Modal, Divider, Text, useTheme } from '@hope-ui/core'
+import { children, createEffect, Show } from 'solid-js'
 import { openModalStatus } from '@src/store/ui/selectors'
 import { setOpenModal, type IModalMenu } from '@src/store/ui/ui'
 import './styles.css'
@@ -23,10 +23,30 @@ const ModalMenu = (props: IModalMenu) => {
                 easing: 'ease-out',
                 exitEasing: 'ease-in',
             }}>
-            <Modal.Overlay />
+            <Modal.Overlay
+                sx={{
+                    bg: 'blackAlpha.300',
+                    backdropFilter: 'blur(10px) hue-rotate(90deg)',
+                }}
+            />
             <Modal.Content p={4}>
                 <HStack justifyContent="space-between" mb={4}>
-                    <Modal.Heading fontWeight="semibold"> {props.title} </Modal.Heading>
+                    <Show when={props.title}>
+                        <Divider
+                            sx={{}}
+                            variant="solid"
+                            thickness="4px"
+                            labelPlacement="center"
+                            labelProps={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 1,
+                            }}>
+                            <Text fontWeight="semibold" fontSize="lg">
+                                <Modal.Heading fontWeight="semibold"> {props.title} </Modal.Heading>
+                            </Text>
+                        </Divider>
+                    </Show>
                     <Modal.CloseButton />
                 </HStack>
                 {Children()}

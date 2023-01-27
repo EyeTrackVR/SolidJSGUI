@@ -1,11 +1,4 @@
-import {
-    ColorModeScript,
-    HopeProvider,
-    injectCriticalStyle,
-    HStack,
-    Button,
-    Text,
-} from '@hope-ui/core'
+import { HStack, Button, Text } from '@hope-ui/core'
 import { invoke } from '@tauri-apps/api/tauri'
 import { appWindow } from '@tauri-apps/api/window'
 import { onMount, Suspense } from 'solid-js'
@@ -62,7 +55,7 @@ const Menu = () => {
 
 const ModalHandler = () => {
     return (
-        <ModalMenu initialFocus="#initial-focus">
+        <ModalMenu initialFocus="#initial-focus" title="This is a modal">
             <Text mb={4}>The content of the Modal.</Text>
             <HStack justifyContent="flex-end" spacing={4}>
                 <Button id="initial-focus" _focus={{ color: 'red' }}>
@@ -75,23 +68,20 @@ const ModalHandler = () => {
 
 const App = () => {
     const ref = document.getElementById('titlebar')
-    injectCriticalStyle()
+
     onMount(() => {
         handleTitlebar()
         handleAppBoot()
     })
     return (
         <div class="App overflow-y-auto">
-            <ColorModeScript />
-            <HopeProvider>
-                <Suspense>
-                    <AppRoutes />
-                    <NewWindow ref={ref} name="test" cssVariable="--menu-visibility">
-                        <Menu />
-                    </NewWindow>
-                    <ModalHandler />
-                </Suspense>
-            </HopeProvider>
+            <Suspense>
+                <AppRoutes />
+                <NewWindow ref={ref} name="test" cssVariable="--menu-visibility">
+                    <Menu />
+                </NewWindow>
+                <ModalHandler />
+            </Suspense>
         </div>
     )
 }
