@@ -1,5 +1,5 @@
 import { Image, Popover } from '@hope-ui/core'
-import { Link, useLocation } from '@solidjs/router'
+import { Link /* , useLocation */ } from '@solidjs/router'
 import { Show } from 'solid-js'
 
 export interface ICusomPopover {
@@ -11,12 +11,11 @@ export interface ICusomPopover {
 }
 
 export const CustomPopover = (props: ICusomPopover) => {
-    const location = useLocation()
     return (
         <div class="group relative inline-flex" onClick={() => props.onClick?.()}>
             <Popover triggerMode="hover">
-                <Popover.Trigger class="icon rounded-[8px] pl-[1.5rem] pr-[1.5rem] focus:bg-[#252536] hover:bg-[#252536]">
-                    <Link href={props.path} class="no-underline">
+                <Link href={props.path} class="no-underline">
+                    <Popover.Trigger class="icon rounded-[8px] pl-[1.5rem] pr-[1.5rem] focus:bg-[#252536] hover:bg-[#252536]">
                         <Image
                             src={props.icon}
                             objectFit={'contain'}
@@ -24,8 +23,8 @@ export const CustomPopover = (props: ICusomPopover) => {
                             width="20px"
                             height="35px"
                         />
-                    </Link>
-                </Popover.Trigger>
+                    </Popover.Trigger>
+                </Link>
                 <Show when={!props.disablePopover}>
                     <Popover.Content
                         w="max-content"
