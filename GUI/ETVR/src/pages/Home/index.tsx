@@ -35,7 +35,7 @@ const Main = () => {
             <div class="ml-[auto] mt-[20px] flex flex-grow content-center justify-between h-[100%] leading-5 font-sans font-medium rounded-[14px] p-[5px] bg-[#0e0e0e] w-[145px]">
                 <div class="flex pr-[5px]">
                     <CustomPopover
-                        id="settings-popover"
+                        id="grip-popover"
                         path=""
                         icon={icons.grip}
                         disablePopover={true}

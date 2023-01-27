@@ -13,7 +13,7 @@
     @apply flex justify-between items-baseline mb-2;
 }
 /* .popover__close-button {
-    @apply h-4 w-4 text-[var(--text-close-color)] hover:text-[var(--text-close-color)] focus:text-[var(--text-close-color)] focus:outline-none;
+    @apply h-4 w-4 text-[var(--text-close-color)] hover:text-[var(--text-close-color)] focus:text-[var(--text-close-color)] focus;
 } */
 .popover__title {
     @apply text-[var(--text-title-color)] font-bold text-sm;

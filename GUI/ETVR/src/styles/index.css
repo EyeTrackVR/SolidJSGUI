@@ -48,30 +48,32 @@
 }
 
 :root {
-	font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-	font-size: 16px;
-	line-height: 24px;
-	font-weight: 400;
-	/* custom vars */
-	--window-opacity: 0.8;
+    font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
 
-	font-synthesis: none;
-	text-rendering: optimizeLegibility;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	-webkit-text-size-adjust: 100%;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
 }
 
 :root::before {
-	content: '';
-	width: 100%;
-	height: 100%;
-	background-image: var(--user-image);
-	background-size: contain;
-	background-position: center center;
-	background-repeat: no-repeat;
-	opacity: var(--image-opacity);
-	transition: background-image 300ms ease;
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-image: var(--user-image);
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: var(--image-opacity);
+    transition: background-image 300ms ease;
+}
+
+* {
+    @apply outline-none;
 }
 
 body {

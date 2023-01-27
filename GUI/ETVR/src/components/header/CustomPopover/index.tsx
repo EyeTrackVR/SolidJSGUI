@@ -28,6 +28,12 @@ export const CustomPopover = (props: ICustomPopover) => {
     createEffect(() => {
         if (!open()) {
             document.removeEventListener('mouseleave', (e) => {
+                e.stopPropagation()
+                console.log('not hovered')
+                setOpen(false)
+            })
+            document.removeEventListener('mouseenter', (e) => {
+                e.stopPropagation()
                 console.log('not hovered')
                 setOpen(false)
             })
@@ -37,7 +43,7 @@ export const CustomPopover = (props: ICustomPopover) => {
         <div class="group relative inline-flex" onClick={() => props.onClick?.()}>
             <Popover.Root isOpen={open()}>
                 <Link href={props.path} id={props.id} class="no-underline">
-                    <Popover.Trigger class="rounded-[8px] pl-[1.5rem] pr-[1.5rem] focus:bg-[#252536] hover:bg-[#252536]">
+                    <Popover.Trigger class="rounded-[8px] pl-[1.5rem] pr-[1.5rem] focus:bg-[#252536] hover:bg-[#252536] outline-none">
                         <Image.Root>
                             <Image.Img
                                 src={props.icon}

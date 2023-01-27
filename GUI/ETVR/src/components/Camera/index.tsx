@@ -17,7 +17,7 @@ export const Camera = (props: ICamera) => {
         console.log(restDevice())
     }
     return (
-        <div class=" m-[10px] pr-[14px] pl-[14px] py-[14px] pb-[14px] rounded-[14px] bg-[#333742] flex">
+        <div class="m-[10px] pr-[14px] pl-[14px] py-[14px] pb-[14px] rounded-[14px] bg-[#333742] flex">
             <div class="flex">
                 <div>
                     <CameraStatusIndicator activeStatus={props.status} />
@@ -51,7 +51,7 @@ export const Camera = (props: ICamera) => {
                                 class="camera__button"
                                 aria-label="Settings"
                                 onClick={settingsHandler}>
-                                <FaSolidGear />
+                                <FaSolidGear size={15}/>
                             </Button.Root>
                         </div>
                     </div>
