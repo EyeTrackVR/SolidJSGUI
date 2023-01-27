@@ -27,7 +27,7 @@
     2. Open the Workspace file in VSCode
 
         ```bash
-            code ESP32GreenhouseTowerDIY/docs/ESP32GreenHouseTowerDIY.code-workspace
+            code GUI/ETVR/ETVR.code-workspace
         ```
 
 2. Install dependencies
@@ -36,22 +36,16 @@
         yarn
     ```
 
-3. Build the project (optional)
+3. Run the dev server
 
     ```bash
-        yarn build
+        yarn tauri dev
     ```
 
-4. Run the dev server
+4. Build the project (optional)
 
     ```bash
-        yarn dev
-    ```
-
-5. Run the project
-
-    ```bash
-        yarn start
+        yarn tauri build
     ```
 
 ## Frameworks and Libraries
@@ -61,6 +55,7 @@
 - [Solid Select](https://solid-select.com/)
 - [Solid-Form-Handler](https://solid-form-handler.com)
 - [solid-i18n](https://github.com/SanichKotikov/solid-i18n)
+- [solid-Primitives](https://github.com/solidjs-community/solid-primitives)
 - [solid-i18n-Primitives](https://github.com/solidjs-community/solid-primitives/tree/main/packages/i18n)
 - [Solid-Headless](https://github.com/lxsmnsyc/solid-headless)
 - [HopeUI](https://next--hope-ui.netlify.app/docs/)
@@ -72,6 +67,7 @@
 - [SolidJS Framework Dev](https://solidjs.framework.dev/categories/libraries)
 - [SolidJS API Docs](https://www.solidjs.com/docs/latest/api)
 - [SolidJS Async Resources](https://www.solidjs.com/tutorial/async_resources)
+- [Tauri Docs](https://tauri.studio/en/docs/getting-started/intro)
 
 ## License
 
