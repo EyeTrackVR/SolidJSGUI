@@ -20,6 +20,7 @@ export interface INewMenu {
 
 export interface IModalMenu {
     children: JSXElement
+    title?: string
     initialFocus?: string
 }
 
