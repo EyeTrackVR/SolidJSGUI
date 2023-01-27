@@ -12,12 +12,12 @@ interface IProps {
 
 export const useRequestHook = () => {
     const [data, setData] = createSignal({})
-    const _cameras = cameras()
     const _endpoints = endpoints()
     const doRequest = (props: IProps) => {
         createEffect(() => {
             let endpoint: string = _endpoints.get(props.endpointName)?.url ?? ''
-            if (!_cameras.get(props.deviceName)) {
+            const camera = cameras().find((camera) => camera.address === props.deviceName)
+            if (!camera) {
                 setRestStatus(RESTStatus.NO_CAMERA)
                 console.log('No camera found at that address')
                 return
@@ -29,7 +29,7 @@ export const useRequestHook = () => {
             setRestStatus(RESTStatus.LOADING)
             invoke('do_rest_request', {
                 endpoint: endpoint,
-                deviceName: _cameras.get(props.deviceName)?.address,
+                deviceName: camera?.address,
                 method: _endpoints.get(props.endpointName)?.type,
             })
                 .then((response) => {
