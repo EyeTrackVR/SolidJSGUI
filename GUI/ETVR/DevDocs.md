@@ -58,7 +58,7 @@
 - [solid-Primitives](https://github.com/solidjs-community/solid-primitives)
 - [solid-i18n-Primitives](https://github.com/solidjs-community/solid-primitives/tree/main/packages/i18n)
 - [Solid-Headless](https://github.com/lxsmnsyc/solid-headless)
-- [HopeUI](https://next--hope-ui.netlify.app/docs/)
+- [Kobalte UI](https://kobalte.dev/docs/core/overview/introduction)
 - [Solid-Icons](https://icarus-sullivan.github.io/solidjs-icons/)
 - [Solid-Spinners](https://github.com/lenniezelk/solid-spinner)
 
