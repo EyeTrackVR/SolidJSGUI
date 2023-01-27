@@ -5,5 +5,11 @@
     "tabWidth": 4,
     "singleQuote": true,
     "printWidth": 100,
-    "bracketSameLine": true
+    "bracketSameLine": true,
+    "arrowParens": "always",
+    "endOfLine": "lf",
+    "htmlWhitespaceSensitivity": "ignore",
+    "jsxSingleQuote": false,
+    "trailingComma": "all",
+    "useTabs": false
 }
