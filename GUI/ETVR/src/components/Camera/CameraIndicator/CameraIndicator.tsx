@@ -1,4 +1,4 @@
-import { CameraStatus } from '@src/store/mdns/mdns'
+import { CameraStatus } from '@src/store/camera/camera'
 import { ActiveStatus, GenerateMatrixShadow } from '@src/utils/utils'
 
 export interface ICameraStatus {

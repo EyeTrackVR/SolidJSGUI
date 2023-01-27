@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import { CameraStatus } from '@src/store/mdns/mdns'
+import { CameraStatus } from '@src/store/camera/camera'
 
 export const ACTIVE_SHADOW = '0 0 0 0 0.121333  0 0 0 0 0.866667  0 0 0 0 0  0 0 0 1 0'
 export const LOADING_SHADOW = '0 0 0 0 1  0 0 0 0 0.20166699999999999  0 0 0 0 -1.878667  0 0 0 1 0'

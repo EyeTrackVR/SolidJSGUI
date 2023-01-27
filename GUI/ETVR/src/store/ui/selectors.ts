@@ -1,14 +1,7 @@
 import { createMemo } from 'solid-js'
 import { uiState } from './ui'
 
-export const connectingStatus = createMemo(() => {
-    return uiState().connecting
-})
-
-export const openModalStatus = createMemo(() => {
-    return uiState().openModal
-})
-
-export const menuOpenStatus = createMemo(() => {
-    return uiState().menuOpen
-})
+export const connectingStatus = createMemo(() => uiState().connecting)
+export const openModalStatus = createMemo(() => uiState().openModal)
+export const menuOpenStatus = createMemo(() => uiState().menuOpen)
+export const connectedUserName = createMemo(() => uiState().connectedUser)

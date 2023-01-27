@@ -2,8 +2,8 @@
 import { useRoutes } from '@solidjs/router'
 import { lazy, onMount } from 'solid-js'
 import { routes } from '.'
-import { setConnectedUser } from '@src/store/mdns/mdns'
-import { connectedUserName } from '@src/store/mdns/selectors'
+import { connectedUserName } from '@src/store/ui/selectors'
+import { setConnectedUser } from '@src/store/ui/ui'
 
 const Header = lazy(() => import('@components/header/index'))
 

@@ -42,11 +42,11 @@ export const defaultState: IRest = {
  * const endpoint = endpointsMap.get('ping')
  * endpoint.url // '/ping'
  * endpoint.type // 'GET'
- * 
+ *
  * These endpoints are built into the REST API server on the ESP32
- * 
+ *
  * @description
- * **URL Example** - `http://<ip>:81/control/command/<endpoint>` 
+ * **URL Example** - `http://<ip>:81/control/command/<endpoint>`
  */
 export const endpointsMap: Map<string, IEndpoint> = new Map<string, IEndpoint>([
     ['ping', { url: '/control/command/ping', type: RESTType.GET }],

@@ -1,16 +1,15 @@
 import { Text } from '@hope-ui/core'
-import { createSignal, Show, For, createEffect } from 'solid-js'
+import { createSignal, Show, For } from 'solid-js'
 import icons from '@assets/images/index'
 import { Camera } from '@components/Camera'
 import { CustomPopover } from '@components/header/CustomPopover'
-import { ICamera } from '@src/store/mdns/mdns'
-import { cameras } from '@src/store/mdns/selectors'
+import { cameras } from '@src/store/camera/selectors'
 import { CAMERA_VIEW_MODE } from '@src/utils/enums'
 
 const CameraHandler = () => {
     return (
         <Show
-            when={Object.keys(cameras()).length > 0}
+            when={cameras().length > 0}
             fallback={
                 <div class="flex flex-col items-center justify-center w-full h-full">
                     <Text size="2xl" class="font-bold tracking-[0.10rem] text-[white]">
@@ -18,24 +17,14 @@ const CameraHandler = () => {
                     </Text>
                 </div>
             }>
-            <For each={Object.values(cameras())}>
-                {(value) => {
-                    const camera = value as ICamera
+            <For each={cameras()}>
+                {(camera) => {
                     return <Camera {...camera} />
                 }}
             </For>
         </Show>
     )
 }
-
-/* {
-    ;() => {
-        for (const values of _cameras.values()) {
-            const value = values as ICamera
-            return <Camera {...value} />
-        }
-    }
-} */
 
 const Main = () => {
     const [selectMode, setSelectMode] = createSignal(CAMERA_VIEW_MODE.GRIP)

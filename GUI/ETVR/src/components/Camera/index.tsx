@@ -3,7 +3,7 @@ import { FaSolidGear } from 'solid-icons/fa'
 import CameraStatusIndicator from './CameraIndicator/CameraIndicator'
 import { setRestDevice } from '@src/store/api/restAPI'
 import { restDevice } from '@src/store/api/selectors'
-import { ICamera } from '@src/store/mdns/mdns'
+import { ICamera } from '@src/store/camera/camera'
 import { setOpenModal } from '@src/store/ui/ui'
 import { ActiveStatus } from '@src/utils/utils'
 

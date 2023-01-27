@@ -28,6 +28,7 @@ interface IUiStore {
     connecting?: boolean
     openModal?: boolean
     menuOpen?: IMenuOpen | null
+    connectedUser: string
 }
 
 export const defaultState = {
@@ -35,6 +36,7 @@ export const defaultState = {
     connecting: false,
     openModal: false,
     menuOpen: null,
+    connectedUser: '',
 }
 
 const [state, setState] = createStore<IUiStore>(defaultState)
@@ -62,6 +64,14 @@ export const setOpenModal = (openModal: boolean) => {
     setState(
         produce((s) => {
             s.openModal = openModal
+        })
+    )
+}
+
+export const setConnectedUser = (userName: string) => {
+    setState(
+        produce((s) => {
+            s.connectedUser = userName
         })
     )
 }
