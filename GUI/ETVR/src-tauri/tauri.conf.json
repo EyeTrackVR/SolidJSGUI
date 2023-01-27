@@ -12,37 +12,102 @@
   },
   "tauri": {
     "allowlist": {
-      "all": true,
+      "all": false,
+      "clipboard": {
+        "all": false,
+        "readText": false,
+        "writeText": false
+      },
+      "dialog": {
+        "all": false,
+        "ask": false,
+        "confirm": false,
+        "message": false,
+        "open": false,
+        "save": false
+      },
+      "fs": {
+        "all": false,
+        "copyFile": false,
+        "createDir": true,
+        "exists": false,
+        "readDir": true,
+        "readFile": false,
+        "removeDir": false,
+        "removeFile": false,
+        "renameFile": false,
+        "scope": [
+          "$APP/*",
+          "$DOCUMENT/*",
+          "$DOWNLOAD/*"
+        ],
+        "writeFile": true
+      },
+      "globalShortcut": {
+        "all": false
+      },
+      "http": {
+        "all": false,
+        "request": false,
+        "scope": []
+      },
+      "notification": {
+        "all": true
+      },
+      "os": {
+        "all": true
+      },
+      "path": {
+        "all": true
+      },
+      "process": {
+        "all": false,
+        "exit": false,
+        "relaunch": true,
+        "relaunchDangerousAllowSymlinkMacos": false
+      },
+      "protocol": {
+        "all": false,
+        "asset": false,
+        "assetScope": []
+      },
+      "shell": {
+        "all": false,
+        "execute": false,
+        "open": ".*",
+        "scope": [],
+        "sidecar": false
+      },
       "window": {
-        "all": true,
-        "create": true,
+        "all": false,
         "center": true,
-        "requestUserAttention": true,
-        "setResizable": true,
-        "setTitle": true,
-        "maximize": true,
-        "unmaximize": true,
-        "minimize": true,
-        "unminimize": true,
-        "show": true,
-        "hide": true,
         "close": true,
+        "create": false,
+        "hide": true,
+        "maximize": true,
+        "minimize": true,
+        "print": false,
+        "requestUserAttention": false,
+        "setAlwaysOnTop": false,
+        "setCursorGrab": false,
+        "setCursorIcon": false,
+        "setCursorPosition": false,
+        "setCursorVisible": false,
         "setDecorations": true,
-        "setAlwaysOnTop": true,
-        "setSize": true,
-        "setMinSize": true,
-        "setMaxSize": true,
-        "setPosition": true,
-        "setFullscreen": true,
         "setFocus": true,
-        "setIcon": true,
-        "setSkipTaskbar": true,
-        "setCursorGrab": true,
-        "setCursorVisible": true,
-        "setCursorIcon": true,
-        "setCursorPosition": true,
+        "setFullscreen": true,
+        "setIcon": false,
+        "setMaxSize": false,
+        "setMinSize": false,
+        "setPosition": false,
+        "setResizable": false,
+        "setSize": true,
+        "setSkipTaskbar": false,
+        "setTitle": false,
+        "show": false,
         "startDragging": true,
-        "print": true
+        "unmaximize": true,
+        "unminimize": true
       }
     },
     "bundle": {
@@ -52,7 +117,6 @@
       "deb": {
         "depends": []
       },
-      "externalBin": [],
       "icon": [
         "../public/images/icons/icon-48x48.png",
         "../public/images/icons/icon-128x128.png",
@@ -62,8 +126,16 @@
       "identifier": "com.eyetrackvr.dev",
       "longDescription": "",
       "resources": [],
+      "externalBin": [],
       "shortDescription": "",
       "targets": "all",
+      "macOS": {
+        "frameworks": [],
+        "minimumSystemVersion": "",
+        "exceptionDomain": "",
+        "signingIdentity": null,
+        "entitlements": null
+      },
       "windows": {
         "allowDowngrades": false,
         "certificateThumbprint": null,
@@ -80,10 +152,15 @@
       }
     },
     "security": {
-      "csp": null
+      "csp": "default-src blob: data: filesystem: ws: wss: http: https: tauri: 'unsafe-eval' 'unsafe-inline' 'self' img-src: 'self'"
     },
     "updater": {
-      "active": false
+      "active": false,
+      "dialog": false,
+      "endpoints": [
+        "https://youtu.be/ZXjlZBisYPQ"
+      ],
+      "pubkey": ""
     },
     "windows": [
       {

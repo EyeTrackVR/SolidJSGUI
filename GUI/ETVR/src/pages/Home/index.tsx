@@ -1,7 +1,7 @@
 import { createSignal, Show, For } from 'solid-js'
 import icons from '@assets/images/index'
 import { Camera } from '@components/Camera'
-import { CustomPopover } from '@components/header/CustomPopover'
+import { CustomPopover } from '@components/Header/CustomPopover'
 import { cameras } from '@src/store/camera/selectors'
 import { CAMERA_VIEW_MODE } from '@src/utils/enums'
 
