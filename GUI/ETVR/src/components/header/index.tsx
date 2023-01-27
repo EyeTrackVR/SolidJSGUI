@@ -18,7 +18,7 @@ export default function Header(props: Iprops) {
                         <div class="flex grow content-center justify-between h-[100%] leading-5 font-sans font-medium rounded-[14px] p-[5px] bg-[#0e0e0e] w-[145px]">
                             <CustomPopover
                                 icon={icons.cameraSolid}
-                                path="/camera"
+                                path="/"
                                 popoverContent="Tracker manager"
                             />
                             <CustomPopover
