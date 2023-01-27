@@ -2,9 +2,9 @@
 import { ColorModeScript, HopeProvider } from '@hope-ui/core'
 import { Router } from '@solidjs/router'
 import { render } from 'solid-js/web'
+import theme from '@static/theme/theme'
 import '@styles/imports.css'
 import App from './app'
-import theme from '@static/theme/theme'
 
 render(
     () => (
