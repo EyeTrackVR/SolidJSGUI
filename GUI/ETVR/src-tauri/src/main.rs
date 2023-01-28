@@ -9,8 +9,6 @@ use std::fs::metadata;
 #[cfg(target_os = "linux")]
 use std::path::PathBuf;
 
-// TODO: Implement REST Client for ETVR
-
 //use tauri::*;
 use tauri::{
     self, CustomMenuItem, Manager, State, SystemTray, SystemTrayEvent, SystemTrayMenu,
