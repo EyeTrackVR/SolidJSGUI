@@ -1,3 +1,4 @@
+import { ToasterStore } from 'solid-headless'
 import { createMemo, JSXElement } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
 
@@ -29,6 +30,7 @@ interface IUiStore {
     openModal?: boolean
     menuOpen?: IMenuOpen | null
     connectedUser: string
+    notifications?: ToasterStore<string>
 }
 
 export const defaultState = {
@@ -37,6 +39,7 @@ export const defaultState = {
     openModal: false,
     menuOpen: null,
     connectedUser: '',
+    notifications: new ToasterStore<string>(),
 }
 
 const [state, setState] = createStore<IUiStore>(defaultState)
@@ -72,6 +75,20 @@ export const setConnectedUser = (userName: string) => {
     setState(
         produce((s) => {
             s.connectedUser = userName
+        }),
+    )
+}
+
+// notification simple - using the browser notification API
+export const notify = (title: string, body: string | undefined) => {
+    new Notification(title, { body: body || '' })
+}
+
+// notification using the custom notification component
+export const addNotification = (message: string) => {
+    setState(
+        produce((s) => {
+            s.notifications?.create(message)
         }),
     )
 }

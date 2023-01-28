@@ -5,6 +5,7 @@ import { onMount, Suspense } from 'solid-js'
 import AppRoutes from './routes/Routes'
 import ModalMenu from '@components/Modal'
 import NewWindow from '@components/NewWindow'
+import ToastNotificationWindow from '@components/Notifications'
 import { setOpenModal } from '@src/store/ui/ui'
 import { BUTTON } from '@static/custom/button'
 
@@ -98,6 +99,7 @@ const App = () => {
                 <ModalMenu>
                     <ModalContent />
                 </ModalMenu>
+                <ToastNotificationWindow />
             </Suspense>
         </div>
     )

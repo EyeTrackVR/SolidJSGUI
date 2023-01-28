@@ -2,9 +2,9 @@ import './styles.css'
 
 export interface Iprops {
     color: string
-    shadow: string
     onClick: () => void
     text: string
+    shadow?: string
 }
 
 const Button = (props: Iprops) => {

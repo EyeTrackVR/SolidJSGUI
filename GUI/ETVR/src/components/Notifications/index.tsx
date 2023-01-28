@@ -1,7 +1,6 @@
-import { Transition, useToaster, Toaster, Toast, ToasterStore } from 'solid-headless'
+import { Transition, useToaster, Toaster, Toast } from 'solid-headless'
 import { createEffect, createSignal, JSX, onCleanup, For } from 'solid-js'
-
-const notifications = new ToasterStore<string>()
+import { notifications } from '@src/store/ui/selectors'
 
 interface ToastProps {
     id: string
@@ -44,7 +43,7 @@ const CustomToast = (props: ToastProps) => {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-50"
             afterLeave={() => {
-                notifications.remove(props.id)
+                notifications()?.remove(props.id)
             }}>
             <Toast class="flex justify-between items-center">
                 <span class="flex-1 text-sm font-semibold text-gray-50">{props.message}</span>
@@ -59,12 +58,9 @@ const CustomToast = (props: ToastProps) => {
     )
 }
 
-const ToastNotification = () => {
-    const notifs = useToaster(notifications)
-
-    const createToast = () => {
-        notifications.create(`This toast is created on ${new Date().toTimeString()}`)
-    }
+const ToastNotificationWindow = () => {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const notifs = useToaster(notifications()!)
 
     const [isOpen, setIsOpen] = createSignal(false)
     let persist = true
@@ -75,7 +71,7 @@ const ToastNotification = () => {
     }
 
     const clearNotifs = () => {
-        notifications.clear()
+        notifications()?.clear()
     }
 
     createEffect(() => {
@@ -94,7 +90,7 @@ const ToastNotification = () => {
     })
 
     return (
-        <Toaster class="absolute fixed-0 left-0 bottom-0">
+        <Toaster class="absolute fixed-0 right-0 bottom-0 z-10">
             <Transition
                 show={isOpen()}
                 class="relative transition"
@@ -122,7 +118,7 @@ const ToastNotification = () => {
                             each={notifs().slice(0).reverse()}
                             fallback={
                                 <div class="bg-gray-900 dark:bg-gray-50 flex items-center justify-center text-bold text-gray-50 dark:text-gray-900 p-4">
-                                    There are no notifications.
+                                    You have no notifications.
                                 </div>
                             }>
                             {(item) => <CustomToast id={item.id} message={item.data} />}
@@ -134,9 +130,4 @@ const ToastNotification = () => {
     )
 }
 
-// notification simple - using the browser notification API
-export const notify = (title: string, body: string | undefined) => {
-    new Notification(title, { body: body || '' })
-}
-
-export default ToastNotification
+export default ToastNotificationWindow
