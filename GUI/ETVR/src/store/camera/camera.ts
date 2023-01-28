@@ -32,6 +32,24 @@ const tempCameraComponents: ICamera[] = [
         address: '192.168.0.232',
         activeCameraSection: 'Right Eye',
     },
+    {
+        status: CameraStatus.LOADING,
+        type: CameraType.WIRELESS,
+        address: '192.168.0.234',
+        activeCameraSection: 'Right Eye',
+    },
+    {
+        status: CameraStatus.LOADING,
+        type: CameraType.WIRELESS,
+        address: '192.168.0.235',
+        activeCameraSection: 'Right Eye',
+    },
+    {
+        status: CameraStatus.LOADING,
+        type: CameraType.WIRELESS,
+        address: '192.168.0.238',
+        activeCameraSection: 'Right Eye',
+    },
 ]
 
 interface ICameraStore {
