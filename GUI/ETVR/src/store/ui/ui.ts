@@ -1,11 +1,7 @@
 import { ToasterStore } from 'solid-headless'
 import { createMemo, JSXElement } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
-
-export enum loaderType {
-    MDNS_CONNECTING = 'MDNS_CONNECTING',
-    REST_CLIENT = 'REST_CLIENT',
-}
+import { loaderType, POPOVER_ID } from '@src/utils/enums'
 
 interface IMenuOpen {
     x: number
@@ -24,13 +20,14 @@ export interface IModalMenu {
     initialFocus?: string
 }
 
-interface IUiStore {
+export interface IUiStore {
     loader?: { [key in loaderType]: boolean }
     connecting?: boolean
     openModal?: boolean
     menuOpen?: IMenuOpen | null
     connectedUser: string
     notifications?: ToasterStore<string>
+    displayMode: POPOVER_ID
 }
 
 export const defaultState = {
@@ -40,11 +37,11 @@ export const defaultState = {
     menuOpen: null,
     connectedUser: '',
     notifications: new ToasterStore<string>(),
+    displayMode: POPOVER_ID.GRIP,
 }
 
 const [state, setState] = createStore<IUiStore>(defaultState)
 
-/* New Window State Handler */
 export const setMenu = (menuOpen: IMenuOpen | null) => {
     setState(
         produce((s) => {
@@ -53,7 +50,6 @@ export const setMenu = (menuOpen: IMenuOpen | null) => {
     )
 }
 
-/* Loader State Handler */
 export const setConnecting = (connecting: boolean) => {
     setState(
         produce((s) => {
@@ -61,8 +57,14 @@ export const setConnecting = (connecting: boolean) => {
         }),
     )
 }
+export const setDisplayMode = (view: POPOVER_ID) => {
+    setState(
+        produce((s) => {
+            s.displayMode = view
+        }),
+    )
+}
 
-/* Modal State Handler */
 export const setOpenModal = (openModal: boolean) => {
     setState(
         produce((s) => {
@@ -79,12 +81,10 @@ export const setConnectedUser = (userName: string) => {
     )
 }
 
-// notification simple - using the browser notification API
 export const notify = (title: string, body: string | undefined) => {
     new Notification(title, { body: body || '' })
 }
 
-// notification using the custom notification component
 export const addNotification = (message: string) => {
     setState(
         produce((s) => {

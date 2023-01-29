@@ -40,7 +40,7 @@ const Camera = (props: IProps) => {
                             <div>{props.type.toLocaleLowerCase()}</div>
                         </div>
                         <div class="flex text-[#FFFF] justify-end ">
-                            <Button.Root aria-label="Settings" onClick={() => props.onClick}>
+                            <Button.Root aria-label="Settings" onPress={() => props.onClick()}>
                                 <FaSolidGear size={15} />
                             </Button.Root>
                         </div>

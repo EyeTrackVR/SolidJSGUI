@@ -1,27 +1,30 @@
 import { Image, Popover } from '@kobalte/core'
-import { Link /* , useLocation */ } from '@solidjs/router'
+import { Link } from '@solidjs/router'
 import { createSignal, createEffect, Show, onMount } from 'solid-js'
+import { POPOVER_ID } from '@src/utils/enums'
+import { classNames } from '@src/utils/utils'
 
 export interface ICustomPopover {
     icon: string
-    id: string
+    id: POPOVER_ID
     path: string
     popoverContent?: string
     disablePopover?: boolean
     onClick?: () => void
+    styles?: string
+    active?: string
 }
 
-export const CustomPopover = (props: ICustomPopover) => {
+const CustomPopover = (props: ICustomPopover) => {
     const [open, setOpen] = createSignal(false)
+
     onMount(() => {
         document.querySelectorAll(`#${props.id}`).forEach((el) => {
             el.addEventListener('mouseenter', () => {
                 setOpen(true)
-                console.log('hovered')
             })
             el.addEventListener('mouseleave', () => {
                 setOpen(false)
-                console.log('not hovered')
             })
         })
     })
@@ -29,21 +32,26 @@ export const CustomPopover = (props: ICustomPopover) => {
         if (!open()) {
             document.removeEventListener('mouseleave', (e) => {
                 e.stopPropagation()
-                console.log('not hovered')
                 setOpen(false)
             })
             document.removeEventListener('mouseenter', (e) => {
                 e.stopPropagation()
-                console.log('not hovered')
                 setOpen(false)
             })
         }
     })
+
     return (
-        <div class="group relative inline-flex" onClick={() => props.onClick?.()}>
+        <div class="group relative inline-flex">
             <Popover.Root isOpen={open()}>
                 <Link href={props.path} id={props.id} class="no-underline">
-                    <Popover.Trigger class="rounded-[8px] pl-[1.5rem] pr-[1.5rem] focus:bg-[#252536] hover:bg-[#252536] outline-none">
+                    <Popover.Trigger
+                        onPress={() => props.onClick?.()}
+                        class={classNames(
+                            'rounded-[8px] pl-[1.5rem]  pr-[1.5rem] hover:bg-[#252536] outline-none',
+                            props.styles,
+                        )}
+                        style={{ background: props.active === props.id ? '#252536' : '' }}>
                         <Image.Root>
                             <Image.Img
                                 src={props.icon}
@@ -69,3 +77,5 @@ export const CustomPopover = (props: ICustomPopover) => {
         </div>
     )
 }
+
+export default CustomPopover

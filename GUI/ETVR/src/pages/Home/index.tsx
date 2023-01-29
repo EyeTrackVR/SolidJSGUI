@@ -1,16 +1,15 @@
-import { createSignal, Show, For } from 'solid-js'
+import { For, Show } from 'solid-js'
 import icons from '@assets/images/index'
 import Camera from '@components/Camera'
-
-import { CustomPopover } from '@components/Header/CustomPopover'
 import List from '@components/List/List'
-import ListHeader from '@components/List/ListHeader/ListHeader'
+import CustomPopover from '@components/header/CustomPopover/index'
+import { setRestDevice } from '@src/store/api/restAPI'
 import { cameras } from '@src/store/camera/selectors'
-import { CAMERA_VIEW_MODE } from '@src/utils/enums'
+import { displayMode } from '@src/store/ui/selectors'
+import { setDisplayMode, setOpenModal } from '@src/store/ui/ui'
+import { POPOVER_ID } from '@src/utils/enums'
 
 const Main = () => {
-    const [selectMode, setSelectMode] = createSignal(CAMERA_VIEW_MODE.GRIP)
-
     return (
         <div class="py-[40px]">
             <div>
@@ -19,24 +18,28 @@ const Main = () => {
             <div class="ml-[auto] mt-[20px] flex flex-grow content-center justify-between h-[100%] leading-5 font-sans font-medium rounded-[14px] p-[5px] bg-[#0e0e0e] w-[145px]">
                 <div class="flex pr-[5px]">
                     <CustomPopover
-                        id="grip-popover"
+                        active={displayMode()}
+                        styles="h-[100%]"
+                        id={POPOVER_ID.GRIP}
                         path=""
                         icon={icons.grip}
                         disablePopover={true}
-                        onClick={() => setSelectMode(CAMERA_VIEW_MODE.GRIP)}
+                        onClick={() => setDisplayMode(POPOVER_ID.GRIP)}
                     />
                 </div>
                 <div class="flex pl-[5px]">
                     <CustomPopover
-                        id="list-popover"
+                        active={displayMode()}
+                        onClick={() => setDisplayMode(POPOVER_ID.LIST)}
+                        styles="h-[100%]"
+                        id={POPOVER_ID.LIST}
                         path=""
                         icon={icons.list}
                         disablePopover={true}
-                        onClick={() => setSelectMode(CAMERA_VIEW_MODE.LIST)}
                     />
                 </div>
             </div>
-            <div class="py-[40px] ">
+            <div class="py-[40px]">
                 <Show
                     when={cameras().length > 0}
                     fallback={
@@ -46,31 +49,33 @@ const Main = () => {
                             </p>
                         </div>
                     }>
-                    <div class="w-[100%]">
-                        <ListHeader />
-                        <For each={cameras()}>
-                            {(camera) => {
-                                // const Cameras = (
-                                //     <Camera
-                                //         {...camera}
-                                //         onClick={() => {
-                                //             setRestDevice(props.address)
-                                //             setOpenModal(true)
-                                //         }}
-                                //     />
-                                // )
-
-                                return (
-                                    <List
+                    {displayMode() === POPOVER_ID.GRIP ? (
+                        <div class=" flex flex-wrap overflow-auto">
+                            <For each={cameras()}>
+                                {(camera) => (
+                                    <Camera
                                         {...camera}
                                         onClick={() => {
-                                            console.log('click')
+                                            setRestDevice(camera.address)
+                                            setOpenModal(true)
                                         }}
                                     />
-                                )
-                            }}
+                                )}
+                            </For>
+                        </div>
+                    ) : (
+                        <For each={cameras()}>
+                            {(camera) => (
+                                <List
+                                    {...camera}
+                                    onClick={() => {
+                                        setRestDevice(camera.address)
+                                        setOpenModal(true)
+                                    }}
+                                />
+                            )}
                         </For>
-                    </div>
+                    )}
                 </Show>
             </div>
         </div>

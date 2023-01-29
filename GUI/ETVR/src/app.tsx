@@ -35,10 +35,9 @@ const handleAppBoot = () => {
         setTimeout(() => invoke('close_splashscreen'), 500)
     })
 }
-
 const Menu = () => {
     return (
-        <>
+        <div>
             <h1 class="text-lg">Sub Menu</h1>
             <hr class="divider" />
             <label class="context-menu-labels" for="test-button">
@@ -52,13 +51,12 @@ const Menu = () => {
                 Test
             </Button.Root>
             <hr class="divider" />
-        </>
+        </div>
     )
 }
-
 const ModalContent = () => {
     return (
-        <>
+        <div>
             <div class="mt-2">
                 <div class="text-sm text-gray-900 dark:text-gray-50">
                     This is a modal window. You can do the following things with it:
@@ -78,7 +76,7 @@ const ModalContent = () => {
                     Got it, thanks!
                 </button>
             </div>
-        </>
+        </div>
     )
 }
 

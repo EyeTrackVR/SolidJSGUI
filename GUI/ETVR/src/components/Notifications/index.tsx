@@ -1,4 +1,4 @@
-import { Transition, useToaster, Toaster, Toast } from 'solid-headless'
+import { Transition, useToaster, Toaster, Toast, ToasterStore } from 'solid-headless'
 import { createEffect, createSignal, JSX, onCleanup, For } from 'solid-js'
 import { notifications } from '@src/store/ui/selectors'
 
@@ -28,10 +28,6 @@ const CloseIcon = (props: JSX.IntrinsicElements['svg']) => {
 const CustomToast = (props: ToastProps) => {
     const [isOpen, setIsOpen] = createSignal(true)
 
-    const dismiss = () => {
-        setIsOpen(false)
-    }
-
     return (
         <Transition
             show={isOpen()}
@@ -42,15 +38,13 @@ const CustomToast = (props: ToastProps) => {
             leave="ease-in duration-200"
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-50"
-            afterLeave={() => {
-                notifications()?.remove(props.id)
-            }}>
+            afterLeave={() => notifications()?.remove(props.id)}>
             <Toast class="flex justify-between items-center">
                 <span class="flex-1 text-sm font-semibold text-gray-50">{props.message}</span>
                 <button
                     type="button"
                     class="flex-none w-6 h-6 p-1 text-gray-50 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
-                    onClick={dismiss}>
+                    onClick={() => setIsOpen(false)}>
                     <CloseIcon />
                 </button>
             </Toast>
@@ -59,8 +53,7 @@ const CustomToast = (props: ToastProps) => {
 }
 
 const ToastNotificationWindow = () => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const notifs = useToaster(notifications()!)
+    const notifs = useToaster(notifications() as ToasterStore<string>)
 
     const [isOpen, setIsOpen] = createSignal(false)
     let persist = true

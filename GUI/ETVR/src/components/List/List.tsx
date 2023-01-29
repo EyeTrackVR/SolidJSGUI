@@ -19,12 +19,12 @@ const List = (props: IList) => {
                         <div class="mr-[8px]">
                             <p>{props.address}</p>
                         </div>
-                        <Button.Root aria-label="Settings" onClick={() => props.onClick()}>
+                        <Button.Root aria-label="Settings" onPress={() => props.onClick()}>
                             <FaSolidGear size={15} />
                         </Button.Root>
                     </div>
                     <div class="flex items-center">
-                        <div class="text-left pl-[10px]">
+                        <div class="text-left pl-[10px]  w-[70px]">
                             <p>{CapitalizeFirstLetter(props.status.toLocaleLowerCase())}</p>
                         </div>
                         <div
@@ -34,11 +34,11 @@ const List = (props: IList) => {
                     </div>
                 </div>
             </div>
-            <div class="flex items-center justify-center">
-                <p>{props.activeCameraSection}</p>
+            <div class="flex items-center justify-center  ">
+                <p class="w-[70px] text-left">{props.activeCameraSection}</p>
             </div>
             <div class="flex items-center justify-center">
-                <div class="text-left pl-[10px]">
+                <div class="text-left w-[70px]">
                     <p>{CapitalizeFirstLetter(props.status.toLocaleLowerCase())}</p>
                 </div>
                 <div
