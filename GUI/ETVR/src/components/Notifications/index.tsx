@@ -31,7 +31,7 @@ const CustomToast = (props: ToastProps) => {
     return (
         <Transition
             show={isOpen()}
-            class="relative transition rounded-lg p-4 bg-gray-900 border-2 border-gray-900 dark:border-gray-50"
+            class="relative transition rounded-lg p-4 bg-100 border-2 border-gray-900 dark:border-white"
             enter="ease-out duration-300"
             enterFrom="opacity-0 scale-50"
             enterTo="opacity-100 scale-100"
@@ -40,10 +40,10 @@ const CustomToast = (props: ToastProps) => {
             leaveTo="opacity-0 scale-50"
             afterLeave={() => notifications()?.remove(props.id)}>
             <Toast class="flex justify-between items-center">
-                <span class="flex-1 text-sm font-semibold text-gray-50">{props.message}</span>
+                <span class="flex-1 text-sm font-semibold text-white">{props.message}</span>
                 <button
                     type="button"
-                    class="flex-none w-6 h-6 p-1 text-gray-50 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+                    class="flex-none w-6 h-6 p-1 text-white rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
                     onClick={() => setIsOpen(false)}>
                     <CloseIcon />
                 </button>
@@ -94,15 +94,15 @@ const ToastNotificationWindow = () => {
                 leaveFrom="opacity-100 scale-100 translate-y-0"
                 leaveTo="opacity-0 scale-50  translate-y-full"
                 afterLeave={clearNotifs}>
-                <div class="flex flex-col m-4 max-w-full max-h-[50vh] overflow-hidden rounded-xl shadow-xl bg-gray-50 dark:bg-gray-900 border border-gray-900 dark:border-gray-50 p-4 space-y-2">
+                <div class="flex flex-col m-4 max-w-full max-h-[50vh] overflow-hidden rounded-xl shadow-xl bg-gray-50 dark:bg-100 border border-white dark:border-white p-4 space-y-2">
                     <div class="flex-none flex items-center justify-between">
-                        <span class="text-xl font-bold text-gray-900 dark:text-gray-50">
+                        <span class="text-xl font-bold text-white dark:text-white">
                             Notifications
                         </span>
                         <button
                             type="button"
                             onClick={closeNotifs}
-                            class="w-6 h-6 p-1 text-gray-900 dark:text-gray-50 bg-gray-50 dark:bg-gray-900 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                            class="w-6 h-6 p-1 text-white dark:text-white 0 bg-gray-50 dark:b-100 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                             <CloseIcon />
                         </button>
                     </div>
@@ -110,7 +110,7 @@ const ToastNotificationWindow = () => {
                         <For
                             each={notifs().slice(0).reverse()}
                             fallback={
-                                <div class="bg-gray-900 dark:bg-gray-50 flex items-center justify-center text-bold text-gray-50 dark:text-gray-900 p-4">
+                                <div class="bg-100 dark:bg-gray-50 flex items-center justify-center text-bold text-white dark:text-white p-4">
                                     You have no notifications.
                                 </div>
                             }>

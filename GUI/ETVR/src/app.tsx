@@ -58,7 +58,7 @@ const ModalContent = () => {
     return (
         <div>
             <div class="mt-2">
-                <div class="text-sm text-gray-900 dark:text-gray-50">
+                <div class="text-sm text-100 dark:text-gray-50">
                     This is a modal window. You can do the following things with it:
                     <br />
                     <ul class="mt-2 list-disc list-inside text-sm text-gray-600 dark:text-gray-400">
