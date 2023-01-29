@@ -34,22 +34,10 @@ export const ActiveStatus = (activeStatus: CameraStatus) => {
     }
 }
 
-/**
- * @description Returns a string of classes based on the boolean value
- * @param classes
- * @param boolean
- * @example
- * ```tsx
- * <ChevronDownIcon
- *     class={classNames(
- *       isOpen() && 'text-opacity-70',
- *       'ml-2 h-5 w-5 text-orange-300 group-hover:text-opacity-80 transition ease-in-out duration-150',
- *     )}
- *     aria-hidden="true"
- *   />
- * ```
- * @returns string of classes
- */
+export const CapitalizeFirstLetter = (letter: string) => {
+    return letter.charAt(0).toUpperCase() + letter.slice(1)
+}
+
 export const classNames = (...classes: (string | boolean | undefined)[]): string => {
     return classes.filter(Boolean).join(' ')
 }

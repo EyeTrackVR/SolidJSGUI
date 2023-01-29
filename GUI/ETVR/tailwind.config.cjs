@@ -27,6 +27,18 @@ module.exports = {
         ],
     },
     theme: {
+        colors: {
+            100: '#292D36',
+            current: 'currentColor',
+            white: '#ffffff',
+            purple: '#3f3cbb',
+            midnight: '#121063',
+            metal: '#565584',
+            tahiti: '#3ab7bf',
+            silver: '#ecebff',
+            'bubble-gum': '#ff77e9',
+            bermuda: '#78dcca',
+        },
         screens: {
             xxs: '300px',
             xs: '475px',
@@ -49,6 +61,7 @@ module.exports = {
             },
         },
     },
+
     // eslint-disable-next-line no-undef
     plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
 }

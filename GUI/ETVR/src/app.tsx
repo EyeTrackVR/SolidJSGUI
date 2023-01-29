@@ -90,7 +90,7 @@ const App = () => {
         handleAppBoot()
     })
     return (
-        <div class="App overflow-y-auto">
+        <div class="App overflow-y-auto items-center">
             <Suspense>
                 <AppRoutes />
                 <NewWindow ref={ref} name="test">

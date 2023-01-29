@@ -1,21 +1,14 @@
 import { Button } from '@kobalte/core'
 import { FaSolidGear } from 'solid-icons/fa'
 import CameraStatusIndicator from './CameraIndicator/CameraIndicator'
-import { setRestDevice } from '@src/store/api/restAPI'
-import { restDevice } from '@src/store/api/selectors'
 import { ICamera } from '@src/store/camera/camera'
-import { setOpenModal } from '@src/store/ui/ui'
 import { ActiveStatus } from '@src/utils/utils'
 
-// TODO: switch camera based on status
-// TODO: create grid to make it flexible
+export interface IProps extends ICamera {
+    onClick: () => void
+}
 
-export const Camera = (props: ICamera) => {
-    const settingsHandler = () => {
-        setRestDevice(props.address)
-        setOpenModal(true)
-        console.log(restDevice())
-    }
+const Camera = (props: IProps) => {
     return (
         <div class="m-[10px] pr-[14px] pl-[14px] py-[14px] pb-[14px] rounded-[14px] bg-[#333742] flex">
             <div class="flex">
@@ -25,7 +18,7 @@ export const Camera = (props: ICamera) => {
             </div>
             <div class="flex items-center">
                 <div class="flex items-center h-[100%]">
-                    <div class=" text-[#FFFF] bg-[#FFFF] w-[155px] h-[155px] background-[black] rounded-[14px]" />
+                    <div class=" text-[#FFFF] bg-[#FFFF] w-[155px] h-[155px] rounded-[14px]" />
                 </div>
                 <div class="bg-[#292D36] ml-[14px] rounded-[14px] h-[100%] p-[14px] ">
                     <div class="text-center  pb-[14px]">
@@ -47,11 +40,8 @@ export const Camera = (props: ICamera) => {
                             <div>{props.type.toLocaleLowerCase()}</div>
                         </div>
                         <div class="flex text-[#FFFF] justify-end ">
-                            <Button.Root
-                                class="camera__button"
-                                aria-label="Settings"
-                                onClick={settingsHandler}>
-                                <FaSolidGear size={15}/>
+                            <Button.Root aria-label="Settings" onClick={() => props.onClick}>
+                                <FaSolidGear size={15} />
                             </Button.Root>
                         </div>
                     </div>
@@ -60,3 +50,5 @@ export const Camera = (props: ICamera) => {
         </div>
     )
 }
+
+export default Camera
