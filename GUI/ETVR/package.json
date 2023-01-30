@@ -11,6 +11,8 @@
     "start": "vite start",
     "serve": "vite preview",
     "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build",
     "docs": "jsdoc -c jsdoc.conf.json",
     "lint": "eslint --ext .js,.ts,.jsx,.tsx src",
     "format": "yarn run lint --fix & yarn prettier --write \"src/**/*.{js,jsx,ts,tsx}\""
