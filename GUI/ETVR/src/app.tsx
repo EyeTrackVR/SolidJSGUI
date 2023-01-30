@@ -90,7 +90,7 @@ const App = () => {
         handleAppBoot()
     })
     return (
-        <div class="App overflow-y-auto">
+        <div class="App pr-14 2xl:items-center overflow-y-auto">
             <Suspense>
                 <AppRoutes />
                 <NewWindow ref={ref} name="test">

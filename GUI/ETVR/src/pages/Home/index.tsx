@@ -28,29 +28,19 @@ const CameraHandler = () => {
 const Main = () => {
     const [selectMode, setSelectMode] = createSignal(CAMERA_VIEW_MODE.GRIP)
     return (
-        <div class="py-[40px]">
+        <div class="py-[60px]">
             <div>
                 <h1 class="text-4xl font-bold tracking-[0.10rem] text-[#FFFFFF]">TRACKERS</h1>
             </div>
-            <div class="ml-[auto] mt-[20px] flex flex-grow content-center justify-between h-[100%] leading-5 font-sans font-medium rounded-[14px] p-[5px] bg-[#0e0e0e] w-[145px]">
-                <div class="flex pr-[5px]">
-                    <CustomPopover
-                        id="grip-popover"
-                        path=""
-                        icon={icons.grip}
-                        disablePopover={true}
-                    />
+            <div class="ml-auto mt-5 flex grow content-center justify-between h-full leading-5 font-sans font-medium rounded-xl p-1 bg-[#0e0e0e] w-[145px]">
+                <div class="flex pr-1">
+                    <CustomPopover icon={icons.grip} disablePopover={true} />
                 </div>
-                <div class="flex pl-[5px]">
-                    <CustomPopover
-                        id="list-popover"
-                        path=""
-                        icon={icons.list}
-                        disablePopover={true}
-                    />
+                <div class="flex pl-1">
+                    <CustomPopover icon={icons.list} disablePopover={true} />
                 </div>
             </div>
-            <div class="py-[40px] flex flex-wrap overflow-auto">
+            <div class="py-[40px] items-center justify-center flex flex-wrap overflow-auto">
                 <CameraHandler />
             </div>
         </div>
