@@ -59,7 +59,7 @@ const Main = () => {
     return (
         <div class="py-[60px]">
             <div>
-                <h1 class="text-4xl font-bold tracking-[0.10rem] text-[#FFFFFF]">TRACKERS</h1>
+                <h1 class="pr-14 text-4xl font-bold tracking-[0.10rem] text-[#FFFFFF]">TRACKERS</h1>
             </div>
             <div class="ml-auto mt-5 flex grow content-center justify-between h-full leading-5 font-sans font-medium rounded-xl p-1 bg-[#0e0e0e] w-[145px]">
                 <div class="flex pr-1">
