@@ -1,14 +1,14 @@
 import { For, Show } from 'solid-js'
-import icons from '@assets/images/index'
+import icons from '@assets/images'
 import Camera from '@components/Camera'
+import CustomPopover from '@components/Header/CustomPopover'
 import List from '@components/List/List'
 import ListHeader from '@components/List/ListHeader/ListHeader'
-import CustomPopover from '@components/header/CustomPopover/index'
 import { setRestDevice } from '@src/store/api/restAPI'
 import { cameras } from '@src/store/camera/selectors'
 import { displayMode } from '@src/store/ui/selectors'
 import { setDisplayMode, setOpenModal } from '@src/store/ui/ui'
-import { POPOVER_ID } from '@src/utils/enums'
+import { POPOVER_ID } from '@utils/enums'
 
 const CameraHandler = () => {
     return (
