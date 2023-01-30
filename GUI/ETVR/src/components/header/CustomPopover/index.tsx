@@ -1,9 +1,8 @@
 import { Image, Popover } from '@kobalte/core'
-import { createSignal, createEffect, Show, onMount } from 'solid-js'
+import { createSignal, Show } from 'solid-js'
 
 export interface ICustomPopover {
     icon: string
-    id: string
     popoverContent?: string
     disablePopover?: boolean
     onClick?: () => void
