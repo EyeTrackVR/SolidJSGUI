@@ -2,6 +2,7 @@ import { For, Show } from 'solid-js'
 import icons from '@assets/images/index'
 import Camera from '@components/Camera'
 import List from '@components/List/List'
+import ListHeader from '@components/List/ListHeader/ListHeader'
 import CustomPopover from '@components/header/CustomPopover/index'
 import { setRestDevice } from '@src/store/api/restAPI'
 import { cameras } from '@src/store/camera/selectors'
@@ -20,8 +21,7 @@ const Main = () => {
                     <CustomPopover
                         active={displayMode()}
                         styles="h-[100%]"
-                        id={POPOVER_ID.GRIP}
-                        path=""
+                        popoverContent={POPOVER_ID.GRIP}
                         icon={icons.grip}
                         disablePopover={true}
                         onClick={() => setDisplayMode(POPOVER_ID.GRIP)}
@@ -32,8 +32,7 @@ const Main = () => {
                         active={displayMode()}
                         onClick={() => setDisplayMode(POPOVER_ID.LIST)}
                         styles="h-[100%]"
-                        id={POPOVER_ID.LIST}
-                        path=""
+                        popoverContent={POPOVER_ID.LIST}
                         icon={icons.list}
                         disablePopover={true}
                     />
@@ -64,17 +63,20 @@ const Main = () => {
                             </For>
                         </div>
                     ) : (
-                        <For each={cameras()}>
-                            {(camera) => (
-                                <List
-                                    {...camera}
-                                    onClick={() => {
-                                        setRestDevice(camera.address)
-                                        setOpenModal(true)
-                                    }}
-                                />
-                            )}
-                        </For>
+                        <div>
+                            <ListHeader />
+                            <For each={cameras()}>
+                                {(camera) => (
+                                    <List
+                                        {...camera}
+                                        onClick={() => {
+                                            setRestDevice(camera.address)
+                                            setOpenModal(true)
+                                        }}
+                                    />
+                                )}
+                            </For>
+                        </div>
                     )}
                 </Show>
             </div>

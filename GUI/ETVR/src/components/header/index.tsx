@@ -2,7 +2,6 @@ import { Image } from '@kobalte/core'
 import { Link } from '@solidjs/router'
 import CustomPopover from './CustomPopover/index'
 import icons from '@assets/images/index'
-import { POPOVER_ID } from '@src/utils/enums'
 import './styles.css'
 
 interface Iprops {
@@ -20,23 +19,16 @@ const Header = (props: Iprops) => {
                 </Link>
                 <div class="flex h-[55%] content-center mt-[5px]">
                     <div class="flex grow justify-center border-none shadow-lg items-center content-center leading-5 font-sans font-medium text-[.75rem] rounded-[15px] h-[100%] w-[100%] bg-[#0e0e0e] text-[#5f5f5f]">
-                        <div class="flex grow content-center justify-between h-[100%] leading-5 font-sans font-medium rounded-[14px] pl-[5px] pr-[5px] pt-[5px] bg-[#0e0e0e] ">
-                            <div class="flex pr-[5px]">
+                        <div class="flex grow content-center justify-between h-[100%] leading-5 font-sans font-medium rounded-[14px] pl-[5px] pr-[5px] pt-[5px] bg-[#0e0e0e] w-[145px]">
+                            <Link href="/" class="no-underline mr-[5px]">
                                 <CustomPopover
-                                    id={POPOVER_ID.TACKER_MANAGER}
                                     icon={icons.cameraSolid}
-                                    path="/"
                                     popoverContent="Tracker manager"
                                 />
-                            </div>
-                            <div class="flex pl-[5px]">
-                                <CustomPopover
-                                    id={POPOVER_ID.SETTINGS_POPOVER}
-                                    path="/settings"
-                                    icon={icons.gearSolid}
-                                    popoverContent="Settings"
-                                />
-                            </div>
+                            </Link>
+                            <Link href="/settings" class="no-underline ml-[5px]">
+                                <CustomPopover icon={icons.gearSolid} popoverContent="Settings" />
+                            </Link>
                         </div>
                     </div>
                 </div>

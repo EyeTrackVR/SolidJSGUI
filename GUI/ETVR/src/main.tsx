@@ -6,11 +6,9 @@ import App from './app'
 
 render(
     () => (
-        <>
-            <Router>
-                <App />
-            </Router>
-        </>
+        <Router>
+            <App />
+        </Router>
     ),
     document.getElementById('root') as HTMLElement,
 )
