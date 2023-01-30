@@ -37,7 +37,7 @@ const CustomToast: Component<ToastProps> = (props) => {
                     </span>
                     <button
                         type="button"
-                        class="bg-rose-600 hover:bg-rose-700 focus:bg-rose-900 flex-none w-6 h-6 p-1 text-gray-50 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+                        class="bg-slate-600 hover:bg-slate-700 focus:bg-slate-900 flex-none w-6 h-6 p-1 text-gray-50 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
                         onClick={dismiss}>
                         <CloseIcon />
                     </button>
