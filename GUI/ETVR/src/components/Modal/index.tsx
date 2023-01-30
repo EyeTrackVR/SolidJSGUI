@@ -28,7 +28,7 @@ const DialogPreview = (props: IModalMenu) => {
                             leave="ease-in duration-200"
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0">
-                            <DialogOverlay class="fixed inset-0 bg-100 bg-opacity-50" />
+                            <DialogOverlay class="fixed inset-0 bg-[#292D36] bg-opacity-50" />
                         </TransitionChild>
                         {/* This element is to trick the browser into centering the modal contents. */}
                         <span class="inline-block h-screen align-middle" aria-hidden="true">
@@ -41,7 +41,7 @@ const DialogPreview = (props: IModalMenu) => {
                             leave="ease-in duration-200"
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95">
-                            <DialogPanel class="bg-100 inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-gray-50 dark:bg-100 shadow-xl rounded-2xl  text-white">
+                            <DialogPanel class="bg-[#292D36] inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-gray-50 dark:bg-[#292D36] shadow-xl rounded-2xl  text-white">
                                 <Show when={props.title}>
                                     <DialogTitle
                                         as="h3"
