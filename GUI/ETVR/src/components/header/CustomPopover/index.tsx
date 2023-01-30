@@ -11,34 +11,18 @@ export interface ICustomPopover {
 
 export const CustomPopover = (props: ICustomPopover) => {
     const [open, setOpen] = createSignal(false)
-    onMount(() => {
-        document.querySelectorAll(`#${props.id}`).forEach((el) => {
-            el.addEventListener('mouseenter', () => {
-                setOpen(true)
-                console.log('hovered')
-            })
-            el.addEventListener('mouseleave', () => {
-                setOpen(false)
-                console.log('not hovered')
-            })
-        })
-    })
-    createEffect(() => {
-        if (!open()) {
-            document.removeEventListener('mouseleave', (e) => {
-                e.stopPropagation()
-                console.log('not hovered')
-                setOpen(false)
-            })
-            document.removeEventListener('mouseenter', (e) => {
-                e.stopPropagation()
-                console.log('not hovered')
-                setOpen(false)
-            })
+    const handlePopOver = () => {
+        if (props.disablePopover) {
+            setOpen(false)
         }
-    })
+        setOpen(!open())
+    }
     return (
-        <div class="group relative inline-flex" onClick={() => props.onClick?.()}>
+        <div
+            onMouseEnter={handlePopOver}
+            onMouseLeave={handlePopOver}
+            class="group relative inline-flex"
+            onClick={() => props.onClick?.()}>
             <Popover.Root isOpen={open()}>
                 <Popover.Trigger class="rounded-[8px] pl-[1.5rem] pr-[1.5rem] focus:bg-[#252536] hover:bg-[#252536]">
                     <Image.Root>
