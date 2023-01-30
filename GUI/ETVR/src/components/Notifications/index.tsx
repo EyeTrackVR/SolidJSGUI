@@ -1,9 +1,9 @@
 import { Transition, useToaster, Toaster } from 'solid-headless'
-import { createEffect, createSignal, JSX, onCleanup, For } from 'solid-js'
+import { createEffect, createSignal, onCleanup, For } from 'solid-js'
 import CustomToast from './CustomToast'
 import { notifications } from '@src/store/ui/selectors'
 
-const ToastNotificationWindow: JSX.Element = () => {
+const ToastNotificationWindow = () => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const notifs = useToaster(notifications()!)
 
@@ -41,7 +41,7 @@ const ToastNotificationWindow: JSX.Element = () => {
                 leaveFrom="opacity-100 scale-100 translate-y-0"
                 leaveTo="opacity-0 scale-50  translate-y-full"
                 afterLeave={clearNotifs}>
-                <div class="flex-1 flex flex-col-reverse space-y-reverse space-y-1 overflow-y-auto overflow-x-hidden rounded-lg">
+                <div class="flex-1 flex flex-col-reverse space-y-reverse space-y-1 overflow-y-hidden overflow-x-hidden rounded-lg">
                     <For each={notifs().slice(0).reverse()}>
                         {(item) => <CustomToast id={item.id} message={item.data} />}
                     </For>
