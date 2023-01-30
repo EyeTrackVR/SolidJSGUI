@@ -82,7 +82,6 @@ const ModalContent = () => {
 
 const App = () => {
     const ref = document.getElementById('titlebar')
-
     onMount(() => {
         handleTitlebar()
         handleAppBoot()
