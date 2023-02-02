@@ -1230,21 +1230,21 @@
   dependencies:
     lodash "^4.17.21"
 
-"@kobalte/core@^0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@kobalte/core/-/core-0.5.0.tgz#a01cf2ef39cbf6b43f0790b7beea4cd45418f5ed"
-  integrity sha512-A5P3pjCRQm5GuLaL6yUwMYxChErNXh2zZujY54jlpopvf+Q93RcsFyL1wUZftaEn1Dkcum9xlq9rIZHuLxVFaQ==
+"@kobalte/core@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@kobalte/core/-/core-0.6.0.tgz#10e042bf7eea6d5ee5fe3120f1102b81011fcad7"
+  integrity sha512-EhmaG6Fxg4PdZhXa6wViRj2MaQBmx050F6Kodot4WuxGzHo5oX1AdhYtMgVuLRs4AzqRUOPNt3gaHW29W1Azbw==
   dependencies:
     "@floating-ui/dom" "^1.0.7"
     "@internationalized/date" "^3.0.2"
     "@internationalized/number" "^3.1.1"
     "@internationalized/string" "^3.0.0"
-    "@kobalte/utils" "^0.4.0"
+    "@kobalte/utils" "^0.5.0"
 
-"@kobalte/utils@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@kobalte/utils/-/utils-0.4.0.tgz#f439dd102fa1e6338d0509f1432d04858e28a7b5"
-  integrity sha512-04Mv/0F9XSuXc5vr4Q88Nqb/YLSDE7xS1ZyJEyS8cDv/mihIp2B8DR5BFlPAIRQgTSonaynsfdavsCOcfZQ0Yw==
+"@kobalte/utils@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@kobalte/utils/-/utils-0.5.0.tgz#a119e7637ffd79d9eb4617783ee44f09474aeefc"
+  integrity sha512-cOF3aK+ndqD56I/f9yiX4g7eYvGSDycQ2XylgCAOb/jme8lhcPQbsuibhmGe5BV3LaAWevqnIrpFiCVqz292UQ==
   dependencies:
     "@solid-primitives/event-listener" "^2.2.4"
     "@solid-primitives/media" "^2.0.4"
