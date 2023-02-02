@@ -51,5 +51,9 @@ module.exports = {
     },
 
     // eslint-disable-next-line no-undef
-    plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+    plugins: [
+        require('@tailwindcss/forms'),
+        require('@tailwindcss/typography'),
+        require('@kobalte/tailwindcss')({ prefix: 'kb' }),
+    ],
 }

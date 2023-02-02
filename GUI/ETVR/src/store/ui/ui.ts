@@ -27,6 +27,7 @@ export interface IUiStore {
     connecting?: boolean
     openModal?: boolean
     menuOpen?: IMenuOpen | null
+    showCameraView?: boolean
     connectedUser: string
     notifications?: ToasterStore<string>
     displayMode: POPOVER_ID
@@ -48,6 +49,7 @@ export const defaultState = {
     openModal: false,
     menuOpen: null,
     connectedUser: '',
+    showCameraView: false,
     notifications: new ToasterStore<string>(),
     displayMode: POPOVER_ID.GRIP,
 }
@@ -89,6 +91,22 @@ export const setConnectedUser = (userName: string) => {
     setState(
         produce((s) => {
             s.connectedUser = userName
+        }),
+    )
+}
+
+export const setLoader = (type: loaderType, value: boolean) => {
+    setState(
+        produce((s) => {
+            if (s.loader) s.loader[type] = value
+        }),
+    )
+}
+
+export const setShowCameraView = (showCameraView: boolean) => {
+    setState(
+        produce((s) => {
+            s.showCameraView = showCameraView
         }),
     )
 }

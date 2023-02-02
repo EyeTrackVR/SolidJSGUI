@@ -1,5 +1,6 @@
 import { Button } from '@kobalte/core'
 import { FaSolidGear } from 'solid-icons/fa'
+import WebSocketHandler from '@components/WebSocket'
 import { ICamera } from '@src/store/camera/camera'
 import { ActiveStatus, CapitalizeFirstLetter } from '@src/utils/utils'
 export interface IList extends ICamera {
@@ -11,7 +12,9 @@ const List = (props: IList) => {
         <div class="grid grid-flow-col auto-cols-fr pl-[12px] pt-[12px] pb-[12px] rounded-[10px] mb-[20px] bg-[#333742] text-white">
             <div class="flex items-center w-[500px]">
                 <div>
-                    <div class="text-[#FFFF] bg-[#FFFF] w-[60px] h-[60px] rounded-[5px]" />
+                    <div class="text-[#FFFF] bg-[#FFFF] w-[60px] h-[60px] rounded-[5px]">
+                        <WebSocketHandler borderRadius="rounded-[5px]" />
+                    </div>
                 </div>
                 <div>
                     <div class="flex items-center justify-center text-left pl-[10px]">

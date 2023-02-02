@@ -1,6 +1,6 @@
 import { Image } from '@kobalte/core'
 import { Link } from '@solidjs/router'
-import CustomPopover from './CustomPopover/index'
+import CustomPopover from './CustomPopover'
 import icons from '@assets/images/index'
 import './styles.css'
 

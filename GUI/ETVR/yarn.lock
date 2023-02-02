@@ -1241,6 +1241,11 @@
     "@internationalized/string" "^3.0.0"
     "@kobalte/utils" "^0.5.0"
 
+"@kobalte/tailwindcss@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@kobalte/tailwindcss/-/tailwindcss-0.4.1.tgz#ce76caad0b179812e81802866ecc95b87bb8735c"
+  integrity sha512-YPc8eNKHvbnHApoO1rmUcRF5U32OgzDakap0AkxQhmtM53kHgjUXB/qQOljOIp4ZoVlDbPzGKF+weZck47R/cw==
+
 "@kobalte/utils@^0.5.0":
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/@kobalte/utils/-/utils-0.5.0.tgz#a119e7637ffd79d9eb4617783ee44f09474aeefc"

@@ -1,4 +1,4 @@
-import { rtcWebSocket, rtcTimeout } from '@store/api/selectors'
+import { rtcWebSocket, rtcTimeout, rtcConnectInterval } from '@store/api/selectors'
 import { setRTCStatus, setConnectInterval, setRTCTimeout } from '@store/api/websocket'
 import { RTCState } from '@utils/enums'
 
@@ -32,6 +32,9 @@ export const check = () => {
 const initWebSocket = () => {
     setRTCStatus(RTCState.CONNECTING)
     rtcWebSocket().onopen = () => {
+        setRTCTimeout(250) // reset timer to 250 on open of websocket connection
+        clearTimeout(rtcConnectInterval()) // clear Interval on open of websocket connection
+
         setRTCStatus(RTCState.CONNECTED)
         setInterval(() => {
             sendToRTCServer({
@@ -43,6 +46,8 @@ const initWebSocket = () => {
                 },
             })
         }, 1000 * 10)
+
+        console.log('[WebSocket Client]: Connection Opened')
     }
     //* TODO: Add notification to the user
     rtcWebSocket().onerror = (e) => {
@@ -52,10 +57,6 @@ const initWebSocket = () => {
     }
     //* TODO: Add notification to the user
     rtcWebSocket().onclose = (e) => {
-        //increment retry interval
-        setRTCTimeout((rtcTimeout() as number) + (rtcTimeout() as number))
-        //call check function after timeout
-        setConnectInterval(setTimeout(check, Math.min(10000, rtcTimeout() as number)))
         console.log(
             `[WebSocket Client]: Socket is closed. Reconnect will be attempted in ${Math.min(
                 10000 / 1000,
@@ -63,6 +64,10 @@ const initWebSocket = () => {
             )} second.`,
             e.reason,
         )
+        //increment retry interval
+        setRTCTimeout((rtcTimeout() as number) + (rtcTimeout() as number))
+        //call check function after timeout
+        setConnectInterval(setTimeout(check, Math.min(10000, rtcTimeout() as number)))
     }
 }
 

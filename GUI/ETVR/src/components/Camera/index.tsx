@@ -1,8 +1,9 @@
 import { Button } from '@kobalte/core'
 import { FaSolidGear } from 'solid-icons/fa'
 import CameraStatusIndicator from './CameraIndicator/CameraIndicator'
-import { ICamera } from '@src/store/camera/camera'
-import { ActiveStatus } from '@src/utils/utils'
+import WebSocketHandler from '@components/WebSocket'
+import { ICamera } from '@store/camera/camera'
+import { ActiveStatus } from '@utils/utils'
 
 export interface IProps extends ICamera {
     onClick: () => void
@@ -18,7 +19,9 @@ const Camera = (props: IProps) => {
             </div>
             <div class="flex items-center">
                 <div class="flex items-center h-[100%]">
-                    <div class=" text-[#FFFF] bg-[#FFFF] w-[155px] h-[155px] rounded-[14px]" />
+                    <div class=" text-[#FFFF] bg-[#FFFF] w-[155px] h-[155px] rounded-[14px]">
+                        <WebSocketHandler borderRadius="rounded-[14px]" />
+                    </div>
                 </div>
                 <div class="bg-[#292D36] ml-[14px] rounded-[14px] h-[100%] p-[14px] ">
                     <div class="text-center  pb-[14px]">
