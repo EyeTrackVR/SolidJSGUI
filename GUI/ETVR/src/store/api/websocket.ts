@@ -6,7 +6,7 @@ import { sendToRTCServer } from '@utils/hooks/websocket'
 const PORT = 7856
 
 export interface IWebSocket {
-    ws: WebSocket
+    ws: WebSocket[]
     pc?: RTCPeerConnection
     dc?: RTCDataChannel
     status: RTCState
@@ -18,7 +18,7 @@ export interface IWebSocket {
 }
 
 export const defaultState: IWebSocket = {
-    ws: new WebSocket(`ws://127.0.0.1:${PORT}/camera/`),
+    ws: [new WebSocket(`ws://127.0.0.1:${PORT}/camera/`)],
     status: RTCState.DISCONNECTED,
     messageType: RTCMessageType.VIDEO_OFFER,
     camStream: null,
