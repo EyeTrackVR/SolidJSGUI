@@ -41,6 +41,11 @@ default = ["custom-protocol"]
 # DO NOT remove this
 custom-protocol = ["tauri/custom-protocol"]
 
+[profile.dev]
+# Disabling debug info speeds up builds a bunch,
+# and we don't rely on it for debugging that much.
+debug = 0
+
 [profile.release]
 panic = "abort"   # Strip expensive panic clean-up logic
 codegen-units = 1 # Compile crates one after another so the compiler can optimize better
