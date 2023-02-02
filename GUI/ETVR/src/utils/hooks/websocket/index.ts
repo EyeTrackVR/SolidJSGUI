@@ -47,7 +47,7 @@ const initWebSocket = () => {
     //* TODO: Add notification to the user
     rtcWebSocket().onerror = (e) => {
         setRTCStatus(RTCState.ERROR)
-        console.error('Socket encountered error: ', e, 'Closing socket')
+        console.error('[WebSocket Client]: Socket encountered error: ', e, 'Closing socket')
         rtcWebSocket().close()
     }
     //* TODO: Add notification to the user
@@ -57,7 +57,7 @@ const initWebSocket = () => {
         //call check function after timeout
         setConnectInterval(setTimeout(check, Math.min(10000, rtcTimeout() as number)))
         console.log(
-            `Socket is closed. Reconnect will be attempted in ${Math.min(
+            `[WebSocket Client]: Socket is closed. Reconnect will be attempted in ${Math.min(
                 10000 / 1000,
                 ((rtcTimeout() as number) + (rtcTimeout() as number)) / 1000,
             )} second.`,
