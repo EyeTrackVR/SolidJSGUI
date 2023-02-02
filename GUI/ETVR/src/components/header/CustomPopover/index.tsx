@@ -28,7 +28,7 @@ const CustomPopover = (props: ICustomPopover) => {
                 <Popover.Trigger
                     class="rounded-[8px] pl-[1.5rem] pr-[1.5rem] focus:bg-[#252536] hover:bg-[#252536]"
                     style={{ background: props.active === props.popoverContent ? '#252536' : '' }}
-                    onPress={() => props.onClick?.()}>
+                    onClick={() => props.onClick?.()}>
                     <Image.Root>
                         <Image.Img
                             src={props.icon}

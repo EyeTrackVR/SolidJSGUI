@@ -18,7 +18,7 @@ const List = (props: IList) => {
                         <div class="mr-[8px]">
                             <p>{props.address}</p>
                         </div>
-                        <Button.Root aria-label="Settings" onPress={() => props.onClick()}>
+                        <Button.Root aria-label="Settings" onClick={() => props.onClick()}>
                             <FaSolidGear size={15} />
                         </Button.Root>
                     </div>
