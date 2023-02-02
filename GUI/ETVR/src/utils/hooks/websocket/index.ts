@@ -11,16 +11,20 @@ const sendToRTCServer = (msg: IWebRTCMessage) => {
         console.error('[sendToRTCServer]: Message is null or undefined')
         return
     }
-    rtcWebSocket().send(JSON.stringify(msg))
+    rtcWebSocket().forEach((element) => {
+        element.send(JSON.stringify(msg))
+    })
 }
 
 export const check = () => {
     const ws = rtcWebSocket()
-    if (!ws || ws.readyState == WebSocket.CLOSED) {
-        //check if websocket instance is closed, if so call `init` function.
-        setRTCStatus(RTCState.DISCONNECTED)
-        initWebSocket()
-    }
+    ws.forEach((element) => {
+        if (!element || element.readyState == WebSocket.CLOSED) {
+            //check if websocket instance is closed, if so call `init` function.
+            setRTCStatus(RTCState.DISCONNECTED)
+            initWebSocket()
+        }
+    })
 }
 
 /********************************* connect *************************************/
@@ -31,44 +35,52 @@ export const check = () => {
  */
 const initWebSocket = () => {
     setRTCStatus(RTCState.CONNECTING)
-    rtcWebSocket().onopen = () => {
-        setRTCTimeout(250) // reset timer to 250 on open of websocket connection
-        clearTimeout(rtcConnectInterval()) // clear Interval on open of websocket connection
+    rtcWebSocket().forEach((element) => {
+        element.onopen = () => {
+            setRTCTimeout(250) // reset timer to 250 on open of websocket connection
+            clearTimeout(rtcConnectInterval()) // clear Interval on open of websocket connection
 
-        setRTCStatus(RTCState.CONNECTED)
-        setInterval(() => {
-            sendToRTCServer({
-                msg: {
-                    msg_type: 'heartbeat',
-                    receiver: '',
-                    sender: '',
-                    msg: '',
-                },
+            setRTCStatus(RTCState.CONNECTED)
+            setInterval(() => {
+                sendToRTCServer({
+                    msg: {
+                        msg_type: 'heartbeat',
+                        receiver: '',
+                        sender: '',
+                        msg: '',
+                    },
+                })
+            }, 1000 * 10)
+
+            console.log('[WebSocket Client]: Connection Opened')
+        }
+    })
+    //* TODO: Add notification to the user
+    rtcWebSocket().forEach((element) => {
+        element.onerror = (e) => {
+            setRTCStatus(RTCState.ERROR)
+            console.error('[WebSocket Client]: Socket encountered error: ', e, 'Closing socket')
+            rtcWebSocket().forEach((element) => {
+                element.close()
             })
-        }, 1000 * 10)
-
-        console.log('[WebSocket Client]: Connection Opened')
-    }
+        }
+    })
     //* TODO: Add notification to the user
-    rtcWebSocket().onerror = (e) => {
-        setRTCStatus(RTCState.ERROR)
-        console.error('[WebSocket Client]: Socket encountered error: ', e, 'Closing socket')
-        rtcWebSocket().close()
-    }
-    //* TODO: Add notification to the user
-    rtcWebSocket().onclose = (e) => {
-        console.log(
-            `[WebSocket Client]: Socket is closed. Reconnect will be attempted in ${Math.min(
-                10000 / 1000,
-                ((rtcTimeout() as number) + (rtcTimeout() as number)) / 1000,
-            )} second.`,
-            e.reason,
-        )
-        //increment retry interval
-        setRTCTimeout((rtcTimeout() as number) + (rtcTimeout() as number))
-        //call check function after timeout
-        setConnectInterval(setTimeout(check, Math.min(10000, rtcTimeout() as number)))
-    }
+    rtcWebSocket().forEach((element) => {
+        element.onclose = (e) => {
+            console.log(
+                `[WebSocket Client]: Socket is closed. Reconnect will be attempted in ${Math.min(
+                    10000 / 1000,
+                    ((rtcTimeout() as number) + (rtcTimeout() as number)) / 1000,
+                )} second.`,
+                e.reason,
+            )
+            //increment retry interval
+            setRTCTimeout((rtcTimeout() as number) + (rtcTimeout() as number))
+            //call check function after timeout
+            setConnectInterval(setTimeout(check, Math.min(10000, rtcTimeout() as number)))
+        }
+    })
 }
 
 export { sendToRTCServer, initWebSocket }

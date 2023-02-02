@@ -1,7 +1,6 @@
 import { createMemo } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
 import { RTCMessageType, RTCState } from '@utils/enums'
-import { sendToRTCServer } from '@utils/hooks/websocket'
 
 const PORT = 7856
 
@@ -48,7 +47,7 @@ export const setRTCMessageType = (messageType: RTCMessageType) => {
 export const setRTCWebSocket = (ws: WebSocket) => {
     setState(
         produce((s) => {
-            s.ws = ws
+            s.ws.push(ws)
         }),
     )
 }
