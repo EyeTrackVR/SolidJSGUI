@@ -47,8 +47,8 @@
         "all": false
       },
       "http": {
-        "all": false,
-        "request": false,
+        "all": true,
+        "request": true,
         "scope": []
       },
       "notification": {

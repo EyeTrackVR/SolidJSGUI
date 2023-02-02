@@ -1,5 +1,6 @@
 import Button from '@components/Button'
 import { addNotification } from '@src/store/ui/ui'
+import { ENotificationAction } from '@utils/enums'
 
 const SettingsPage = () => {
     return (
@@ -7,7 +8,13 @@ const SettingsPage = () => {
             <Button
                 color="blue"
                 onClick={() =>
-                    addNotification(`This toast is created on ${new Date().toTimeString()}`)
+                    addNotification(
+                        {
+                            title: 'Test',
+                            message: `This toast is created on ${new Date().toTimeString()}`,
+                        },
+                        ENotificationAction.OS,
+                    )
                 }
                 text="Add Notification"
             />

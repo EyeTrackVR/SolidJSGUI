@@ -1,7 +1,12 @@
 /* eslint-disable */
 
+import { ENotificationAction } from '@src/utils/enums'
 import { CameraStatus } from '@src/store/camera/camera'
+import { INotificationAction } from '@src/store/ui/ui'
 
+/**
+ * @description - Utility variables to generate camera states
+ */
 export const ACTIVE_SHADOW = '0 0 0 0 0.121333  0 0 0 0 0.866667  0 0 0 0 0  0 0 0 1 0'
 export const LOADING_SHADOW = '0 0 0 0 1  0 0 0 0 0.20166699999999999  0 0 0 0 -1.878667  0 0 0 1 0'
 export const DEFAULT_SHADOW = '0 0 0 0 1.966667  0 0 0 0 0  0 0 0 0 -0.04366700000000001  0 0 0 1 0'
@@ -31,6 +36,18 @@ export const ActiveStatus = (activeStatus: CameraStatus) => {
             return FAILED_COLOR
         default:
             return DEFAULT_COLOR
+    }
+}
+
+export const NotificationsType = (
+    notificationAction: ENotificationAction,
+    { callbackOS, callbackApp }: INotificationAction,
+) => {
+    switch (notificationAction) {
+        case ENotificationAction.OS:
+            return callbackOS()
+        case ENotificationAction.APP:
+            return callbackApp()
     }
 }
 

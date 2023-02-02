@@ -1,7 +1,9 @@
+import { sendNotification } from '@tauri-apps/api/notification'
 import { ToasterStore } from 'solid-headless'
 import { createMemo, JSXElement } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
-import { loaderType, POPOVER_ID } from '@src/utils/enums'
+import { loaderType, POPOVER_ID, ENotificationAction } from '@src/utils/enums'
+import { NotificationsType } from '@src/utils/utils'
 
 interface IMenuOpen {
     x: number
@@ -28,6 +30,16 @@ export interface IUiStore {
     connectedUser: string
     notifications?: ToasterStore<string>
     displayMode: POPOVER_ID
+}
+
+export interface INotificationAction {
+    callbackOS(): void
+    callbackApp(): void
+}
+
+export interface INotifictionMessage {
+    title: string
+    message: string
 }
 
 export const defaultState = {
@@ -85,10 +97,25 @@ export const notify = (title: string, body: string | undefined) => {
     new Notification(title, { body: body || '' })
 }
 
-export const addNotification = (message: string) => {
+export const addNotification = (
+    notification: INotifictionMessage,
+    actionType: ENotificationAction,
+) => {
     setState(
         produce((s) => {
-            s.notifications?.create(message)
+            const { title, message } = notification
+            const notificationAction = NotificationsType(actionType, {
+                callbackOS: () => {
+                    sendNotification({
+                        title,
+                        body: message,
+                    })
+                },
+                callbackApp: () => {
+                    s.notifications?.create(message)
+                },
+            })
+            return notificationAction
         }),
     )
 }

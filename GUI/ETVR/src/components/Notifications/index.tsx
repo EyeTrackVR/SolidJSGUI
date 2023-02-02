@@ -1,7 +1,14 @@
+import { isPermissionGranted, requestPermission } from '@tauri-apps/api/notification'
 import { Toaster, ToasterStore, Transition, useToaster } from 'solid-headless'
 import { createEffect, createSignal, For, onCleanup } from 'solid-js'
 import CustomToast from './CustomToast'
 import { notifications } from '@src/store/ui/selectors'
+
+let permissionGranted = await isPermissionGranted()
+if (!permissionGranted) {
+    const permission = await requestPermission()
+    permissionGranted = permission === 'granted'
+}
 
 const ToastNotificationWindow = () => {
     const notifs = useToaster(notifications() as ToasterStore<string>)
@@ -16,16 +23,18 @@ const ToastNotificationWindow = () => {
     }
 
     createEffect(() => {
-        if (notifs().length > 0) {
-            setIsOpen(true)
+        if (permissionGranted) {
+            if (notifs().length > 0) {
+                setIsOpen(true)
+            }
+            const timeout = setTimeout(() => {
+                closeNotifs()
+                console.log('[Notifications] Closed - Cleaned up')
+            }, 5000)
+            onCleanup(() => {
+                clearTimeout(timeout)
+            })
         }
-        const timeout = setTimeout(() => {
-            closeNotifs()
-            console.log('[Notifications] Closed - Cleaned up')
-        }, 5000)
-        onCleanup(() => {
-            clearTimeout(timeout)
-        })
     })
 
     return (
