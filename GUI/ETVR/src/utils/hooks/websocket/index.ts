@@ -61,7 +61,9 @@ const initWebSocket = () => {
             setRTCStatus(RTCState.ERROR)
             console.error('[WebSocket Client]: Socket encountered error: ', e, 'Closing socket')
             rtcWebSocket().forEach((element) => {
-                element.close()
+                if (!element || element.readyState != WebSocket.CONNECTING) {
+                    element.close()
+                }
             })
         }
     })
