@@ -29,6 +29,7 @@
             "@src/*": ["src/*"],
             "@assets/*": ["./assets/*"],
             "@hooks/*": ["src/utils/hooks/*"],
+            "@store/*": ["src/store/*"],
             "@static/*": ["src/static/*"],
             "@utils/*": ["src/utils/*"]
         }

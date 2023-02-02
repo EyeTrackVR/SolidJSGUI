@@ -72,6 +72,7 @@
     transition: background-image 300ms ease;
 }
 
+/* This style is REQUIRED due to how kobalte handles focus-visible state */
 * {
     @apply outline-none [&[data-focus-visible]]:outline-white;
 }

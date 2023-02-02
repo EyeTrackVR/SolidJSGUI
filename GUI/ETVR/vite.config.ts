@@ -16,6 +16,7 @@ export default defineConfig({
             '@src': path.resolve(__dirname, './src'),
             '@assets': path.resolve(__dirname, './assets'),
             '@hooks': path.resolve(__dirname, './src/utils/hooks'),
+            '@store': path.resolve(__dirname, './src/store'),
             '@static': path.resolve(__dirname, './src/static'),
             '@utils': path.resolve(__dirname, './src/utils'),
         },
@@ -33,5 +34,5 @@ export default defineConfig({
         minify: !process.env.TAURI_DEBUG ? 'esbuild' : false,
         // produce sourcemaps for debug builds
         sourcemap: !!process.env.TAURI_DEBUG,
-    }
+    },
 })
