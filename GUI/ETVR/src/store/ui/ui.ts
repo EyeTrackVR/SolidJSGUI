@@ -38,17 +38,6 @@ export interface IUiStore {
     displayMode: POPOVER_ID
 }
 
-export interface INotificationAction {
-    callbackOS(): void
-    callbackApp(): void
-}
-
-export interface INotifictionMessage {
-    title: string
-    message: string
-    type: ENotificationType
-}
-
 export const defaultState = {
     loader: { [loaderType.MDNS_CONNECTING]: false, [loaderType.REST_CLIENT]: false },
     connecting: false,

@@ -1,8 +1,8 @@
 import { DropdownMenu } from '@kobalte/core'
 import { createSignal } from 'solid-js'
 import Button from '@components/Button'
-import { ENotificationAction } from '@src/static/types/enums'
-import { addNotification } from '@src/store/ui/ui'
+import { ENotificationAction } from '@static/types/enums'
+import { addNotification } from '@store/ui/components/actions'
 import './styles.css'
 
 const SettingsPage = () => {

@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 import { CameraStatus } from '@store/camera/camera'
-import { INotificationAction } from '@store/ui/ui'
+import { INotificationAction } from '@static/types/interfaces'
 import { ENotificationAction, ENotificationType } from '@static/types/enums'
 import { IoAlertCircleSharp } from 'solid-icons/io'
 import { FiAlertTriangle, FiAlertOctagon } from 'solid-icons/fi'

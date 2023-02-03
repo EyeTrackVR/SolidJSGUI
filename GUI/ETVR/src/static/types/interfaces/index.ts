@@ -1,4 +1,5 @@
 import type { JSXElement } from 'solid-js'
+import { ENotificationType } from '@static/types/enums'
 
 //* Component Interfaces
 export interface Iinternal {
@@ -29,4 +30,15 @@ export interface ICardProps {
     buttonElement?: JSXElement
     background?: string
     backgroundColor?: string
+}
+
+export interface INotificationAction {
+    callbackOS(): void
+    callbackApp(): void
+}
+
+export interface INotifictionMessage {
+    title: string
+    message: string
+    type: ENotificationType
 }

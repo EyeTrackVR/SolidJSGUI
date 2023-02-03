@@ -1,7 +1,7 @@
 import { sendNotification } from '@tauri-apps/api/notification'
 import { ENotificationAction } from '@static/types/enums'
+import { INotifictionMessage } from '@static/types/interfaces'
 import { notifications } from '@store/ui/selectors'
-import { INotifictionMessage } from '@store/ui/ui'
 import { NotificationsType } from '@utils/utils'
 
 /**
@@ -15,8 +15,8 @@ const notify = (title: string, body: string | undefined) => {
 
 /**
  * Send notification to the OS or to the WebView Window using a custom API
- * @param {string} title Title of the notification
- * @param {string | undefined} body Body of the notification
+ * @param {INotifictionMessage} notification Notification message
+ * @param {ENotificationAction} actionType Notification action type
  */
 const addNotification = (notification: INotifictionMessage, actionType: ENotificationAction) => {
     const { title, message } = notification
