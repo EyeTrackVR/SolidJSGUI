@@ -2,8 +2,8 @@ import { Button } from '@kobalte/core'
 import { FaSolidGear } from 'solid-icons/fa'
 import CameraStatusIndicator from './CameraIndicator/CameraIndicator'
 import WebSocketHandler from '@components/WebSocket'
-import { ICamera } from '@store/camera/camera'
 import { ActiveStatus } from '@src/utils/utils'
+import { ICamera } from '@store/camera/camera'
 
 export interface IProps extends ICamera {
     onClick: () => void

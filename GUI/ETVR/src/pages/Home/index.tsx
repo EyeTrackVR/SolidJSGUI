@@ -4,11 +4,11 @@ import Camera from '@components/Camera'
 import CustomPopover from '@components/Header/CustomPopover'
 import List from '@components/List/List'
 import ListHeader from '@components/List/ListHeader/ListHeader'
+import { POPOVER_ID } from '@src/static/types/enums'
 import { setRestDevice } from '@src/store/api/restAPI'
 import { cameras } from '@src/store/camera/selectors'
 import { displayMode } from '@src/store/ui/selectors'
 import { setDisplayMode, setOpenModal } from '@src/store/ui/ui'
-import { POPOVER_ID } from '@src/static/types/enums'
 
 const CameraHandler = () => {
     return (

@@ -1,14 +1,7 @@
-import { sendNotification } from '@tauri-apps/api/notification'
 import { ToasterStore } from 'solid-headless'
 import { createMemo, JSXElement } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
-import {
-    loaderType,
-    POPOVER_ID,
-    ENotificationAction,
-    ENotificationType,
-} from '@src/static/types/enums'
-import { NotificationsType } from '@src/utils/utils'
+import { loaderType, POPOVER_ID } from '@src/static/types/enums'
 
 interface IMenuOpen {
     x: number

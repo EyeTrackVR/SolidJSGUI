@@ -1,6 +1,6 @@
+import { RTCState } from '@src/static/types/enums'
 import { rtcWebSocket, rtcTimeout, rtcConnectInterval } from '@store/api/selectors'
 import { setRTCStatus, setConnectInterval, setRTCTimeout } from '@store/api/websocket'
-import { RTCState } from '@src/static/types/enums'
 
 interface IWebRTCMessage {
     msg: string | object | null | undefined
