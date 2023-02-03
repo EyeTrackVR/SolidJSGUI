@@ -22,7 +22,7 @@
         "paths": {
             "@interfaces/*": ["src/interfaces/*"],
             "@components/*": ["src/components/*"],
-            "@redux/*": ["src/redux/*"],
+            "@routes/*": ["src/routes/*"],
             "@pages/*": ["src/pages/*"],
             "@styles/*": ["src/styles/*"],
             "@config/*": ["src/config/*"],

@@ -9,7 +9,7 @@ export default defineConfig({
         alias: {
             '@interfaces': path.resolve(__dirname, './src/interfaces'),
             '@components': path.resolve(__dirname, './src/components'),
-            '@redux': path.resolve(__dirname, './src/redux'),
+            '@routes': path.resolve(__dirname, './src/routes'),
             '@pages': path.resolve(__dirname, './src/pages'),
             '@styles': path.resolve(__dirname, './src/styles'),
             '@config': path.resolve(__dirname, './src/config'),
