@@ -1,12 +1,28 @@
 import { Transition, Toast, Alert } from 'solid-headless'
+import { AiOutlineCheckCircle } from 'solid-icons/ai'
+import { FiAlertTriangle, FiAlertOctagon } from 'solid-icons/fi'
+import { IoAlertCircleSharp } from 'solid-icons/io'
 import { createSignal, Component } from 'solid-js'
 import CloseIcon from '@components/CloseIcon'
+import { ENotificationType } from '@static/types/enums'
 import { notifications } from '@store/ui/selectors'
-import { NotificationIcon } from '@utils/utils'
 
 interface ToastProps {
     id: string
     message: string
+}
+
+const NotificationIcon = (notificationAction: ENotificationType) => {
+    switch (notificationAction) {
+    case ENotificationType.SUCCESS:
+        return <AiOutlineCheckCircle size={25} color="#68D391" />
+    case ENotificationType.ERROR:
+        return <FiAlertOctagon size={25} color="#F56565" />
+    case ENotificationType.WARNING:
+        return <FiAlertTriangle size={25} color="#F6E05E" />
+    case ENotificationType.INFO:
+        return <IoAlertCircleSharp size={25} color="#90CDF4" />
+    }
 }
 
 const CustomToast: Component<ToastProps> = (props) => {
