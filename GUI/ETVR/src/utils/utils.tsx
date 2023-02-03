@@ -54,7 +54,7 @@ export const NotificationsType = (
     }
 }
 
-export const NotificationsTypeRender = (notificationAction: ENotificationType) => {
+export const NotificationIcon = (notificationAction: ENotificationType) => {
     switch (notificationAction) {
         case ENotificationType.SUCCESS:
             return <AiOutlineCheckCircle size={25} color="#68D391" />

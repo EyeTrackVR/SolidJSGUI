@@ -2,7 +2,7 @@ import { Transition, Toast, Alert } from 'solid-headless'
 import { createSignal, Component } from 'solid-js'
 import CloseIcon from '@components/CloseIcon'
 import { notifications } from '@store/ui/selectors'
-import { NotificationsTypeRender } from '@utils/utils'
+import { NotificationIcon } from '@utils/utils'
 
 interface ToastProps {
     id: string
