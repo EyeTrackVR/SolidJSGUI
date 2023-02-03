@@ -31,7 +31,7 @@ const CustomToast: Component<ToastProps> = (props) => {
             }}>
             <Toast class="flex justify-between items-center">
                 <Alert class="bg-slate-600 flex grow flex-row items-center justify-center text-xl text-bold text-gray-50 p-4">
-                    {/* {NotificationsTypeRender()} */}
+                    {/* {NotificationIcon()} */}
                     <span class="flex-1 text-sm font-semibold pl-1 pr-1 text-gray-50">
                         {props.message}
                     </span>
