@@ -36,7 +36,12 @@ const handleAppBoot = () => {
             .catch((e) => console.error(e))
         setTimeout(() => invoke('close_splashscreen'), 500)
     })
+
+    // TODO: call these after the MDNS service is up and running and discoveres the camera's
+    const clients = generateWebsocketClients()
+    setWebsocketClients(clients)
 }
+
 const Menu = () => {
     return (
         <div>
@@ -87,9 +92,6 @@ const App = () => {
     onMount(() => {
         handleTitlebar()
         handleAppBoot()
-        // TODO: call these after the MDNS service is up and running and discoveres the camera's
-        const clients = generateWebsocketClients()
-        setWebsocketClients(clients)
     })
     return (
         <div class="App overflow-y-auto items-center">
