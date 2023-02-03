@@ -3,11 +3,10 @@ import { invoke } from '@tauri-apps/api/tauri'
 import { appWindow } from '@tauri-apps/api/window'
 import { onMount, Suspense } from 'solid-js'
 import AppRoutes from './routes/Routes'
+import CameraSettingsModal from '@components/Camera/CameraSettingsModal'
 import ModalMenu from '@components/Modal'
 import NewWindow from '@components/NewWindow'
 import ToastNotificationWindow from '@components/Notifications'
-import { setOpenModal } from '@src/store/ui/ui'
-import { BUTTON } from '@static/custom/button'
 import { generateWebsocketClients } from '@store/api/components/actions'
 import { setWebsocketClients } from '@store/api/websocket'
 
@@ -61,31 +60,6 @@ const Menu = () => {
         </div>
     )
 }
-const ModalContent = () => {
-    return (
-        <div>
-            <div class="mt-2">
-                <div class="text-sm text-100 dark:text-gray-50">
-                    This is a modal window. You can do the following things with it:
-                    <br />
-                    <ul class="mt-2 list-disc list-inside text-sm text-gray-600 dark:text-gray-400">
-                        <li>Read more information about a context</li>
-                        <li>Find similar contexts</li>
-                        <li>
-                            Close this modal by clicking the background overlay or pressing the
-                            button below
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="mt-4">
-                <button type="button" class={BUTTON} onClick={() => setOpenModal(false)}>
-                    Got it, thanks!
-                </button>
-            </div>
-        </div>
-    )
-}
 
 const App = () => {
     const ref = document.getElementById('titlebar')
@@ -101,7 +75,7 @@ const App = () => {
                     <Menu />
                 </NewWindow>
                 <ModalMenu>
-                    <ModalContent />
+                    <CameraSettingsModal />
                 </ModalMenu>
                 <ToastNotificationWindow />
             </Suspense>
