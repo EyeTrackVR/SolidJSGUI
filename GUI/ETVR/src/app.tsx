@@ -1,14 +1,15 @@
 import { Button } from '@kobalte/core'
 import { invoke } from '@tauri-apps/api/tauri'
 import { appWindow } from '@tauri-apps/api/window'
-import { onMount, Suspense } from 'solid-js'
-import AppRoutes from './routes/Routes'
-import CameraSettingsModal from '@components/Camera/CameraSettingsModal'
-import ModalMenu from '@components/Modal'
-import NewWindow from '@components/NewWindow'
-import ToastNotificationWindow from '@components/Notifications'
+import { onMount, Suspense, lazy } from 'solid-js'
 import { generateWebsocketClients } from '@store/api/components/actions'
 import { setWebsocketClients } from '@store/api/websocket'
+
+const AppRoutes = lazy(() => import('@routes/Routes'))
+const CameraSettingsModal = lazy(() => import('@components/Camera/CameraSettingsModal'))
+const ModalMenu = lazy(() => import('@components/Modal'))
+const NewWindow = lazy(() => import('@components/NewWindow'))
+const ToastNotificationWindow = lazy(() => import('@components/Notifications'))
 
 const handleTitlebar = () => {
     const titlebar = document.getElementsByClassName('titlebar')
