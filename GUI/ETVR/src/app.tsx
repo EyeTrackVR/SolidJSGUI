@@ -8,6 +8,8 @@ import NewWindow from '@components/NewWindow'
 import ToastNotificationWindow from '@components/Notifications'
 import { setOpenModal } from '@src/store/ui/ui'
 import { BUTTON } from '@static/custom/button'
+import { generateWebsocketClients } from '@store/api/components/actions'
+import { setWebsocketClients } from '@store/api/websocket'
 
 const handleTitlebar = () => {
     const titlebar = document.getElementsByClassName('titlebar')
@@ -85,6 +87,9 @@ const App = () => {
     onMount(() => {
         handleTitlebar()
         handleAppBoot()
+        // TODO: call these after the MDNS service is up and running and discoveres the camera's
+        const clients = generateWebsocketClients()
+        setWebsocketClients(clients)
     })
     return (
         <div class="App overflow-y-auto items-center">

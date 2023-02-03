@@ -7,6 +7,7 @@ const generateWebsocketClients = () => {
     const clients = cameras().map((_, i) => {
         return new WebSocket(`${LOCAL_HOST}:${PORT}/camera_${i + 1}`)
     })
+    console.log('websocket clients', clients)
     return clients
 }
 
