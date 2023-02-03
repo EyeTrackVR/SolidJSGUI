@@ -1,6 +1,8 @@
 import { Image } from '@kobalte/core'
 import { onMount, Show } from 'solid-js'
 import icons from '@assets/images/index'
+import { generateWebsocketClients } from '@store/api/components/actions'
+import { setWebsocketClients } from '@store/api/websocket'
 import { showCameraView } from '@store/ui/selectors'
 import { initWebSocket } from '@utils/hooks/websocket'
 
@@ -25,6 +27,10 @@ const LoaderHandler = (props: IProps) => {
 
 const WebSocketHandler = (props: IProps) => {
     onMount(async () => {
+        // TODO: call these after the MDNS service is up and running and discoveres the camera's
+        /* const clients = generateWebsocketClients()
+        setWebsocketClients(clients) */
+
         initWebSocket()
     })
 
@@ -35,13 +41,15 @@ const WebSocketHandler = (props: IProps) => {
                 fallback={() => <LoaderHandler borderRadius={props.borderRadius} />}>
                 <video
                     id="camera__view"
+                    /* controls="" */
                     /* mousedown="mouseDown($event)"
                     mouseup="mouseUp($event)"
                     mousemove="mouseMove($event)"
                     wheel="wheel($event)" */
                     class="camera__view"
-                    autoplay
-                />
+                    autoplay>
+                    <source src="" type="video/mp4" />
+                </video>
             </Show>
         </div>
     )

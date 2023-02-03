@@ -41,7 +41,7 @@ const DialogPreview = (props: IModalMenu) => {
                             leave="ease-in duration-200"
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95">
-                            <DialogPanel class="bg-[#292D36] inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-gray-50 dark:bg-[#292D36] shadow-xl rounded-2xl  text-white">
+                            <DialogPanel class="bg-[#292D36] inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform dark:bg-[#292D36] shadow-xl rounded-2xl  text-white">
                                 <Show when={props.title}>
                                     <DialogTitle
                                         as="h3"

@@ -2,13 +2,6 @@ import { createMemo } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
 import { RTCMessageType, RTCState } from '@utils/enums'
 
-const PORT = 7856
-const LOCAL_HOST = 'ws://127.0.0.1'
-const END_POINTS = ['camera_1', 'camera_2', 'camera_3']
-
-const ws_url_1 = `${LOCAL_HOST}:${PORT}/${END_POINTS[0]}`
-const ws_url_2 = `${LOCAL_HOST}:${PORT}/${END_POINTS[1]}`
-
 export interface IWebSocket {
     ws: WebSocket[]
     pc?: RTCPeerConnection
@@ -22,7 +15,7 @@ export interface IWebSocket {
 }
 
 export const defaultState: IWebSocket = {
-    ws: [new WebSocket(`${ws_url_1}`), new WebSocket(`${ws_url_2}`)],
+    ws: [],
     status: RTCState.DISCONNECTED,
     messageType: RTCMessageType.VIDEO_OFFER,
     camStream: null,
@@ -77,6 +70,23 @@ export const setRTCTimeout = (time: number) => {
     setState(
         produce((s) => {
             s.timeout = time
+        }),
+    )
+}
+
+/**
+ * @description Generate websocket clients based on the number of cameras connected
+ * @returns {void}
+ * @example
+ * generateWebsocketClients()
+ * // => [WebSocket, WebSocket, WebSocket]
+ * @note This function should be called after the cameras have been initialized
+ */
+export const setWebsocketClients = (clients: WebSocket[]): void => {
+    // generate websocket clients based on the number of cameras connected
+    setState(
+        produce((s) => {
+            s.ws = clients
         }),
     )
 }
