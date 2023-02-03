@@ -40,5 +40,5 @@ export interface INotificationAction {
 export interface INotifictionMessage {
     title: string
     message: string
-    type: ENotificationType
+    type?: ENotificationType
 }
