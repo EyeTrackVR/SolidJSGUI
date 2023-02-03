@@ -1,8 +1,8 @@
 import { Transition, Toast, Alert } from 'solid-headless'
-import { IoAlertCircleSharp } from 'solid-icons/io'
 import { createSignal, Component } from 'solid-js'
-import CloseIcon from '@src/components/CloseIcon'
-import { notifications } from '@src/store/ui/selectors'
+import CloseIcon from '@components/CloseIcon'
+import { notifications } from '@store/ui/selectors'
+import { NotificationsTypeRender } from '@utils/utils'
 
 interface ToastProps {
     id: string
@@ -31,7 +31,7 @@ const CustomToast: Component<ToastProps> = (props) => {
             }}>
             <Toast class="flex justify-between items-center">
                 <Alert class="bg-slate-600 flex grow flex-row items-center justify-center text-xl text-bold text-gray-50 p-4">
-                    <IoAlertCircleSharp size={25} color="#90CDF4" />
+                    {/* {NotificationsTypeRender()} */}
                     <span class="flex-1 text-sm font-semibold pl-1 pr-1 text-gray-50">
                         {props.message}
                     </span>

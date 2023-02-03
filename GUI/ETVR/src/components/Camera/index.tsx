@@ -3,7 +3,7 @@ import { FaSolidGear } from 'solid-icons/fa'
 import CameraStatusIndicator from './CameraIndicator/CameraIndicator'
 import WebSocketHandler from '@components/WebSocket'
 import { ICamera } from '@store/camera/camera'
-import { ActiveStatus } from '@utils/utils'
+import { ActiveStatus } from '@src/utils/utils'
 
 export interface IProps extends ICamera {
     onClick: () => void

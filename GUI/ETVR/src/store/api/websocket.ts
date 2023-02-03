@@ -1,6 +1,6 @@
 import { createMemo } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
-import { RTCMessageType, RTCState } from '@utils/enums'
+import { RTCMessageType, RTCState } from '@src/static/types/enums'
 
 export interface IWebSocket {
     ws: WebSocket[]

@@ -1,6 +1,6 @@
 import { Button } from '@kobalte/core'
 
-const Menu = () => {
+const ExampleMenu = () => {
     return (
         <div>
             <h1 class="text-lg">Sub Menu</h1>
@@ -20,4 +20,4 @@ const Menu = () => {
     )
 }
 
-export default Menu
+export default ExampleMenu
