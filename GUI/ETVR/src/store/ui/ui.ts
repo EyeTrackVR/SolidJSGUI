@@ -40,6 +40,7 @@ export const defaultState = {
     connectedUser: '',
     showCameraView: false,
     notifications: new ToasterStore<string>(),
+    notificationsType: ENotificationType.INFO,
     displayMode: POPOVER_ID.GRIP,
 }
 
