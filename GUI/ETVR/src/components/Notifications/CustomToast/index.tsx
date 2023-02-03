@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { Transition, Toast, Alert } from 'solid-headless'
 import { AiOutlineCheckCircle } from 'solid-icons/ai'
 import { FiAlertTriangle, FiAlertOctagon } from 'solid-icons/fi'
@@ -5,23 +6,23 @@ import { IoAlertCircleSharp } from 'solid-icons/io'
 import { createSignal, Component } from 'solid-js'
 import CloseIcon from '@components/CloseIcon'
 import { ENotificationType } from '@static/types/enums'
-import { notifications } from '@store/ui/selectors'
+import { notifications, notificationsType } from '@store/ui/selectors'
 
 interface ToastProps {
     id: string
     message: string
 }
 
-const NotificationIcon = (notificationAction: ENotificationType) => {
-    switch (notificationAction) {
-    case ENotificationType.SUCCESS:
-        return <AiOutlineCheckCircle size={25} color="#68D391" />
-    case ENotificationType.ERROR:
-        return <FiAlertOctagon size={25} color="#F56565" />
-    case ENotificationType.WARNING:
-        return <FiAlertTriangle size={25} color="#F6E05E" />
-    case ENotificationType.INFO:
-        return <IoAlertCircleSharp size={25} color="#90CDF4" />
+const NotificationIcon = () => {
+    switch (notificationsType()) {
+        case ENotificationType.SUCCESS:
+            return <AiOutlineCheckCircle size={25} color="#68D391" />
+        case ENotificationType.ERROR:
+            return <FiAlertOctagon size={25} color="#F56565" />
+        case ENotificationType.WARNING:
+            return <FiAlertTriangle size={25} color="#F6E05E" />
+        case ENotificationType.INFO:
+            return <IoAlertCircleSharp size={25} color="#90CDF4" />
     }
 }
 
@@ -47,7 +48,7 @@ const CustomToast: Component<ToastProps> = (props) => {
             }}>
             <Toast class="flex justify-between items-center">
                 <Alert class="bg-slate-600 flex grow flex-row items-center justify-center text-xl text-bold text-gray-50 p-4">
-                    {/* {NotificationIcon()} */}
+                    {NotificationIcon()}
                     <span class="flex-1 text-sm font-semibold pl-1 pr-1 text-gray-50">
                         {props.message}
                     </span>

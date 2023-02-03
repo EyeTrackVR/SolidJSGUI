@@ -26,7 +26,7 @@ export enum loaderType {
 
 /**
  * @description Enum for the different types of notifications
- * @enum {string}
+ * @enum {string} ENotificationType
  * @property {string} ERROR - An Error notification
  * @property {string} SUCCESS - A Success notification
  * @property {string} INFO - An Info notification

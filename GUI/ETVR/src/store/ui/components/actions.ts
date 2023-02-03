@@ -5,6 +5,7 @@ import { sendNotification } from '@tauri-apps/api/notification'
 import { ENotificationAction, ENotificationType } from '@static/types/enums'
 import { INotifictionMessage, INotificationAction } from '@static/types/interfaces'
 import { notifications } from '@store/ui/selectors'
+import { setNotificationsType } from '@store/ui/ui'
 
 /**
  * Send notification to the WebView Window using the browser API
@@ -24,8 +25,8 @@ export const addNotification = (
     notification: INotifictionMessage,
     actionType: ENotificationAction,
 ) => {
-        const { title, message } = notification
-        const notificationAction = NotificationsType(actionType, {
+    const { title, message, type } = notification
+    const notificationAction = NotificationsType(actionType, {
         callbackOS: () => {
             sendNotification({
                 title,
@@ -33,6 +34,7 @@ export const addNotification = (
             })
         },
         callbackApp: () => {
+            setNotificationsType(type as ENotificationType)
             notifications()?.create(message)
         },
     })
