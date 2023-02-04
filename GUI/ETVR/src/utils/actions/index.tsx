@@ -1,7 +1,7 @@
 import { invoke } from '@tauri-apps/api/tauri'
 import { appWindow } from '@tauri-apps/api/window'
-import { generateWebsocketClients } from '@store/api/components/actions'
 import { setWebsocketClients } from '@store/api/websocket'
+import { generateWebsocketClients } from '@utils/hooks/websocket'
 
 const handleTitlebar = () => {
     const titlebar = document.getElementsByClassName('titlebar')
