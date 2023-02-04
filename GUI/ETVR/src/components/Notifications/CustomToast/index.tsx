@@ -30,11 +30,6 @@ const NotificationIcon = () => {
             </Show>
         </div>
     )
-
-    /* 
-    
-    
-    */
 }
 
 const CustomToast: Component<ToastProps> = (props) => {

@@ -1,8 +1,14 @@
 import './styles.css'
 import Settings from '@components/Settings'
+import WebSerial from '@components/WebSerial'
 
 const SettingsPage = () => {
-    return <Settings />
+    return (
+        <div>
+            <Settings />
+            <WebSerial />
+        </div>
+    )
 }
 
 export default SettingsPage

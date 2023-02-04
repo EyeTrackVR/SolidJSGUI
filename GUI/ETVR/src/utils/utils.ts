@@ -11,6 +11,7 @@ export const DEFAULT_SHADOW = '0 0 0 0 1.966667  0 0 0 0 0  0 0 0 0 -0.043667000
 export const ACTIVE_COLOR = '#1FDD00'
 export const LOADING_COLOR = '#F9AA33'
 export const DEFAULT_COLOR = '#DD0000'
+export const DISABLED_COLOR = '#505668'
 export const FAILED_COLOR = '#DD0000'
 
 export const GenerateMatrixShadow = (activeStatus: CameraStatus) => {
@@ -32,6 +33,8 @@ export const ActiveStatus = (activeStatus: CameraStatus) => {
             return LOADING_COLOR
         case CameraStatus.FAILED:
             return FAILED_COLOR
+        case CameraStatus.DISABLED:
+            return DISABLED_COLOR
         default:
             return DEFAULT_COLOR
     }
