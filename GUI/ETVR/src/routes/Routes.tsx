@@ -5,7 +5,7 @@ import { routes } from '.'
 import { connectedUserName } from '@src/store/ui/selectors'
 import { setConnectedUser } from '@src/store/ui/ui'
 
-const Header = lazy(() => import('@components/Header'))
+const Header = lazy(() => import('@components/header/index'))
 
 const AppRoutes = () => {
     const Path = useRoutes(routes)
