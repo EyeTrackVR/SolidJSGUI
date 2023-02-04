@@ -1,5 +1,5 @@
 import { onMount, Suspense, lazy } from 'solid-js'
-import { handleTitlebar, handleAppBoot } from '@utils/actions'
+import { handleTitlebar, handleAppBoot } from '@utils/hooks/app'
 
 const AppRoutes = lazy(() => import('@routes/Routes'))
 const CameraSettingsModal = lazy(() => import('@components/Camera/CameraSettingsModal'))
