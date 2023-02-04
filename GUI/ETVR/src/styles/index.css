@@ -79,7 +79,7 @@
 
 body {
     margin: 0;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: Ubuntu, 'times new roman', times, roman, serif;
     cursor: default;
     background-color: transparent !important;
     width: 100%;
