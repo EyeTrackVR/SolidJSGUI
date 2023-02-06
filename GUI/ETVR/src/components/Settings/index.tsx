@@ -1,3 +1,5 @@
+import { CameraStatus, CameraType } from '@src/store/camera/camera'
+import CameraAddress from './CameraAddress/CameraAddress'
 import CameraInfo from './CameraInfo/CameraInfo'
 
 // TODO: stuff todo requested by lorow
@@ -9,10 +11,22 @@ import CameraInfo from './CameraInfo/CameraInfo'
 // The settings thing, I'd stick with them being in the top right corner, everyone is pretty much used to them being there,
 // so there's no need to reinvent the wheel + way less work for you guys to get that going in vite
 
-const Settings = () => {
+export interface IProps {
+    onChange: (value: string) => void
+    cameraIP: string
+    cameraStatus: CameraStatus
+    cameraType: CameraType
+}
+
+const Settings = (props: IProps) => {
     return (
         <div class="pt-[50px]">
-            <CameraInfo />
+            <CameraInfo
+                cameraIP={props.cameraIP}
+                cameraStatus={props.cameraStatus}
+                cameraType={props.cameraType}
+            />
+            <CameraAddress onChange={(value) => props.onChange(value)} />
         </div>
     )
 }

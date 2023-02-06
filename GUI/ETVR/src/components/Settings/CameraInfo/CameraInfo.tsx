@@ -1,31 +1,37 @@
-import { CameraStatus } from '@src/store/camera/camera'
+import { CameraStatus, CameraType } from '@src/store/camera/camera'
 import { ActiveStatus } from '@src/utils/utils'
 
-const CameraInfo = () => {
+export interface IProps {
+    cameraIP: string
+    cameraStatus: CameraStatus
+    cameraType: CameraType
+}
+
+const CameraInfo = (props: IProps) => {
     return (
         <div class="flex grow   rounded-xl	flex-col pl-[14px] pr-[14px] pb-[14px] pt-[14px] bg-[#333742] text-[#FFFFFF]">
             <div class="flex  justify-between  pb-[14px]  ">
                 <div>
-                    <p class="font-[700]">camera Ip</p>
+                    <p class="font-[700]">Camera ip</p>
                 </div>
                 <div>
-                    <p class="font-[700]">000_000_0</p>
+                    <p class="font-[700]">{props.cameraIP}</p>
                 </div>
             </div>
             <div class="flex  justify-between  pb-[14px]">
                 <div>
-                    <p class="font-[700]    ">Camera Status</p>
+                    <p class="font-[700]">Camera status</p>
                 </div>
-                <div style={{ color: ActiveStatus(CameraStatus.ACTIVE) }}>
-                    <p>success</p>
+                <div style={{ color: ActiveStatus(props.cameraStatus) }}>
+                    <p>{props.cameraStatus}</p>
                 </div>
             </div>
             <div class="flex justify-between">
                 <div>
-                    <p class="font-[700]">Camera Type</p>
+                    <p class="font-[700]">Camera type</p>
                 </div>
                 <div>
-                    <p>wireless</p>
+                    <p>{props.cameraType}</p>
                 </div>
             </div>
         </div>
