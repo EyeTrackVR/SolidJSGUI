@@ -1,6 +1,6 @@
-import { CameraStatus, CameraType } from '@src/store/camera/camera'
 import CameraAddress from './CameraAddress/CameraAddress'
 import CameraInfo from './CameraInfo/CameraInfo'
+import { CameraStatus, CameraType } from '@store/camera/camera'
 
 // TODO: stuff todo requested by lorow
 // honestly it looks good, I like that preview window. The camera ID I'd rename to camera IP though I'm not really sure if that's gonna be necessary,
