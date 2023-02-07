@@ -17,34 +17,34 @@ const List = (props: IList) => {
                     </div>
                 </div>
                 <div>
-                    <div class="flex items-center justify-center text-left pl-[10px]">
-                        <div class="mr-[8px]">
+                    <div class="flex items-center justify-center text-left pl-[10px] sm:pr-[100px] md:max-2xl:pb-[40px] 2xl:pb-[40px]">
+                        <div class="sm:hidden md:hidden lg:hidden xl:hidden mr-[8px] sm:mr-[100px]">
                             <p>{props.address}</p>
                         </div>
-                        <Button.Root aria-label="Settings" onClick={() => props.onClick()}>
+                        <Button.Root class="" aria-label="Settings" onClick={() => props.onClick()}>
                             <FaSolidGear size={15} />
                         </Button.Root>
                     </div>
-                    <div class="flex items-center">
+                    <div class="md:hidden lg:hidden xl:hidden flex items-center">
                         <div class="text-left pl-[10px] pr-[10px]">
                             <p>{CapitalizeFirstLetter(props.status.toLocaleLowerCase())}</p>
                         </div>
                         <div
-                            class={'ml-[6px] w-[10px] h-[10px] rounded-[100%]'}
+                            class="ml-[6px] w-[10px] h-[10px] rounded-[100%]"
                             style={{ background: ActiveStatus(props.status) }}
                         />
                     </div>
                 </div>
             </div>
-            <div class="flex items-center justify-center ">
+            <div class="max-sm:hidden flex items-center justify-center ">
                 <p class="text-left w-[150px] m-auto  max-md:text-right">{props.address}</p>
             </div>
             <div class="flex items-center text-left w-[150px] m-auto max-md:hidden">
-                <p>{CapitalizeFirstLetter(props.status.toLocaleLowerCase())}</p>
                 <div
-                    class={'ml-[6px] w-[10px] h-[10px] rounded-[100%]'}
+                    class="ml-[6px] w-[10px] h-[10px] rounded-[100%]"
                     style={{ background: ActiveStatus(props.status) }}
                 />
+                <p class="pl-2">{CapitalizeFirstLetter(props.status.toLocaleLowerCase())}</p>
             </div>
             <div class="flex items-center justify-center max-sm:hidden">
                 <p class="text-left w-[150px] m-auto  max-md:text-right">
