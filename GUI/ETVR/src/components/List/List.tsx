@@ -26,13 +26,13 @@ const List = (props: IList) => {
                         </Button.Root>
                     </div>
                     <div class="md:hidden lg:hidden xl:hidden flex items-center">
-                        <div class="text-left pl-[10px] pr-[10px]">
-                            <p>{CapitalizeFirstLetter(props.status.toLocaleLowerCase())}</p>
-                        </div>
                         <div
                             class="ml-[6px] w-[10px] h-[10px] rounded-[100%]"
                             style={{ background: ActiveStatus(props.status) }}
                         />
+                        <div class="text-left pl-[10px] pr-[10px]">
+                            <p>{CapitalizeFirstLetter(props.status.toLocaleLowerCase())}</p>
+                        </div>
                     </div>
                 </div>
             </div>
