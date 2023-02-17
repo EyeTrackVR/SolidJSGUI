@@ -43,6 +43,9 @@
         "[typescript]": {
             "editor.defaultFormatter": "esbenp.prettier-vscode"
         },
-        "liveServer.settings.multiRootWorkspaceName": "ETVR"
+        "liveServer.settings.multiRootWorkspaceName": "ETVR",
+        "[typescriptreact]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode"
+        }
     }
 }
