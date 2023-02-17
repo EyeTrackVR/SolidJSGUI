@@ -5,13 +5,15 @@
 }
 
 .shape {
-    animation: rotate 4s ease-in-out infinite, dash 1.5s ease-in-out infinite;
+    animation: rotate 1.5s linear infinite;
 }
 
 .shape .gradient-bg {
+    animation: dash 4s ease-in-out infinite;
     stroke: url(#shape-gradient);
     fill: none;
     stroke-width: 0.25;
+    stroke-linecap: round;
 }
 
 .spinner {
@@ -41,6 +43,10 @@
 
 @keyframes rotate {
     0% {
-        transform: rotate(-360deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
     }
 }
