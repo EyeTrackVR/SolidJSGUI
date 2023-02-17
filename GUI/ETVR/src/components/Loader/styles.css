@@ -1,0 +1,46 @@
+#shape-gradient {
+    --color-stop: orange;
+    --color-middle-bot: rgba(255, 153, 0, 0.594);
+    --color-bot: rgba(255, 153, 0, 0.344);
+}
+
+.shape {
+    animation: rotate 4s ease-in-out infinite, dash 1.5s ease-in-out infinite;
+}
+
+.shape .gradient-bg {
+    stroke: url(#shape-gradient);
+    fill: none;
+    stroke-width: 0.25;
+}
+
+.spinner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes dash {
+    0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+    }
+
+    50% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -35px;
+    }
+
+    100% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -124px;
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(-360deg);
+    }
+}
