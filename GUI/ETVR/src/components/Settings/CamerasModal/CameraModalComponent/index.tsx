@@ -13,7 +13,7 @@ const CameraModalComponent = (props: IProps) => {
                 height={props.cameraHeight}
                 width={props.cameraWidth || '100%'}
                 src={props.cameraSrc}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture full"
             />
         </div>
     )

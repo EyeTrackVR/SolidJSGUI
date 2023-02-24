@@ -12,7 +12,8 @@ const SettingsPage = () => {
             cameraStatus={CameraStatus.ACTIVE}
             cameraType={CameraType.WIRELESS}
             placeholder="Camera name"
-            header="Camera name"
+            CameraAddressHeader="Camera name"
+            CameraConfigOptionsHeader="Eye Config options"
         />
     )
 }

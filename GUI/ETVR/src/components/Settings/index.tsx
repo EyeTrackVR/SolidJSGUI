@@ -2,7 +2,7 @@ import CameraAddress from './CameraAddress/CameraAddress'
 import CameraConfigOptions from './CameraConfigOptions'
 import CameraInfo from './CameraInfo/CameraInfo'
 import CamerasModal from './CamerasModal/index'
-
+import Loader from '@components/Loader'
 import { CameraStatus, CameraType } from '@store/camera/camera'
 
 // TODO: stuff todo requested by lorow
@@ -21,7 +21,8 @@ export interface IProps {
     cameraStatus: CameraStatus
     cameraType: CameraType
     placeholder: string
-    header: string
+    CameraAddressHeader: string
+    CameraConfigOptionsHeader: string
     camerasUrl: string[]
 }
 
@@ -40,26 +41,28 @@ const Settings = (props: IProps) => {
                     <CameraAddress
                         onChange={(value) => props.onChange(value)}
                         placeholder={props.placeholder}
-                        header={props.header}
+                        header={props.CameraAddressHeader}
                     />
                 </div>
                 <div>
                     <CameraConfigOptions
-                        header={'Eye Config options'}
+                        header={props.CameraConfigOptionsHeader}
                         onClick={(selected) => props.onClick(selected)}
+                    />
+                </div>
+                <div>
+                    <Loader
+                        gradient="orange"
+                        gradientMid="rgba(255, 153, 0, 0.594)"
+                        gradientBot="rgba(255, 153, 0, 0.144)"
+                        width="100px"
+                        height="100px"
                     />
                 </div>
             </div>
             <div class="mt-[22px]">
                 <CamerasModal camerasUrl={props.camerasUrl} />
             </div>
-            {/* <Loader
-                gradient="orange"
-                gradientMid="rgba(255, 153, 0, 0.594)"
-                gradientBot="rgba(255, 153, 0, 0.144)"
-                width="100px"
-                height="100px"
-            /> */}
         </div>
     )
 }
