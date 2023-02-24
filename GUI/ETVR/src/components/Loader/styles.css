@@ -1,9 +1,3 @@
-#shape-gradient {
-    --color-stop: orange;
-    --color-middle-bot: rgba(255, 153, 0, 0.594);
-    --color-bot: rgba(255, 153, 0, 0.344);
-}
-
 .shape {
     animation: rotate 1.5s linear infinite;
 }
@@ -29,12 +23,10 @@
         stroke-dasharray: 1, 200;
         stroke-dashoffset: 0;
     }
-
     50% {
         stroke-dasharray: 89, 200;
         stroke-dashoffset: -35px;
     }
-
     100% {
         stroke-dasharray: 89, 200;
         stroke-dashoffset: -124px;
@@ -45,7 +37,6 @@
     0% {
         transform: rotate(0deg);
     }
-
     100% {
         transform: rotate(360deg);
     }

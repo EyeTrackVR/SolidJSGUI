@@ -1,11 +1,11 @@
 import './styles.css'
 
 interface LoaderProps {
-    gradient?: string
-    gradientMid?: string
-    gradientBot?: string
-    width?: string
-    height?: string
+    gradient: string
+    gradientMid: string
+    gradientBot: string
+    width: string
+    height: string
 }
 
 const Loader = (props: LoaderProps) => {
@@ -17,17 +17,14 @@ const Loader = (props: LoaderProps) => {
                 class="shape"
                 preserveAspectRatio="none"
                 style={{
-                    width: props.width || '100%',
-                    height: props.height || '100%',
+                    width: props.width,
+                    height: props.height,
                 }}>
                 <defs>
                     <linearGradient id="shape-gradient" x2="0.35" y2="1">
-                        <stop offset="0%" stop-color={props.gradient || 'var(--color-stop)'} />
-                        <stop
-                            offset="30%"
-                            stop-color={props.gradientMid || 'var(--color-middle-bot)'}
-                        />
-                        <stop offset="100%" stop-color={props.gradientBot || 'var(--color-bot)'} />
+                        <stop offset="0%" stop-color={props.gradient} />
+                        <stop offset="30%" stop-color={props.gradientMid} />
+                        <stop offset="100%" stop-color={props.gradientBot} />
                     </linearGradient>
                 </defs>
                 <g>
