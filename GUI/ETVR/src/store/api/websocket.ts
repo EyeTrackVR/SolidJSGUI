@@ -33,7 +33,6 @@ export const setRTCStatus = (status: RTCState) => {
         }),
     )
 }
-
 export const setRTCMessageType = (messageType: RTCMessageType) => {
     setState(
         produce((s) => {
@@ -41,7 +40,6 @@ export const setRTCMessageType = (messageType: RTCMessageType) => {
         }),
     )
 }
-
 export const setRTCWebSocket = (ws: WebSocket) => {
     setState(
         produce((s) => {
@@ -49,7 +47,6 @@ export const setRTCWebSocket = (ws: WebSocket) => {
         }),
     )
 }
-
 export const setRemoveRTCWebSocket = (ws: WebSocket) => {
     setState(
         produce((s) => {
@@ -57,7 +54,6 @@ export const setRemoveRTCWebSocket = (ws: WebSocket) => {
         }),
     )
 }
-
 export const setConnectInterval = (interval: NodeJS.Timeout) => {
     setState(
         produce((s) => {
@@ -65,7 +61,6 @@ export const setConnectInterval = (interval: NodeJS.Timeout) => {
         }),
     )
 }
-
 export const setRTCTimeout = (time: number) => {
     setState(
         produce((s) => {

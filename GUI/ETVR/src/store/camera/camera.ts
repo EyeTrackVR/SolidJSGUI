@@ -57,7 +57,6 @@ export const setAddCamera = (camera: ICamera) => {
         }),
     )
 }
-
 export const setRemoveCamera = (camera: ICamera) => {
     setState(
         produce((s) => {
@@ -65,7 +64,6 @@ export const setRemoveCamera = (camera: ICamera) => {
         }),
     )
 }
-
 export const setCameraStatus = (camera: ICamera, status: CameraStatus) => {
     setState(
         produce((s) => {

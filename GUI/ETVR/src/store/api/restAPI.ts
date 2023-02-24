@@ -33,21 +33,6 @@ export const defaultState: IRest = {
     response: {},
 }
 
-/**
- * # Map of endpoints
- * @description
- * Static REST API EndPoints Map
- * @type {Map<string, IEndpoint>}
- * @example
- * const endpoint = endpointsMap.get('ping')
- * endpoint.url // '/ping'
- * endpoint.type // 'GET'
- *
- * These endpoints are built into the REST API server on the ESP32
- *
- * @description
- * **URL Example** - `http://<ip>:81/control/command/<endpoint>`
- */
 export const endpointsMap: Map<string, IEndpoint> = new Map<string, IEndpoint>([
     ['ping', { url: '/control/command/ping', type: RESTType.GET }],
     ['save', { url: '/control/command/save', type: RESTType.GET }],
@@ -69,7 +54,6 @@ export const setRestStatus = (status: RESTStatus) => {
         }),
     )
 }
-
 export const setRestDevice = (device: string) => {
     setState(
         produce((s) => {
@@ -77,7 +61,6 @@ export const setRestDevice = (device: string) => {
         }),
     )
 }
-
 export const setRestResponse = (response: object) => {
     setState(
         produce((s) => {
@@ -85,5 +68,4 @@ export const setRestResponse = (response: object) => {
         }),
     )
 }
-
 export const restState = createMemo(() => state)
