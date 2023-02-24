@@ -73,16 +73,7 @@ export const setRTCTimeout = (time: number) => {
         }),
     )
 }
-
-/**
- * @description Sets the websocket clients
- * @returns {void}
- * @example
- * setWebsocketClients([new WebSocket('ws://localhost:8080'), new WebSocket('ws://localhost:8080')])
- * @note This function should be called after the cameras have been initialized
- */
-export const setWebsocketClients = (clients: WebSocket[]): void => {
-    // generate websocket clients based on the number of cameras connected
+export const setWebsocketClients = (clients: WebSocket[]) => {
     setState(
         produce((s) => {
             s.ws = clients

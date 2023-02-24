@@ -1,6 +1,8 @@
 import CameraAddress from './CameraAddress/CameraAddress'
+import CameraConfigOptions from './CameraConfigOptions'
 import CameraInfo from './CameraInfo/CameraInfo'
-import Loader from '@components/Loader'
+import CamerasModal from './CamerasModal/index'
+
 import { CameraStatus, CameraType } from '@store/camera/camera'
 
 // TODO: stuff todo requested by lorow
@@ -14,27 +16,50 @@ import { CameraStatus, CameraType } from '@store/camera/camera'
 
 export interface IProps {
     onChange: (value: string) => void
+    onClick: (selected: string) => void
     cameraIP: string
     cameraStatus: CameraStatus
     cameraType: CameraType
+    placeholder: string
+    header: string
+    camerasUrl: string[]
 }
 
 const Settings = (props: IProps) => {
     return (
-        <div class="pt-[50px]">
-            <CameraInfo
-                cameraIP={props.cameraIP}
-                cameraStatus={props.cameraStatus}
-                cameraType={props.cameraType}
-            />
-            <CameraAddress onChange={(value) => props.onChange(value)} />
-            <Loader
+        <div class="pt-[50px] grid grid-flow-col gap-[22px]">
+            <div class="mt-[22px]">
+                <CameraInfo
+                    cameraIP={props.cameraIP}
+                    cameraStatus={props.cameraStatus}
+                    cameraType={props.cameraType}
+                />
+            </div>
+            <div class="mt-[22px]">
+                <div class="mb-[22px]">
+                    <CameraAddress
+                        onChange={(value) => props.onChange(value)}
+                        placeholder={props.placeholder}
+                        header={props.header}
+                    />
+                </div>
+                <div>
+                    <CameraConfigOptions
+                        header={'Eye Config options'}
+                        onClick={(selected) => props.onClick(selected)}
+                    />
+                </div>
+            </div>
+            <div class="mt-[22px]">
+                <CamerasModal camerasUrl={props.camerasUrl} />
+            </div>
+            {/* <Loader
                 gradient="orange"
                 gradientMid="rgba(255, 153, 0, 0.594)"
                 gradientBot="rgba(255, 153, 0, 0.144)"
                 width="100px"
                 height="100px"
-            />
+            /> */}
         </div>
     )
 }
