@@ -1,8 +1,14 @@
+import { RANGE_INPUT_FORMAT } from '@src/static/types/enums'
 import { BULLET_POSITION_ADJUSTMENT, getBulletPosition } from '@src/utils/utils'
 import { createEffect, createSignal } from 'solid-js'
 import './styles.css'
 
-const RangeInput = () => {
+export interface IProps {
+    onChange: (format: RANGE_INPUT_FORMAT, value: number) => void
+    format: RANGE_INPUT_FORMAT
+}
+
+const RangeInput = (props: IProps) => {
     const [uiHasMoved, setUiHasMoved] = createSignal<number>(window.innerWidth)
     const [rangeSliderWidth, setRangeSliderWidth] = createSignal<number | undefined>(undefined)
     const [rangeValue, setRangeValue] = createSignal(0)
@@ -64,6 +70,7 @@ const RangeInput = () => {
                     onMouseEnter={() => rangeBulletRef?.classList.add('rs-background')}
                     onMouseLeave={() => rangeBulletRef?.classList.remove('rs-background')}
                     ref={rangeSliderRef}
+                    onChange={() => props.onChange(props.format, rangeValue())}
                     class="rs-range"
                     type="range"
                     value={rangeValue()}

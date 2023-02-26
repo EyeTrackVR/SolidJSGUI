@@ -1,3 +1,4 @@
+import { RANGE_INPUT_FORMAT } from '@src/static/types/enums'
 import { CameraStatus, CameraType } from '@store/camera/camera'
 import CameraAddress from './CameraAddress/CameraAddress'
 import CameraConfigOptions from './CameraConfigOptions'
@@ -28,6 +29,8 @@ export interface IProps {
 }
 
 const Settings = (props: IProps) => {
+    console.log(Object.values(RANGE_INPUT_FORMAT)[RANGE_INPUT_FORMAT.EYE_POSITION_SCALAR])
+
     return (
         <div class="pt-[50px] grid grid-flow-col gap-[22px]">
             <div class="mt-[22px]">
@@ -52,7 +55,13 @@ const Settings = (props: IProps) => {
                     />
                 </div>
                 <div>
-                    <CameraSettings header={props.CameraSettingsHeader} />
+                    <CameraSettings
+                        header={props.CameraSettingsHeader}
+                        formats={Object.keys(RANGE_INPUT_FORMAT)}
+                        onChange={(format, value) => {
+                            console.log(format, value)
+                        }}
+                    />
                 </div>
             </div>
             <div class="mt-[22px]">
