@@ -7,15 +7,15 @@ const RangeInput = () => {
     const [rangeSliderWidth, setRangeSliderWidth] = createSignal<number | undefined>(undefined)
     const [rangeValue, setRangeValue] = createSignal(0)
 
-    let rangeSlider: HTMLInputElement | undefined
-    let rangeBullet: HTMLSpanElement | undefined
+    let rangeSliderRef: HTMLInputElement | undefined
+    let rangeBulletRef: HTMLSpanElement | undefined
 
     createEffect(() => {
         setTimeout(() => {
-            if (!rangeSlider || !rangeBullet) return
+            if (!rangeSliderRef || !rangeBulletRef) return
 
-            const range = rangeSlider as HTMLInputElement
-            const bullet = rangeBullet as HTMLSpanElement
+            const range = rangeSliderRef as HTMLInputElement
+            const bullet = rangeBulletRef as HTMLSpanElement
 
             range.addEventListener('input', () => {
                 setRangeValue(+range.value)
@@ -32,10 +32,10 @@ const RangeInput = () => {
         window.addEventListener('resize', () => {
             setTimeout(() => {
                 if (uiHasMoved() === window.innerWidth) return
-                if (!rangeSlider || !rangeBullet) return
+                if (!rangeSliderRef || !rangeBulletRef) return
 
-                const range = rangeSlider as HTMLInputElement
-                const bullet = rangeBullet as HTMLSpanElement
+                const range = rangeSliderRef as HTMLInputElement
+                const bullet = rangeBulletRef as HTMLSpanElement
 
                 const sliderWidth = range.clientWidth - BULLET_POSITION_ADJUSTMENT
                 bullet.innerHTML = range.value
@@ -52,11 +52,11 @@ const RangeInput = () => {
     return (
         <div class="container">
             <div class="range-slider">
-                <span ref={rangeBullet} class="rs-label">
+                <span ref={rangeBulletRef} class="rs-label">
                     {rangeValue()}
                 </span>
                 <input
-                    ref={rangeSlider}
+                    ref={rangeSliderRef}
                     class="rs-range"
                     type="range"
                     value="0"
