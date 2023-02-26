@@ -1,10 +1,6 @@
 /* eslint-disable */
-
 import { CameraStatus } from '@store/camera/camera'
 
-/**
- * @description - Utility variables to generate camera states
- */
 export const ACTIVE_SHADOW = '0 0 0 0 0.121333  0 0 0 0 0.866667  0 0 0 0 0  0 0 0 1 0'
 export const LOADING_SHADOW = '0 0 0 0 1  0 0 0 0 0.20166699999999999  0 0 0 0 -1.878667  0 0 0 1 0'
 export const DEFAULT_SHADOW = '0 0 0 0 1.966667  0 0 0 0 0  0 0 0 0 -0.04366700000000001  0 0 0 1 0'
@@ -13,6 +9,11 @@ export const LOADING_COLOR = '#F9AA33'
 export const DEFAULT_COLOR = '#DD0000'
 export const DISABLED_COLOR = '#505668'
 export const FAILED_COLOR = '#DD0000'
+export const BULLET_POSITION_ADJUSTMENT = 18
+
+export const getBulletPosition = (range: HTMLInputElement) => {
+    return +range.value / +range.max
+}
 
 export const GenerateMatrixShadow = (activeStatus: CameraStatus) => {
     switch (activeStatus) {
