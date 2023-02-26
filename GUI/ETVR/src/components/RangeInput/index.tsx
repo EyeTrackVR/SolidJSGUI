@@ -22,6 +22,9 @@ const RangeInput = () => {
                 const bulletPosition = getBulletPosition(range)
                 const sliderWidth = rangeSliderWidth() || range.clientWidth
 
+                range.style.backgroundSize =
+                    ((+range.value - +range.min) * 100) / (+range.max - +range.min) + '% 100%'
+
                 bullet.style.left =
                     bulletPosition * (sliderWidth - BULLET_POSITION_ADJUSTMENT) + 'px'
             })
@@ -36,12 +39,14 @@ const RangeInput = () => {
 
                 const range = rangeSliderRef as HTMLInputElement
                 const bullet = rangeBulletRef as HTMLSpanElement
-
-                const sliderWidth = range.clientWidth - BULLET_POSITION_ADJUSTMENT
-                bullet.innerHTML = range.value
-
                 const bulletPosition = getBulletPosition(range)
-                bullet.style.left = bulletPosition * sliderWidth + 'px'
+                const sliderWidth = range.clientWidth
+
+                range.style.backgroundSize =
+                    ((+range.value - +range.min) * 100) / (+range.max - +range.min) + '% 100%'
+
+                bullet.style.left =
+                    bulletPosition * (sliderWidth - BULLET_POSITION_ADJUSTMENT) + 'px'
 
                 setUiHasMoved(window.innerWidth)
                 setRangeSliderWidth(sliderWidth)
@@ -50,16 +55,18 @@ const RangeInput = () => {
     })
 
     return (
-        <div class="container">
-            <div class="range-slider">
-                <span ref={rangeBulletRef} class="rs-label">
-                    {rangeValue()}
-                </span>
+        <div>
+            <span ref={rangeBulletRef} class="rs-label">
+                {rangeValue()}%
+            </span>
+            <div>
                 <input
+                    onMouseEnter={() => rangeBulletRef?.classList.add('rs-background')}
+                    onMouseLeave={() => rangeBulletRef?.classList.remove('rs-background')}
                     ref={rangeSliderRef}
                     class="rs-range"
                     type="range"
-                    value="0"
+                    value={rangeValue()}
                     min="0"
                     max="100"
                 />

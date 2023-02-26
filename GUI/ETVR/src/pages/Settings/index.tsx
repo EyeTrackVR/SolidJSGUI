@@ -14,6 +14,7 @@ const SettingsPage = () => {
             placeholder="Camera name"
             CameraAddressHeader="Camera name"
             CameraConfigOptionsHeader="Eye Config options"
+            CameraSettingsHeader="Camera settings"
         />
     )
 }

@@ -1,10 +1,9 @@
+import { CameraStatus, CameraType } from '@store/camera/camera'
 import CameraAddress from './CameraAddress/CameraAddress'
 import CameraConfigOptions from './CameraConfigOptions'
 import CameraInfo from './CameraInfo/CameraInfo'
-import CamerasModal from './CamerasModal/index'
-import Loader from '@components/Loader'
-import { CameraStatus, CameraType } from '@store/camera/camera'
 import CameraSettings from './CameraSettings'
+import CamerasModal from './CamerasModal/index'
 
 // TODO: stuff todo requested by lorow
 // honestly it looks good, I like that preview window. The camera ID I'd rename to camera IP though I'm not really sure if that's gonna be necessary,
@@ -24,6 +23,7 @@ export interface IProps {
     placeholder: string
     CameraAddressHeader: string
     CameraConfigOptionsHeader: string
+    CameraSettingsHeader: string
     camerasUrl: string[]
 }
 
@@ -52,17 +52,8 @@ const Settings = (props: IProps) => {
                     />
                 </div>
                 <div>
-                    <CameraSettings header={props.CameraConfigOptionsHeader} />
+                    <CameraSettings header={props.CameraSettingsHeader} />
                 </div>
-                {/* <div>
-                    <Loader
-                        gradient="orange"
-                        gradientMid="rgba(255, 153, 0, 0.594)"
-                        gradientBot="rgba(255, 153, 0, 0.144)"
-                        width="100px"
-                        height="100px"
-                    />
-                </div> */}
             </div>
             <div class="mt-[22px]">
                 <CamerasModal camerasUrl={props.camerasUrl} />
