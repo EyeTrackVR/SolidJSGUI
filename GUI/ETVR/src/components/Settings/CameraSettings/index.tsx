@@ -19,10 +19,19 @@ const CameraSettings = (props: IProps) => {
             <div class=" pl-[14px] pr-[18px] pb-[14px] pt-[14px] ">
                 <For each={props.formats}>
                     {(format) => (
-                        <RangeInput
-                            onChange={(format, value) => props.onChange(format, value)}
-                            format={RANGE_INPUT_FORMAT[format]}
-                        />
+                        <div class="pb-6">
+                            <div>
+                                <p class="relative right-[12px] text-left font-[700] text-[#FFFFFF] text-lg">
+                                    {RANGE_INPUT_FORMAT[format]}
+                                </p>
+                            </div>
+                            <div>
+                                <RangeInput
+                                    onChange={(format, value) => props.onChange(format, value)}
+                                    format={RANGE_INPUT_FORMAT[format]}
+                                />
+                            </div>
+                        </div>
                     )}
                 </For>
             </div>

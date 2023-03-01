@@ -21,6 +21,7 @@ body {
 .rs-range {
     margin-top: 15px;
     width: 100%;
+    height: 100%;
     -webkit-appearance: none;
     appearance: none;
     cursor: pointer;
