@@ -21,7 +21,7 @@ const CameraSettings = (props: IProps) => {
                     {(format) => (
                         <div class="pb-6">
                             <div>
-                                <p class="relative right-[12px] text-left font-[700] text-[#FFFFFF] text-lg">
+                                <p class="relative right-[14px] text-left font-[700] text-[#FFFFFF] text-lg">
                                     {RANGE_INPUT_FORMAT[format]}
                                 </p>
                             </div>

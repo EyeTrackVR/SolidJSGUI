@@ -10,58 +10,13 @@ import { cameras } from '@src/store/camera/selectors'
 import { displayMode } from '@src/store/ui/selectors'
 import { setDisplayMode, setOpenModal } from '@src/store/ui/ui'
 
-const CameraHandler = () => {
-    return (
-        <Show
-            when={cameras().length > 0}
-            fallback={
-                <div class="flex flex-col items-center justify-center w-full h-full">
-                    <p class="text-2xl font-bold tracking-[0.10rem] text-[white]">
-                        No cameras found
-                    </p>
-                </div>
-            }>
-            {displayMode() === POPOVER_ID.GRIP ? (
-                <div class="py-[40px] items-center justify-center flex flex-wrap overflow-auto">
-                    <For each={cameras()}>
-                        {(camera) => (
-                            <Camera
-                                {...camera}
-                                onClick={() => {
-                                    setRestDevice(camera.address)
-                                    setOpenModal(true)
-                                }}
-                            />
-                        )}
-                    </For>
-                </div>
-            ) : (
-                <div>
-                    <ListHeader />
-                    <For each={cameras()}>
-                        {(camera) => (
-                            <List
-                                {...camera}
-                                onClick={() => {
-                                    setRestDevice(camera.address)
-                                    setOpenModal(true)
-                                }}
-                            />
-                        )}
-                    </For>
-                </div>
-            )}
-        </Show>
-    )
-}
-
 const Main = () => {
     return (
         <div class="py-[60px]">
             <div>
                 <h1 class="pr-14 text-4xl font-bold tracking-[0.10rem] text-[#FFFFFF]">TRACKERS</h1>
             </div>
-            <div class="ml-auto mt-5 flex grow content-center justify-between h-full leading-5 font-sans font-medium rounded-xl p-1 bg-[#0e0e0e] w-[145px]">
+            <div class="  ml-auto mt-5 flex grow content-center justify-between h-[45px] leading-5 font-sans font-medium rounded-xl p-1 bg-[#0e0e0e] w-[145px]">
                 <div class="flex pr-1">
                     <CustomPopover
                         active={displayMode()}
@@ -83,7 +38,46 @@ const Main = () => {
                     />
                 </div>
             </div>
-            <CameraHandler />
+            <Show
+                when={cameras().length > 0}
+                fallback={
+                    <div class="flex flex-col items-center justify-center w-full h-full">
+                        <p class="text-2xl font-bold tracking-[0.10rem] text-[white]">
+                            No cameras found
+                        </p>
+                    </div>
+                }>
+                {displayMode() === POPOVER_ID.GRIP ? (
+                    <div class="py-[40px] items-center justify-center flex flex-wrap overflow-auto">
+                        <For each={cameras()}>
+                            {(camera) => (
+                                <Camera
+                                    {...camera}
+                                    onClick={() => {
+                                        setRestDevice(camera.address)
+                                        setOpenModal(true)
+                                    }}
+                                />
+                            )}
+                        </For>
+                    </div>
+                ) : (
+                    <div>
+                        <ListHeader />
+                        <For each={cameras()}>
+                            {(camera) => (
+                                <List
+                                    {...camera}
+                                    onClick={() => {
+                                        setRestDevice(camera.address)
+                                        setOpenModal(true)
+                                    }}
+                                />
+                            )}
+                        </For>
+                    </div>
+                )}
+            </Show>
         </div>
     )
 }
