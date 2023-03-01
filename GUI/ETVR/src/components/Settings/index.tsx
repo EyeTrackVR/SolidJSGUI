@@ -29,8 +29,6 @@ export interface IProps {
 }
 
 const Settings = (props: IProps) => {
-    console.log(Object.values(RANGE_INPUT_FORMAT)[RANGE_INPUT_FORMAT.EYE_POSITION_SCALAR])
-
     return (
         <div class="pt-[50px] grid grid-flow-col gap-[22px]">
             <div class="mt-[22px]">
