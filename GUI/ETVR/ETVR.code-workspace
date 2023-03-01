@@ -13,6 +13,7 @@
         "rust-analyzer.checkOnSave.extraArgs": ["--all-targets"],
         "rust-analyzer.checkOnSave.command": "clippy",
         "rust-analyzer.checkOnSave.allTargets": true,
+        "rust-analyzer.files.watcher": "client",
         "rust-analyzer.files.excludeDirs": [
             "**/target",
             "**/node_modules",
@@ -29,7 +30,6 @@
             "**/src/styles",
             "**/src/utils"
         ],
-        "rust-analyzer.files.watcher": "client",
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "[toml]": {
             "editor.defaultFormatter": "tamasfe.even-better-toml"

@@ -35,4 +35,18 @@ const Loader = (props: LoaderProps) => {
     )
 }
 
+export const OrangeLoader = () => {
+    return (
+        <div class="flex justify-center items-center">
+            <Loader
+                gradient="orange"
+                gradientMid="rgba(255, 153, 0, 0.594)"
+                gradientBot="rgba(255, 153, 0, 0.144)"
+                width="100px"
+                height="100px"
+            />
+        </div>
+    )
+}
+
 export default Loader
