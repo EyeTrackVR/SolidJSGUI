@@ -1,5 +1,5 @@
 import { invoke } from '@tauri-apps/api/tauri'
-import { createSignal, createEffect } from 'solid-js'
+import { createSignal, createEffect, createResource } from 'solid-js'
 import { setRestStatus, RESTStatus } from '@src/store/api/restAPI'
 import { endpoints } from '@src/store/api/selectors'
 import { cameras } from '@src/store/camera/selectors'
@@ -10,7 +10,7 @@ interface IProps {
     args?: string
 }
 
-export const useRequestHook = () => {
+export const useRequestHook = async () => {
     const [data, setData] = createSignal({})
     const _endpoints = endpoints()
     const doRequest = (props: IProps) => {
