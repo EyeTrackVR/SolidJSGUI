@@ -8,6 +8,11 @@ interface LoaderProps {
     height: string
 }
 
+interface CustomLoaderProps {
+    width: number
+    height: number
+}
+
 const Loader = (props: LoaderProps) => {
     return (
         <div class="spinner">
@@ -35,15 +40,15 @@ const Loader = (props: LoaderProps) => {
     )
 }
 
-export const OrangeLoader = (width: number, height: number) => {
+export const OrangeLoader = (props: CustomLoaderProps) => {
     return (
         <div class="flex justify-center items-center">
             <Loader
                 gradient="orange"
                 gradientMid="rgba(255, 153, 0, 0.594)"
                 gradientBot="rgba(255, 153, 0, 0.144)"
-                width={`${width}px`}
-                height={`${height}px`}
+                width={`${props.width}px`}
+                height={`${props.height}px`}
             />
         </div>
     )

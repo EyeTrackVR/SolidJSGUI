@@ -1,4 +1,3 @@
-// TODO: Implement a settings page that allows the user to change the settings of the application
 import { useRoutes } from '@solidjs/router'
 import { lazy, onMount } from 'solid-js'
 import { routes } from '.'

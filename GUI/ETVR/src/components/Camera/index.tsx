@@ -19,8 +19,8 @@ const Camera = (props: IProps) => {
             </div>
             <div class="flex items-center">
                 <div class="flex items-center h-[100%]">
-                    <div class=" text-[#FFFF] bg-[#FFFF] w-[155px] h-[155px] rounded-[14px]">
-                        <WebSocketHandler borderRadius="rounded-[14px]" />
+                    <div class="text-[#FFFF] bg-[#2b2f38] w-[155px] h-[155px] rounded-[14px] flex justify-center content-center items-center">
+                        <WebSocketHandler borderRadius="rounded-[14px]" width={100} height={100} />
                     </div>
                 </div>
                 <div class="bg-[#292D36] ml-[14px] rounded-[14px] h-[100%] p-[14px] ">

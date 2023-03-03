@@ -12,8 +12,8 @@ const List = (props: IList) => {
         <div class="grid grid-flow-col auto-cols-fr pl-[12px] pt-[12px] pb-[12px] rounded-[10px] mb-[20px] bg-[#333742] text-white">
             <div class="flex items-center w-[500px]">
                 <div>
-                    <div class="text-[#FFFF] bg-[#FFFF] w-[60px] h-[60px] rounded-[5px]">
-                        <WebSocketHandler borderRadius="rounded-[5px]" />
+                    <div class="text-[#FFFF] bg-[#2b2f38] w-[60px] h-[60px] rounded-[5px] flex justify-center content-center items-center">
+                        <WebSocketHandler borderRadius="rounded-[5px]" width={75} height={75} />
                     </div>
                 </div>
                 <div>
