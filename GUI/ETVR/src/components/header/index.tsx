@@ -10,24 +10,29 @@ interface Iprops {
 
 const Header = (props: Iprops) => {
     return (
-        <header class="pr-4 pl-4 grow content-center">
+        <header class="pr-4 pl-4 grow content-center ">
             <div class="flex grow justify-between items-center mt-[1rem]">
                 <Link href="/" class="no-underline">
                     <Image.Root>
                         <Image.Img src={icons.logo} alt="logo" width="80px" class="rounded-full" />
                     </Image.Root>
                 </Link>
-                <div class="flex h-[55%] content-center mt-[5px]">
+                <div class="flex  content-center h-[45px] mt-[5px]">
                     <div class="flex grow justify-center border-none shadow-lg items-center content-center leading-5 font-sans font-medium text-[.75rem] rounded-[15px] h-[100%] w-[100%] bg-[#0e0e0e] text-[#5f5f5f]">
-                        <div class="flex grow content-center justify-between h-[100%] leading-5 font-sans font-medium rounded-[14px] pl-[5px] pr-[5px] pt-[5px] bg-[#0e0e0e] w-[145px]">
-                            <Link href="/" class="no-underline mr-[5px]">
+                        <div class="ml-auto flex grow content-center justify-between h-full leading-5 font-sans font-medium rounded-xl p-1 bg-[#0e0e0e] w-[145px]">
+                            <Link href="/" class="no-underline flex mr-[5px]">
                                 <CustomPopover
-                                    icon={icons.cameraSolid}
+                                    styles="h-[100%]"
                                     popoverContent="Tracker manager"
+                                    icon={icons.cameraSolid}
                                 />
                             </Link>
-                            <Link href="/settings" class="no-underline ml-[5px]">
-                                <CustomPopover icon={icons.gearSolid} popoverContent="Settings" />
+                            <Link href="/settings" class="no-underline flex pl-1">
+                                <CustomPopover
+                                    styles="h-[100%]"
+                                    popoverContent="Settings"
+                                    icon={icons.gearSolid}
+                                />
                             </Link>
                         </div>
                     </div>
