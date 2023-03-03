@@ -1,6 +1,6 @@
-import { RANGE_INPUT_FORMAT } from '@src/static/types/enums'
-import { BULLET_POSITION_ADJUSTMENT, getBulletPosition } from '@src/utils/utils'
 import { createEffect, createSignal } from 'solid-js'
+import { RANGE_INPUT_FORMAT } from '@static/types/enums'
+import { BULLET_POSITION_ADJUSTMENT, getBulletPosition } from '@utils/utils'
 import './styles.css'
 
 export interface IProps {

@@ -1,10 +1,10 @@
-import { RANGE_INPUT_FORMAT } from '@src/static/types/enums'
-import { CameraStatus, CameraType } from '@store/camera/camera'
 import CameraAddress from './CameraAddress/CameraAddress'
 import CameraConfigOptions from './CameraConfigOptions'
 import CameraInfo from './CameraInfo/CameraInfo'
 import CameraSettings from './CameraSettings'
-import CamerasModal from './CamerasModal/index'
+import CamerasModal from './CamerasModal'
+import { RANGE_INPUT_FORMAT } from '@src/static/types/enums'
+import { CameraStatus, CameraType } from '@store/camera/camera'
 
 // TODO: stuff todo requested by lorow
 // honestly it looks good, I like that preview window. The camera ID I'd rename to camera IP though I'm not really sure if that's gonna be necessary,

@@ -35,15 +35,15 @@ const Loader = (props: LoaderProps) => {
     )
 }
 
-export const OrangeLoader = () => {
+export const OrangeLoader = (width: number, height: number) => {
     return (
         <div class="flex justify-center items-center">
             <Loader
                 gradient="orange"
                 gradientMid="rgba(255, 153, 0, 0.594)"
                 gradientBot="rgba(255, 153, 0, 0.144)"
-                width="100px"
-                height="100px"
+                width={`${width}px`}
+                height={`${height}px`}
             />
         </div>
     )

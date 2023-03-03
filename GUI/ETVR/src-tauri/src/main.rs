@@ -110,7 +110,7 @@ async fn run_mdns_query(service_type: String, scan_time: u64) -> Result<String, 
   ); // get's an array of the base urls found
   let json = m_dnsquery::generate_json(&*ref_mdns)
     .await
-    .expect("Failed to generate JSON object"); // generates a json file with the base urls foundµ
+    .expect("Failed to generate JSON object"); // generates a json file with the base urls found
                                                //tokio::fs::write("config/config.json", json)
                                                //    .await
                                                //    .expect("Failed to write JSON file");

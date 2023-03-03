@@ -6,7 +6,6 @@ body {
     height: 100vh;
     background-color: #000;
     font-family: 'Roboto', sans-serif;
-    background: linear-gradient(180deg, #db302a 0%, #62186b 100%) no-repeat;
 }
 
 .box-minmax {

@@ -1,6 +1,6 @@
+import { For } from 'solid-js'
 import RangeInput from '@components/RangeInput'
 import { RANGE_INPUT_FORMAT } from '@src/static/types/enums'
-import { For } from 'solid-js'
 
 export interface IProps {
     header: string
