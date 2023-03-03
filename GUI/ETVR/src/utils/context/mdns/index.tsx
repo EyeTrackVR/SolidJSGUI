@@ -14,7 +14,7 @@ export const MdnsProvider = (props: {
         | null
         | undefined
 }) => {
-    const { data, mutate, refetch, resData, setResData } = useMDNSScanner('openiristracker', 30)
+    const { data, mutate, refetch, resData, setResData } = useMDNSScanner('_openiristracker._tcp', 30)
     return (
         <MdnsContext.Provider value={{ data, mutate, refetch, resData, setResData }}>
             {props.children}
