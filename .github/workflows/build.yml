@@ -58,8 +58,6 @@ jobs:
           toolchain: stable
           target: ${{ matrix.platform.rust_target }}
       - uses: Swatinem/rust-cache@v2
-        with:
-          working-directory: ./src-tauri
 
       - name: Install dependencies (ubuntu only)
         if: matrix.platform == 'ubuntu-latest'
@@ -74,7 +72,7 @@ jobs:
           npm install -g typescript
 
       - name: Build the App
-        run: yarn install --frozen-lockfile && yarn build
+        run: yarn install --frozen-lockfile
 
       - uses: JonasKruckenberg/tauri-build@v1.2.3
         id: tauri_build
