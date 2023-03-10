@@ -50,6 +50,9 @@
         "[css]": {
             "editor.defaultFormatter": "vscode.css-language-features"
         },
-        "powershell.cwd": "c:\\Users\\zacar\\Documents\\GitHub\\EyeTrackVR\\GUI\\ETVR"
+        "powershell.cwd": "c:\\Users\\zacar\\Documents\\GitHub\\EyeTrackVR\\GUI\\ETVR",
+        "[shellscript]": {
+            "editor.defaultFormatter": "shakram02.bash-beautify"
+        }
     }
 }
