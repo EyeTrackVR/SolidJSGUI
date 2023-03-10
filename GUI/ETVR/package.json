@@ -1,6 +1,6 @@
 {
   "name": "etvr",
-  "version": "1.0.0-SolidJSGUI.2",
+  "version": "1.0.0",
   "private": true,
   "description": "A SolidJS project for EyeTrack VR",
   "author": "EyeTrack VR",
