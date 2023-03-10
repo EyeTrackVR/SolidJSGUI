@@ -1,10 +1,9 @@
 import { useRoutes } from '@solidjs/router'
-import { lazy, onMount } from 'solid-js'
+import { onMount } from 'solid-js'
 import { routes } from '.'
+import Header from '@components/Header'
 import { connectedUserName } from '@src/store/ui/selectors'
 import { setConnectedUser } from '@src/store/ui/ui'
-
-const Header = lazy(() => import('@components/Header'))
 
 const AppRoutes = () => {
     const Path = useRoutes(routes)

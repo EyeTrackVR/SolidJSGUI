@@ -11,7 +11,9 @@ const ListHeader = () => {
                 <p class="text-left w-[150px] m-auto ">Status</p>
             </div>
             <div>
-                <p class="max-sm:hidden max-md:text-right text-left w-[150px] m-auto ">Camera Type</p>
+                <p class="max-sm:hidden max-md:text-right text-left w-[150px] m-auto ">
+                    Camera Type
+                </p>
             </div>
         </div>
     )
