@@ -1,6 +1,6 @@
 [package]
 name = "eyetrackvr"
-version = "1.0.0-SolidJSGUI.2"
+version = "1.0.0"
 description = "Eye tracking for VR"
 authors = ["DaOfficialWizard"]
 license = "MIT"

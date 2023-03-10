@@ -57,4 +57,26 @@ jq --arg a "$nextReleaseVersion" '.package.version = $a' ./GUI/ETVR/src-tauri/ta
 #
 #sed -i "s/version = \"[0-9\\.]*\"/version = \"${nextReleaseVersion}\"/g" ./GUI/ETVR/src-tauri/Cargo.toml
 
+# Install the dependencies for toml file
+printf "Install the dependencies for the toml file \n"
+
+sudo apt install python3-pip
+pip3 install yq
+
+export PATH="~/.local/bin:$PATH"
+source ~/.bashrc
+
+tmp=$(mktemp)
+tomlq -t --arg version "$nextReleaseVersion" '.package.version |= $version' ./GUI/ETVR/src-tauri/Cargo.toml > "$tmp" && mv "$tmp" ./GUI/ETVR/src-tauri/Cargo.toml -f
+
 printf "[prepareCMD.sh]: Done \n"
+
+
+
+# [package]
+# name = "etvr"
+# version = "0.1.0"
+
+# q: can you modify the version parameter in a toml file that looks like the above?
+# a: yes, you can use sed to modify the version parameter in a toml file that looks like the above
+#    the command is: sed -i "s/version = \"[0-9\\.]*\"/version = \"${nextReleaseVersion}\"/g" ./GUI/ETVR/src-tauri/Cargo.toml
