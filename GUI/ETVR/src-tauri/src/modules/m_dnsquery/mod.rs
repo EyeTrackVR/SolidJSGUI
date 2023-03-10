@@ -1,11 +1,5 @@
 //! A mdns query client.
 
-#![allow(dead_code, unused_imports, unused_variables)]
-#![cfg_attr(
-  all(not(debug_assertions), target_os = "windows"),
-  windows_subsystem = "windows"
-)]
-
 use log::{error, info};
 use mdns_sd::{ServiceDaemon, ServiceEvent};
 use serde::{Deserialize, Serialize};

@@ -1,9 +1,3 @@
-/* #![allow(dead_code, unused_imports, unused_variables) ]*/
-#![cfg_attr(
-  all(not(debug_assertions), target_os = "windows"),
-  windows_subsystem = "windows"
-)]
-
 use crate::modules::m_dnsquery;
 use log::{debug, error, info, warn};
 use reqwest::Client;
