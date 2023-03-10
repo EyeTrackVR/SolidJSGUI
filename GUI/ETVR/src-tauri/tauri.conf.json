@@ -191,5 +191,6 @@
       "iconPath": "../public/images/icons/icon-48x48.png",
       "iconAsTemplate": true
     }
-  }
+  },
+  "version": "1.0.0-SolidJSGUI.2"
 }

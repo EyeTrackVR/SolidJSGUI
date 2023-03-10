@@ -3,6 +3,13 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.2](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.1...v1.0.0-SolidJSGUI.2) (2023-03-10)
+
+
+### 🐛 Bug Fixes
+
+* add assetes and fix prepareCMD ([56d33d1](https://github.com/RedHawk989/EyeTrackVR/commit/56d33d1a869757b2d6030144d9e6e79c730be4bf))
+
 ## 1.0.0-SolidJSGUI.1 (2023-03-10)
 
 
