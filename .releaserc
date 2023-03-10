@@ -165,7 +165,12 @@
         [
             "@semantic-release/github",
             {
-                "addReleases": "bottom"
+                "addReleases": "bottom",
+                "assets": [
+                    {
+                        "path": "./dist/**/*.msi"
+                    }
+                ]
             }
         ],
         [
@@ -174,6 +179,7 @@
                 "assets": [
                     "GUI/ETVR/package.json",
                     "GUI/ETVR/src-tauri/tauri.conf.json",
+                    "GUI/ETVR/src-tauri/Cargo.toml",
                     "LICENSE*",
                     "CHANGELOG.md"
                 ],
