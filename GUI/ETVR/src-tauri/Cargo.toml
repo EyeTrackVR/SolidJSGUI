@@ -24,10 +24,6 @@ mdns-sd = "0.5.9"
 default = [ "custom-protocol",]
 custom-protocol = [ "tauri/custom-protocol",]
 
-[build-dependencies.tauri-build]
-version = "1.1.1"
-features = []
-
 [dependencies.serde]
 version = "1.0"
 features = [ "derive",]
@@ -55,6 +51,10 @@ features = [ "json", "rustls-tls",]
 [dependencies.tokio]
 version = "1"
 features = [ "full",]
+
+[build-dependencies.tauri-build]
+version = "1.1.1"
+features = []
 
 [profile.dev]
 debug = 0
