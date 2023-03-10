@@ -49,6 +49,7 @@
         },
         "[css]": {
             "editor.defaultFormatter": "vscode.css-language-features"
-        }
+        },
+        "powershell.cwd": "c:\\Users\\zacar\\Documents\\GitHub\\EyeTrackVR\\GUI\\ETVR"
     }
 }
