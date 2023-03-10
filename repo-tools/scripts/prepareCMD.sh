@@ -37,30 +37,32 @@ fi
 
 # print the next release version
 
-printf "Next version: ${nextReleaseVersion}\n"
+printf "[prepareCMD.sh]: Next version: ${nextReleaseVersion}\n"
 
 # This script is used to execute the prepareCMD.sh script on the remote host
-printf "Executing prepareCMD.sh on remote host \n"
+printf "[prepareCMD.sh]: Executing prepareCMD.sh on remote host \n"
 
-printf "Update the version in the package.json file \n"
+printf "[prepareCMD.sh]: Updating the version in the package.json file \n"
 
 # make a temp file
 tmp=$(mktemp)
 
 jq --arg a "$nextReleaseVersion" '.version = $a' ./GUI/ETVR/package.json > "$tmp" && mv "$tmp" ./GUI/ETVR/package.json -f
 
-printf "Update the version in the tauri.conf.json file \n"
+printf "[prepareCMD.sh]: Done \n"
+
+printf "[prepareCMD.sh]: Updating the version in the tauri.conf.json file \n"
 
 jq --arg a "$nextReleaseVersion" '.package.version = $a' ./GUI/ETVR/src-tauri/tauri.conf.json > "$tmp" && mv "$tmp" ./GUI/ETVR/src-tauri/tauri.conf.json -f
+printf "[prepareCMD.sh]: Done \n"
 
 #printf "Update the version in the Cargo.toml file \n"
 #
 #sed -i "s/version = \"[0-9\\.]*\"/version = \"${nextReleaseVersion}\"/g" ./GUI/ETVR/src-tauri/Cargo.toml
 
 # Install the dependencies for toml file
-printf "Install the dependencies for the toml file \n"
+printf "[prepareCMD.sh]: Installing the dependencies for the toml file \n"
 
-sudo apt install python3-pip
 pip3 install yq
 
 export PATH="~/.local/bin:$PATH"
@@ -69,14 +71,8 @@ source ~/.bashrc
 tmp=$(mktemp)
 tomlq -t --arg version "$nextReleaseVersion" '.package.version |= $version' ./GUI/ETVR/src-tauri/Cargo.toml > "$tmp" && mv "$tmp" ./GUI/ETVR/src-tauri/Cargo.toml -f
 
-printf "[prepareCMD.sh]: Done \n"
+# validate the Cargo.toml file
+#printf "[prepareCMD.sh]: Validating the Cargo.toml file \n"
+#cat ./GUI/ETVR/src-tauri/Cargo.toml
 
-
-
-# [package]
-# name = "etvr"
-# version = "0.1.0"
-
-# q: can you modify the version parameter in a toml file that looks like the above?
-# a: yes, you can use sed to modify the version parameter in a toml file that looks like the above
-#    the command is: sed -i "s/version = \"[0-9\\.]*\"/version = \"${nextReleaseVersion}\"/g" ./GUI/ETVR/src-tauri/Cargo.toml
+printf "[prepareCMD.sh]: Done, continuing with release. \n"
