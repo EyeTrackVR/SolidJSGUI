@@ -19,12 +19,12 @@
         "writeText": false
       },
       "dialog": {
-        "all": false,
-        "ask": false,
-        "confirm": false,
-        "message": false,
-        "open": false,
-        "save": false
+        "all": true,
+        "ask": true,
+        "confirm": true,
+        "message": true,
+        "open": true,
+        "save": true
       },
       "fs": {
         "all": false,
