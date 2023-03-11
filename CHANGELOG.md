@@ -3,6 +3,13 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.6](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.5...v1.0.0-SolidJSGUI.6) (2023-03-11)
+
+
+### 🍕 Features
+
+* Add contributions to tauri.conf.json ([9fd446a](https://github.com/RedHawk989/EyeTrackVR/commit/9fd446a4d337bd0d2341f62b957d37c95c984c16))
+
 ## [1.0.0-SolidJSGUI.5](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.4...v1.0.0-SolidJSGUI.5) (2023-03-10)
 
 
