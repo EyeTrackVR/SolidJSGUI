@@ -1,6 +1,3 @@
-import { Button } from '@kobalte/core'
-import { FaSolidGear } from 'solid-icons/fa'
-import CameraStatusIndicator from './CameraIndicator/CameraIndicator'
 import WebSocketHandler from '@components/WebSocket'
 import { ActiveStatus } from '@src/utils/utils'
 import { ICamera } from '@store/camera/camera'
@@ -11,41 +8,62 @@ export interface IProps extends ICamera {
 
 const Camera = (props: IProps) => {
     return (
-        <div class="m-[10px] pr-[14px] pl-[14px] py-[14px] pb-[14px] rounded-[14px] bg-[#333742] flex">
-            <div class="flex">
-                <div>
-                    <CameraStatusIndicator activeStatus={props.status} />
-                </div>
-            </div>
+        <div
+            class="m-[10px] pr-[14px] pl-[14px] py-[14px] h-full min-h-[222px] pb-[14px] rounded-[14px] bg-[#333742] flex border-2 border-[#333742] hover:border-[#817DF7]  hover:cursor-pointer ease-in duration-150"
+            onClick={() => props.onClick()}>
             <div class="flex items-center">
                 <div class="flex items-center h-[100%]">
-                    <div class="text-[#FFFF] bg-[#2b2f38] w-[155px] h-[155px] rounded-[14px] flex justify-center content-center items-center">
-                        <WebSocketHandler borderRadius="rounded-[14px]" width={100} height={100} />
+                    <div>
+                        <div class="text-white bg-[#2b2f38] w-[180px] h-[180px] rounded-[14px] flex justify-center content-center items-center">
+                            <WebSocketHandler
+                                borderRadius="rounded-[14px]"
+                                width={180}
+                                height={180}
+                            />
+                        </div>
                     </div>
                 </div>
-                <div class="bg-[#292D36] ml-[14px] rounded-[14px] h-[100%] p-[14px] ">
-                    <div class="text-center  pb-[14px]">
-                        <div class=" text-[#FFFF]"> {props.activeCameraSection} </div>
-                    </div>
+                <div class="bg-[#292D36] ml-[8px] rounded-[14px] h-[100%] p-[14px] flex justify-between flex-col">
                     <div>
-                        <div class="flex text-[#FFFF] justify-between">
-                            <div class="pr-[25px] pb-[14px]">Camera Address</div>
-                            <div>{props.address}</div>
-                        </div>
-                        <div class="flex text-[#FFFF] justify-between">
-                            <div class="pr-[25px] pb-[14px]">Status</div>
-                            <div style={{ color: ActiveStatus(props.status) }}>
-                                {props.status.toLocaleLowerCase()}
+                        <div>
+                            <div class="text-center pb-[22px]">
+                                <div>
+                                    <div class="text-white text-lg">
+                                        <p>{props.activeCameraSection}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="flex text-[#FFFF] justify-between">
-                            <div class="pr-[25px] pb-[14px]">Camera type</div>
-                            <div>{props.type.toLocaleLowerCase()}</div>
+                        <div>
+                            <div class="flex justify-between text-base">
+                                <div>
+                                    <div class="text-[#A9B6BF]  pr-[25px] pb-[8px]">
+                                        <p>Address</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="text-white">
+                                        <p>{props.address}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex text-white justify-between text-base">
+                                <div>
+                                    <div class="text-[#A9B6BF] pr-[25px] pb-[14px]">
+                                        <p>Status</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style={{ color: ActiveStatus(props.status) }}>
+                                        <p>{props.status.toLocaleLowerCase()}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex text-[#FFFF] justify-end ">
-                            <Button.Root aria-label="Settings" onClick={() => props.onClick()}>
-                                <FaSolidGear size={15} />
-                            </Button.Root>
+                    </div>
+                    <div>
+                        <div class="flex justify-end text-white text-xs">
+                            <p>v0.0.0</p>
                         </div>
                     </div>
                 </div>
