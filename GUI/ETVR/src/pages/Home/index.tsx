@@ -18,7 +18,7 @@ const Main = () => {
                     <div class="flex  items-center justify-between">
                         <div>
                             <div class="flex items-center ">
-                                <h1 class=" text-[30px] font-bold tracking-[0.02em] text-white">
+                                <h1 class=" text-3xl   font-bold tracking-[0.02em] text-white">
                                     CAMERAS
                                 </h1>
                             </div>

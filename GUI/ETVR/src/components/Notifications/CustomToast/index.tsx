@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 import { Transition, Toast, Alert } from 'solid-headless'
 import { AiOutlineCheckCircle } from 'solid-icons/ai'
 import { FiAlertTriangle, FiAlertOctagon } from 'solid-icons/fi'
@@ -11,25 +10,6 @@ import { notifications, notificationsType } from '@store/ui/selectors'
 interface ToastProps {
     id: string
     message: string
-}
-
-const NotificationIcon = () => {
-    return (
-        <div>
-            <Show when={notificationsType() === ENotificationType.SUCCESS}>
-                <AiOutlineCheckCircle size={25} color="#68D391" />
-            </Show>
-            <Show when={notificationsType() === ENotificationType.ERROR}>
-                <FiAlertOctagon size={25} color="#F56565" />
-            </Show>
-            <Show when={notificationsType() === ENotificationType.WARNING}>
-                <FiAlertTriangle size={25} color="#F6E05E" />
-            </Show>
-            <Show when={notificationsType() === ENotificationType.INFO}>
-                <IoAlertCircleSharp size={25} color="#90CDF4" />
-            </Show>
-        </div>
-    )
 }
 
 const CustomToast: Component<ToastProps> = (props) => {
@@ -54,7 +34,20 @@ const CustomToast: Component<ToastProps> = (props) => {
             }}>
             <Toast class="flex justify-between items-center">
                 <Alert class="bg-slate-600 flex grow flex-row items-center justify-center text-xl text-bold text-gray-50 p-4">
-                    <NotificationIcon />
+                    <div>
+                        <Show when={notificationsType() === ENotificationType.SUCCESS}>
+                            <AiOutlineCheckCircle size={25} color="#68D391" />
+                        </Show>
+                        <Show when={notificationsType() === ENotificationType.ERROR}>
+                            <FiAlertOctagon size={25} color="#F56565" />
+                        </Show>
+                        <Show when={notificationsType() === ENotificationType.WARNING}>
+                            <FiAlertTriangle size={25} color="#F6E05E" />
+                        </Show>
+                        <Show when={notificationsType() === ENotificationType.INFO}>
+                            <IoAlertCircleSharp size={25} color="#90CDF4" />
+                        </Show>
+                    </div>
                     <span class="flex-1 text-sm font-semibold pl-1 pr-1 text-gray-50">
                         {props.message}
                     </span>
