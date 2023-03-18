@@ -29,7 +29,6 @@ export interface IUiStore {
     connectedUser: string
     notifications?: ToasterStore<string>
     notificationsType?: ENotificationType
-    displayMode: POPOVER_ID
 }
 
 export const defaultState = {
@@ -41,7 +40,6 @@ export const defaultState = {
     showCameraView: false,
     notifications: new ToasterStore<string>(),
     notificationsType: ENotificationType.INFO,
-    displayMode: POPOVER_ID.GRIP,
 }
 
 const [state, setState] = createStore<IUiStore>(defaultState)
@@ -58,13 +56,6 @@ export const setConnecting = (connecting: boolean) => {
     setState(
         produce((s) => {
             s.connecting = connecting
-        }),
-    )
-}
-export const setDisplayMode = (view: POPOVER_ID) => {
-    setState(
-        produce((s) => {
-            s.displayMode = view
         }),
     )
 }

@@ -1,4 +1,5 @@
 import icons from '@assets/images'
+import CustomSlideAnimation from '@components/CustomSlideAnimation'
 import { Image } from '@kobalte/core'
 import { Link } from '@solidjs/router'
 import CustomPopover from './CustomPopover'
@@ -26,30 +27,26 @@ const Header = (props: Iprops) => {
                         </Link>
                     </div>
                     <div>
-                        <div class="flex  content-center h-[45px] mt-[5px]">
-                            <div>
-                                <div class="flex grow justify-center border-none shadow-lg items-center content-center leading-5 font-sans font-medium text-[.75rem] rounded-[15px] h-[100%] w-[100%] bg-[#0e0e0e] text-[#5f5f5f]">
-                                    <div class="h-full">
-                                        <div class="ml-auto flex grow content-center justify-between h-full leading-5 font-sans font-medium rounded-xl p-1 bg-[#0e0e0e] w-[145px]">
-                                            <Link href="/" class="no-underline flex mr-[5px]">
-                                                <CustomPopover
-                                                    styles="h-full"
-                                                    popoverContent="Tracker manager"
-                                                    icon={icons.cameraSolid}
-                                                />
-                                            </Link>
-                                            <Link href="/settings" class="no-underline flex pl-1">
-                                                <CustomPopover
-                                                    styles="h-full"
-                                                    popoverContent="Settings"
-                                                    icon={icons.gearSolid}
-                                                />
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <CustomSlideAnimation
+                            firstChild={
+                                <Link href="/" class="no-underline flex">
+                                    <CustomPopover
+                                        styles="h-full"
+                                        popoverContent="Tracker manager"
+                                        icon={icons.cameraSolid}
+                                    />
+                                </Link>
+                            }
+                            secondChild={
+                                <Link href="/settings" class="no-underline flex">
+                                    <CustomPopover
+                                        styles="h-full"
+                                        popoverContent="App settings"
+                                        icon={icons.gearSolid}
+                                    />
+                                </Link>
+                            }
+                        />
                     </div>
                     <div>
                         <div class="inline-flex mt-[5px] justify-center rounded-[14px] bg-[#0e0e0e] bg-opacity-100 font-medium">

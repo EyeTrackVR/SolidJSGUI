@@ -1,17 +1,17 @@
 import icons from '@assets/images'
 import Camera from '@components/Camera'
+import CustomSlideAnimation from '@components/CustomSlideAnimation'
 import CustomPopover from '@components/Header/CustomPopover'
 import List from '@components/List/List'
 import ListHeader from '@components/List/ListHeader/ListHeader'
-import { ANIMATION_MODE, POPOVER_ID } from '@src/static/types/enums'
+import { POPOVER_ID } from '@src/static/types/enums'
 import { setRestDevice } from '@src/store/api/restAPI'
 import { cameras } from '@src/store/camera/selectors'
-import { displayMode } from '@src/store/ui/selectors'
-import { setDisplayMode, setOpenModal } from '@src/store/ui/ui'
+import { setOpenModal } from '@src/store/ui/ui'
 import { createSignal, For, Show } from 'solid-js'
 
 const Home = () => {
-    const [hoverMode, setHoverMode] = createSignal(ANIMATION_MODE.GRIP)
+    const [displayMode, setDisplayMode] = createSignal(POPOVER_ID.GRIP)
 
     return (
         <div>
@@ -26,28 +26,11 @@ const Home = () => {
                             </div>
                         </div>
                         <div>
-                            <div class="relative mt-auto mb-auto h-[45px] ml-auto flex leading-5 font-sans font-medium rounded-xl p-1 bg-[#0e0e0e]">
-                                <div class="relative flex height-[20px]">
+                            <CustomSlideAnimation
+                                firstChild={
                                     <div
-                                        class={`absolute bg-[#252536] w-1/2 h-full rounded-lg pointer-events-none ease-in duration-150  ${
-                                            hoverMode().match(ANIMATION_MODE.LIST)
-                                                ? 'right-[0%]'
-                                                : 'right-[50%]'
-                                        }`}
-                                    />
-                                    <div
-                                        class="flex pr-1 "
-                                        onClick={() => {
-                                            setDisplayMode(POPOVER_ID.GRIP)
-                                        }}
-                                        onMouseLeave={() => {
-                                            setHoverMode(
-                                                displayMode().match(hoverMode())
-                                                    ? ANIMATION_MODE.GRIP
-                                                    : ANIMATION_MODE.LIST,
-                                            )
-                                        }}
-                                        onMouseEnter={() => setHoverMode(ANIMATION_MODE.GRIP)}>
+                                        class="flex"
+                                        onClick={() => setDisplayMode(POPOVER_ID.GRIP)}>
                                         <CustomPopover
                                             styles="h-[100%]"
                                             popoverContent={POPOVER_ID.GRIP}
@@ -55,26 +38,20 @@ const Home = () => {
                                             disablePopover={true}
                                         />
                                     </div>
+                                }
+                                secondChild={
                                     <div
-                                        class="flex pl-1 "
-                                        onMouseLeave={() => {
-                                            setHoverMode(
-                                                displayMode().match(hoverMode())
-                                                    ? ANIMATION_MODE.LIST
-                                                    : ANIMATION_MODE.GRIP,
-                                            )
-                                        }}
-                                        onMouseEnter={() => setHoverMode(ANIMATION_MODE.LIST)}
+                                        class="flex"
                                         onClick={() => setDisplayMode(POPOVER_ID.LIST)}>
                                         <CustomPopover
                                             styles="h-[100%]"
-                                            popoverContent={POPOVER_ID.LIST}
+                                            popoverContent={POPOVER_ID.GRIP}
                                             icon={icons.list}
                                             disablePopover={true}
                                         />
                                     </div>
-                                </div>
-                            </div>
+                                }
+                            />
                         </div>
                     </div>
                 </div>
