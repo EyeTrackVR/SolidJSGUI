@@ -10,6 +10,12 @@ export enum POPOVER_ID {
     SETTINGS_POPOVER = 'settings-popover',
 }
 
+export enum ANIMATION_MODE {
+    GRIP = 'grip-popover',
+    LIST = 'list-popover',
+    NONE = 'NONE',
+}
+
 export enum loaderType {
     MDNS_CONNECTING = 'MDNS_CONNECTING',
     REST_CLIENT = 'REST_CLIENT',

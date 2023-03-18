@@ -43,7 +43,6 @@ const Settings = (props: IProps) => {
                         cameraType={props.cameraType}
                     />
                 </div>
-
                 <div>
                     <CameraSettings
                         header={props.CameraSettingsHeader}

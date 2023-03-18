@@ -5,13 +5,12 @@ export interface ICustomPopover {
     icon: string
     popoverContent?: string
     disablePopover?: boolean
-    onClick?: () => void
     styles?: string
-    active?: string
 }
 
 const CustomPopover = (props: ICustomPopover) => {
     const [open, setOpen] = createSignal(false)
+
     const handlePopOver = () => {
         if (props.disablePopover) {
             setOpen(false)
@@ -25,10 +24,7 @@ const CustomPopover = (props: ICustomPopover) => {
             onMouseLeave={handlePopOver}
             class="group relative inline-flex">
             <Popover.Root isOpen={open()}>
-                <Popover.Trigger
-                    class="rounded-[8px] pl-[1.5rem] pr-[1.5rem] focus:bg-[#252536] hover:bg-[#252536]"
-                    style={{ background: props.active === props.popoverContent ? '#252536' : '' }}
-                    onClick={() => props.onClick?.()}>
+                <Popover.Trigger class="rounded-[8px] pl-[1.5rem] pr-[1.5rem] ">
                     <Image.Root>
                         <Image.Img
                             src={props.icon}
@@ -44,7 +40,7 @@ const CustomPopover = (props: ICustomPopover) => {
                         <Popover.Content class="popover__content">
                             <Popover.Arrow class="" />
                             <Popover.Description class="popover__description">
-                                {props.popoverContent ?? ''}
+                                {props.popoverContent || ''}
                             </Popover.Description>
                         </Popover.Content>
                     </Popover.Portal>

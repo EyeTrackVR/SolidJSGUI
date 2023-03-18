@@ -47,7 +47,7 @@ const Camera = (props: IProps) => {
                                     </div>
                                 </div>
                             </div>
-                            <div class="flex text-white justify-between text-base">
+                            <div class="flex text-white justify-between text-base ">
                                 <div>
                                     <div class="text-[#A9B6BF] pr-[25px] pb-[14px]">
                                         <p>Status</p>

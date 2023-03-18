@@ -3,19 +3,21 @@ import Camera from '@components/Camera'
 import CustomPopover from '@components/Header/CustomPopover'
 import List from '@components/List/List'
 import ListHeader from '@components/List/ListHeader/ListHeader'
-import { POPOVER_ID } from '@src/static/types/enums'
+import { ANIMATION_MODE, POPOVER_ID } from '@src/static/types/enums'
 import { setRestDevice } from '@src/store/api/restAPI'
 import { cameras } from '@src/store/camera/selectors'
 import { displayMode } from '@src/store/ui/selectors'
 import { setDisplayMode, setOpenModal } from '@src/store/ui/ui'
-import { For, Show } from 'solid-js'
+import { createSignal, For, Show } from 'solid-js'
 
-const Main = () => {
+const Home = () => {
+    const [hoverMode, setHoverMode] = createSignal(ANIMATION_MODE.GRIP)
+
     return (
         <div>
             <div class="py-[60px]">
                 <div>
-                    <div class="flex  items-center justify-between">
+                    <div class="flex items-center justify-between">
                         <div>
                             <div class="flex items-center ">
                                 <h1 class=" text-3xl   font-bold tracking-[0.02em] text-white">
@@ -24,26 +26,53 @@ const Main = () => {
                             </div>
                         </div>
                         <div>
-                            <div class="mt-auto mb-auto ml-auto flex h-[45px] leading-5 font-sans font-medium rounded-xl p-1 bg-[#0e0e0e]">
-                                <div class="flex pr-1">
-                                    <CustomPopover
-                                        active={displayMode()}
-                                        styles="h-[100%]"
-                                        popoverContent={POPOVER_ID.GRIP}
-                                        icon={icons.grip}
-                                        disablePopover={true}
-                                        onClick={() => setDisplayMode(POPOVER_ID.GRIP)}
+                            <div class="relative mt-auto mb-auto h-[45px] ml-auto flex leading-5 font-sans font-medium rounded-xl p-1 bg-[#0e0e0e]">
+                                <div class="relative flex height-[20px]">
+                                    <div
+                                        class={`absolute bg-[#252536] w-1/2 h-full rounded-lg pointer-events-none ease-in duration-150  ${
+                                            hoverMode().match(ANIMATION_MODE.LIST)
+                                                ? 'right-[0%]'
+                                                : 'right-[50%]'
+                                        }`}
                                     />
-                                </div>
-                                <div class="flex pl-1">
-                                    <CustomPopover
-                                        active={displayMode()}
-                                        onClick={() => setDisplayMode(POPOVER_ID.LIST)}
-                                        styles="h-[100%]"
-                                        popoverContent={POPOVER_ID.LIST}
-                                        icon={icons.list}
-                                        disablePopover={true}
-                                    />
+                                    <div
+                                        class="flex pr-1 "
+                                        onClick={() => {
+                                            setDisplayMode(POPOVER_ID.GRIP)
+                                        }}
+                                        onMouseLeave={() => {
+                                            setHoverMode(
+                                                displayMode().match(hoverMode())
+                                                    ? ANIMATION_MODE.GRIP
+                                                    : ANIMATION_MODE.LIST,
+                                            )
+                                        }}
+                                        onMouseEnter={() => setHoverMode(ANIMATION_MODE.GRIP)}>
+                                        <CustomPopover
+                                            styles="h-[100%]"
+                                            popoverContent={POPOVER_ID.GRIP}
+                                            icon={icons.grip}
+                                            disablePopover={true}
+                                        />
+                                    </div>
+                                    <div
+                                        class="flex pl-1 "
+                                        onMouseLeave={() => {
+                                            setHoverMode(
+                                                displayMode().match(hoverMode())
+                                                    ? ANIMATION_MODE.LIST
+                                                    : ANIMATION_MODE.GRIP,
+                                            )
+                                        }}
+                                        onMouseEnter={() => setHoverMode(ANIMATION_MODE.LIST)}
+                                        onClick={() => setDisplayMode(POPOVER_ID.LIST)}>
+                                        <CustomPopover
+                                            styles="h-[100%]"
+                                            popoverContent={POPOVER_ID.LIST}
+                                            icon={icons.list}
+                                            disablePopover={true}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -80,20 +109,24 @@ const Main = () => {
                         </div>
                     ) : (
                         <div>
-                            <ListHeader />
-                            <For each={cameras()}>
-                                {(camera) => (
-                                    <div>
-                                        <List
-                                            {...camera}
-                                            onClick={() => {
-                                                setRestDevice(camera.address)
-                                                setOpenModal(true)
-                                            }}
-                                        />
-                                    </div>
-                                )}
-                            </For>
+                            <div>
+                                <ListHeader />
+                            </div>
+                            <div>
+                                <For each={cameras()}>
+                                    {(camera) => (
+                                        <div>
+                                            <List
+                                                {...camera}
+                                                onClick={() => {
+                                                    setRestDevice(camera.address)
+                                                    setOpenModal(true)
+                                                }}
+                                            />
+                                        </div>
+                                    )}
+                                </For>
+                            </div>
                         </div>
                     )}
                 </Show>
@@ -102,4 +135,4 @@ const Main = () => {
     )
 }
 
-export default Main
+export default Home
