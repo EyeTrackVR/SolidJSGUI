@@ -38,7 +38,7 @@ const Header = (props: Iprops) => {
                                 </Link>
                             }
                             secondChild={
-                                <Link href="/settings" class="no-underline flex">
+                                <Link href="/appSettings" class="no-underline flex">
                                     <CustomPopover
                                         styles="h-full"
                                         popoverContent="App settings"

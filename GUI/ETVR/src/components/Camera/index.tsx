@@ -10,7 +10,7 @@ const Camera = (props: IProps) => {
         <div
             class="responsive-container m-auto justify-between items-center pr-[14px] pl-[14px] py-[14px] h-full min-h-[222px] pb-[14px] rounded-[14px] bg-[#333742] flex border-2 border-[#333742] hover:border-[#817DF7]  hover:cursor-pointer"
             onClick={() => props.onClick()}>
-            <div class=" responsive-flex-container w-full h-full flex items-center flex-row">
+            <div class="responsive-flex-container w-full h-full flex items-center flex-row">
                 <div class="responsive-iframe-container flex items-center h-full w-full ">
                     <div class="h-full w-full">
                         <video class="bg-black rounded-t-[14px] w-full h-full" autoplay>
@@ -68,3 +68,6 @@ const Camera = (props: IProps) => {
 }
 
 export default Camera
+
+// TODO : add type of camera
+// TODO : add option for creating new camera

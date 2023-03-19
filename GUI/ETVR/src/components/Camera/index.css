@@ -14,6 +14,16 @@ video {
     border-radius: 14px;
 }
 
+@media (min-width: 1749px) {
+    .responsive-create-camera-img {
+        margin: 0px;
+    }
+    .responsive-create-camera-img img {
+        padding: 0px;
+        aspect-ratio: 16/5;
+    }
+}
+
 @media (max-width: 1749px) {
     .responsive-container {
         width: 100%;

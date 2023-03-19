@@ -6,10 +6,12 @@ export enum CameraStatus {
     DISABLED = 'DISABLED',
     LOADING = 'LOADING',
     FAILED = 'FAILED',
+    NONE = 'NONE',
 }
 
 export enum CameraType {
     WIRELESS = 'WIRELESS',
+    NONE = 'NONE',
 }
 
 export interface ICamera {
@@ -60,10 +62,17 @@ const tempCameraComponents: ICamera[] = [
 
 interface ICameraStore {
     cameras: ICamera[]
+    selectedCamera: ICamera
 }
 
 export const defaultState: ICameraStore = {
     cameras: tempCameraComponents,
+    selectedCamera: {
+        status: CameraStatus.NONE,
+        type: CameraType.NONE,
+        address: ' ',
+        activeCameraSection: ' ',
+    },
 }
 
 const [state, setState] = createStore<ICameraStore>(defaultState)
@@ -87,6 +96,14 @@ export const setCameraStatus = (camera: ICamera, status: CameraStatus) => {
         produce((s) => {
             s.cameras = s.cameras.filter((c: { address: string }) => c.address !== camera.address)
             s.cameras.push({ ...camera, status })
+        }),
+    )
+}
+
+export const setSelectedCamera = (camera: ICamera) => {
+    setState(
+        produce((s) => {
+            s.selectedCamera = camera
         }),
     )
 }

@@ -1,5 +1,5 @@
+import { ENotificationType } from '../enums'
 import type { JSXElement } from 'solid-js'
-import { ENotificationType } from '@static/types/enums'
 
 //* Component Interfaces
 export interface Iinternal {
