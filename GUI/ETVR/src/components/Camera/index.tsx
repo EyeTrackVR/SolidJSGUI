@@ -16,8 +16,8 @@ const Camera = (props: IProps) => {
                     <div class="h-full w-full">
                         <img
                             src={props.address}
-                            alt=""
-                            class="aspect-square bg-black  rounded-t-[14px]"
+                            alt="img"
+                            class="w-full h-full aspect-square bg-black  rounded-t-[14px]"
                         />
                     </div>
                 </div>
