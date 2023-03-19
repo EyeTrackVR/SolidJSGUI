@@ -14,10 +14,6 @@ iframe {
     border-radius: 14px;
 }
 
-img {
-    border-radius: 14px;
-}
-
 @media (max-width: 1749px) {
     .responsive-container {
         width: 100%;
@@ -37,11 +33,6 @@ img {
         flex-direction: column;
     }
     iframe {
-        border-radius: 0px;
-        z-index: 2;
-        aspect-ratio: 1/1;
-    }
-    img {
         border-radius: 0px;
         z-index: 2;
         aspect-ratio: 1/1;

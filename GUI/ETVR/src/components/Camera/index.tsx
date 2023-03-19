@@ -1,6 +1,8 @@
+import icons from '@assets/images'
+import Loader from '@components/Loader'
+import CameraModalComponent from '@components/Settings/CamerasModal/CameraModalComponent'
 import { ActiveStatus } from '@src/utils/utils'
 import { ICamera } from '@store/camera/camera'
-
 import './index.css'
 export interface IProps extends ICamera {
     onClick: () => void
@@ -14,10 +16,13 @@ const Camera = (props: IProps) => {
             <div class=" responsive-flex-container w-full h-full flex items-center flex-row">
                 <div class="responsive-iframe-container flex items-center h-full w-full ">
                     <div class="h-full w-full">
-                        <img
-                            src={props.address}
-                            alt="img"
-                            class="w-full h-full aspect-square bg-black  rounded-t-[14px]"
+                        <iframe
+                            src=""
+                            name="TV"
+                            class="bg-black rounded-t-[14px]"
+                            height="100%"
+                            width="100%"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture full"
                         />
                     </div>
                 </div>
