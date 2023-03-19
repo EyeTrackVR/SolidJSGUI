@@ -1,0 +1,13 @@
+.camera_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(408px, 1fr));
+    grid-gap: 1rem;
+}
+
+@media (max-width: 1749px) {
+    .camera_grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
+        grid-gap: 1rem;
+    }
+}

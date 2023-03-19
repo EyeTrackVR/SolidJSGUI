@@ -33,7 +33,25 @@ const tempCameraComponents: ICamera[] = [
         activeCameraSection: 'Right Eye',
     },
     {
-        status: CameraStatus.FAILED,
+        status: CameraStatus.LOADING,
+        type: CameraType.WIRELESS,
+        address: '192.168.0.234',
+        activeCameraSection: 'Right Eye',
+    },
+    {
+        status: CameraStatus.LOADING,
+        type: CameraType.WIRELESS,
+        address: '192.168.0.204',
+        activeCameraSection: 'Left Eye',
+    },
+    {
+        status: CameraStatus.LOADING,
+        type: CameraType.WIRELESS,
+        address: '192.168.0.232',
+        activeCameraSection: 'Right Eye',
+    },
+    {
+        status: CameraStatus.LOADING,
         type: CameraType.WIRELESS,
         address: '192.168.0.234',
         activeCameraSection: 'Right Eye',

@@ -1,7 +1,7 @@
-import WebSocketHandler from '@components/WebSocket'
 import { ActiveStatus } from '@src/utils/utils'
 import { ICamera } from '@store/camera/camera'
 
+import './index.css'
 export interface IProps extends ICamera {
     onClick: () => void
 }
@@ -9,24 +9,22 @@ export interface IProps extends ICamera {
 const Camera = (props: IProps) => {
     return (
         <div
-            class="m-[10px] pr-[14px] pl-[14px] py-[14px] h-full min-h-[222px] pb-[14px] rounded-[14px] bg-[#333742] flex border-2 border-[#333742] hover:border-[#817DF7]  hover:cursor-pointer ease-in duration-150"
+            class="responsive-container m-auto justify-between items-center pr-[14px] pl-[14px] py-[14px] h-full min-h-[222px] pb-[14px] rounded-[14px] bg-[#333742] flex border-2 border-[#333742] hover:border-[#817DF7]  hover:cursor-pointer"
             onClick={() => props.onClick()}>
-            <div class="flex items-center">
-                <div class="flex items-center h-[100%]">
-                    <div>
-                        <div class="text-white bg-[#2b2f38] w-[180px] h-[180px] rounded-[14px] flex justify-center content-center items-center">
-                            <WebSocketHandler
-                                borderRadius="rounded-[14px]"
-                                width={180}
-                                height={180}
-                            />
-                        </div>
+            <div class=" responsive-flex-container w-full h-full flex items-center flex-row">
+                <div class="responsive-iframe-container flex items-center h-full w-full ">
+                    <div class="h-full w-full">
+                        <img
+                            src={props.address}
+                            alt=""
+                            class="aspect-square bg-black  rounded-t-[14px]"
+                        />
                     </div>
                 </div>
-                <div class="bg-[#292D36] ml-[8px] rounded-[14px] h-[100%] p-[14px] flex justify-between flex-col">
+                <div class="responsive-spacer-container bg-[#292D36] rounded-b-[14px] min-[1749px]:rounded-[14px]  h-[100%] w-full p-[14px] flex justify-between flex-col">
                     <div>
                         <div>
-                            <div class="text-center pb-[22px]">
+                            <div class="text-center pb-3">
                                 <div>
                                     <div class="text-white text-lg">
                                         <p>{props.activeCameraSection}</p>
@@ -35,9 +33,9 @@ const Camera = (props: IProps) => {
                             </div>
                         </div>
                         <div>
-                            <div class="flex justify-between text-base">
+                            <div class="flex justify-between text-base 2xl:pb-3">
                                 <div>
-                                    <div class="text-[#A9B6BF]  pr-[25px] pb-[8px]">
+                                    <div class="text-[#A9B6BF]">
                                         <p>Address</p>
                                     </div>
                                 </div>
@@ -47,9 +45,9 @@ const Camera = (props: IProps) => {
                                     </div>
                                 </div>
                             </div>
-                            <div class="flex text-white justify-between text-base ">
+                            <div class="flex text-white justify-between text-base pb-2 2xl:pb-3">
                                 <div>
-                                    <div class="text-[#A9B6BF] pr-[25px] pb-[14px]">
+                                    <div class="text-[#A9B6BF]">
                                         <p>Status</p>
                                     </div>
                                 </div>
