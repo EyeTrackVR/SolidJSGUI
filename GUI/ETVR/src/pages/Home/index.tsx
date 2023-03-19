@@ -1,3 +1,4 @@
+import { createSignal, For, Show } from 'solid-js'
 import icons from '@assets/images'
 import Camera from '@components/Camera'
 import CustomSlideAnimation from '@components/CustomSlideAnimation'
@@ -8,7 +9,6 @@ import { POPOVER_ID } from '@src/static/types/enums'
 import { setRestDevice } from '@src/store/api/restAPI'
 import { cameras } from '@src/store/camera/selectors'
 import { setOpenModal } from '@src/store/ui/ui'
-import { createSignal, For, Show } from 'solid-js'
 import './index.css'
 const Home = () => {
     const [displayMode, setDisplayMode] = createSignal(POPOVER_ID.GRIP)

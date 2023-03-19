@@ -1,8 +1,8 @@
-import icons from '@assets/images'
-import CustomSlideAnimation from '@components/CustomSlideAnimation'
 import { Image } from '@kobalte/core'
 import { Link } from '@solidjs/router'
 import CustomPopover from './CustomPopover'
+import icons from '@assets/images'
+import CustomSlideAnimation from '@components/CustomSlideAnimation'
 import './styles.css'
 
 interface Iprops {

@@ -1,5 +1,5 @@
-import { ANIMATION_MODE, POPOVER_ID } from '@src/static/types/enums'
 import { createSignal, JSX } from 'solid-js'
+import { ANIMATION_MODE, POPOVER_ID } from '@src/static/types/enums'
 
 export interface IProps {
     firstChild: JSX.Element

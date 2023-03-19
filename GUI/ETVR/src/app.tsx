@@ -1,6 +1,6 @@
+import { lazy, onMount, Suspense } from 'solid-js'
 import { MdnsProvider } from '@utils/context/mdns'
 import { handleAppBoot, handleTitlebar } from '@utils/hooks/app'
-import { lazy, onMount, Suspense } from 'solid-js'
 
 const AppRoutes = lazy(() => import('@routes/Routes'))
 const CameraSettingsModal = lazy(() => import('@components/Camera/CameraSettingsModal'))
