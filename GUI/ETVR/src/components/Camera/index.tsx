@@ -1,6 +1,3 @@
-import icons from '@assets/images'
-import Loader from '@components/Loader'
-import CameraModalComponent from '@components/Settings/CamerasModal/CameraModalComponent'
 import { ActiveStatus } from '@src/utils/utils'
 import { ICamera } from '@store/camera/camera'
 import './index.css'
@@ -16,14 +13,9 @@ const Camera = (props: IProps) => {
             <div class=" responsive-flex-container w-full h-full flex items-center flex-row">
                 <div class="responsive-iframe-container flex items-center h-full w-full ">
                     <div class="h-full w-full">
-                        <iframe
-                            src=""
-                            name="TV"
-                            class="bg-black rounded-t-[14px]"
-                            height="100%"
-                            width="100%"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture full"
-                        />
+                        <video class="bg-black rounded-t-[14px] w-full h-full" autoplay>
+                            <source src={props.address} type="video/mp4" />
+                        </video>
                     </div>
                 </div>
                 <div class="responsive-spacer-container bg-[#292D36] rounded-b-[14px] min-[1749px]:rounded-[14px]  h-[100%] w-full p-[14px] flex justify-between flex-col">

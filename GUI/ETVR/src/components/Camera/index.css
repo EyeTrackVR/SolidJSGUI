@@ -10,7 +10,7 @@
     margin-right: 10px;
     max-width: 208px;
 }
-iframe {
+video {
     border-radius: 14px;
 }
 
@@ -32,7 +32,7 @@ iframe {
     .responsive-flex-container {
         flex-direction: column;
     }
-    iframe {
+    video {
         border-radius: 0px;
         z-index: 2;
         aspect-ratio: 1/1;
