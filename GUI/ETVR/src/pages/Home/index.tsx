@@ -1,3 +1,5 @@
+import { useNavigate } from '@solidjs/router'
+import { createSignal, For } from 'solid-js'
 import icons from '@assets/images'
 import Camera from '@components/Camera'
 import CreateCamera from '@components/Camera/CreateCamera'
@@ -5,12 +7,10 @@ import CustomSlideAnimation from '@components/CustomSlideAnimation'
 import CustomPopover from '@components/Header/CustomPopover'
 import List from '@components/List/List'
 import ListHeader from '@components/List/ListHeader/ListHeader'
-import { useNavigate } from '@solidjs/router'
 import { POPOVER_ID } from '@src/static/types/enums'
 import { setRestDevice } from '@src/store/api/restAPI'
 import { setSelectedCamera } from '@src/store/camera/camera'
 import { cameras } from '@src/store/camera/selectors'
-import { createSignal, For } from 'solid-js'
 import './index.css'
 
 const Home = () => {

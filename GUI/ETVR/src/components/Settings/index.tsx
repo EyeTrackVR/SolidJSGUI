@@ -1,9 +1,9 @@
-import { RANGE_INPUT_FORMAT } from '@src/static/types/enums'
-import { CameraStatus, CameraType } from '@store/camera/camera'
 import CameraAddress from './CameraAddress/CameraAddress'
 import CameraInfo from './CameraInfo/CameraInfo'
 import CameraSettings from './CameraSettings'
 import CamerasModal from './CamerasModal'
+import { RANGE_INPUT_FORMAT } from '@src/static/types/enums'
+import { CameraStatus, CameraType } from '@store/camera/camera'
 
 export interface IProps {
     onChange: (value: string) => void
