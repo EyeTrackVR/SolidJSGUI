@@ -7,7 +7,7 @@ const AppSettings = lazy(() => import('@pages/AppSettings'))
 const page404 = lazy(() => import('@pages/errors/index'))
 
 export const routes: RouteDefinition[] = [
-    { path: '/', component: Home },
+    { path: '/', component: Settings },
     { path: '/appSettings', component: AppSettings },
     { path: '/settings', component: Settings },
     { path: '**', component: page404 },
