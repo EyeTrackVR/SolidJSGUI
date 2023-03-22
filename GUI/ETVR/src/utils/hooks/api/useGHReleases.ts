@@ -73,20 +73,6 @@ const setGHData = (data: IGHRelease, exists: boolean) => {
         })
 }
 
-/**
- * @description Invoke the do_gh_request command
- * @function doGHRequest
- * @async
- * @export
- * @note This function will call the github repo REST API release endpoint and update/create a config.json file with the latest release data
- * @note This function will write the file to the app config directory C:\Users\<User>\AppData\Roaming\com.eyetrackvr.dev\config.json
- * @note Should be called when user clicks the "Check for Firmware Updates" button
- * @example
- * import { doGHRequest } from './github'
- * doGHRequest()
- * .then(() => console.log('Request sent'))
- * .catch((err) => console.error(err))
- */
 export const doGHRequest = () => {
     getClient()
         .then((client) => {

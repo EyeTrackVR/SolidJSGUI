@@ -22,9 +22,10 @@ const App = () => {
                 <NewWindow ref={ref} name="test">
                     <ExampleMenu />
                 </NewWindow>
-                <ModalMenu>
+                {/* <ModalMenu>
                     <CameraSettingsModal />
-                </ModalMenu>
+                </ModalMenu> */}
+                {/* disabled it's not working */}
                 <ToastNotificationWindow />
             </Suspense>
         </div>

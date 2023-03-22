@@ -1,5 +1,5 @@
 import { CameraStatus } from '@src/store/camera/camera'
-import { ActiveStatus } from '@src/utils/utils'
+import { ActiveStatus } from '@src/utils/index'
 
 export interface IProps {
     cameraStatus: CameraStatus
