@@ -18,7 +18,7 @@ const Camera = (props: IProps) => {
                         </video>
                     </div>
                 </div>
-                <div class="responsive-spacer-container bg-[#292D36] rounded-b-xl min-[1749px]:rounded-xl  h-[100%] w-full p-3 flex justify-between flex-col">
+                <div class="responsive-spacer-container bg-[#292D36] rounded-b-xl min-[1749px]:rounded-xl max-w-[209px] h-[100%] w-full p-3">
                     <div>
                         <div>
                             <div class="text-center pb-3">
@@ -32,13 +32,13 @@ const Camera = (props: IProps) => {
                         <div>
                             <div class="flex justify-between text-base 2xl:pb-3">
                                 <div>
-                                    <div class="text-[#A9B6BF]">
+                                    <div class="text-[#A9B6BF] pr-2">
                                         <p>Address</p>
                                     </div>
                                 </div>
-                                <div>
-                                    <div class="text-white">
-                                        <p>{props.address}</p>
+                                <div class="overflow-hidden pl-2">
+                                    <div class="text-white text-ellipsis overflow-hidden">
+                                        <p class="overflow-hidden text-ellipsis">{props.address}</p>
                                     </div>
                                 </div>
                             </div>
