@@ -1,76 +1,65 @@
-import CameraAddress from './CameraAddress/CameraAddress'
-import CameraInfo from './CameraInfo/CameraInfo'
+import CameraCalibrationSettings from './CameraCalibrationSettings'
+import CameraConnectionStatus from './CameraConnectionStatus/CameraInfo'
 import CameraSettings from './CameraSettings'
 import CamerasModal from './CamerasModal'
 import { RANGE_INPUT_FORMAT } from '@src/static/types/enums'
-import { CameraStatus, CameraType } from '@store/camera/camera'
-import { useGHRelease, doGHRequest } from '@utils/hooks/api/useGHReleases'
+import { CameraStatus } from '@store/camera/camera'
 
 export interface IProps {
-    onChange: (value: string) => void
+    onChange: (format: string, value: number) => void
     onClick: (selected: string) => void
-    cameraIP: string
+    onClickBack: () => void
+    onClickCalibrate: () => void
+    onClickRecenter: () => void
+    onClickCroppingMode: () => void
     cameraStatus: CameraStatus
-    cameraType: CameraType
-    placeholder: string
-    CameraAddressHeader: string
-    CameraConfigOptionsHeader: string
-    CameraSettingsHeader: string
     camerasUrl: string[]
 }
 
 const Settings = (props: IProps) => {
-    const { data, downloadAsset } = useGHRelease()
     return (
-        <div class="pt-[50px] grid grid-flow-col gap-[22px]">
-            <div class="mt-[22px]  hidden  2xl:block  ">
-                <CameraInfo
-                    cameraIP={props.cameraIP}
-                    cameraStatus={props.cameraStatus}
-                    cameraType={props.cameraType}
-                />
-            </div>
-            <div class="mt-[22px]">
-                <div class="mb-[22px]">
-                    <CameraAddress
-                        onChange={(value) => props.onChange(value)}
-                        placeholder={props.placeholder}
-                        header={props.CameraAddressHeader}
-                    />
+        <div>
+            <div class="pt-12">
+                <div onClick={() => props.onClickBack()}>
+                    <p class="text-left text-white text-lg text-upper uppercase cursor-pointer">
+                        go back to home
+                    </p>
                 </div>
-                <div class="mb-[22px] block 2xl:hidden">
-                    <CameraInfo
-                        cameraIP={props.cameraIP}
-                        cameraStatus={props.cameraStatus}
-                        cameraType={props.cameraType}
-                    />
+                <div class="flex justify-center gap-5">
+                    <div class="mt-5 max-w-[700px] w-full ">
+                        <div>
+                            <div class="mb-5">
+                                <CameraConnectionStatus cameraStatus={props.cameraStatus} />
+                            </div>
+                        </div>
+                        <div>
+                            <div class="mb-5">
+                                <CameraCalibrationSettings
+                                    onClickCalibrate={() => {
+                                        props.onClickCalibrate()
+                                    }}
+                                    onClickRecenter={() => {
+                                        props.onClickRecenter()
+                                    }}
+                                    onClickCroppingMode={() => {
+                                        props.onClickCroppingMode()
+                                    }}
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <CameraSettings
+                                formats={Object.keys(RANGE_INPUT_FORMAT)}
+                                onChange={(format, value) => {
+                                    props.onChange(format, value)
+                                }}
+                            />
+                        </div>
+                    </div>
+                    <div class="mt-5 max-w-[500px] w-full">
+                        <CamerasModal camerasUrl={props.camerasUrl} />
+                    </div>
                 </div>
-                <div>
-                    <CameraSettings
-                        header={props.CameraSettingsHeader}
-                        formats={Object.keys(RANGE_INPUT_FORMAT)}
-                        onChange={(format, value) => {
-                            console.log(format, value)
-                        }}
-                    />
-                </div>
-            </div>
-            <div class="mt-[22px]">
-                <CamerasModal camerasUrl={props.camerasUrl} />
-            </div>
-            <div class="mt-[22px]">
-                <button
-                    class="bg-[#2f80ed] text-white rounded-md px-[22px] py-[10px] font-bold"
-                    onClick={doGHRequest}>
-                    Get Release
-                </button>
-            </div>
-            <div class="mt-[22px]">
-                <button
-                    class="bg-[#2f80ed] text-white rounded-md px-[22px] py-[10px] font-bold"
-                    onClick={() => downloadAsset('esp32AIThinker')}>
-                    Download Asset
-                </button>
             </div>
         </div>
     )

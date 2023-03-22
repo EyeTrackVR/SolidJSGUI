@@ -1,17 +1,23 @@
-import { createSignal, For, Show } from 'solid-js'
+import { useNavigate } from '@solidjs/router'
+import { createSignal, For } from 'solid-js'
 import icons from '@assets/images'
 import Camera from '@components/Camera'
+import CreateCamera from '@components/Camera/CreateCamera'
 import CustomSlideAnimation from '@components/CustomSlideAnimation'
 import CustomPopover from '@components/Header/CustomPopover'
 import List from '@components/List/List'
 import ListHeader from '@components/List/ListHeader/ListHeader'
 import { POPOVER_ID } from '@src/static/types/enums'
 import { setRestDevice } from '@src/store/api/restAPI'
+import { setSelectedCamera } from '@src/store/camera/camera'
 import { cameras } from '@src/store/camera/selectors'
-import { setOpenModal } from '@src/store/ui/ui'
 import './index.css'
+import { setHideHeaderButtons } from '@src/store/ui/ui'
+
 const Home = () => {
     const [displayMode, setDisplayMode] = createSignal(POPOVER_ID.GRIP)
+
+    const navigate = useNavigate()
 
     return (
         <div>
@@ -55,17 +61,7 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-                <Show
-                    when={cameras().length > 0}
-                    fallback={
-                        <div>
-                            <div class="flex flex-col items-center justify-center w-full h-full">
-                                <p class="text-2xl font-bold tracking-[0.10rem] text-[white]">
-                                    No cameras found
-                                </p>
-                            </div>
-                        </div>
-                    }>
+                <div>
                     {displayMode() === POPOVER_ID.GRIP ? (
                         <div>
                             <div class="camera_grid">
@@ -74,12 +70,21 @@ const Home = () => {
                                         <Camera
                                             {...camera}
                                             onClick={() => {
+                                                navigate('/settings', { replace: true })
+                                                setSelectedCamera(camera)
                                                 setRestDevice(camera.address)
-                                                setOpenModal(true)
+                                                setHideHeaderButtons(true)
                                             }}
                                         />
                                     )}
                                 </For>
+                                <div>
+                                    <CreateCamera
+                                        onClick={() => {
+                                            navigate('/settings', { replace: true })
+                                        }}
+                                    />
+                                </div>
                             </div>
                         </div>
                     ) : (
@@ -94,8 +99,10 @@ const Home = () => {
                                             <List
                                                 {...camera}
                                                 onClick={() => {
+                                                    navigate('/settings', { replace: true })
+                                                    setSelectedCamera(camera)
                                                     setRestDevice(camera.address)
-                                                    setOpenModal(true)
+                                                    setHideHeaderButtons(true)
                                                 }}
                                             />
                                         </div>
@@ -104,7 +111,7 @@ const Home = () => {
                             </div>
                         </div>
                     )}
-                </Show>
+                </div>
             </div>
         </div>
     )

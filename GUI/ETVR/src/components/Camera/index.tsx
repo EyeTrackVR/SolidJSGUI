@@ -8,17 +8,17 @@ export interface IProps extends ICamera {
 const Camera = (props: IProps) => {
     return (
         <div
-            class="responsive-container m-auto justify-between items-center pr-[14px] pl-[14px] py-[14px] h-full min-h-[222px] pb-[14px] rounded-[14px] bg-[#333742] flex border-2 border-[#333742] hover:border-[#817DF7]  hover:cursor-pointer"
+            class="responsive-container m-auto justify-between items-center pr-3 pl-3 py-3 h-full min-h-[222px] pb-3 rounded-xl bg-[#333742] flex border-2 border-[#333742] hover:border-[#817DF7]  hover:cursor-pointer"
             onClick={() => props.onClick()}>
-            <div class=" responsive-flex-container w-full h-full flex items-center flex-row">
+            <div class="responsive-flex-container w-full h-full flex items-center flex-row">
                 <div class="responsive-iframe-container flex items-center h-full w-full ">
                     <div class="h-full w-full">
-                        <video class="bg-black rounded-t-[14px] w-full h-full" autoplay>
+                        <video class="bg-black rounded-t-xl w-full h-full" autoplay>
                             <source src={props.address} type="video/mp4" />
                         </video>
                     </div>
                 </div>
-                <div class="responsive-spacer-container bg-[#292D36] rounded-b-[14px] min-[1749px]:rounded-[14px]  h-[100%] w-full p-[14px] flex justify-between flex-col">
+                <div class="responsive-spacer-container bg-[#292D36] rounded-b-xl min-[1749px]:rounded-xl  h-[100%] w-full p-3 flex justify-between flex-col">
                     <div>
                         <div>
                             <div class="text-center pb-3">
@@ -68,3 +68,6 @@ const Camera = (props: IProps) => {
 }
 
 export default Camera
+
+// TODO : add type of camera
+// TODO : add option for creating new camera

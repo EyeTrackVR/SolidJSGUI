@@ -1,7 +1,7 @@
 import { ToasterStore } from 'solid-headless'
 import { createMemo, JSXElement } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
-import { ENotificationType, loaderType, POPOVER_ID } from '@src/static/types/enums'
+import { ENotificationType, loaderType } from '@src/static/types/enums'
 
 interface IMenuOpen {
     x: number
@@ -29,6 +29,7 @@ export interface IUiStore {
     connectedUser: string
     notifications?: ToasterStore<string>
     notificationsType?: ENotificationType
+    hideHeaderButtons: boolean
 }
 
 export const defaultState = {
@@ -40,6 +41,7 @@ export const defaultState = {
     showCameraView: false,
     notifications: new ToasterStore<string>(),
     notificationsType: ENotificationType.INFO,
+    hideHeaderButtons: false,
 }
 
 const [state, setState] = createStore<IUiStore>(defaultState)
@@ -48,6 +50,14 @@ export const setMenu = (menuOpen: IMenuOpen | null) => {
     setState(
         produce((s) => {
             s.menuOpen = menuOpen || null
+        }),
+    )
+}
+
+export const setHideHeaderButtons = (flag: boolean) => {
+    setState(
+        produce((s) => {
+            s.hideHeaderButtons = flag
         }),
     )
 }
