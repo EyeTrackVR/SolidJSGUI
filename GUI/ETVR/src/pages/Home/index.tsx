@@ -12,6 +12,7 @@ import { setRestDevice } from '@src/store/api/restAPI'
 import { setSelectedCamera } from '@src/store/camera/camera'
 import { cameras } from '@src/store/camera/selectors'
 import './index.css'
+import { setHideHeaderButtons } from '@src/store/ui/ui'
 
 const Home = () => {
     const [displayMode, setDisplayMode] = createSignal(POPOVER_ID.GRIP)
@@ -69,9 +70,10 @@ const Home = () => {
                                         <Camera
                                             {...camera}
                                             onClick={() => {
+                                                navigate('/settings', { replace: true })
                                                 setSelectedCamera(camera)
                                                 setRestDevice(camera.address)
-                                                navigate('/settings', { replace: true })
+                                                setHideHeaderButtons(true)
                                             }}
                                         />
                                     )}
@@ -97,9 +99,10 @@ const Home = () => {
                                             <List
                                                 {...camera}
                                                 onClick={() => {
+                                                    navigate('/settings', { replace: true })
                                                     setSelectedCamera(camera)
                                                     setRestDevice(camera.address)
-                                                    navigate('/settings', { replace: true })
+                                                    setHideHeaderButtons(true)
                                                 }}
                                             />
                                         </div>

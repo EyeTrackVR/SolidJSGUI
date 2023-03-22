@@ -3,27 +3,30 @@ import CameraConnectionStatus from './CameraConnectionStatus/CameraInfo'
 import CameraSettings from './CameraSettings'
 import CamerasModal from './CamerasModal'
 import { RANGE_INPUT_FORMAT } from '@src/static/types/enums'
-import { CameraStatus, CameraType } from '@store/camera/camera'
+import { CameraStatus } from '@store/camera/camera'
 
 export interface IProps {
-    onChange: (value: string) => void
+    onChange: (format: string, value: number) => void
     onClick: (selected: string) => void
-    cameraIP: string
+    onClickBack: () => void
+    onClickCalibrate: () => void
+    onClickRecenter: () => void
+    onClickCroppingMode: () => void
     cameraStatus: CameraStatus
-    cameraType: CameraType
-    placeholder: string
-    CameraAddressHeader: string
-    CameraConfigOptionsHeader: string
-    CameraSettingsHeader: string
     camerasUrl: string[]
 }
 
 const Settings = (props: IProps) => {
     return (
         <div>
-            <div class="pt-12 grid grid-flow-col gap-5">
-                <div>
-                    <div class="mt-5">
+            <div class="pt-12">
+                <div onClick={() => props.onClickBack()}>
+                    <p class="text-left text-white text-lg text-upper uppercase cursor-pointer">
+                        go back to home
+                    </p>
+                </div>
+                <div class="flex justify-center gap-5">
+                    <div class="mt-5 max-w-[700px] w-full ">
                         <div>
                             <div class="mb-5">
                                 <CameraConnectionStatus cameraStatus={props.cameraStatus} />
@@ -33,30 +36,27 @@ const Settings = (props: IProps) => {
                             <div class="mb-5">
                                 <CameraCalibrationSettings
                                     onClickCalibrate={() => {
-                                        console.log('onClickCalibrate')
+                                        props.onClickCalibrate()
                                     }}
                                     onClickRecenter={() => {
-                                        console.log('onClickRecenter')
+                                        props.onClickRecenter()
                                     }}
                                     onClickCroppingMode={() => {
-                                        console.log('onClickCroppingMode')
+                                        props.onClickCroppingMode()
                                     }}
                                 />
                             </div>
                         </div>
                         <div>
                             <CameraSettings
-                                header={props.CameraSettingsHeader}
                                 formats={Object.keys(RANGE_INPUT_FORMAT)}
                                 onChange={(format, value) => {
-                                    console.log(format, value)
+                                    props.onChange(format, value)
                                 }}
                             />
                         </div>
                     </div>
-                </div>
-                <div>
-                    <div class="mt-5">
+                    <div class="mt-5 max-w-[500px] w-full">
                         <CamerasModal camerasUrl={props.camerasUrl} />
                     </div>
                 </div>

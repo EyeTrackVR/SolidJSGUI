@@ -1,20 +1,33 @@
+import { useNavigate } from '@solidjs/router'
 import Settings from '@components/Settings'
-import { CameraStatus, CameraType } from '@src/store/camera/camera'
+import { CameraStatus } from '@src/store/camera/camera'
 import './styles.css'
+import { setHideHeaderButtons } from '@src/store/ui/ui'
 
 const SettingsPage = () => {
+    const navigate = useNavigate()
+
     return (
         <Settings
             camerasUrl={['.', '.', '.']}
             onChange={(value) => console.log(value)}
-            onClick={(selected) => console.log(selected)}
-            cameraIP={'000_000_000'}
+            onClickBack={() => {
+                setHideHeaderButtons(false)
+                navigate('/')
+            }}
+            onClickCalibrate={() => {
+                console.log('onClickCalibrate')
+            }}
+            onClickRecenter={() => {
+                console.log('onClickRecenter')
+            }}
+            onClickCroppingMode={() => {
+                console.log('onClickCroppingMode')
+            }}
+            onClick={(selected) => {
+                console.log(selected)
+            }}
             cameraStatus={CameraStatus.ACTIVE}
-            cameraType={CameraType.WIRELESS}
-            placeholder="Camera name"
-            CameraAddressHeader="Camera name"
-            CameraConfigOptionsHeader="Eye Config options"
-            CameraSettingsHeader="Camera settings"
         />
     )
 }
