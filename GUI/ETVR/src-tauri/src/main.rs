@@ -21,6 +21,7 @@ use serde::{Deserialize, Serialize};
 //use tauri_plugin_store;
 //use tauri_plugin_window_state;
 use whoami::username;
+use zip_extract::ZipExtractError;
 //use window_shadows::set_shadow;
 
 // use std
@@ -145,6 +146,21 @@ async fn close_splashscreen(window: tauri::Window) {
     .unwrap();
 }
 
+#[tauri::command]
+async fn unzip_archive(archive_path: String, target_dir: String) -> Result<String, String> {
+  // The third parameter allows you to strip away toplevel directories.
+  // If `archive` contained a single directory, its contents would be extracted instead.
+  let _target_dir = std::path::PathBuf::from(target_dir); // Doesn't need to exist
+
+  let archive = std::fs::read(&archive_path).expect("Failed to read archive");
+  zip_extract::extract(std::io::Cursor::new(archive), &_target_dir, true)
+    .expect("Failed to extract archive");
+
+  // erase the archive
+  std::fs::remove_file(archive_path).expect("Failed to remove archive");
+  Ok("Archive extracted".to_string())
+}
+
 fn main() {
   let quit = CustomMenuItem::new("quit".to_string(), "Quit");
   let hide = CustomMenuItem::new("hide".to_string(), "Hide");
@@ -164,7 +180,8 @@ fn main() {
       close_splashscreen,
       run_mdns_query,
       get_user,
-      do_rest_request
+      do_rest_request,
+      unzip_archive
     ])
     // allow only one instance and propgate args and cwd to existing instance
     .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {

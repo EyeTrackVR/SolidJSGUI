@@ -3,7 +3,7 @@ import type { RouteDefinition } from '@solidjs/router'
 
 const Home = lazy(() => import('@pages/Home'))
 const Settings = lazy(() => import('@pages/Settings'))
-const AppSettings = lazy(() => import('@pages/AppSettings'))
+const AppSettings = lazy(() => import('@pages/appSettings'))
 const page404 = lazy(() => import('@pages/errors/index'))
 
 export const routes: RouteDefinition[] = [

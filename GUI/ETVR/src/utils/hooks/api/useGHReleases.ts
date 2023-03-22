@@ -1,6 +1,7 @@
 import { readTextFile, BaseDirectory, writeTextFile } from '@tauri-apps/api/fs'
 import { getClient, ResponseType } from '@tauri-apps/api/http'
 import { appConfigDir } from '@tauri-apps/api/path'
+import { invoke } from '@tauri-apps/api/tauri'
 import { createSignal } from 'solid-js'
 import { download } from 'tauri-plugin-upload-api'
 import { RESTStatus } from '@src/store/api/restAPI'
@@ -47,10 +48,63 @@ const getRelease = async (firmware: string) => {
             (progress, total) =>
                 console.log(`[Github Release]: Downloaded ${progress} of ${total} bytes`), // a callback that will be called with the upload progress
         )
+
+        const res = await invoke('unzip_archive', {
+            archivePath: path,
+            targetDir: appConfigDirPath,
+        })
+
+        console.log('[Github Release]: Unzip Response: ', res)
+
+        readTextFile('manifest.json', { dir: BaseDirectory.AppConfig })
+            .then((manifest) => {
+                const config_json = JSON.parse(manifest)
+                console.log('[Github Release]: Manifest: ', config_json)
+
+                if (manifest !== '') {
+                    const builds = config_json['builds'].map((build) => {
+                        const parts = build['parts'].map((part) => {
+                            const path = `${appConfigDirPath}${part['path']}`
+                            return { ...part, path }
+                        })
+                        return { ...build, parts }
+                    })
+                    
+                    const newConfig = { ...config_json, builds }
+
+                    // write the config file
+                    writeTextFile('manifest.json', JSON.stringify(newConfig), {
+                        dir: BaseDirectory.AppConfig,
+                    })
+                        .then(() => {
+                            console.log('[Manifest Updated]: Manifest Updated Successfully')
+                        })
+                        .finally(() => {
+                            console.log('[Manifest Updated]: Finished')
+                        })
+                        .catch((err) => {
+                            console.error('[Manifest Update Error]: ', err)
+                        })
+
+                    return
+                }
+            })
+            .finally(() => {
+                console.log('[Github Release]: Finished')
+            })
+            .catch((err) => {
+                console.error('[Github Release]: Error: ', err)
+            })
+
         return response
     }
 }
 
+/**
+ * @description A hook that will return the data from the github release endpoint and a function that will download the asset from the github release endpoint
+ * @returns  {object} data - The data returned from the github release endpoint
+ * @returns  {function} downloadAsset - The function that will download the asset from the github release endpoint
+ */
 export const useGHRelease = () => {
     const [data, setData] = createSignal({})
     const downloadAsset = async (firmware: string) => {

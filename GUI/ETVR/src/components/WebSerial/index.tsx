@@ -1,3 +1,5 @@
+import { appConfigDir } from '@tauri-apps/api/path'
+
 declare module 'solid-js' {
     // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace JSX {
@@ -9,6 +11,12 @@ declare module 'solid-js' {
 }
 
 const WebSerial = () => {
+    let manifest: string
+    appConfigDir().then((path) => {
+        manifest = path + 'manifest.json'
+        console.log(manifest)
+    })
+
     const checkSameFirmware = (manifest, improvInfo) => {
         const manifestFirmware = manifest.name.toLowerCase()
         const deviceFirmware = improvInfo.firmware.toLowerCase()
@@ -17,7 +25,9 @@ const WebSerial = () => {
 
     return (
         <div>
-            <esp-web-install-button overrides={checkSameFirmware} manifest="firmware/manifest.json">
+            <esp-web-install-button
+                overrides={checkSameFirmware}
+                manifest="manifest.json">
                 <button
                     class="rounded-[8px] bg-blue-700 p-2 text-white mt-1 hover:bg-blue-600 focus:bg-blue-500"
                     slot="activate">
