@@ -1,3 +1,5 @@
+
+// TODO: Switch to tauri websocket plugin - https://github.com/tauri-apps/tauri-plugin-websocket
 import { RTCState } from '@src/static/types/enums'
 import { rtcWebSocket, rtcTimeout, rtcConnectInterval } from '@store/api/selectors'
 import { setRTCStatus, setConnectInterval, setRTCTimeout } from '@store/api/websocket'

@@ -1,5 +1,5 @@
 import { invoke } from '@tauri-apps/api/tauri'
-import { createSignal, createEffect, createResource } from 'solid-js'
+import { createSignal, createEffect } from 'solid-js'
 import { setRestStatus, RESTStatus } from '@src/store/api/restAPI'
 import { endpoints } from '@src/store/api/selectors'
 import { cameras } from '@src/store/camera/selectors'

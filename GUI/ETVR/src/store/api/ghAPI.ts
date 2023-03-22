@@ -2,9 +2,14 @@ import { createMemo } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
 import { RESTStatus } from './restAPI'
 
+export interface IGHAsset {
+    name: string
+    url: string
+}
+
 export interface IGHRest {
     status: RESTStatus
-    assets: string[]
+    assets: IGHAsset[]
     version: string
 }
 
@@ -25,10 +30,10 @@ export const setGHRestStatus = (status: RESTStatus) => {
         }),
     )
 }
-export const setFirmwareAssets = (assets: string[]) => {
+export const setFirmwareAssets = (assets: IGHAsset) => {
     setState(
         produce((s) => {
-            s.assets = assets
+            s.assets.push(assets)
         }),
     )
 }

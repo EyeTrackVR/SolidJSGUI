@@ -80,20 +80,7 @@
         "all": false,
         "execute": false,
         "open": ".*",
-        "scope": [
-          {
-            "name": "binaries/dra",
-            "sidecar": true,
-            "args": [
-              "download",
-              "--select",
-              {
-                "validator": "^\"[A-Za-z0-9]+_[A-Za-z]+-v\\{[A-Za-z]+\\}||[A-Za-z0-9]+-[A-Za-z]+\\.[A-Za-z]+\"$"
-              },
-              "lorow/OpenIris"
-            ]
-          }
-        ],
+        "scope": [],
         "sidecar": true
       },
       "window": {
@@ -144,9 +131,7 @@
       "identifier": "com.eyetrackvr.dev",
       "longDescription": "",
       "resources": [],
-      "externalBin": [
-        "binaries/dra"
-      ],
+      "externalBin": [],
       "shortDescription": "",
       "targets": "all",
       "macOS": {

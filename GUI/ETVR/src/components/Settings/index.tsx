@@ -20,8 +20,7 @@ export interface IProps {
 }
 
 const Settings = (props: IProps) => {
-    //const { data, setFirmware } = useGHRelease()
-    //setFirmware('esp32Cam')
+    const { data, downloadAsset } = useGHRelease()
     return (
         <div class="pt-[50px] grid grid-flow-col gap-[22px]">
             <div class="mt-[22px]  hidden  2xl:block  ">
@@ -64,6 +63,13 @@ const Settings = (props: IProps) => {
                     class="bg-[#2f80ed] text-white rounded-md px-[22px] py-[10px] font-bold"
                     onClick={doGHRequest}>
                     Get Release
+                </button>
+            </div>
+            <div class="mt-[22px]">
+                <button
+                    class="bg-[#2f80ed] text-white rounded-md px-[22px] py-[10px] font-bold"
+                    onClick={() => downloadAsset('esp32AIThinker')}>
+                    Download Asset
                 </button>
             </div>
         </div>
