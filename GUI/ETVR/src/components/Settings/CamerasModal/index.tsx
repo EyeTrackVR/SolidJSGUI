@@ -7,7 +7,7 @@ export interface IProps {
 
 const CamerasModal = (props: IProps) => {
     return (
-        <div class="flex flex-row justify-center bg-[#333742] rounded-xl pl-[14px] pr-[14px] pb-[14px] pt-[14px] min-w-[500px]">
+        <div class="flex flex-row justify-center bg-[#333742] rounded-xl pl-4 pr-4 pb-4 pt-4 ">
             <div>
                 <For each={props.camerasUrl}>
                     {(cameraUrl, index) => (

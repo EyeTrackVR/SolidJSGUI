@@ -10,30 +10,40 @@ export interface IProps {
 
 const CameraSettings = (props: IProps) => {
     return (
-        <div class="flex grow rounded-xl flex-col pl-[14px] pr-[14px] pb-[14px] pt-[14px] bg-[#333742]">
-            <div class="flex  justify-between">
+        <div class="flex grow rounded-xl flex-col pl-4 pr-4 pb-4 pt-4 bg-[#333742]">
+            <div>
                 <div>
-                    <p class="font-[700] text-[#FFFFFF] text-lg">{props.header}</p>
-                </div>
-            </div>
-            <div class=" pl-[14px] pr-[18px] pb-[14px] pt-[14px] ">
-                <For each={props.formats}>
-                    {(format) => (
-                        <div class="pb-6">
-                            <div>
-                                <p class="relative right-[14px] text-left font-[700] text-[#FFFFFF] text-lg">
-                                    {RANGE_INPUT_FORMAT[format]}
-                                </p>
-                            </div>
-                            <div>
-                                <RangeInput
-                                    onChange={(format, value) => props.onChange(format, value)}
-                                    format={RANGE_INPUT_FORMAT[format]}
-                                />
-                            </div>
+                    <div class="flex justify-between">
+                        <div>
+                            <p class="font-[700] text-white text-lg">{props.header}</p>
                         </div>
-                    )}
-                </For>
+                    </div>
+                </div>
+                <div>
+                    <div class=" pl-4 pr-5 pb-4 pt-4">
+                        <For each={props.formats}>
+                            {(format) => (
+                                <div>
+                                    <div class="pb-6">
+                                        <div>
+                                            <p class="relative right-4 text-left font-[700] text-white text-lg">
+                                                {RANGE_INPUT_FORMAT[format]}
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <RangeInput
+                                                onChange={(format, value) =>
+                                                    props.onChange(format, value)
+                                                }
+                                                format={RANGE_INPUT_FORMAT[format]}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </For>
+                    </div>
+                </div>
             </div>
         </div>
     )
