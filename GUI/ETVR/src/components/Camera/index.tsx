@@ -18,7 +18,7 @@ const Camera = (props: IProps) => {
                         </video>
                     </div>
                 </div>
-                <div class="responsive-spacer-container bg-[#292D36] rounded-b-xl min-[1749px]:rounded-xl max-w-[209px] h-[100%] w-full p-3">
+                <div class="flex flex-col justify-between responsive-spacer-container bg-[#292D36] rounded-b-xl min-[1749px]:rounded-xl max-w-[209px] h-[100%] w-full p-3">
                     <div>
                         <div>
                             <div class="text-center pb-3">
@@ -68,6 +68,3 @@ const Camera = (props: IProps) => {
 }
 
 export default Camera
-
-// TODO : add type of camera
-// TODO : add option for creating new camera
