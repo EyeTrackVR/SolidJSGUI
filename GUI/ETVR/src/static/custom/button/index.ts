@@ -1,4 +1,4 @@
-import { classNames } from '@src/utils/utils'
+import { classNames } from '@src/utils'
 
 export const BUTTON = classNames(
     'rounded-md px-4 py-2 text-sm font-medium transition duration-150',

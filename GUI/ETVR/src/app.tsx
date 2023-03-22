@@ -1,5 +1,4 @@
 import { lazy, onMount, Suspense } from 'solid-js'
-import { MdnsProvider } from '@utils/context/mdns'
 import { handleAppBoot, handleTitlebar } from '@utils/hooks/app'
 
 const AppRoutes = lazy(() => import('@routes/Routes'))
@@ -15,19 +14,18 @@ const App = () => {
         handleTitlebar()
         handleAppBoot()
     })
+
     return (
         <div class="App overflow-y-auto items-center">
             <Suspense>
-                <MdnsProvider>
-                    <AppRoutes />
-                    <NewWindow ref={ref} name="test">
-                        <ExampleMenu />
-                    </NewWindow>
-                    <ModalMenu>
-                        <CameraSettingsModal />
-                    </ModalMenu>
-                    <ToastNotificationWindow />
-                </MdnsProvider>
+                <AppRoutes />
+                <NewWindow ref={ref} name="test">
+                    <ExampleMenu />
+                </NewWindow>
+                <ModalMenu>
+                    <CameraSettingsModal />
+                </ModalMenu>
+                <ToastNotificationWindow />
             </Suspense>
         </div>
     )

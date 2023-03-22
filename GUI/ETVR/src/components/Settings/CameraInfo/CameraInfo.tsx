@@ -1,5 +1,5 @@
 import { CameraStatus, CameraType } from '@src/store/camera/camera'
-import { ActiveStatus } from '@src/utils/utils'
+import { ActiveStatus } from '@src/utils'
 
 export interface IProps {
     cameraIP: string

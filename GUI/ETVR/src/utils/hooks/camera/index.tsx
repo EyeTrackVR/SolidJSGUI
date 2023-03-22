@@ -2,7 +2,7 @@ import { AiOutlineCheckCircle } from 'solid-icons/ai'
 import { FaSolidArrowDown, FaSolidXmark } from 'solid-icons/fa'
 import { FiAlertOctagon } from 'solid-icons/fi'
 import { Show } from 'solid-js'
-import { ACTIVE_COLOR, LOADING_COLOR, FAILED_COLOR, DISABLED_COLOR } from '@src/utils/utils'
+import { ACTIVE_COLOR, LOADING_COLOR, FAILED_COLOR, DISABLED_COLOR } from '@src/utils'
 import { CameraStatus } from '@store/camera/camera'
 
 export const CameraStatusIcon = (status: CameraStatus) => {

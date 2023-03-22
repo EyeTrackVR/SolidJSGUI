@@ -1,4 +1,4 @@
-import { ActiveStatus } from '@src/utils/utils'
+import { ActiveStatus } from '@src/utils'
 import { ICamera } from '@store/camera/camera'
 import './index.css'
 export interface IProps extends ICamera {

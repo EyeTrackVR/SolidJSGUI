@@ -7,6 +7,7 @@ export enum RESTStatus {
     LOADING = 'LOADING',
     FAILED = 'FAILED',
     NO_CAMERA = 'NO_CAMERA',
+    NO_CONFIG = 'NO_CONFIG',
 }
 
 export enum RESTType {

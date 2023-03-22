@@ -1,13 +1,13 @@
 import { invoke } from '@tauri-apps/api/tauri'
-import { createEffect, createResource, createSignal, createMemo } from 'solid-js'
+import { createMemo, createResource, createSignal } from 'solid-js'
 
-interface IProps {
-    serviceType: string
-    scanTime: number
-}
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const scan = async (source, { value, refetching }) => {
     const { serviceType, scanTime } = source
+
+    if (serviceType === '' || scanTime === 0) {
+        return []
+    }
 
     console.log('scanning for', serviceType, scanTime)
 
@@ -24,29 +24,14 @@ const scan = async (source, { value, refetching }) => {
     return []
 }
 
-export const useMDNSScanner = (serviceType: string, scanTime: number) => {
-    // create an object with the serviceType and scanTime as the key
-    // this will allow us to create a new resource if the serviceType or scanTime changes
+export const useMDNSScanner = () => {
+    const [service, setService] = createSignal<string>('')
+    const [scanTime, setScanTime] = createSignal<number>(0)
 
-    const [resData, setResData] = createSignal<IProps>({
-        serviceType: serviceType,
-        scanTime: scanTime,
-    })
-
-    createEffect(() => {
-        if (serviceType !== resData().serviceType || scanTime !== resData().scanTime) {
-            setResData({
-                serviceType: serviceType,
-                scanTime: scanTime,
-            })
-        }
-    })
-
-    const [data, { mutate, refetch }] = createResource(resData, scan)
-    return { data, mutate, refetch, resData, setResData }
+    const mdnsInitState = createMemo(() => ({
+        serviceType: service(),
+        scanTime: scanTime(),
+    }))
+    const [data, { mutate, refetch }] = createResource(mdnsInitState, scan)
+    return { data, mutate, refetch, setService, setScanTime }
 }
-
-/* export const useMDNSScanner = createMemo<IProps>((props) =>
-    mdnsScanner(props.serviceType, props.scanTime),
-)
- */

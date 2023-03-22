@@ -2,7 +2,7 @@ import { Button } from '@kobalte/core'
 import { FaSolidGear } from 'solid-icons/fa'
 import WebSocketHandler from '@components/WebSocket'
 import { ICamera } from '@src/store/camera/camera'
-import { ActiveStatus, CapitalizeFirstLetter } from '@src/utils/utils'
+import { ActiveStatus, CapitalizeFirstLetter } from '@src/utils'
 export interface IList extends ICamera {
     onClick: () => void
 }
