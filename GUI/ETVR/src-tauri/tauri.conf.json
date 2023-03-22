@@ -27,21 +27,23 @@
         "save": true
       },
       "fs": {
-        "all": false,
-        "copyFile": false,
-        "createDir": true,
-        "exists": false,
+        "all": true,
+        "readFile": true,
+        "writeFile": true,
         "readDir": true,
-        "readFile": false,
-        "removeDir": false,
-        "removeFile": false,
-        "renameFile": false,
+        "copyFile": true,
+        "createDir": true,
+        "removeDir": true,
+        "removeFile": true,
+        "renameFile": true,
+        "exists": true,
         "scope": [
           "$APP/*",
+          "$APPDATA/*",
+          "$APPCONFIG/*",
           "$DOCUMENT/*",
           "$DOWNLOAD/*"
-        ],
-        "writeFile": true
+        ]
       },
       "globalShortcut": {
         "all": false
@@ -50,7 +52,8 @@
         "all": true,
         "request": true,
         "scope": [
-          "http://127.0.0.1:7856/*"
+          "http://127.0.0.1:7856/*",
+          "https://api.github.com/repos/lorow/OpenIris/*"
         ]
       },
       "notification": {
@@ -77,8 +80,21 @@
         "all": false,
         "execute": false,
         "open": ".*",
-        "scope": [],
-        "sidecar": false
+        "scope": [
+          {
+            "name": "binaries/dra",
+            "sidecar": true,
+            "args": [
+              "download",
+              "--select",
+              {
+                "validator": "^\"[A-Za-z0-9]+_[A-Za-z]+-v\\{[A-Za-z]+\\}||[A-Za-z0-9]+-[A-Za-z]+\\.[A-Za-z]+\"$"
+              },
+              "lorow/OpenIris"
+            ]
+          }
+        ],
+        "sidecar": true
       },
       "window": {
         "all": false,
@@ -128,7 +144,9 @@
       "identifier": "com.eyetrackvr.dev",
       "longDescription": "",
       "resources": [],
-      "externalBin": [],
+      "externalBin": [
+        "binaries/dra"
+      ],
       "shortDescription": "",
       "targets": "all",
       "macOS": {

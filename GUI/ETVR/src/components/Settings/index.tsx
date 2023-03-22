@@ -1,9 +1,10 @@
+import { RANGE_INPUT_FORMAT } from '@src/static/types/enums'
+import { CameraStatus } from '@store/camera/camera'
+import { doGHRequest } from '@utils/hooks/api/useGHReleases'
 import CameraCalibrationSettings from './CameraCalibrationSettings'
 import CameraConnectionStatus from './CameraConnectionStatus/CameraInfo'
 import CameraSettings from './CameraSettings'
 import CamerasModal from './CamerasModal'
-import { RANGE_INPUT_FORMAT } from '@src/static/types/enums'
-import { CameraStatus } from '@store/camera/camera'
 
 export interface IProps {
     onChange: (format: string, value: number) => void
@@ -17,6 +18,8 @@ export interface IProps {
 }
 
 const Settings = (props: IProps) => {
+    //const { data, setFirmware } = useGHRelease()
+    //setFirmware('esp32Cam')
     return (
         <div>
             <div class="pt-12">
@@ -60,6 +63,13 @@ const Settings = (props: IProps) => {
                         <CamerasModal camerasUrl={props.camerasUrl} />
                     </div>
                 </div>
+            </div>
+            <div class="mt-[22px]">
+                <button
+                    class="bg-[#2f80ed] text-white rounded-md px-[22px] py-[10px] font-bold"
+                    onClick={doGHRequest}>
+                    Get Release
+                </button>
             </div>
         </div>
     )

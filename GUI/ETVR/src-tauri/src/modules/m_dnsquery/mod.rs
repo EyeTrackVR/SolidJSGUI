@@ -193,5 +193,6 @@ pub async fn generate_json(instance: &Mdns) -> Result<String, Box<dyn std::error
   // write the json object to a file
   let to_string_json = serde_json::to_string_pretty(&config)?;
   // return the json object as a string
+
   Ok(to_string_json)
 }
