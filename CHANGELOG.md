@@ -3,6 +3,13 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.11](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.10...v1.0.0-SolidJSGUI.11) (2023-03-23)
+
+
+### 🍕 Features
+
+* fully working flash ([81487b8](https://github.com/RedHawk989/EyeTrackVR/commit/81487b8bd29ecf9ea9007c197cbc2291bba81819))
+
 ## [1.0.0-SolidJSGUI.10](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.9...v1.0.0-SolidJSGUI.10) (2023-03-23)
 
 
