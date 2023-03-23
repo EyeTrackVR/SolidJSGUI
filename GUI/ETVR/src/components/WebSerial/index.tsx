@@ -25,9 +25,7 @@ const WebSerial = () => {
 
     return (
         <div>
-            <esp-web-install-button
-                overrides={checkSameFirmware}
-                manifest="manifest.json">
+            <esp-web-install-button overrides={checkSameFirmware} manifest="manifest.json">
                 <button
                     class="rounded-[8px] bg-blue-700 p-2 text-white mt-1 hover:bg-blue-600 focus:bg-blue-500"
                     slot="activate">

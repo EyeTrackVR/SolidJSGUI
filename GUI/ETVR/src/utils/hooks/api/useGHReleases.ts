@@ -69,7 +69,7 @@ const getRelease = async (firmware: string) => {
                         })
                         return { ...build, parts }
                     })
-                    
+
                     const newConfig = { ...config_json, builds }
 
                     // write the config file
