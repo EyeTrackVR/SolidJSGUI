@@ -1,7 +1,7 @@
 import { readTextFile, BaseDirectory, writeTextFile } from '@tauri-apps/api/fs'
 import { getClient, ResponseType } from '@tauri-apps/api/http'
-import { appConfigDir } from '@tauri-apps/api/path'
-import { invoke } from '@tauri-apps/api/tauri'
+import { appConfigDir, join } from '@tauri-apps/api/path'
+import { invoke, convertFileSrc } from '@tauri-apps/api/tauri'
 import { createSignal } from 'solid-js'
 import { download } from 'tauri-plugin-upload-api'
 import { RESTStatus } from '@src/store/api/restAPI'
@@ -39,7 +39,8 @@ const getRelease = async (firmware: string) => {
         // parse out the file name from the firmwareAsset.url and append it to the appConfigDirPath
         const fileName = firmwareAsset.url.split('/')[firmwareAsset.url.split('/').length - 1]
         //console.log('[Github Release]: File Name: ', fileName)
-        const path = `${appConfigDirPath}${fileName}`
+        // ${appConfigDirPath}${fileName}
+        const path = await join(appConfigDirPath, fileName)
         console.log('[Github Release]: Path: ', path)
         // get the latest release
         const response = await download(
@@ -56,46 +57,43 @@ const getRelease = async (firmware: string) => {
 
         console.log('[Github Release]: Unzip Response: ', res)
 
-        readTextFile('manifest.json', { dir: BaseDirectory.AppConfig })
-            .then((manifest) => {
-                const config_json = JSON.parse(manifest)
-                console.log('[Github Release]: Manifest: ', config_json)
+        const manifest = await readTextFile('manifest.json', { dir: BaseDirectory.AppConfig })
 
-                if (manifest !== '') {
-                    const builds = config_json['builds'].map((build) => {
-                        const parts = build['parts'].map((part) => {
-                            const path = `${appConfigDirPath}${part['path']}`
-                            return { ...part, path }
-                        })
-                        return { ...build, parts }
-                    })
+        const config_json = JSON.parse(manifest)
+        console.log('[Github Release]: Manifest: ', config_json)
 
-                    const newConfig = { ...config_json, builds }
-
-                    // write the config file
-                    writeTextFile('manifest.json', JSON.stringify(newConfig), {
-                        dir: BaseDirectory.AppConfig,
-                    })
-                        .then(() => {
-                            console.log('[Manifest Updated]: Manifest Updated Successfully')
-                        })
-                        .finally(() => {
-                            console.log('[Manifest Updated]: Finished')
-                        })
-                        .catch((err) => {
-                            console.error('[Manifest Update Error]: ', err)
-                        })
-
-                    return
-                }
-            })
-            .finally(() => {
-                console.log('[Github Release]: Finished')
-            })
-            .catch((err) => {
-                console.error('[Github Release]: Error: ', err)
+        if (manifest !== '') {
+            const builds = config_json['builds'].map((build) => {
+                const parts = build['parts'].map(async (part) => {
+                    const firmwarePath = await join(appConfigDirPath, part['path'])
+                    console.log('[Github Release]: Firmware Path: ', firmwarePath)
+                    const firmwareSrc = convertFileSrc(firmwarePath)
+                    console.log('[Github Release]: Firmware Src: ', firmwareSrc)
+                    return { ...part, path: firmwareSrc }
+                })
+                return { ...build, parts }
             })
 
+            const build = await builds
+            console.log('[Github Release]: Firmware Version: ', firmwareVersion())
+            const newConfig = { version: firmwareVersion(), ...config_json, builds: build }
+
+            // write the config file
+            writeTextFile('manifest.json', JSON.stringify(newConfig), {
+                dir: BaseDirectory.AppConfig,
+            })
+                .then(() => {
+                    console.log('[Manifest Updated]: Manifest Updated Successfully')
+                })
+                .finally(() => {
+                    console.log('[Manifest Updated]: Finished')
+                })
+                .catch((err) => {
+                    console.error('[Manifest Update Error]: ', err)
+                })
+
+            return
+        }
         return response
     }
 }
@@ -186,52 +184,60 @@ export const doGHRequest = () => {
                     responseType: ResponseType.JSON,
                 })
                 .then((response) => {
-                    //console.log(response)
-                    console.log('[OpenIris Version]: ', response.data['name'])
-
-                    // parse the response for the name of the release, the id, and the download urls of the assets
+                    if (response.ok) console.log('[OpenIris Version]: ', response.data['name'])
                     readTextFile('config.json', { dir: BaseDirectory.AppConfig })
                         .then((config) => {
                             const config_json = JSON.parse(config)
                             console.log(config_json)
-
-                            if (config !== '') {
-                                // parse config
-                                // check if release is newer
-                                // if it is, update config
-                                // if it isn't, do nothing
-                                if (response instanceof Object) {
-                                    if (response.data['name'] !== config_json.version) {
-                                        // update config
-                                        setGHRestStatus(RESTStatus.COMPLETE)
-                                        setGHData(response.data, true)
+                            if (response instanceof Object) {
+                                if (response.ok) {
+                                    if (config !== '') {
+                                        if (response.data['name'] !== config_json.version) {
+                                            // update config
+                                            setGHData(response.data, true)
+                                            console.log(
+                                                '[Config Exists]: Config Exists and is out of date - Updating',
+                                            )
+                                            setGHRestStatus(RESTStatus.COMPLETE)
+                                            return
+                                        }
                                     }
+                                    console.log('[Config Exists]: Config Exists and is up to date')
+                                    setGHData(response.data, false)
+                                    return
                                 }
-                                console.log('[Config Exists]: Config Exists and is up to date')
-                                setGHData(response.data, false)
-                                return
                             }
-                            // if config is empty
-                            // create config
-                            // write config
-                            setGHData(response.data, true)
+                            setGHData(config_json, false)
                             setGHRestStatus(RESTStatus.COMPLETE)
                         })
                         .catch((err) => {
-                            // config file doesn't exist
-                            // create config
-                            // write config
-
                             setGHRestStatus(RESTStatus.NO_CONFIG)
-                            console.error('[Config Read Error]:', err, 'Creating config.json')
-                            setGHData(response.data, true)
-                            setGHRestStatus(RESTStatus.COMPLETE)
+                            if (response.ok) {
+                                console.error('[Config Read Error]:', err, 'Creating config.json')
+                                setGHData(response.data, true)
+                                setGHRestStatus(RESTStatus.COMPLETE)
+                            }
                         })
                 })
                 .catch((err) => {
                     setGHRestStatus(RESTStatus.FAILED)
-
                     console.error('[Github Release Error]:', err)
+                    readTextFile('config.json', { dir: BaseDirectory.AppConfig })
+                        .then((config) => {
+                            const config_json = JSON.parse(config)
+                            console.log('[OpenIris Version]: ', config_json.version)
+                            console.log(config_json)
+                            if (config !== '') {
+                                console.log('[Config Exists]: Config Exists and is up to date')
+                                setGHData(config_json, false)
+                                return
+                            }
+                            setGHRestStatus(RESTStatus.NO_CONFIG)
+                        })
+                        .catch((err) => {
+                            setGHRestStatus(RESTStatus.NO_CONFIG)
+                            console.error('[Config Read Error]:', err)
+                        })
                     // check if the error is a rate limit error
                     /* if (err instanceof Object) {
                         if (err.response instanceof Object) {

@@ -1,4 +1,6 @@
-import { appConfigDir } from '@tauri-apps/api/path'
+import { appDataDir, join } from '@tauri-apps/api/path'
+import { convertFileSrc } from '@tauri-apps/api/tauri'
+import { createEffect, createSignal } from 'solid-js'
 
 declare module 'solid-js' {
     // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -11,12 +13,19 @@ declare module 'solid-js' {
 }
 
 const WebSerial = () => {
-    let manifest: string
-    appConfigDir().then((path) => {
-        manifest = path + 'manifest.json'
-        console.log(manifest)
-    })
+    const [manifest, setManifest] = createSignal<string>('')
 
+    createEffect(() => {
+        appDataDir().then((appDataDirPath) => {
+            console.log('appDataDirPath', appDataDirPath)
+            join(appDataDirPath, 'manifest.json').then((manifestfilePath) => {
+                console.log('manifestfilePath', manifestfilePath)
+                const url = convertFileSrc(manifestfilePath)
+                console.log('url', url)
+                setManifest(url)
+            })
+        })
+    })
     const checkSameFirmware = (manifest, improvInfo) => {
         const manifestFirmware = manifest.name.toLowerCase()
         const deviceFirmware = improvInfo.firmware.toLowerCase()
@@ -25,7 +34,7 @@ const WebSerial = () => {
 
     return (
         <div>
-            <esp-web-install-button overrides={checkSameFirmware} manifest="manifest.json">
+            <esp-web-install-button overrides={checkSameFirmware} manifest={manifest()}>
                 <button
                     class="rounded-[8px] bg-blue-700 p-2 text-white mt-1 hover:bg-blue-600 focus:bg-blue-500"
                     slot="activate">

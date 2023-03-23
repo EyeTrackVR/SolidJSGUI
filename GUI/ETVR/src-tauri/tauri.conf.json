@@ -73,8 +73,10 @@
       },
       "protocol": {
         "all": false,
-        "asset": false,
-        "assetScope": []
+        "asset": true,
+        "assetScope": [
+          "C:\\Users\\zacar\\AppData\\Roaming\\com.eyetrackvr.dev\\*"
+        ]
       },
       "shell": {
         "all": false,
@@ -157,7 +159,7 @@
       }
     },
     "security": {
-      "csp": "default-src blob: data: filesystem: ws: wss: http: https: tauri: 'unsafe-eval' 'unsafe-inline' 'self' img-src: 'self'"
+      "csp": "default-src blob: data: filesystem: ws: wss: http: https: tauri: 'unsafe-eval' 'unsafe-inline' 'self' img-src: 'self' asset: https://asset.localhost"
     },
     "updater": {
       "active": false,
