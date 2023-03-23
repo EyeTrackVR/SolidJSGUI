@@ -3,6 +3,13 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.10](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.9...v1.0.0-SolidJSGUI.10) (2023-03-23)
+
+
+### 🐛 Bug Fixes
+
+* fix bugs related to ratelimit error ([10afa49](https://github.com/RedHawk989/EyeTrackVR/commit/10afa497fed4089c05795c5b828bb838bb299437))
+
 ## [1.0.0-SolidJSGUI.9](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.8...v1.0.0-SolidJSGUI.9) (2023-03-23)
 
 
