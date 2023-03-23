@@ -60,26 +60,26 @@ const getRelease = async (firmware: string) => {
         const manifest = await readTextFile('manifest.json', { dir: BaseDirectory.AppConfig })
 
         const config_json = JSON.parse(manifest)
-        console.log('[Github Release]: Manifest: ', config_json)
 
         if (manifest !== '') {
-            const builds = config_json['builds'].map((build) => {
-                const parts = build['parts'].map(async (part) => {
-                    const firmwarePath = await join(appConfigDirPath, part['path'])
+            // modify the version property
+            config_json['version'] = firmwareVersion()
+            // loop through the builds array and the parts array and update the path property
+            for (let i = 0; i < config_json['builds'].length; i++) {
+                for (let j = 0; j < config_json['builds'][i]['parts'].length; j++) {
+                    const firmwarePath = await join(
+                        appConfigDirPath,
+                        config_json['builds'][i]['parts'][j]['path'],
+                    )
                     console.log('[Github Release]: Firmware Path: ', firmwarePath)
                     const firmwareSrc = convertFileSrc(firmwarePath)
                     console.log('[Github Release]: Firmware Src: ', firmwareSrc)
-                    return { ...part, path: firmwareSrc }
-                })
-                return { ...build, parts }
-            })
-
-            const build = await builds
-            console.log('[Github Release]: Firmware Version: ', firmwareVersion())
-            const newConfig = { version: firmwareVersion(), ...config_json, builds: build }
+                    config_json['builds'][i]['parts'][j]['path'] = firmwareSrc
+                }
+            }
 
             // write the config file
-            writeTextFile('manifest.json', JSON.stringify(newConfig), {
+            writeTextFile('manifest.json', JSON.stringify(config_json), {
                 dir: BaseDirectory.AppConfig,
             })
                 .then(() => {
@@ -92,6 +92,7 @@ const getRelease = async (firmware: string) => {
                     console.error('[Manifest Update Error]: ', err)
                 })
 
+            console.log('[Github Release]: Manifest: ', config_json)
             return
         }
         return response
@@ -207,6 +208,7 @@ export const doGHRequest = () => {
                                     return
                                 }
                             }
+                            console.warn('[Config Exists]: Most likely rate limited')
                             setGHData(config_json, false)
                             setGHRestStatus(RESTStatus.COMPLETE)
                         })
