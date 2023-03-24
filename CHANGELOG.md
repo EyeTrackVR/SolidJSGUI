@@ -3,6 +3,13 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.18](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.17...v1.0.0-SolidJSGUI.18) (2023-03-24)
+
+
+### 🍕 Features
+
+* test audio handler with notiifcation sound ([6519d39](https://github.com/RedHawk989/EyeTrackVR/commit/6519d39c56cba2d6fcdac00bf8a8b43ce001e46c))
+
 ## [1.0.0-SolidJSGUI.17](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.16...v1.0.0-SolidJSGUI.17) (2023-03-24)
 
 
