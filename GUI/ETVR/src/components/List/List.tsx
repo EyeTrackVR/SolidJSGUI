@@ -13,7 +13,14 @@ const List = (props: IList) => {
             <div class="flex items-center w-[500px]">
                 <div>
                     <div class="text-[#FFFF] bg-[#2b2f38] w-[60px] h-[60px] rounded-[5px] flex justify-center content-center items-center">
-                        <WebSocketHandler borderRadius="rounded-[5px]" width={75} height={75} />
+                        <div class="h-full w-full">
+                            <WebSocketHandler
+                                borderRadius="rounded-t-xl"
+                                width={100}
+                                height={100}
+                                unit="%"
+                            />
+                        </div>
                     </div>
                 </div>
                 <div>

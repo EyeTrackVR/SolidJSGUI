@@ -11,6 +11,7 @@ interface LoaderProps {
 interface CustomLoaderProps {
     width: number
     height: number
+    unit?: string
 }
 
 const Loader = (props: LoaderProps) => {
@@ -47,8 +48,8 @@ export const OrangeLoader = (props: CustomLoaderProps) => {
                 gradient="orange"
                 gradientMid="rgba(255, 153, 0, 0.594)"
                 gradientBot="rgba(255, 153, 0, 0.144)"
-                width={`${props.width}px`}
-                height={`${props.height}px`}
+                width={`${props.width}{props.unit || 'px'}`}
+                height={`${props.height}{props.unit || 'px'}`}
             />
         </div>
     )

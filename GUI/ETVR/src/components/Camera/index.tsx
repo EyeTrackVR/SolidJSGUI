@@ -1,3 +1,5 @@
+import WebSocketHandler from '@components/WebSocket'
+import { firmwareVersion } from '@src/store/api/selectors'
 import { ActiveStatus } from '@src/utils'
 import { ICamera } from '@store/camera/camera'
 import './index.css'
@@ -13,9 +15,7 @@ const Camera = (props: IProps) => {
             <div class="responsive-flex-container w-full h-full flex items-center flex-row">
                 <div class="responsive-iframe-container flex items-center h-full w-full ">
                     <div class="h-full w-full">
-                        <video class="bg-black rounded-t-xl w-full h-full" autoplay>
-                            <source src={props.address} type="video/mp4" />
-                        </video>
+                        <WebSocketHandler borderRadius="rounded-t-xl" width={100} height={100} unit="%" />
                     </div>
                 </div>
                 <div class="flex flex-col justify-between responsive-spacer-container bg-[#292D36] rounded-b-xl min-[1749px]:rounded-xl max-w-[209px] h-[100%] w-full p-3">
@@ -58,7 +58,7 @@ const Camera = (props: IProps) => {
                     </div>
                     <div>
                         <div class="flex justify-end text-white text-xs">
-                            <p>v0.0.0</p>
+                            <p>{firmwareVersion() || 'v0.0.0'}</p>
                         </div>
                     </div>
                 </div>
