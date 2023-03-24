@@ -1,6 +1,6 @@
-import { ProgressBar } from '@components/ProgessBar'
+//import { ProgressBar } from '@components/ProgessBar'
 import WebSerial from '@components/WebSerial'
-import { progressBar } from '@src/store/ui/selectors'
+//import { progressBar } from '@src/store/ui/selectors'
 import { useGHRelease } from '@utils/hooks/api/useGHReleases'
 
 const AppSettings = () => {
@@ -14,11 +14,11 @@ const AppSettings = () => {
                 Download Release Asset
             </button>
             <WebSerial />
-            <ProgressBar
+            {/* <ProgressBar
                 progress={progressBar()?.progress as number}
                 msg={progressBar()?.msg as string}
                 show={progressBar()?.show as boolean}
-            />
+            /> */}
         </div>
     )
 }

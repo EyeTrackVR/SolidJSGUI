@@ -52,13 +52,9 @@ const getRelease = async (firmware: string) => {
             firmwareAsset.browser_download_url,
             path,
             (progress, total) => {
-                // UI store set prgoress bar to true and set progress
-                const download_percent = Math.round((progress / total) * 100)
-                setProgressBar(download_percent, `Downloading Firmware ${firmware}`, true)
                 console.log(`[Github Release]: Downloaded ${progress} of ${total} bytes`)
             },
         )
-        setProgressBar(0, '', false)
         console.log('[Github Release]: Download Response: ', response)
 
         addNotification(
@@ -67,7 +63,7 @@ const getRelease = async (firmware: string) => {
                 message: `Downloaded Firmware ${firmware}`,
                 type: ENotificationType.INFO,
             },
-            ENotificationAction.OS,
+            ENotificationAction.APP,
         )
 
         const res = await invoke('unzip_archive', {

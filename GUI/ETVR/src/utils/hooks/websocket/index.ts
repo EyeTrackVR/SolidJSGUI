@@ -2,6 +2,8 @@
 import { RTCState } from '@src/static/types/enums'
 import { rtcWebSocket, rtcTimeout, rtcConnectInterval } from '@store/api/selectors'
 import { setRTCStatus, setConnectInterval, setRTCTimeout } from '@store/api/websocket'
+//import { WebSocket } from 'tauri-plugin-websocket-api'
+
 
 import { cameras } from '@store/camera/selectors'
 
@@ -37,7 +39,7 @@ const generateWebsocketClients = () => {
     const clients = cameras().map((_, i) => {
         return new WebSocket(`${LOCAL_HOST}:${PORT}/camera_${i + 1}`)
     })
-    console.log('websocket clients', clients)
+    console.log('[WebSocket Handler]: websocket clients', clients)
     return clients
 }
 
