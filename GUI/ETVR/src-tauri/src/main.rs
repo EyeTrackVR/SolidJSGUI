@@ -161,6 +161,13 @@ async fn unzip_archive(archive_path: String, target_dir: String) -> Result<Strin
   Ok("Archive extracted".to_string())
 }
 
+#[tauri::command]
+async fn remove_archive(archive_path: String) -> Result<String, String> {
+  // erase the archive
+  std::fs::remove_file(archive_path).expect("Failed to remove archive");
+  Ok("Archive removed".to_string())
+}
+
 fn main() {
   let quit = CustomMenuItem::new("quit".to_string(), "Quit");
   let hide = CustomMenuItem::new("hide".to_string(), "Hide");
@@ -181,7 +188,8 @@ fn main() {
       run_mdns_query,
       get_user,
       do_rest_request,
-      unzip_archive
+      unzip_archive,
+      remove_archive
     ])
     // allow only one instance and propgate args and cwd to existing instance
     .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {

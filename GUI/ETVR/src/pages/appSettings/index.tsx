@@ -1,4 +1,5 @@
 //import { ProgressBar } from '@components/ProgessBar'
+import { EraseButton } from '@components/Button/EraseButton'
 import WebSerial from '@components/WebSerial'
 //import { progressBar } from '@src/store/ui/selectors'
 import { useGHRelease } from '@utils/hooks/api/useGHReleases'
@@ -14,6 +15,7 @@ const AppSettings = () => {
                 Download Release Asset
             </button>
             <WebSerial />
+            <EraseButton />
             {/* <ProgressBar
                 progress={progressBar()?.progress as number}
                 msg={progressBar()?.msg as string}
