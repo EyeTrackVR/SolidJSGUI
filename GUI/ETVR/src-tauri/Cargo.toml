@@ -2,7 +2,7 @@
 name = "eyetrackvr"
 version = "1.0.0"
 description = "Eye tracking for VR"
-authors = ["DaOfficialWizard", "Luckmer", "RedHawk989"]
+authors = [ "DaOfficialWizard", "Luckmer", "RedHawk989",]
 license = "MIT"
 repository = "https://github.com/RedHawk989/EyeTrackVR"
 default-run = "eyetrackvr"
@@ -22,41 +22,16 @@ mdns-sd = "0.5.9"
 zip-extract = "0.1.2"
 
 [features]
-default = ["custom-protocol"]
-custom-protocol = ["tauri/custom-protocol"]
+default = [ "custom-protocol",]
+custom-protocol = [ "tauri/custom-protocol",]
 
 [dependencies.serde]
 version = "1.0"
-features = ["derive"]
+features = [ "derive",]
 
 [dependencies.tauri]
 version = "1.1.1"
-features = [
-    "protocol-asset",
-    "fs-all",
-    "shell-sidecar",
-    "dialog-all",
-    "http-all",
-    "icon-ico",
-    "notification-all",
-    "os-all",
-    "path-all",
-    "process-relaunch",
-    "shell-open",
-    "system-tray",
-    "window-center",
-    "window-close",
-    "window-hide",
-    "window-maximize",
-    "window-minimize",
-    "window-set-decorations",
-    "window-set-focus",
-    "window-set-fullscreen",
-    "window-set-size",
-    "window-start-dragging",
-    "window-unmaximize",
-    "window-unminimize",
-]
+features = [ "protocol-asset", "fs-all", "shell-sidecar", "dialog-all", "http-all", "icon-ico", "notification-all", "os-all", "path-all", "process-relaunch", "shell-open", "system-tray", "window-center", "window-close", "window-hide", "window-maximize", "window-minimize", "window-set-decorations", "window-set-focus", "window-set-fullscreen", "window-set-size", "window-start-dragging", "window-unmaximize", "window-unminimize",]
 
 [dependencies.tauri-plugin-window-state]
 git = "https://github.com/tauri-apps/tauri-plugin-window-state/"
@@ -76,11 +51,11 @@ branch = "dev"
 
 [dependencies.reqwest]
 version = "0.11"
-features = ["json", "rustls-tls"]
+features = [ "json", "rustls-tls",]
 
 [dependencies.tokio]
 version = "1"
-features = ["full"]
+features = [ "full",]
 
 [build-dependencies.tauri-build]
 version = "1.1.1"

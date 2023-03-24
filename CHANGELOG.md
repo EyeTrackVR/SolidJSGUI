@@ -3,6 +3,14 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.16](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.15...v1.0.0-SolidJSGUI.16) (2023-03-24)
+
+
+### 🍕 Features
+
+* add audio handler ([952c453](https://github.com/RedHawk989/EyeTrackVR/commit/952c4534f09630e0a7fe6e3cd9a41a7e9644ce52))
+* removed tauri websocket plugin ([5789b28](https://github.com/RedHawk989/EyeTrackVR/commit/5789b289b60b9b2b0dc5ddad3abc470c04e16e13))
+
 ## [1.0.0-SolidJSGUI.15](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.14...v1.0.0-SolidJSGUI.15) (2023-03-24)
 
 
