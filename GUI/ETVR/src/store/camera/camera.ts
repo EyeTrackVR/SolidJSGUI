@@ -19,6 +19,7 @@ export interface ICamera {
     type: CameraType
     address: string
     activeCameraSection: string
+    ws?: WebSocket
 }
 
 const tempCameraComponents: ICamera[] = [
@@ -104,6 +105,15 @@ export const setSelectedCamera = (camera: ICamera) => {
     setState(
         produce((s) => {
             s.selectedCamera = camera
+        }),
+    )
+}
+
+export const setCameraSocket = (camera: ICamera, ws: WebSocket) => {
+    setState(
+        produce((s) => {
+            s.cameras = s.cameras.filter((c: { address: string }) => c.address !== camera.address)
+            s.cameras.push({ ...camera, ws })
         }),
     )
 }

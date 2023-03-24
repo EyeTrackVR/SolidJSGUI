@@ -16,7 +16,5 @@ export const ghRESTEndpoint = createMemo(() => ghEndpoint)
 /********************************* websockets *************************************/
 export const rtcStatus = createMemo(() => rtcState().status)
 export const rtcMessageType = createMemo(() => rtcState().messageType)
-export const rtcWebSocket = createMemo(() => rtcState().ws)
-export const rtcConnectedPeers = createMemo(() => rtcState().connectedPeers)
 export const rtcConnectInterval = createMemo(() => rtcState().connectInterval)
 export const rtcTimeout = createMemo(() => rtcState().timeout)

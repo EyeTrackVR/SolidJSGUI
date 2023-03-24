@@ -35,15 +35,17 @@ export const defaultState: IRest = {
 }
 
 export const endpointsMap: Map<string, IEndpoint> = new Map<string, IEndpoint>([
-    ['ping', { url: '/control/command/ping', type: RESTType.GET }],
-    ['save', { url: '/control/command/save', type: RESTType.GET }],
-    ['resetConfig', { url: '/control/command/resetConfig', type: RESTType.GET }],
-    ['rebootDevice', { url: '/control/command/rebootDevice', type: RESTType.GET }],
-    ['restartCamera', { url: '/control/command/restartCamera', type: RESTType.GET }],
-    ['getStoredConfig', { url: '/control/command/getStoredConfig', type: RESTType.GET }],
-    ['setTxPower', { url: '/control/command/setTxPower', type: RESTType.POST }],
-    ['setDevice', { url: '/control/command/setDevice', type: RESTType.POST }],
-    ['wifi', { url: '/control/command/wifi', type: RESTType.POST }],
+    ['ping', { url: ':81/control/command/ping', type: RESTType.GET }],
+    ['save', { url: ':81/control/command/save', type: RESTType.GET }],
+    ['resetConfig', { url: ':81/control/command/resetConfig', type: RESTType.GET }],
+    ['rebootDevice', { url: ':81/control/command/rebootDevice', type: RESTType.GET }],
+    ['restartCamera', { url: ':81/control/command/restartCamera', type: RESTType.GET }],
+    ['getStoredConfig', { url: ':81/control/command/getStoredConfig', type: RESTType.GET }],
+    ['setTxPower', { url: ':81/control/command/setTxPower', type: RESTType.POST }],
+    ['setDevice', { url: ':81/control/command/setDevice', type: RESTType.POST }],
+    ['wifi', { url: ':81/control/command/wifi', type: RESTType.POST }],
+    ['wifiStrength', { url: ':81/control/command/wifiStrength', type: RESTType.POST }],
+    ['ota', { url: ':81/update', type: RESTType.POST }],
 ])
 
 const [state, setState] = createStore<IRest>(defaultState)
