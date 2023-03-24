@@ -2,11 +2,12 @@ import { readTextFile, BaseDirectory, writeTextFile } from '@tauri-apps/api/fs'
 import { getClient, ResponseType } from '@tauri-apps/api/http'
 import { appConfigDir, join } from '@tauri-apps/api/path'
 import { invoke, convertFileSrc } from '@tauri-apps/api/tauri'
-import { createSignal } from 'solid-js'
 import { download } from 'tauri-plugin-upload-api'
-import { RESTStatus } from '@src/store/api/restAPI'
+import { addNotification, ENotificationType, ENotificationAction } from '@hooks/notifications'
 import { setFirmwareAssets, setGHRestStatus, setFirmwareVersion } from '@store/api/ghAPI'
+import { RESTStatus } from '@store/api/restAPI'
 import { ghRESTEndpoint, firmwareAssets, firmwareVersion } from '@store/api/selectors'
+import { setProgressBar } from '@store/ui/ui'
 
 interface IGHRelease {
     data: object
@@ -35,19 +36,38 @@ const getRelease = async (firmware: string) => {
 
     if (firmwareAsset) {
         console.log('[Github Release]: Downloading firmware: ', firmware)
+        console.log('[Github Release]: Firmware URL: ', firmwareAsset)
 
         // parse out the file name from the firmwareAsset.url and append it to the appConfigDirPath
-        const fileName = firmwareAsset.url.split('/')[firmwareAsset.url.split('/').length - 1]
+        const fileName =
+            firmwareAsset.browser_download_url.split('/')[
+                firmwareAsset.browser_download_url.split('/').length - 1
+            ]
         //console.log('[Github Release]: File Name: ', fileName)
         // ${appConfigDirPath}${fileName}
         const path = await join(appConfigDirPath, fileName)
         console.log('[Github Release]: Path: ', path)
         // get the latest release
         const response = await download(
-            firmwareAsset.url,
+            firmwareAsset.browser_download_url,
             path,
-            (progress, total) =>
-                console.log(`[Github Release]: Downloaded ${progress} of ${total} bytes`), // a callback that will be called with the upload progress
+            (progress, total) => {
+                // UI store set prgoress bar to true and set progress
+                const download_percent = Math.round((progress / total) * 100)
+                setProgressBar(download_percent, `Downloading Firmware ${firmware}`, true)
+                console.log(`[Github Release]: Downloaded ${progress} of ${total} bytes`)
+            },
+        )
+        setProgressBar(0, '', false)
+        console.log('[Github Release]: Download Response: ', response)
+
+        addNotification(
+            {
+                title: 'ETVR Firmware Downloaded',
+                message: `Downloaded Firmware ${firmware}`,
+                type: ENotificationType.INFO,
+            },
+            ENotificationAction.OS,
         )
 
         const res = await invoke('unzip_archive', {
@@ -95,7 +115,6 @@ const getRelease = async (firmware: string) => {
             console.log('[Github Release]: Manifest: ', config_json)
             return
         }
-        return response
     }
 }
 
@@ -105,27 +124,18 @@ const getRelease = async (firmware: string) => {
  * @returns  {function} downloadAsset - The function that will download the asset from the github release endpoint
  */
 export const useGHRelease = () => {
-    const [data, setData] = createSignal({})
     const downloadAsset = async (firmware: string) => {
         const response = await getRelease(firmware)
-
-        if (typeof response === 'string') {
-            setGHRestStatus(RESTStatus.ACTIVE)
-            const parsedResponse = JSON.parse(response)
-            setData((prevData) => ({
-                ...prevData,
-                ...parsedResponse,
-            }))
-        }
+        console.log('[Github Release]: Download Response: ', response)
     }
-
-    return { data, downloadAsset }
+    return downloadAsset
 }
 
 const setGHData = (data: IGHRelease, update: boolean) => {
     setFirmwareVersion(data['name'])
     const assets = data['assets']
     const download_urls = assets.map((asset) => asset.browser_download_url)
+
     const firmware_assets = assets.map((asset) => asset.name)
 
     // split the firmware_assets array of strings on the first dash and return the first element of the array
@@ -133,19 +143,22 @@ const setGHData = (data: IGHRelease, update: boolean) => {
 
     // set the board name in the store
     for (let i = 0; i < boardName.length; i++) {
-        setFirmwareAssets({ name: boardName[i], url: download_urls[i] })
+        //console.log('[Github Release]: Board Name: ', boardName[i])
+        //console.log('[Github Release]: URLs: ', download_urls[i])
+        setFirmwareAssets({ name: boardName[i], browser_download_url: download_urls[i] })
     }
 
     if (update) {
-        // parse out the assets and the version from the ghRestState
-        // write the config file
-        const config = {
-            version: firmwareVersion(),
-            assets: firmwareAssets(),
-        }
-        writeTextFile('config.json', JSON.stringify(config), {
-            dir: BaseDirectory.AppConfig,
-        })
+        writeTextFile(
+            'config.json',
+            JSON.stringify({
+                version: firmwareVersion(),
+                assets: firmwareAssets(),
+            }),
+            {
+                dir: BaseDirectory.AppConfig,
+            },
+        )
             .then(() => {
                 console.log(
                     update

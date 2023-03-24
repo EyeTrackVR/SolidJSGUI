@@ -17,11 +17,11 @@ const WebSerial = () => {
 
     createEffect(() => {
         appDataDir().then((appDataDirPath) => {
-            console.log('appDataDirPath', appDataDirPath)
+            //console.log('[WebSerial]: appDataDirPath', appDataDirPath)
             join(appDataDirPath, 'manifest.json').then((manifestfilePath) => {
-                console.log('manifestfilePath', manifestfilePath)
+                //console.log('[WebSerial]: manifestfilePath', manifestfilePath)
                 const url = convertFileSrc(manifestfilePath)
-                console.log('url', url)
+                //console.log('[WebSerial]: url', url)
                 setManifest(url)
             })
         })

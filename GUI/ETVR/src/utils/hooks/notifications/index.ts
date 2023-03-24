@@ -52,3 +52,6 @@ export const NotificationsType = (
             return callbackApp()
     }
 }
+
+// export imported enum
+export { ENotificationType, ENotificationAction }

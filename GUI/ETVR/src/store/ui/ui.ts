@@ -8,6 +8,12 @@ interface IMenuOpen {
     y: number
 }
 
+interface IProgressBar {
+    progress: number
+    msg: string
+    show: boolean
+}
+
 export interface INewMenu {
     children: JSXElement
     ref: HTMLElement | null
@@ -30,6 +36,7 @@ export interface IUiStore {
     notifications?: ToasterStore<string>
     notificationsType?: ENotificationType
     hideHeaderButtons: boolean
+    progressBar?: IProgressBar
 }
 
 export const defaultState = {
@@ -106,6 +113,14 @@ export const setNotificationsType = (type: ENotificationType) => {
     setState(
         produce((s) => {
             s.notificationsType = type
+        }),
+    )
+}
+
+export const setProgressBar = (progress: number, msg: string, show: boolean) => {
+    setState(
+        produce((s) => {
+            s.progressBar = { progress, msg, show }
         }),
     )
 }
