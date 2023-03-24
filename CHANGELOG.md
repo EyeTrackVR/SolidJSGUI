@@ -3,6 +3,19 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.17](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.16...v1.0.0-SolidJSGUI.17) (2023-03-24)
+
+
+### 🧑‍💻 Code Refactoring
+
+* refactor webocket ([d5f70a6](https://github.com/RedHawk989/EyeTrackVR/commit/d5f70a67760b0f1a59e137ac18901f1462a4fc3f))
+
+
+### 🍕 Features
+
+* begin adding loaders to cameras ([00eda34](https://github.com/RedHawk989/EyeTrackVR/commit/00eda34e8e3a1d49363b048b198a5dac393932d1))
+* implement OTA upload hook ([122e684](https://github.com/RedHawk989/EyeTrackVR/commit/122e6843778fde4bc71d5f4503c3f7f125d3b764))
+
 ## [1.0.0-SolidJSGUI.16](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.15...v1.0.0-SolidJSGUI.16) (2023-03-24)
 
 
