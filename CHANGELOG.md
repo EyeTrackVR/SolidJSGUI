@@ -3,6 +3,13 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.15](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.14...v1.0.0-SolidJSGUI.15) (2023-03-24)
+
+
+### 🐛 Bug Fixes
+
+* lag in window resize ([b514ecf](https://github.com/RedHawk989/EyeTrackVR/commit/b514ecfc2f39fa4a311865d0703b55db6352fecb))
+
 ## [1.0.0-SolidJSGUI.14](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.13...v1.0.0-SolidJSGUI.14) (2023-03-24)
 
 
