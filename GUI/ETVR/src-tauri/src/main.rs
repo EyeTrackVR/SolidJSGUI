@@ -208,7 +208,6 @@ fn main() {
     // persistent storage with file system
     .plugin(tauri_plugin_store::PluginBuilder::default().build())
     .plugin(tauri_plugin_upload::init())
-    .plugin(tauri_plugin_websocket::init())
     // save window position and size between sessions
     .plugin(tauri_plugin_window_state::Builder::default().build())
     .setup(|app| {

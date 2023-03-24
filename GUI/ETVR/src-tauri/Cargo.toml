@@ -70,10 +70,6 @@ branch = "dev"
 git = "https://github.com/tauri-apps/tauri-plugin-store/"
 rev = "9bd993a"
 
-[dependencies.tauri-plugin-websocket]
-git = "https://github.com/tauri-apps/plugins-workspace"
-branch = "dev"
-
 [dependencies.tauri-plugin-upload]
 git = "https://github.com/tauri-apps/plugins-workspace"
 branch = "dev"

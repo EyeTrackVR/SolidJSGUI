@@ -70,7 +70,6 @@
     "solidjs-icons": "^1.0.11",
     "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#9bd993a",
     "tauri-plugin-upload-api": "https://github.com/tauri-apps/tauri-plugin-upload",
-    "tauri-plugin-websocket-api": "https://github.com/tauri-apps/tauri-plugin-websocket",
     "undici": "^5.11.0",
     "yarn": "^1.22.19",
     "yup": "^0.32.11"
