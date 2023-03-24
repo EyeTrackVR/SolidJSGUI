@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 import { sendNotification } from '@tauri-apps/api/notification'
-
+import { handleSound } from '../app'
 import { ENotificationAction, ENotificationType } from '@static/types/enums'
 import { INotifictionMessage, INotificationAction } from '@static/types/interfaces'
 import { notifications } from '@store/ui/selectors'
@@ -34,6 +34,7 @@ export const addNotification = (
             })
         },
         callbackApp: () => {
+            handleSound('EyeTrackApp_Audio_notif.mp3')
             setNotificationsType(type as ENotificationType)
             notifications()?.create(message)
         },
