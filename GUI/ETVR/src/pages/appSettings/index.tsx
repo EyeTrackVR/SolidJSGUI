@@ -1,8 +1,7 @@
-//import { ProgressBar } from '@components/ProgessBar'
 import { EraseButton } from '@components/Button/EraseButton'
 import WebSerial from '@components/WebSerial'
-//import { progressBar } from '@src/store/ui/selectors'
-import { useGHRelease } from '@utils/hooks/api/useGHReleases'
+import { useGHRelease } from '@hooks/api/useGHReleases'
+import { handleSound } from '@hooks/app'
 
 const AppSettings = () => {
     const downloadAsset = useGHRelease()
@@ -14,13 +13,17 @@ const AppSettings = () => {
                 onClick={() => downloadAsset('esp32AIThinker')}>
                 Download Release Asset
             </button>
+            <button
+                class="rounded-[8px] bg-blue-700 p-2 text-white mt-1 hover:bg-blue-600 focus:bg-blue-500"
+                onClick={() =>
+                    handleSound('EyeTrackApp_Audio_start.wav').then(() =>
+                        console.log('[Audio Handler]: Sound Played'),
+                    )
+                }>
+                Play Sound
+            </button>
             <WebSerial />
             <EraseButton />
-            {/* <ProgressBar
-                progress={progressBar()?.progress as number}
-                msg={progressBar()?.msg as string}
-                show={progressBar()?.show as boolean}
-            /> */}
         </div>
     )
 }

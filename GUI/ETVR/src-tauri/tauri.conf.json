@@ -40,9 +40,7 @@
         "scope": [
           "$APP/*",
           "$APPDATA/*",
-          "$APPCONFIG/*",
-          "$DOCUMENT/*",
-          "$DOWNLOAD/*"
+          "$APPCONFIG/*"
         ]
       },
       "globalShortcut": {
@@ -75,7 +73,9 @@
         "all": false,
         "asset": true,
         "assetScope": [
-          "C:\\Users\\zacar\\AppData\\Roaming\\com.eyetrackvr.dev\\*"
+          "$APPCONFIG/*",
+          "$APPDATA/*",
+          "$RESOURCE/*"
         ]
       },
       "shell": {

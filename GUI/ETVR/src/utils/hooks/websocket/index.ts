@@ -4,7 +4,6 @@ import { rtcWebSocket, rtcTimeout, rtcConnectInterval } from '@store/api/selecto
 import { setRTCStatus, setConnectInterval, setRTCTimeout } from '@store/api/websocket'
 //import { WebSocket } from 'tauri-plugin-websocket-api'
 
-
 import { cameras } from '@store/camera/selectors'
 
 const PORT = 7856
