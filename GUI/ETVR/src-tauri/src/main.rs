@@ -183,6 +183,13 @@ fn main() {
   let tray = SystemTray::new().with_menu(tray_menu);
 
   tauri::Builder::default()
+    //Note: This is a workaround for a bug in tauri that causes the window to not resize properly inducing a noticable lag
+    // ! https://github.com/tauri-apps/tauri/issues/6322#issuecomment-1448141495 
+    .on_window_event(|e| {
+      if let WindowEvent::Resized(_) = e.event() {
+        std::thread::sleep(std::time::Duration::from_nanos(1));
+      }
+    })
     .invoke_handler(tauri::generate_handler![
       close_splashscreen,
       run_mdns_query,

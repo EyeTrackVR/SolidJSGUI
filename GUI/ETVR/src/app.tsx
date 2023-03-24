@@ -9,7 +9,7 @@ const ExampleMenu = lazy(() => import('@components/NewWindow/Example'))
 const ToastNotificationWindow = lazy(() => import('@components/Notifications'))
 
 const App = () => {
-    const ref = document.getElementById('titlebar') // TODO: this is a hack, need to figure out how to get the ref to the bound element
+    const ref = document.getElementById('titlebar')
     onMount(() => {
         handleTitlebar()
         handleAppBoot()
