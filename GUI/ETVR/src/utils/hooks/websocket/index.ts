@@ -11,7 +11,7 @@ interface IWebRTCMessage {
     msg: string | object | null | undefined
 }
 
-const sendToRTCServer = (msg: IWebRTCMessage) => {
+export const sendToRTCServer = (msg: IWebRTCMessage) => {
     if (!msg) {
         console.error('[sendToRTCServer]: Message is null or undefined')
         return
@@ -22,8 +22,7 @@ const sendToRTCServer = (msg: IWebRTCMessage) => {
 }
 
 export const check = () => {
-    const ws = cameras()
-    ws.forEach((camera) => {
+    cameras().forEach((camera) => {
         if (!camera.ws || camera.ws.readyState == WebSocket.CLOSED) {
             //check if websocket instance is closed, if so call `init` function.
             setRTCStatus(RTCState.DISCONNECTED)
@@ -32,12 +31,14 @@ export const check = () => {
     })
 }
 
-const generateWebsocketClients = () => {
-    const clients = cameras().map((_, i) => {
-        return new WebSocket(`${LOCAL_HOST}:${PORT}/camera_${i + 1}`)
+export const generateWebsocketClients = () => {
+    const clients = cameras().map((camera, i) => {
+        if (!camera.ws) {
+            camera.ws = new WebSocket(`${LOCAL_HOST}:${PORT + i}`)
+            return camera.ws
+        }
     })
-    console.log('[WebSocket Handler]: websocket clients', clients)
-    return clients
+    //console.log('[WebSocket Handler]: Websocket Clients - ', clients)
 }
 
 /********************************* connect *************************************/
@@ -46,7 +47,7 @@ const generateWebsocketClients = () => {
  * we use websocket heartbeat to the server
  * every 10 seconds
  */
-const initWebSocket = () => {
+export const initWebSocket = () => {
     setRTCStatus(RTCState.CONNECTING)
     cameras().forEach((camera) => {
         if (camera.ws) {
@@ -105,5 +106,3 @@ const initWebSocket = () => {
         }
     })
 }
-
-export { sendToRTCServer, initWebSocket, generateWebsocketClients }

@@ -1,10 +1,10 @@
 import { EraseButton } from '@components/Button/EraseButton'
 import WebSerial from '@components/WebSerial'
-import { useGHRelease } from '@hooks/api/useGHReleases'
+import { useDownloadFirmware } from '@hooks/api/useDownloadFirmware'
 import { handleSound } from '@hooks/app'
 
 const AppSettings = () => {
-    const downloadAsset = useGHRelease()
+    const downloadAsset = useDownloadFirmware()
     return (
         <div class="flex justify-center items-center content-center flex-col pt-[100px] text-white">
             Coming Soon

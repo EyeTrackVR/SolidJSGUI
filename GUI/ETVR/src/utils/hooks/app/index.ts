@@ -1,6 +1,5 @@
 import { invoke } from '@tauri-apps/api/tauri'
 import { appWindow } from '@tauri-apps/api/window'
-import { setWebsocketClients } from '@store/api/websocket'
 import { doGHRequest } from '@utils/hooks/api/useGHReleases'
 import { generateWebsocketClients } from '@utils/hooks/websocket'
 
@@ -32,8 +31,7 @@ export const handleAppBoot = () => {
 
     // TODO: call these after the MDNS service is up and running and discoveres the camera's
     // TODO: Implement a websocket client that can be used to connect to the camera'susing the `tauri-plugin-websocket` rust crate
-    //const clients = generateWebsocketClients()
-    //setWebsocketClients(clients)
+    generateWebsocketClients()
     doGHRequest()
 }
 
