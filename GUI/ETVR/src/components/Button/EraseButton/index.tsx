@@ -1,5 +1,5 @@
+import { removeFile } from '@tauri-apps/api/fs'
 import { appConfigDir, join } from '@tauri-apps/api/path'
-import { invoke } from '@tauri-apps/api/tauri'
 import Button from '..'
 import { addNotification, ENotificationType, ENotificationAction } from '@hooks/notifications'
 
@@ -10,8 +10,8 @@ export const EraseButton = () => {
         const appConfigPath = await appConfigDir()
         const firmwarePath = await join(appConfigPath, 'merged-firmware.bin')
         const manifestPath = await join(appConfigPath, 'manifest.json')
-        //await invoke('remove_archive', { archivePath: firmwarePath })
-        //await invoke('remove_archive', { archivePath: manifestPath })
+        await removeFile(firmwarePath)
+        await removeFile(manifestPath)
     }
 
     return (

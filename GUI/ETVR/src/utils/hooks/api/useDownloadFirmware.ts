@@ -1,4 +1,4 @@
-import { readTextFile, BaseDirectory, writeTextFile } from '@tauri-apps/api/fs'
+import { removeFile, readTextFile, BaseDirectory, writeTextFile } from '@tauri-apps/api/fs'
 import { appConfigDir, join } from '@tauri-apps/api/path'
 import { invoke, convertFileSrc } from '@tauri-apps/api/tauri'
 import { download } from 'tauri-plugin-upload-api'
@@ -9,7 +9,14 @@ import { firmwareAssets, firmwareVersion } from '@store/api/selectors'
 const getRelease = async (firmware: string) => {
     const appConfigDirPath = await appConfigDir()
     if (firmware === '') {
-        // TODO: notify user to select a firmware
+        addNotification(
+            {
+                title: 'Please Select a Firmware',
+                message: 'A firmware must be selected before downloading',
+                type: ENotificationType.WARNING,
+            },
+            ENotificationAction.APP,
+        )
         console.log('[Github Release]: No firmware selected')
         return
     }
@@ -57,6 +64,7 @@ const getRelease = async (firmware: string) => {
             archivePath: path,
             targetDir: appConfigDirPath,
         })
+        await removeFile(path)
 
         console.log('[Github Release]: Unzip Response: ', res)
 

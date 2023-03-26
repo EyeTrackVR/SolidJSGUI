@@ -146,11 +146,7 @@ async fn close_splashscreen(window: tauri::Window) {
 }
 
 #[tauri::command]
-async fn unzip_archive(
-  window: tauri::Window,
-  archive_path: String,
-  target_dir: String,
-) -> Result<String, String> {
+async fn unzip_archive(archive_path: String, target_dir: String) -> Result<String, String> {
   // The third parameter allows you to strip away toplevel directories.
   // If `archive` contained a single directory, its contents would be extracted instead.
   let _target_dir = std::path::PathBuf::from(target_dir); // Doesn't need to exist
@@ -159,11 +155,12 @@ async fn unzip_archive(
   zip_extract::extract(std::io::Cursor::new(archive), &_target_dir, true)
     .expect("Failed to extract archive");
 
-  // erase the archive file
-  //window.app_handle(|app| {
-  //  let _ = app.remove_path(&archive_path);
-  //});
-  Ok("Archive extracted".to_string())
+  // erase the archive
+  //TODO: remove JS api for remove file andadd rust api for remove file here when it is available through tauri
+
+  // ! Using std:: is BAD practice, but it is the only way to get this to work for now
+  //std::fs::remove_file(archive_path).expect("Failed to remove archive");
+  Ok(archive_path)
 }
 
 fn main() {

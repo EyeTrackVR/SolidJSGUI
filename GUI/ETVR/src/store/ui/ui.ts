@@ -109,6 +109,7 @@ export const setShowCameraView = (showCameraView: boolean) => {
     )
 }
 
+// TODO: How can we separate each notification to have its own type?
 export const setNotificationsType = (type: ENotificationType) => {
     setState(
         produce((s) => {
