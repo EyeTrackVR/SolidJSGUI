@@ -3,6 +3,13 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.20](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.19...v1.0.0-SolidJSGUI.20) (2023-03-26)
+
+
+### 🐛 Bug Fixes
+
+* finish migrating to tauri FS api ([f81dab9](https://github.com/RedHawk989/EyeTrackVR/commit/f81dab97e8541175b56d98fdce650d29d525cbe6))
+
 ## [1.0.0-SolidJSGUI.19](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.18...v1.0.0-SolidJSGUI.19) (2023-03-26)
 
 
