@@ -31,7 +31,7 @@ features = ["derive"]
 
 [dependencies.tauri]
 version = "1.1.1"
-features = [
+features = [ "isolation",
     "protocol-asset",
     "fs-all",
     "shell-sidecar",
@@ -84,7 +84,7 @@ features = ["full"]
 
 [build-dependencies.tauri-build]
 version = "1.1.1"
-features = []
+features = ["isolation"]
 
 [profile.dev]
 debug = 0

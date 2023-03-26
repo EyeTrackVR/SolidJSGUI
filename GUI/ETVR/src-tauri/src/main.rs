@@ -146,7 +146,11 @@ async fn close_splashscreen(window: tauri::Window) {
 }
 
 #[tauri::command]
-async fn unzip_archive(archive_path: String, target_dir: String) -> Result<String, String> {
+async fn unzip_archive(
+  window: tauri::Window,
+  archive_path: String,
+  target_dir: String,
+) -> Result<String, String> {
   // The third parameter allows you to strip away toplevel directories.
   // If `archive` contained a single directory, its contents would be extracted instead.
   let _target_dir = std::path::PathBuf::from(target_dir); // Doesn't need to exist
@@ -155,16 +159,11 @@ async fn unzip_archive(archive_path: String, target_dir: String) -> Result<Strin
   zip_extract::extract(std::io::Cursor::new(archive), &_target_dir, true)
     .expect("Failed to extract archive");
 
-  // erase the archive
-  std::fs::remove_file(archive_path).expect("Failed to remove archive");
+  // erase the archive file
+  //window.app_handle(|app| {
+  //  let _ = app.remove_path(&archive_path);
+  //});
   Ok("Archive extracted".to_string())
-}
-
-#[tauri::command]
-async fn remove_archive(archive_path: String) -> Result<String, String> {
-  // erase the archive
-  std::fs::remove_file(archive_path).expect("Failed to remove archive");
-  Ok("Archive removed".to_string())
 }
 
 fn main() {
@@ -194,8 +193,7 @@ fn main() {
       run_mdns_query,
       get_user,
       do_rest_request,
-      unzip_archive,
-      remove_archive
+      unzip_archive
     ])
     // allow only one instance and propgate args and cwd to existing instance
     .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {

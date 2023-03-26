@@ -10,8 +10,8 @@ export const EraseButton = () => {
         const appConfigPath = await appConfigDir()
         const firmwarePath = await join(appConfigPath, 'merged-firmware.bin')
         const manifestPath = await join(appConfigPath, 'manifest.json')
-        await invoke('remove_archive', { archivePath: firmwarePath })
-        await invoke('remove_archive', { archivePath: manifestPath })
+        //await invoke('remove_archive', { archivePath: firmwarePath })
+        //await invoke('remove_archive', { archivePath: manifestPath })
     }
 
     return (
