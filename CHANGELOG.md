@@ -3,6 +3,18 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.19](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.18...v1.0.0-SolidJSGUI.19) (2023-03-26)
+
+
+### 🧑‍💻 Code Refactoring
+
+* refactor websocket member of camera ([9e4d383](https://github.com/RedHawk989/EyeTrackVR/commit/9e4d38333c830a72c3718c1d527b9c20cb20f937))
+
+
+### 🐛 Bug Fixes
+
+* add Isolation Pattern to tauri app ([8d74b7a](https://github.com/RedHawk989/EyeTrackVR/commit/8d74b7ae4b3591fa08d3948e914ec5d708215aee))
+
 ## [1.0.0-SolidJSGUI.18](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.17...v1.0.0-SolidJSGUI.18) (2023-03-24)
 
 
