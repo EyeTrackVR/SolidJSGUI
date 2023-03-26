@@ -1,5 +1,7 @@
 import { createMemo } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
+import { RTCMessageType, RTCState } from '@src/static/types/enums'
+import { type IWebSocket } from '@store/api/websocket'
 
 export enum CameraStatus {
     ACTIVE = 'ACTIVE',
@@ -19,7 +21,7 @@ export interface ICamera {
     type: CameraType
     address: string
     activeCameraSection: string
-    ws?: WebSocket
+    ws: IWebSocket
 }
 
 const tempCameraComponents: ICamera[] = [
@@ -28,36 +30,78 @@ const tempCameraComponents: ICamera[] = [
         type: CameraType.WIRELESS,
         address: '192.168.0.204',
         activeCameraSection: 'Left Eye',
+        ws: {
+            status: RTCState.DISCONNECTED,
+            messageType: RTCMessageType.VIDEO_OFFER,
+            camStream: null,
+            connectInterval: undefined,
+            timeout: 250,
+        },
     },
     {
         status: CameraStatus.LOADING,
         type: CameraType.WIRELESS,
         address: '192.168.0.232',
         activeCameraSection: 'Right Eye',
+        ws: {
+            status: RTCState.DISCONNECTED,
+            messageType: RTCMessageType.VIDEO_OFFER,
+            camStream: null,
+            connectInterval: undefined,
+            timeout: 250,
+        },
     },
     {
         status: CameraStatus.LOADING,
         type: CameraType.WIRELESS,
         address: '192.168.0.234',
         activeCameraSection: 'Right Eye',
+        ws: {
+            status: RTCState.DISCONNECTED,
+            messageType: RTCMessageType.VIDEO_OFFER,
+            camStream: null,
+            connectInterval: undefined,
+            timeout: 250,
+        },
     },
     {
         status: CameraStatus.LOADING,
         type: CameraType.WIRELESS,
         address: '192.168.0.204',
         activeCameraSection: 'Left Eye',
+        ws: {
+            status: RTCState.DISCONNECTED,
+            messageType: RTCMessageType.VIDEO_OFFER,
+            camStream: null,
+            connectInterval: undefined,
+            timeout: 250,
+        },
     },
     {
         status: CameraStatus.LOADING,
         type: CameraType.WIRELESS,
         address: '192.168.0.232',
         activeCameraSection: 'Right Eye',
+        ws: {
+            status: RTCState.DISCONNECTED,
+            messageType: RTCMessageType.VIDEO_OFFER,
+            camStream: null,
+            connectInterval: undefined,
+            timeout: 250,
+        },
     },
     {
         status: CameraStatus.LOADING,
         type: CameraType.WIRELESS,
         address: '192.168.0.234',
         activeCameraSection: 'Right Eye',
+        ws: {
+            status: RTCState.DISCONNECTED,
+            messageType: RTCMessageType.VIDEO_OFFER,
+            camStream: null,
+            connectInterval: undefined,
+            timeout: 250,
+        },
     },
 ]
 
@@ -73,6 +117,13 @@ export const defaultState: ICameraStore = {
         type: CameraType.NONE,
         address: ' ',
         activeCameraSection: ' ',
+        ws: {
+            status: RTCState.DISCONNECTED,
+            messageType: RTCMessageType.VIDEO_OFFER,
+            camStream: null,
+            connectInterval: undefined,
+            timeout: 250,
+        },
     },
 }
 
@@ -109,7 +160,7 @@ export const setSelectedCamera = (camera: ICamera) => {
     )
 }
 
-export const setCameraSocket = (camera: ICamera, ws: WebSocket) => {
+export const setCameraSocket = (camera: ICamera, ws: IWebSocket) => {
     setState(
         produce((s) => {
             s.cameras = s.cameras.filter((c: { address: string }) => c.address !== camera.address)

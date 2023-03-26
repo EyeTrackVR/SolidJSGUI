@@ -1,7 +1,7 @@
 import { ToasterStore } from 'solid-headless'
 import { createMemo, JSXElement } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
-import { ENotificationType, loaderType } from '@src/static/types/enums'
+import { ENotificationType, loaderType } from '@static/types/enums'
 
 interface IMenuOpen {
     x: number

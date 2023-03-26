@@ -17,13 +17,13 @@ export const sendToRTCServer = (msg: IWebRTCMessage) => {
         return
     }
     cameras().forEach((camera) => {
-        if (camera.ws) camera.ws.send(JSON.stringify(msg))
+        if (camera.ws.ws) camera.ws.ws.send(JSON.stringify(msg))
     })
 }
 
 export const check = () => {
     cameras().forEach((camera) => {
-        if (!camera.ws || camera.ws.readyState == WebSocket.CLOSED) {
+        if (!camera.ws.ws || camera.ws.ws.readyState == WebSocket.CLOSED) {
             //check if websocket instance is closed, if so call `init` function.
             setRTCStatus(RTCState.DISCONNECTED)
             initWebSocket()
@@ -33,12 +33,15 @@ export const check = () => {
 
 export const generateWebsocketClients = () => {
     const clients = cameras().map((camera, i) => {
-        if (!camera.ws) {
-            camera.ws = new WebSocket(`${LOCAL_HOST}:${PORT + i}`)
+        if (!camera.ws.ws) {
+            camera.ws.ws = new WebSocket(`${LOCAL_HOST}:${PORT + i}`)
             return camera.ws
         }
     })
-    //console.log('[WebSocket Handler]: Websocket Clients - ', clients)
+
+    clients.forEach((client) => {
+        console.log('[WebSocket Handler]: Websocket Clients - ', client)
+    })
 }
 
 /********************************* connect *************************************/
@@ -50,8 +53,8 @@ export const generateWebsocketClients = () => {
 export const initWebSocket = () => {
     setRTCStatus(RTCState.CONNECTING)
     cameras().forEach((camera) => {
-        if (camera.ws) {
-            camera.ws.onopen = () => {
+        if (camera.ws.ws) {
+            camera.ws.ws.onopen = () => {
                 setRTCTimeout(250) // reset timer to 250 on open of websocket connection
                 clearTimeout(rtcConnectInterval()) // clear Interval on open of websocket connection
 
@@ -73,14 +76,14 @@ export const initWebSocket = () => {
     })
     //* TODO: Add notification to the user
     cameras().forEach((camera) => {
-        if (camera.ws) {
-            camera.ws.onerror = (e) => {
+        if (camera.ws.ws) {
+            camera.ws.ws.onerror = (e) => {
                 setRTCStatus(RTCState.ERROR)
                 console.error('[WebSocket Client]: Socket encountered error: ', e, 'Closing socket')
                 cameras().forEach((camera) => {
-                    if (camera.ws) {
-                        if (camera.ws.readyState != WebSocket.CONNECTING) {
-                            if (camera.ws.bufferedAmount <= 0) camera.ws.close()
+                    if (camera.ws.ws) {
+                        if (camera.ws.ws.readyState != WebSocket.CONNECTING) {
+                            if (camera.ws.ws.bufferedAmount <= 0) camera.ws.ws.close()
                         }
                     }
                 })
@@ -89,8 +92,8 @@ export const initWebSocket = () => {
     })
     //* TODO: Add notification to the user
     cameras().forEach((camera) => {
-        if (camera.ws) {
-            camera.ws.onclose = (e) => {
+        if (camera.ws.ws) {
+            camera.ws.ws.onclose = (e) => {
                 console.log(
                     `[WebSocket Client]: Socket is closed. Reconnect will be attempted in ${Math.min(
                         10000 / 1000,

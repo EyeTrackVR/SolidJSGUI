@@ -10,6 +10,9 @@ export interface IWebSocket {
     camStream?: any
     connectInterval?: NodeJS.Timeout
     timeout?: number
+    ws?: WebSocket
+    abortController?: AbortController
+    
 }
 
 export const defaultState: IWebSocket = {
