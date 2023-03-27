@@ -47,16 +47,23 @@ features = [
     "system-tray",
     "window-center",
     "window-close",
+    "window-create",
     "window-hide",
     "window-maximize",
     "window-minimize",
+    "window-request-user-attention",
     "window-set-decorations",
     "window-set-focus",
     "window-set-fullscreen",
+    "window-set-position",
+    "window-set-resizable",
     "window-set-size",
+    "window-set-title",
+    "window-show",
     "window-start-dragging",
     "window-unmaximize",
     "window-unminimize",
+    
 ]
 
 [dependencies.tauri-plugin-window-state]
