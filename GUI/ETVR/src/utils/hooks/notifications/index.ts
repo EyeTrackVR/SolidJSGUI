@@ -25,23 +25,21 @@ export const notify = (title: string, body: string | undefined) => {
  * @param {INotifications} notification Notification message
  */
 export const addNotification = (notification: INotifications) => {
-    if (showNotifications()) {
-        const { title, message, action } = notification
-        NotificationType(action, {
-            callbackOS: () => {
-                sendNotification({
-                    title,
-                    body: message,
-                })
-            },
-            callbackApp: () => {
-                handleSound('EyeTrackApp_Audio_notif.mp3')
-                notifications()?.create(notification)
-            },
-        })
-        return
-    }
+    if (!showNotifications()) return
     checkPermission()
+    const { title, message, action } = notification
+    NotificationType(action, {
+        callbackOS: () => {
+            sendNotification({
+                title,
+                body: message,
+            })
+        },
+        callbackApp: () => {
+            handleSound('EyeTrackApp_Audio_notif.mp3')
+            notifications()?.create(notification)
+        },
+    })
 }
 
 const NotificationType = (

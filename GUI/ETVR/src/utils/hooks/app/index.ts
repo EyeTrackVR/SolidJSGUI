@@ -1,5 +1,6 @@
 import { invoke } from '@tauri-apps/api/tauri'
 import { appWindow } from '@tauri-apps/api/window'
+import { enableNotificationsSounds } from '@store/app/settings/selectors'
 import { doGHRequest } from '@utils/hooks/api/useGHReleases'
 import { checkPermission } from '@utils/hooks/notifications'
 import { generateWebsocketClients } from '@utils/hooks/websocket'
@@ -48,6 +49,7 @@ export const handleSound = async (
     soundfile_ogg?: string,
     soundfile_ma?: string,
 ) => {
+    if (!enableNotificationsSounds()) return
     if (!soundfile_ogg) soundfile_ogg = soundfile_mp
     if (!soundfile_ma) soundfile_ma = soundfile_mp
     if ('Audio' in window) {

@@ -4,7 +4,6 @@ import { ENotificationAction } from '@static/types/enums'
 
 export interface IAppSettingsStore {
     enableNotificationsSounds: boolean
-    enableNotifications: boolean
     globalNotificationsType: ENotificationAction
 }
 
@@ -20,14 +19,6 @@ export const setEnableNotificationsSounds = (flag: boolean) => {
     setState(
         produce((s) => {
             s.enableNotificationsSounds = flag
-        }),
-    )
-}
-
-export const setEnableNotifications = (flag: boolean) => {
-    setState(
-        produce((s) => {
-            s.enableNotifications = flag
         }),
     )
 }

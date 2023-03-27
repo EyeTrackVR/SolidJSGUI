@@ -41,7 +41,7 @@ export const defaultState = {
     connectedUser: '',
     showCameraView: false,
     notifications: new ToasterStore<INotifications>(),
-    showNotifications: false,
+    showNotifications: true,
     hideHeaderButtons: false,
 }
 
