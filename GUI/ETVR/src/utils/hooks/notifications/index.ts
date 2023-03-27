@@ -1,10 +1,15 @@
 /* eslint-disable */
 
-import { sendNotification } from '@tauri-apps/api/notification'
+import {
+    sendNotification,
+    isPermissionGranted,
+    requestPermission,
+} from '@tauri-apps/api/notification'
 import { handleSound } from '../app'
 import { ENotificationAction, ENotificationType } from '@static/types/enums'
 import { INotifications, INotificationAction } from '@static/types/interfaces'
-import { notifications } from '@store/ui/selectors'
+import { notifications, showNotifications } from '@store/ui/selectors'
+import { setShowNotifications } from '@store/ui/ui'
 
 /**
  * Send notification to the WebView Window using the browser API
@@ -20,19 +25,23 @@ export const notify = (title: string, body: string | undefined) => {
  * @param {INotifications} notification Notification message
  */
 export const addNotification = (notification: INotifications) => {
-    const { title, message, action } = notification
-    NotificationType(action, {
-        callbackOS: () => {
-            sendNotification({
-                title,
-                body: message,
-            })
-        },
-        callbackApp: () => {
-            handleSound('EyeTrackApp_Audio_notif.mp3')
-            notifications()?.create(notification)
-        },
-    })
+    if (showNotifications()) {
+        const { title, message, action } = notification
+        NotificationType(action, {
+            callbackOS: () => {
+                sendNotification({
+                    title,
+                    body: message,
+                })
+            },
+            callbackApp: () => {
+                handleSound('EyeTrackApp_Audio_notif.mp3')
+                notifications()?.create(notification)
+            },
+        })
+        return
+    }
+    checkPermission()
 }
 
 const NotificationType = (
@@ -45,6 +54,16 @@ const NotificationType = (
         case ENotificationAction.APP:
             return callbackApp()
     }
+}
+
+export const checkPermission = async () => {
+    let permissionGranted = await isPermissionGranted()
+
+    if (!permissionGranted) {
+        const permission = await requestPermission()
+        permissionGranted = permission === 'granted'
+    }
+    setShowNotifications(permissionGranted)
 }
 
 // export imported enum

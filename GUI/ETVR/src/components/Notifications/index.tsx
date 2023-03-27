@@ -1,15 +1,8 @@
-import { isPermissionGranted, requestPermission } from '@tauri-apps/api/notification'
 import { Toaster, ToasterStore, Transition, useToaster } from 'solid-headless'
 import { createEffect, createSignal, For, onCleanup } from 'solid-js'
 import CustomToast from './CustomToast'
 import { INotifications } from '@static/types/interfaces'
-import { notifications } from '@store/ui/selectors'
-
-let permissionGranted = await isPermissionGranted()
-if (!permissionGranted) {
-    const permission = await requestPermission()
-    permissionGranted = permission === 'granted'
-}
+import { notifications, showNotifications } from '@store/ui/selectors'
 
 const ToastNotificationWindow = () => {
     const notifs = useToaster(notifications() as ToasterStore<INotifications>)
@@ -24,7 +17,7 @@ const ToastNotificationWindow = () => {
     }
 
     createEffect(() => {
-        if (permissionGranted) {
+        if (showNotifications()) {
             if (notifs().length > 0) {
                 console.log('[Notifications]: Notifcations Added', notifs().length)
                 setIsOpen(true)

@@ -9,12 +9,6 @@ interface IMenuOpen {
     y: number
 }
 
-interface IProgressBar {
-    progress: number
-    msg: string
-    show: boolean
-}
-
 export interface INewMenu {
     children: JSXElement
     ref: HTMLElement | null
@@ -35,6 +29,7 @@ export interface IUiStore {
     showCameraView?: boolean
     connectedUser: string
     notifications?: ToasterStore<INotifications>
+    showNotifications?: boolean
     hideHeaderButtons: boolean
 }
 
@@ -46,6 +41,7 @@ export const defaultState = {
     connectedUser: '',
     showCameraView: false,
     notifications: new ToasterStore<INotifications>(),
+    showNotifications: false,
     hideHeaderButtons: false,
 }
 
@@ -103,6 +99,14 @@ export const setShowCameraView = (showCameraView: boolean) => {
     setState(
         produce((s) => {
             s.showCameraView = showCameraView
+        }),
+    )
+}
+
+export const setShowNotifications = (showNotifications: boolean) => {
+    setState(
+        produce((s) => {
+            s.showNotifications = showNotifications
         }),
     )
 }

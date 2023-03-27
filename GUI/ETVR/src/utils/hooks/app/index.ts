@@ -1,6 +1,7 @@
 import { invoke } from '@tauri-apps/api/tauri'
 import { appWindow } from '@tauri-apps/api/window'
 import { doGHRequest } from '@utils/hooks/api/useGHReleases'
+import { checkPermission } from '@utils/hooks/notifications'
 import { generateWebsocketClients } from '@utils/hooks/websocket'
 
 export const handleTitlebar = () => {
@@ -30,7 +31,7 @@ export const handleAppBoot = () => {
     })
 
     // TODO: call these after the MDNS service is up and running and discoveres the camera's
-    // TODO: Implement a websocket client that can be used to connect to the camera'susing the `tauri-plugin-websocket` rust crate
+    checkPermission()
     generateWebsocketClients()
     doGHRequest()
 }
@@ -52,12 +53,12 @@ export const handleSound = async (
     if ('Audio' in window) {
         const a = new Audio()
         if (a.canPlayType && a.canPlayType('audio/ogg; codecs="vorbis"').replace(/no/, ''))
-            a.src = ('assets/audio/' + soundfile_ogg) as string
+            a.src = ('audio/' + soundfile_ogg) as string
         else if (a.canPlayType && a.canPlayType('audio/mpeg;').replace(/no/, ''))
-            a.src = ('assets/audio/' + soundfile_mp) as string
+            a.src = ('audio/' + soundfile_mp) as string
         else if (a.canPlayType && a.canPlayType('audio/mp4; codecs="mp4a.40.2"').replace(/no/, ''))
-            a.src = ('assets/audio/' + soundfile_ma) as string
-        else a.src = ('assets/audio/' + soundfile_mp) as string
+            a.src = ('audio/' + soundfile_ma) as string
+        else a.src = ('audio/' + soundfile_mp) as string
 
         a.play()
         return

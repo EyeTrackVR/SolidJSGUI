@@ -11,12 +11,6 @@
     "version": "1.0.0"
   },
   "tauri": {
-    "pattern": {
-      "use": "isolation",
-      "options": {
-        "dir": "../dist-isolation"
-      }
-    },
     "allowlist": {
       "all": false,
       "clipboard": {
@@ -165,7 +159,10 @@
       }
     },
     "security": {
-      "csp": "default-src blob: data: filesystem: ws: wss: http: https: tauri: 'unsafe-eval' 'unsafe-inline' 'self' img-src: 'self' asset: https://asset.localhost"
+      "csp": "script-src: 'self' https://unpkg.com/esp-web-tools@9.2.0/dist/web/install-button.js?module; default-src blob: data: filesystem: ws: wss: http: https: tauri: 'unsafe-eval' 'unsafe-inline' 'self' img-src: 'self' asset: https://asset.localhost",
+      "dangerousDisableAssetCspModification": [
+        "script-src"
+      ]
     },
     "updater": {
       "active": false,

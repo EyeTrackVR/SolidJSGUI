@@ -13,6 +13,8 @@
     "tauri": "tauri",
     "tauri:dev": "tauri dev",
     "tauri:build": "tauri build",
+    "tauri:build:dev": "tauri build --debug",
+    "tauri:clean": "cd src-tauri && cargo clean",
     "docs": "jsdoc -c jsdoc.conf.json",
     "lint": "eslint --ext .js,.ts,.jsx,.tsx src",
     "format": "yarn run lint --fix & yarn prettier --write \"src/**/*.{js,jsx,ts,tsx}\""
