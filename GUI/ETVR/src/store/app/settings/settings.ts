@@ -5,12 +5,18 @@ import { ENotificationAction } from '@static/types/enums'
 export interface IAppSettingsStore {
     enableNotificationsSounds: boolean
     globalNotificationsType: ENotificationAction
+    enableMDNS: boolean
+    scanForCamerasOnStartup: boolean
+    stopAlgoBackend: boolean
 }
 
 export const defaultState = {
     enableNotificationsSounds: true,
     enableNotifications: true,
     globalNotificationsType: ENotificationAction.APP,
+    enableMDNS: true,
+    scanForCamerasOnStartup: true,
+    stopAlgoBackend: false,
 }
 
 const [state, setState] = createStore<IAppSettingsStore>(defaultState)

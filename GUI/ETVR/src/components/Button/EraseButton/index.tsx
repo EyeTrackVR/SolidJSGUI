@@ -1,4 +1,4 @@
-import { confirm } from '@tauri-apps/api/dialog'
+import { ask } from '@tauri-apps/api/dialog'
 import { removeFile } from '@tauri-apps/api/fs'
 import { appConfigDir, join } from '@tauri-apps/api/path'
 import Button from '..'
@@ -20,7 +20,7 @@ export const EraseButton = () => {
             shadow="0 0 10px #f44336"
             text="Erase Firmware Assets"
             onClick={() => {
-                confirm('This action cannot be reverted. Are you sure?', {
+                ask('This action cannot be reverted. Are you sure?', {
                     title: 'EyeTrackVR Erase Firmware Assets',
                     type: 'warning',
                 }).then((res) => {

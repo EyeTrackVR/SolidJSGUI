@@ -1,5 +1,7 @@
+import { exit } from '@tauri-apps/api/process'
 import { invoke } from '@tauri-apps/api/tauri'
 import { appWindow } from '@tauri-apps/api/window'
+import { ExitCodes } from '@static/types/enums'
 import { enableNotificationsSounds } from '@store/app/settings/selectors'
 import { doGHRequest } from '@utils/hooks/api/useGHReleases'
 import { checkPermission } from '@utils/hooks/notifications'
@@ -37,10 +39,16 @@ export const handleAppBoot = () => {
     doGHRequest()
 }
 
-export const handleAppExit = () => {
-    window.addEventListener('beforeunload', (e) => {
+export const handleAppExit = async () => {
+    window.addEventListener('beforeunload', async (e) => {
         e.preventDefault()
-        invoke('exit')
+
+        // TODO: call these before the app exits to shutdown gracefully
+        // stopMDNS()
+        // stopWebsocketClients()
+        // saveSettings()
+        // stopPythonBackend()
+        await exit(ExitCodes.USER_EXIT)
     })
 }
 
