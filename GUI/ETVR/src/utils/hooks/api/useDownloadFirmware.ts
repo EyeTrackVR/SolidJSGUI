@@ -2,8 +2,9 @@ import { removeFile, readTextFile, BaseDirectory, writeTextFile } from '@tauri-a
 import { appConfigDir, join } from '@tauri-apps/api/path'
 import { invoke, convertFileSrc } from '@tauri-apps/api/tauri'
 import { download } from 'tauri-plugin-upload-api'
-import { addNotification, ENotificationType, ENotificationAction } from '@hooks/notifications'
+import { addNotification, ENotificationType } from '@hooks/notifications'
 import { firmwareAssets, firmwareVersion } from '@store/api/selectors'
+import { getGlobalNotificationsType } from '@store/app/settings/selectors'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getRelease = async (firmware: string) => {
@@ -12,7 +13,7 @@ const getRelease = async (firmware: string) => {
         addNotification({
             title: 'Please Select a Firmware',
             message: 'A firmware must be selected before downloading',
-            action: ENotificationAction.APP,
+            action: getGlobalNotificationsType(),
             type: ENotificationType.WARNING,
         })
         console.log('[Github Release]: No firmware selected')
@@ -52,7 +53,7 @@ const getRelease = async (firmware: string) => {
         addNotification({
             title: 'ETVR Firmware Downloaded',
             message: `Downloaded Firmware ${firmware}`,
-            action: ENotificationAction.APP,
+            action: getGlobalNotificationsType(),
             type: ENotificationType.INFO,
         })
 

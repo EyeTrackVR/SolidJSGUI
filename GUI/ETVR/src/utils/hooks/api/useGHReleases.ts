@@ -1,11 +1,12 @@
 import { readTextFile, BaseDirectory, writeTextFile } from '@tauri-apps/api/fs'
 import { getClient, ResponseType } from '@tauri-apps/api/http'
-import { addNotification, ENotificationType, ENotificationAction } from '@hooks/notifications'
+import { addNotification, ENotificationType } from '@hooks/notifications'
 import { setFirmwareAssets, setGHRestStatus, setFirmwareVersion } from '@store/api/ghAPI'
 import { RESTStatus } from '@store/api/restAPI'
 import { ghRESTEndpoint, firmwareAssets, firmwareVersion } from '@store/api/selectors'
+import { getGlobalNotificationsType } from '@store/app/settings/selectors'
 
-// TODO: Implement a way to readif the merged-firmware.bin file and manifest.json file exists in the app config directory and if it does, then use that instead of downloading the firmware from github
+// TODO: Implement a way to read if the merged-firmware.bin file and manifest.json file exists in the app config directory and if it does, then use that instead of downloading the firmware from github
 // Note: If both files are present, we should early return and set a UI store value that will be used to display a message to the user that they can use the firmware that is already downloadedand show an optional button to erase the firmware
 
 //TODO: Add notifications to all the console.log statements

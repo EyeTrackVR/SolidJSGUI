@@ -65,7 +65,7 @@
       },
       "process": {
         "all": false,
-        "exit": false,
+        "exit": true,
         "relaunch": true,
         "relaunchDangerousAllowSymlinkMacos": false
       },
