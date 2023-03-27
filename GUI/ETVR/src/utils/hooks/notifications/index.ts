@@ -18,11 +18,10 @@ export const notify = (title: string, body: string | undefined) => {
 /**
  * Send notification to the OS or to the WebView Window using a custom API
  * @param {INotifications} notification Notification message
- * @param {ENotificationAction} actionType Notification action type
  */
 export const addNotification = (notification: INotifications) => {
     const { title, message, action } = notification
-    const notificationAction = NotificationsType(action, {
+    NotificationType(action, {
         callbackOS: () => {
             sendNotification({
                 title,
@@ -34,10 +33,9 @@ export const addNotification = (notification: INotifications) => {
             notifications()?.create(notification)
         },
     })
-    return notificationAction
 }
 
-export const NotificationsType = (
+const NotificationType = (
     notificationAction: ENotificationAction,
     { callbackOS, callbackApp }: INotificationAction,
 ) => {

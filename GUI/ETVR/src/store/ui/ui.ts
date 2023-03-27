@@ -36,7 +36,6 @@ export interface IUiStore {
     connectedUser: string
     notifications?: ToasterStore<INotifications>
     hideHeaderButtons: boolean
-    progressBar?: IProgressBar
 }
 
 export const defaultState = {
@@ -104,14 +103,6 @@ export const setShowCameraView = (showCameraView: boolean) => {
     setState(
         produce((s) => {
             s.showCameraView = showCameraView
-        }),
-    )
-}
-
-export const setProgressBar = (progress: number, msg: string, show: boolean) => {
-    setState(
-        produce((s) => {
-            s.progressBar = { progress, msg, show }
         }),
     )
 }

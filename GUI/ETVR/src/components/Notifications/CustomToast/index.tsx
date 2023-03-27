@@ -35,8 +35,6 @@ const CustomToast: Component<ToastProps> = (props) => {
             }}>
             <Toast class="flex justify-between items-center">
                 <Alert class="bg-slate-600 flex grow flex-row items-center justify-center text-xl text-bold text-gray-50 p-4">
-                    {/* TODO: Refactor this so that the rendered type is local to the notification itself */}
-                    {/* Note: This will change all rendered notifications to the type when matched - this is bad. */}
                     <div>
                         <Show when={props.notif.type === ENotificationType.SUCCESS}>
                             <AiOutlineCheckCircle size={25} color="#68D391" />
