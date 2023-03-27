@@ -3,6 +3,13 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.22](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.21...v1.0.0-SolidJSGUI.22) (2023-03-27)
+
+
+### 🐛 Bug Fixes
+
+* fix major bugs in build ([b69d549](https://github.com/RedHawk989/EyeTrackVR/commit/b69d549657889d4dc44e47b4dcb5bb808557f959))
+
 ## [1.0.0-SolidJSGUI.21](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.20...v1.0.0-SolidJSGUI.21) (2023-03-27)
 
 
