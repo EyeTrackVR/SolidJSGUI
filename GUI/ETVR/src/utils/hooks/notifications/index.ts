@@ -3,9 +3,8 @@
 import { sendNotification } from '@tauri-apps/api/notification'
 import { handleSound } from '../app'
 import { ENotificationAction, ENotificationType } from '@static/types/enums'
-import { INotifictionMessage, INotificationAction } from '@static/types/interfaces'
+import { INotifications, INotificationAction } from '@static/types/interfaces'
 import { notifications } from '@store/ui/selectors'
-import { setNotificationsType } from '@store/ui/ui'
 
 /**
  * Send notification to the WebView Window using the browser API
@@ -18,15 +17,12 @@ export const notify = (title: string, body: string | undefined) => {
 
 /**
  * Send notification to the OS or to the WebView Window using a custom API
- * @param {INotifictionMessage} notification Notification message
+ * @param {INotifications} notification Notification message
  * @param {ENotificationAction} actionType Notification action type
  */
-export const addNotification = (
-    notification: INotifictionMessage,
-    actionType: ENotificationAction,
-) => {
-    const { title, message, type } = notification
-    const notificationAction = NotificationsType(actionType, {
+export const addNotification = (notification: INotifications) => {
+    const { title, message, action } = notification
+    const notificationAction = NotificationsType(action, {
         callbackOS: () => {
             sendNotification({
                 title,
@@ -35,8 +31,7 @@ export const addNotification = (
         },
         callbackApp: () => {
             handleSound('EyeTrackApp_Audio_notif.mp3')
-            setNotificationsType(type as ENotificationType)
-            notifications()?.create(message)
+            notifications()?.create(notification)
         },
     })
     return notificationAction

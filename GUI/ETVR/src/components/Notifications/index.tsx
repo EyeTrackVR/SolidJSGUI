@@ -2,7 +2,8 @@ import { isPermissionGranted, requestPermission } from '@tauri-apps/api/notifica
 import { Toaster, ToasterStore, Transition, useToaster } from 'solid-headless'
 import { createEffect, createSignal, For, onCleanup } from 'solid-js'
 import CustomToast from './CustomToast'
-import { notifications } from '@src/store/ui/selectors'
+import { INotifications } from '@static/types/interfaces'
+import { notifications } from '@store/ui/selectors'
 
 let permissionGranted = await isPermissionGranted()
 if (!permissionGranted) {
@@ -11,7 +12,7 @@ if (!permissionGranted) {
 }
 
 const ToastNotificationWindow = () => {
-    const notifs = useToaster(notifications() as ToasterStore<string>)
+    const notifs = useToaster(notifications() as ToasterStore<INotifications>)
 
     const [isOpen, setIsOpen] = createSignal(false)
     const closeNotifs = () => {
@@ -25,6 +26,7 @@ const ToastNotificationWindow = () => {
     createEffect(() => {
         if (permissionGranted) {
             if (notifs().length > 0) {
+                console.log('[Notifications]: Notifcations Added', notifs().length)
                 setIsOpen(true)
             }
             const timeout = setTimeout(() => {
@@ -51,7 +53,10 @@ const ToastNotificationWindow = () => {
                 afterLeave={clearNotifs}>
                 <div class="flex-1 flex flex-col-reverse space-y-reverse space-y-1 overflow-y-hidden overflow-x-hidden rounded-lg">
                     <For each={notifs().slice(0).reverse()}>
-                        {(item) => <CustomToast id={item.id} message={item.data} />}
+                        {(item) => {
+                            console.log('[Notifications]: Rendering', item)
+                            return <CustomToast id={item.id} notif={item.data} />
+                        }}
                     </For>
                 </div>
             </Transition>

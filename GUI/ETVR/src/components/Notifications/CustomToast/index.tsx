@@ -4,12 +4,13 @@ import { FiAlertTriangle, FiAlertOctagon } from 'solid-icons/fi'
 import { IoAlertCircleSharp } from 'solid-icons/io'
 import { createSignal, Component, Show } from 'solid-js'
 import CloseIcon from '@components/CloseIcon'
-import { ENotificationType } from '@static/types/enums'
-import { notifications, notificationsType } from '@store/ui/selectors'
+import { type INotifications } from '@static/types/interfaces'
+import { notifications } from '@store/ui/selectors'
+import { ENotificationType } from '@utils/hooks/notifications'
 
 interface ToastProps {
     id: string
-    message: string
+    notif: INotifications
 }
 
 const CustomToast: Component<ToastProps> = (props) => {
@@ -34,25 +35,24 @@ const CustomToast: Component<ToastProps> = (props) => {
             }}>
             <Toast class="flex justify-between items-center">
                 <Alert class="bg-slate-600 flex grow flex-row items-center justify-center text-xl text-bold text-gray-50 p-4">
-
                     {/* TODO: Refactor this so that the rendered type is local to the notification itself */}
                     {/* Note: This will change all rendered notifications to the type when matched - this is bad. */}
                     <div>
-                        <Show when={notificationsType() === ENotificationType.SUCCESS}>
+                        <Show when={props.notif.type === ENotificationType.SUCCESS}>
                             <AiOutlineCheckCircle size={25} color="#68D391" />
                         </Show>
-                        <Show when={notificationsType() === ENotificationType.ERROR}>
+                        <Show when={props.notif.type === ENotificationType.ERROR}>
                             <FiAlertOctagon size={25} color="#F56565" />
                         </Show>
-                        <Show when={notificationsType() === ENotificationType.WARNING}>
+                        <Show when={props.notif.type === ENotificationType.WARNING}>
                             <FiAlertTriangle size={25} color="#F6E05E" />
                         </Show>
-                        <Show when={notificationsType() === ENotificationType.INFO}>
+                        <Show when={props.notif.type === ENotificationType.INFO}>
                             <IoAlertCircleSharp size={25} color="#90CDF4" />
                         </Show>
                     </div>
                     <span class="flex-1 text-sm font-semibold pl-1 pr-1 text-gray-50">
-                        {props.message}
+                        {props.notif.message}
                     </span>
                     <button
                         type="button"

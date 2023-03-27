@@ -22,14 +22,12 @@ export const EraseButton = () => {
             onClick={() => {
                 erase().then(() => {
                     console.log('[Erasing Firmware Assets]: Erased')
-                    addNotification(
-                        {
-                            title: 'ETVR Firmware Assets Erased',
-                            message: 'The firmware assets have been erased from your system.',
-                            type: ENotificationType.SUCCESS,
-                        },
-                        ENotificationAction.APP,
-                    )
+                    addNotification({
+                        title: 'ETVR Firmware Assets Erased',
+                        message: 'The firmware assets have been erased from your system.',
+                        action: ENotificationAction.APP,
+                        type: ENotificationType.SUCCESS,
+                    })
                 })
             }}
         />

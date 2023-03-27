@@ -9,14 +9,12 @@ import { firmwareAssets, firmwareVersion } from '@store/api/selectors'
 const getRelease = async (firmware: string) => {
     const appConfigDirPath = await appConfigDir()
     if (firmware === '') {
-        addNotification(
-            {
-                title: 'Please Select a Firmware',
-                message: 'A firmware must be selected before downloading',
-                type: ENotificationType.WARNING,
-            },
-            ENotificationAction.APP,
-        )
+        addNotification({
+            title: 'Please Select a Firmware',
+            message: 'A firmware must be selected before downloading',
+            action: ENotificationAction.APP,
+            type: ENotificationType.WARNING,
+        })
         console.log('[Github Release]: No firmware selected')
         return
     }
@@ -51,14 +49,12 @@ const getRelease = async (firmware: string) => {
         )
         console.log('[Github Release]: Download Response: ', response)
 
-        addNotification(
-            {
-                title: 'ETVR Firmware Downloaded',
-                message: `Downloaded Firmware ${firmware}`,
-                type: ENotificationType.INFO,
-            },
-            ENotificationAction.APP,
-        )
+        addNotification({
+            title: 'ETVR Firmware Downloaded',
+            message: `Downloaded Firmware ${firmware}`,
+            action: ENotificationAction.APP,
+            type: ENotificationType.INFO,
+        })
 
         const res = await invoke('unzip_archive', {
             archivePath: path,

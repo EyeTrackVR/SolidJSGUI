@@ -12,7 +12,6 @@ export interface IWebSocket {
     timeout?: number
     ws?: WebSocket
     abortController?: AbortController
-    
 }
 
 export const defaultState: IWebSocket = {

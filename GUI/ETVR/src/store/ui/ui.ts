@@ -1,7 +1,8 @@
 import { ToasterStore } from 'solid-headless'
 import { createMemo, JSXElement } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
-import { ENotificationType, loaderType } from '@static/types/enums'
+import { loaderType } from '@static/types/enums'
+import { INotifications } from '@static/types/interfaces'
 
 interface IMenuOpen {
     x: number
@@ -33,8 +34,7 @@ export interface IUiStore {
     menuOpen?: IMenuOpen | null
     showCameraView?: boolean
     connectedUser: string
-    notifications?: ToasterStore<string>
-    notificationsType?: ENotificationType
+    notifications?: ToasterStore<INotifications>
     hideHeaderButtons: boolean
     progressBar?: IProgressBar
 }
@@ -46,8 +46,7 @@ export const defaultState = {
     menuOpen: null,
     connectedUser: '',
     showCameraView: false,
-    notifications: new ToasterStore<string>(),
-    notificationsType: ENotificationType.INFO,
+    notifications: new ToasterStore<INotifications>(),
     hideHeaderButtons: false,
 }
 
@@ -105,15 +104,6 @@ export const setShowCameraView = (showCameraView: boolean) => {
     setState(
         produce((s) => {
             s.showCameraView = showCameraView
-        }),
-    )
-}
-
-// TODO: How can we separate each notification to have its own type?
-export const setNotificationsType = (type: ENotificationType) => {
-    setState(
-        produce((s) => {
-            s.notificationsType = type
         }),
     )
 }

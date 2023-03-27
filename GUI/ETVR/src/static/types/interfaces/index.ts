@@ -1,4 +1,4 @@
-import { ENotificationType } from '../enums'
+import { ENotificationAction, ENotificationType } from '../enums'
 import type { JSXElement } from 'solid-js'
 
 //* Component Interfaces
@@ -37,8 +37,9 @@ export interface INotificationAction {
     callbackApp(): void
 }
 
-export interface INotifictionMessage {
+export interface INotifications {
     title: string
     message: string
-    type?: ENotificationType
+    action: ENotificationAction
+    type: ENotificationType
 }

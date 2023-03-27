@@ -15,7 +15,12 @@ const Camera = (props: IProps) => {
             <div class="responsive-flex-container w-full h-full flex items-center flex-row">
                 <div class="responsive-iframe-container flex items-center h-full w-full ">
                     <div class="h-full w-full">
-                        <WebSocketHandler borderRadius="rounded-t-xl" width={100} height={100} unit="%" />
+                        <WebSocketHandler
+                            borderRadius="rounded-t-xl"
+                            width={100}
+                            height={100}
+                            unit="%"
+                        />
                     </div>
                 </div>
                 <div class="flex flex-col justify-between responsive-spacer-container bg-[#292D36] rounded-b-xl min-[1749px]:rounded-xl max-w-[209px] h-[100%] w-full p-3">
