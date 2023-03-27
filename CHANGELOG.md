@@ -3,6 +3,18 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.24](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.23...v1.0.0-SolidJSGUI.24) (2023-03-27)
+
+
+### 🍕 Features
+
+* add window to call docs ([6278c6d](https://github.com/RedHawk989/EyeTrackVR/commit/6278c6decdcc5160b196d8e17eb8a82df1363358))
+
+
+### 🐛 Bug Fixes
+
+* rust analyzer error with Cargo features ([9693fc8](https://github.com/RedHawk989/EyeTrackVR/commit/9693fc89d8fd1f31152377a3554ff35f28afe138))
+
 ## [1.0.0-SolidJSGUI.23](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.22...v1.0.0-SolidJSGUI.23) (2023-03-27)
 
 
