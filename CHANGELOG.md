@@ -3,6 +3,18 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.23](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.22...v1.0.0-SolidJSGUI.23) (2023-03-27)
+
+
+### 🍕 Features
+
+* add app settings store ([9751fb7](https://github.com/RedHawk989/EyeTrackVR/commit/9751fb7ecbfddf4305657c434d25cccb28e278ca))
+
+
+### 🧑‍💻 Code Refactoring
+
+* clean up redundant notification code ([6f1aa26](https://github.com/RedHawk989/EyeTrackVR/commit/6f1aa26ea011f28f4affa10e7a62efec495225f0))
+
 ## [1.0.0-SolidJSGUI.22](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.21...v1.0.0-SolidJSGUI.22) (2023-03-27)
 
 
