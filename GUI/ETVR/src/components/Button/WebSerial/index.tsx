@@ -2,13 +2,13 @@ import { WebviewWindow, getCurrent } from '@tauri-apps/api/window'
 import Button from '..'
 import { addWindow } from '@store/app/windows/windows'
 
-export const OpenDocs = () => {
-    const openDocs = () => {
+export const WebSerial = () => {
+    const openWebSerial = () => {
         const currentMainWindow = getCurrent()
         currentMainWindow.innerPosition().then((position) => {
             console.log(position)
-            const webview = new WebviewWindow('eyetrack-docs', {
-                url: 'src/windows/docs/index.html',
+            const webview = new WebviewWindow('eyetrack-webserial', {
+                url: 'src/windows/webserial/index.html',
                 resizable: true,
                 decorations: false,
                 titleBarStyle: 'transparent',
@@ -30,8 +30,8 @@ export const OpenDocs = () => {
         <Button
             color="#800080"
             shadow="0 0 10px #800080"
-            text="Open Documentation"
-            onClick={openDocs}
+            text="Open Web Serial Flasher"
+            onClick={openWebSerial}
         />
     )
 }

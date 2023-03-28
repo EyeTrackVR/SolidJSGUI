@@ -31,7 +31,8 @@ export default defineConfig({
         rollupOptions: {
             input: {
                 main: path.resolve(__dirname, 'index.html'),
-                nested: path.resolve(__dirname, 'src/windows/docs/index.html'),
+                docs: path.resolve(__dirname, 'src/windows/docs/index.html'),
+                webserial: path.resolve(__dirname, 'src/windows/webserial/index.html'),
             },
         },
         // Tauri supports es2021

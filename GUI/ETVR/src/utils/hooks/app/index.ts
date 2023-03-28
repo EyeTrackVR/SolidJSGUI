@@ -3,11 +3,13 @@ import { invoke } from '@tauri-apps/api/tauri'
 import { appWindow } from '@tauri-apps/api/window'
 import { ExitCodes } from '@static/types/enums'
 import { enableNotificationsSounds } from '@store/app/settings/selectors'
+import { getActiveWindows } from '@store/app/windows/selectors'
+import { removeWindow } from '@store/app/windows/windows'
 import { doGHRequest } from '@utils/hooks/api/useGHReleases'
 import { checkPermission } from '@utils/hooks/notifications'
 import { generateWebsocketClients } from '@utils/hooks/websocket'
 
-export const handleTitlebar = () => {
+export const handleTitlebar = (main = false) => {
     const titlebar = document.getElementsByClassName('titlebar')
     if (titlebar) {
         document
@@ -18,7 +20,7 @@ export const handleTitlebar = () => {
             ?.addEventListener('click', () => appWindow.toggleMaximize())
         document
             .getElementById('titlebar-close')
-            ?.addEventListener('click', () => appWindow.close())
+            ?.addEventListener('click', () => (main ? handleAppExit() : appWindow.close()))
     }
 }
 
@@ -40,17 +42,14 @@ export const handleAppBoot = () => {
 }
 
 export const handleAppExit = async () => {
-    window.addEventListener('beforeunload', async (e) => {
-        e.preventDefault()
-
-        // TODO: call these before the app exits to shutdown gracefully
-        // stopMDNS()
-        // stopWebsocketClients()
-        // saveSettings()
-        // stopPythonBackend()
-        // closeAllWindows()
-        await exit(ExitCodes.USER_EXIT)
-    })
+    // TODO: call these before the app exits to shutdown gracefully
+    // stopMDNS()
+    // stopWebsocketClients()
+    // saveSettings()
+    // stopPythonBackend()
+    getActiveWindows().forEach((w) => removeWindow(w.window))
+    appWindow.close()
+    await exit(ExitCodes.USER_EXIT)
 }
 
 export const handleSound = async (

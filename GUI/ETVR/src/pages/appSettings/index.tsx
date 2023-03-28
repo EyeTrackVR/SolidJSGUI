@@ -1,6 +1,6 @@
 import { EraseButton } from '@components/Button/EraseButton'
 import { OpenDocs } from '@components/Button/OpenDocs'
-import WebSerial from '@components/WebSerial'
+import { WebSerial } from '@components/Button/WebSerial'
 import { useDownloadFirmware } from '@hooks/api/useDownloadFirmware'
 import { handleSound } from '@hooks/app'
 
@@ -23,8 +23,8 @@ const AppSettings = () => {
                 }>
                 Play Sound
             </button>
-            <WebSerial />
             <EraseButton />
+            <WebSerial />
             <OpenDocs />
         </div>
     )
