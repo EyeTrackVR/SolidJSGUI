@@ -48,6 +48,7 @@ export const handleAppExit = async () => {
         // stopWebsocketClients()
         // saveSettings()
         // stopPythonBackend()
+        // closeAllWindows()
         await exit(ExitCodes.USER_EXIT)
     })
 }

@@ -7,14 +7,15 @@ export const OpenDocs = () => {
         currentMainWindow.innerPosition().then((position) => {
             console.log(position)
             const webview = new WebviewWindow('eyetrack-docs', {
-                url: 'https://docs.eyetrackvr.dev',
+                url: 'src/windows/docs/index.html',
                 resizable: true,
-                focus: true,
+                decorations: false,
+                titleBarStyle: 'transparent',
+                hiddenTitle: true,
                 width: 800,
                 height: 600,
                 x: position.x,
                 y: position.y,
-                title: 'EyeTrackVR Docs',
                 transparent: true,
             })
             webview.once('tauri://created', () => {
@@ -33,3 +34,8 @@ export const OpenDocs = () => {
         />
     )
 }
+
+// q: what kind of app  can i make with tauri and sell on the app store?
+// a: any kind of app you want, as long as you follow the app store guidelines
+// give me an idea of an app that i can make that will be profitable
+

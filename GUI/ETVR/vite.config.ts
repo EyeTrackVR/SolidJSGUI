@@ -28,6 +28,12 @@ export default defineConfig({
         strictPort: true,
     },
     build: {
+        rollupOptions: {
+            input: {
+                main: path.resolve(__dirname, 'index.html'),
+                nested: path.resolve(__dirname, 'src/windows/docs/index.html'),
+            },
+        },
         // Tauri supports es2021
         target: ['es2021', 'esnext'],
         // don't minify for debug builds
