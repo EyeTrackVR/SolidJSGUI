@@ -160,6 +160,14 @@ export const setSelectedCamera = (camera: ICamera) => {
     )
 }
 
+export const resetSelectedCamera = () => {
+    setState(
+        produce((s) => {
+            s.selectedCamera = defaultState.selectedCamera
+        }),
+    )
+}
+
 export const setCameraSocket = (camera: ICamera, ws: IWebSocket) => {
     setState(
         produce((s) => {

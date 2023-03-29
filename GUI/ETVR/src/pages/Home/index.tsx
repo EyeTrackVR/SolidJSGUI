@@ -9,7 +9,7 @@ import List from '@components/List/List'
 import ListHeader from '@components/List/ListHeader/ListHeader'
 import { POPOVER_ID } from '@src/static/types/enums'
 import { setRestDevice } from '@src/store/api/restAPI'
-import { setSelectedCamera } from '@src/store/camera/camera'
+import { resetSelectedCamera, setSelectedCamera } from '@src/store/camera/camera'
 import { cameras } from '@src/store/camera/selectors'
 import './index.css'
 import { setHideHeaderButtons } from '@src/store/ui/ui'
@@ -83,6 +83,7 @@ const Home = () => {
                                         onClick={() => {
                                             navigate('/settings/true', { replace: true })
                                             setHideHeaderButtons(true)
+                                            resetSelectedCamera()
                                         }}
                                     />
                                 </div>
