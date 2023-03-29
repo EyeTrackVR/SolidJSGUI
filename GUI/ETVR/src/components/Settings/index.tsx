@@ -5,6 +5,7 @@ import CamerasModal from './CamerasModal'
 import { RANGE_INPUT_FORMAT } from '@src/static/types/enums'
 import { CameraStatus } from '@store/camera/camera'
 import icons from '@assets/images'
+import CameraAddress from './CameraAddress/CameraAddress'
 
 export interface IProps {
     onChange: (format: string, value: number) => void
@@ -13,8 +14,10 @@ export interface IProps {
     onClickCalibrate: () => void
     onClickRecenter: () => void
     onClickCroppingMode: () => void
+    onChangeCameraAddress: (value: string) => void
     cameraStatus: CameraStatus
     camerasUrl: string[]
+    createNewCamera: boolean
 }
 
 const Settings = (props: IProps) => {
@@ -35,11 +38,26 @@ const Settings = (props: IProps) => {
                 </div>
                 <div class="flex justify-center gap-5">
                     <div class="mt-5 max-w-[700px] w-full ">
-                        <div>
-                            <div class="mb-5">
-                                <CameraConnectionStatus cameraStatus={props.cameraStatus} />
+                        {!props.createNewCamera ? (
+                            <div>
+                                <div class="mb-5">
+                                    <CameraConnectionStatus cameraStatus={props.cameraStatus} />
+                                </div>
                             </div>
-                        </div>
+                        ) : null}
+                        {props.createNewCamera ? (
+                            <div>
+                                <div class="mb-5">
+                                    <CameraAddress
+                                        header="Camera address"
+                                        placeholder="Setup camera address"
+                                        onChange={(value) => {
+                                            props.onChangeCameraAddress(value)
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        ) : null}
                         <div>
                             <div class="mb-5">
                                 <CameraCalibrationSettings

@@ -70,7 +70,7 @@ const Home = () => {
                                         <Camera
                                             {...camera}
                                             onClick={() => {
-                                                navigate('/settings', { replace: true })
+                                                navigate('/settings/false', { replace: true })
                                                 setSelectedCamera(camera)
                                                 setRestDevice(camera.address)
                                                 setHideHeaderButtons(true)
@@ -81,7 +81,8 @@ const Home = () => {
                                 <div>
                                     <CreateCamera
                                         onClick={() => {
-                                            navigate('/settings', { replace: true })
+                                            navigate('/settings/true', { replace: true })
+                                            setHideHeaderButtons(true)
                                         }}
                                     />
                                 </div>
@@ -99,7 +100,7 @@ const Home = () => {
                                             <List
                                                 {...camera}
                                                 onClick={() => {
-                                                    navigate('/settings', { replace: true })
+                                                    navigate('/settings/false', { replace: true })
                                                     setSelectedCamera(camera)
                                                     setRestDevice(camera.address)
                                                     setHideHeaderButtons(true)

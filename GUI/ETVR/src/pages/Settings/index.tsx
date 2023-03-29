@@ -1,4 +1,4 @@
-import { useNavigate } from '@solidjs/router'
+import { useNavigate, useParams } from '@solidjs/router'
 import Settings from '@components/Settings'
 import { CameraStatus } from '@src/store/camera/camera'
 import './styles.css'
@@ -6,14 +6,19 @@ import { setHideHeaderButtons } from '@src/store/ui/ui'
 
 const SettingsPage = () => {
     const navigate = useNavigate()
+    const params = useParams()
 
     return (
         <Settings
+            createNewCamera={params.flag === 'true'}
             camerasUrl={['.', '.', '.']}
             onChange={(value) => console.log(value)}
             onClickBack={() => {
                 setHideHeaderButtons(false)
                 navigate('/')
+            }}
+            onChangeCameraAddress={() => {
+                console.log('change camera address')
             }}
             onClickCalibrate={() => {
                 console.log('onClickCalibrate')
