@@ -19,27 +19,29 @@ const CameraSettings = (props: IProps) => {
                     </div>
                 </div>
                 <div>
-                    <For each={props.formats}>
-                        {(format) => (
-                            <div>
-                                <div class="pb-6">
-                                    <div>
-                                        <p class="text-left font-[700] text-white text-lg">
-                                            {RANGE_INPUT_FORMAT[format]}
-                                        </p>
-                                    </div>
-                                    <div class="pl-4 pr-4">
-                                        <RangeInput
-                                            onChange={(format, value) =>
-                                                props.onChange(format, value)
-                                            }
-                                            format={RANGE_INPUT_FORMAT[format]}
-                                        />
+                    <div class="pt-3">
+                        <For each={props.formats}>
+                            {(format) => (
+                                <div>
+                                    <div class="pb-6">
+                                        <div>
+                                            <p class="text-left font-[700] text-white text-lg">
+                                                {RANGE_INPUT_FORMAT[format]}
+                                            </p>
+                                        </div>
+                                        <div class="pl-4 pr-4">
+                                            <RangeInput
+                                                onChange={(format, value) =>
+                                                    props.onChange(format, value)
+                                                }
+                                                format={RANGE_INPUT_FORMAT[format]}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        )}
-                    </For>
+                            )}
+                        </For>
+                    </div>
                 </div>
             </div>
         </div>

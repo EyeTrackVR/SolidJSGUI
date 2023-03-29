@@ -10,7 +10,7 @@ export interface IProps extends ICamera {
 const Camera = (props: IProps) => {
     return (
         <div
-            class="responsive-container m-auto justify-between items-center pr-3 pl-3 py-3 h-full min-h-[222px] pb-3 rounded-xl bg-[#333742] flex border-2 border-[#333742] hover:border-[#817DF7]  hover:cursor-pointer"
+            class="responsive-container m-auto justify-between items-center pr-3 pl-3 py-3 h-full min-h-[222px] pb-3 rounded-xl bg-[#333742] flex border-2 border-[#333742] hover:border-[#817DF7] hover:cursor-pointer"
             onClick={() => props.onClick()}>
             <div class="responsive-flex-container w-full h-full flex items-center flex-row">
                 <div class="responsive-iframe-container flex items-center h-full w-full ">
@@ -18,7 +18,7 @@ const Camera = (props: IProps) => {
                         <WebSocketHandler />
                     </div>
                 </div>
-                <div class="flex flex-col justify-between responsive-spacer-container bg-[#292D36] rounded-b-xl min-[1749px]:rounded-xl max-w-[209px] h-[100%] w-full p-3">
+                <div class="flex flex-col justify-between responsive-spacer-container bg-[#292D36] rounded-b-xl min-[1749px]:rounded-xl max-w-[209px] h-full w-full p-3">
                     <div>
                         <div>
                             <div class="text-center pb-3">

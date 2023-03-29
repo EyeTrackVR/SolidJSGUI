@@ -29,7 +29,7 @@ const List = (props: IList) => {
                     </div>
                     <div class="md:hidden lg:hidden xl:hidden flex items-center">
                         <div
-                            class="ml-[6px] w-[10px] h-[10px] rounded-[100%]"
+                            class="ml-[6px] w-[10px] h-[10px] rounded-full"
                             style={{ background: ActiveStatus(props.status) }}
                         />
                         <div class="text-left pl-[10px] pr-[10px]">
@@ -43,7 +43,7 @@ const List = (props: IList) => {
             </div>
             <div class="flex items-center text-left w-[150px] m-auto max-md:hidden">
                 <div
-                    class="ml-[6px] w-[10px] h-[10px] rounded-[100%]"
+                    class="ml-[6px] w-[10px] h-[10px] rounded-full"
                     style={{ background: ActiveStatus(props.status) }}
                 />
                 <p class="pl-2">{CapitalizeFirstLetter(props.status.toLocaleLowerCase())}</p>

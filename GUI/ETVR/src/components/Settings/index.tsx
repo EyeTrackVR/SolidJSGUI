@@ -27,7 +27,7 @@ const Settings = (props: IProps) => {
                             <img src={icons.arrow} alt="img" class=" w-full h-full m-auto" />
                         </div>
                         <div>
-                            <p class="text-left text-white text-lg text-upper uppercase">
+                            <p class="text-left text-white text-lg text-upper uppercase max-lg:text-sm ">
                                 go back to home
                             </p>
                         </div>
