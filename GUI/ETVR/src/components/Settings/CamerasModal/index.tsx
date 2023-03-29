@@ -1,5 +1,4 @@
 import { For } from 'solid-js'
-import CameraModalComponent from './CameraModalComponent'
 
 export interface IProps {
     camerasUrl: string[]
@@ -12,7 +11,7 @@ const CamerasModal = (props: IProps) => {
                 <For each={props.camerasUrl}>
                     {(cameraUrl, index) => (
                         <div class={` mb-[${index() > cameraUrl.length ? '0px' : '22px'}]`}>
-                            {/* <CameraModalComponent cameraHeight={400} cameraSrc={cameraUrl} /> */}
+                            {/* < cameraHeight={400} cameraSrc={cameraUrl} /> */}
                         </div>
                     )}
                 </For>

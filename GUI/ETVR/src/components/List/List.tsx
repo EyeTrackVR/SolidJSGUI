@@ -14,12 +14,7 @@ const List = (props: IList) => {
                 <div>
                     <div class="text-[#FFFF] bg-[#2b2f38] w-[60px] h-[60px] rounded-[5px] flex justify-center content-center items-center">
                         <div class="h-full w-full">
-                            <WebSocketHandler
-                                borderRadius="rounded-t-xl"
-                                width={100}
-                                height={100}
-                                unit="%"
-                            />
+                            <WebSocketHandler />
                         </div>
                     </div>
                 </div>
