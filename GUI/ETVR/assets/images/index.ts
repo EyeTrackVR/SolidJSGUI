@@ -1,5 +1,6 @@
 import logo from './png/logo.png'
 import addIcon from './svg/add.svg'
+import arrow from './svg/arrow.svg'
 import calibrateIcon from './svg/calibrateIcon.svg'
 import cameraSolid from './svg/cameraSolid.svg'
 import croppingIcon from './svg/croppingIcon.svg'
@@ -19,6 +20,7 @@ const icons = {
     gearSolid: gearSolid,
     addIcon: addIcon,
     reload: reload,
+    arrow: arrow,
     logo: logo,
     list: list,
     grip: grip,

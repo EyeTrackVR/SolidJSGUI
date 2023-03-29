@@ -4,6 +4,7 @@ import CameraSettings from './CameraSettings'
 import CamerasModal from './CamerasModal'
 import { RANGE_INPUT_FORMAT } from '@src/static/types/enums'
 import { CameraStatus } from '@store/camera/camera'
+import icons from '@assets/images'
 
 export interface IProps {
     onChange: (format: string, value: number) => void
@@ -20,10 +21,17 @@ const Settings = (props: IProps) => {
     return (
         <div>
             <div class="pt-12">
-                <div onClick={() => props.onClickBack()}>
-                    <p class="text-left text-white text-lg text-upper uppercase cursor-pointer">
-                        go back to home
-                    </p>
+                <div>
+                    <div class="flex  cursor-pointer" onClick={() => props.onClickBack()}>
+                        <div class="mr-3">
+                            <img src={icons.arrow} alt="img" class=" w-full h-full m-auto" />
+                        </div>
+                        <div>
+                            <p class="text-left text-white text-lg text-upper uppercase">
+                                go back to home
+                            </p>
+                        </div>
+                    </div>
                 </div>
                 <div class="flex justify-center gap-5">
                     <div class="mt-5 max-w-[700px] w-full ">
