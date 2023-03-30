@@ -38,6 +38,7 @@ export const handleAppBoot = () => {
 
     // TODO: call generateWebSocketClients() after the MDNS service is up and running and discoveres the camera's
     useMDNSScanner('_openiristracker._tcp', 5)
+    // addCameras()
     generateWebsocketClients()
 
     // TODO: check notif perms and request GH data
