@@ -4890,12 +4890,6 @@ tapable@^2.2.0:
   dependencies:
     "@tauri-apps/api" "^1.2.0"
 
-"tauri-plugin-websocket-api@https://github.com/tauri-apps/tauri-plugin-websocket":
-  version "0.0.0"
-  resolved "https://github.com/tauri-apps/tauri-plugin-websocket#ee8a3465278043d8bfa09f5d79fd9f23bf2a5aa9"
-  dependencies:
-    "@tauri-apps/api" "^1.2.0"
-
 test-exclude@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/test-exclude/-/test-exclude-6.0.0.tgz#04a8698661d805ea6fa293b6cb9e63ac044ef15e"

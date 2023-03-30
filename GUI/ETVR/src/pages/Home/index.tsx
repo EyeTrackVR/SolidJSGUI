@@ -7,12 +7,12 @@ import CustomSlideAnimation from '@components/CustomSlideAnimation'
 import CustomPopover from '@components/Header/CustomPopover'
 import List from '@components/List/List'
 import ListHeader from '@components/List/ListHeader/ListHeader'
-import { POPOVER_ID } from '@src/static/types/enums'
-import { setRestDevice } from '@src/store/api/restAPI'
-import { resetSelectedCamera, setSelectedCamera } from '@src/store/camera/camera'
-import { cameras } from '@src/store/camera/selectors'
+import { POPOVER_ID } from '@static/types/enums'
+import { setRestDevice } from '@store/api/restAPI'
+import { resetSelectedCamera, setSelectedCamera } from '@store/camera/camera'
+import { cameras } from '@store/camera/selectors'
 import './index.css'
-import { setHideHeaderButtons } from '@src/store/ui/ui'
+import { setHideHeaderButtons } from '@store/ui/ui'
 
 const Home = () => {
     const [displayMode, setDisplayMode] = createSignal(POPOVER_ID.GRIP)
