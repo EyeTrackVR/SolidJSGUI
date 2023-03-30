@@ -1,11 +1,12 @@
 import { invoke } from '@tauri-apps/api/tauri'
+import { enableMDNS } from '@store/app/settings/selectors'
 import { setMdnsStatus, setMdnsData, MdnsStatus } from '@store/mdns/mdns'
 
 export const useMDNSScanner = (serviceType: string, scanTime: number) => {
+    if (!enableMDNS()) return
     if (serviceType === '' || scanTime === 0) {
         return []
     }
-
     console.log('[MDNS Scanner]: scanning for', serviceType, scanTime)
 
     setMdnsStatus(MdnsStatus.LOADING)
