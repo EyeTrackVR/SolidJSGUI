@@ -3,6 +3,13 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.27](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.26...v1.0.0-SolidJSGUI.27) (2023-03-30)
+
+
+### 🧑‍💻 Code Refactoring
+
+* minor refactor ([3ef0340](https://github.com/RedHawk989/EyeTrackVR/commit/3ef034060162a040c3f7d04b27a2d9116ca237b6))
+
 ## [1.0.0-SolidJSGUI.26](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.25...v1.0.0-SolidJSGUI.26) (2023-03-28)
 
 
