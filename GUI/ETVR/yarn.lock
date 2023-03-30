@@ -4884,6 +4884,12 @@ tapable@^2.2.0:
     "@tauri-apps/api" "1.1.0"
     tslib "2.4.0"
 
+"tauri-plugin-store-api@https://github.com/tauri-apps/tauri-plugin-store":
+  version "0.0.0"
+  resolved "https://github.com/tauri-apps/tauri-plugin-store#d21d55684ad444d8cba322f0013e1b2b7e0630a7"
+  dependencies:
+    "@tauri-apps/api" "^1.2.0"
+
 "tauri-plugin-upload-api@https://github.com/tauri-apps/tauri-plugin-upload":
   version "0.0.0"
   resolved "https://github.com/tauri-apps/tauri-plugin-upload#483a46c5df6a4ef3918726fa22e3f5df29c54aef"

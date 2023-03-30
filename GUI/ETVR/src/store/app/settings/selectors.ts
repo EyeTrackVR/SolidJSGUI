@@ -7,3 +7,6 @@ export const enableNotificationsSounds = createMemo(
 export const getGlobalNotificationsType = createMemo(
     () => appSettingsState().globalNotificationsType,
 )
+export const enableMDNS = createMemo(() => appSettingsState().enableMDNS)
+export const scanForCamerasOnStartup = createMemo(() => appSettingsState().scanForCamerasOnStartup)
+export const stopAlgoBackend = createMemo(() => appSettingsState().stopAlgoBackend)

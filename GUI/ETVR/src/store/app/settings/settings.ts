@@ -37,4 +37,28 @@ export const setGlobalNotificationsType = (type: ENotificationAction) => {
     )
 }
 
+export const setEnableMDNS = (flag: boolean) => {
+    setState(
+        produce((s) => {
+            s.enableMDNS = flag
+        }),
+    )
+}
+
+export const setScanForCamerasOnStartup = (flag: boolean) => {
+    setState(
+        produce((s) => {
+            s.scanForCamerasOnStartup = flag
+        }),
+    )
+}
+
+export const setStopAlgoBackend = (flag: boolean) => {
+    setState(
+        produce((s) => {
+            s.stopAlgoBackend = flag
+        }),
+    )
+}
+
 export const appSettingsState = createMemo(() => state)

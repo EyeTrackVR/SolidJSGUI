@@ -1,37 +1,28 @@
 import { invoke } from '@tauri-apps/api/tauri'
-import { createMemo, createResource, createSignal } from 'solid-js'
+import { setMdnsStatus, setMdnsData, MdnsStatus } from '@store/mdns/mdns'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const scan = async (source, { value, refetching }) => {
-    const { serviceType, scanTime } = source
-
+export const useMDNSScanner = (serviceType: string, scanTime: number) => {
     if (serviceType === '' || scanTime === 0) {
         return []
     }
 
-    console.log('scanning for', serviceType, scanTime)
+    console.log('[MDNS Scanner]: scanning for', serviceType, scanTime)
 
-    const res = await invoke('run_mdns_query', {
+    setMdnsStatus(MdnsStatus.LOADING)
+    invoke('run_mdns_query', {
         serviceType,
         scanTime,
     })
-
-    if (typeof res === 'string') {
-        const parsedResponse = JSON.parse(res)
-        console.log('parsedResponse', parsedResponse)
-        return parsedResponse
-    }
-    return []
-}
-
-export const useMDNSScanner = () => {
-    const [service, setService] = createSignal<string>('')
-    const [scanTime, setScanTime] = createSignal<number>(0)
-
-    const mdnsInitState = createMemo(() => ({
-        serviceType: service(),
-        scanTime: scanTime(),
-    }))
-    const [data, { mutate, refetch }] = createResource(mdnsInitState, scan)
-    return { data, mutate, refetch, setService, setScanTime }
+        .then((res) => {
+            if (typeof res === 'string') {
+                const parsedResponse = JSON.parse(res)
+                console.log('[MDNS Scanner]: parsedResponse', parsedResponse)
+                setMdnsStatus(MdnsStatus.ACTIVE)
+                setMdnsData(parsedResponse)
+            }
+        })
+        .catch((e) => {
+            console.error('[MDNS Scanner]: error', e)
+            setMdnsStatus(MdnsStatus.FAILED)
+        })
 }

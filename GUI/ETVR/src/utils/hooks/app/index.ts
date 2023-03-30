@@ -6,6 +6,7 @@ import { enableNotificationsSounds } from '@store/app/settings/selectors'
 import { getActiveWindows } from '@store/app/windows/selectors'
 import { removeWindow } from '@store/app/windows/windows'
 import { doGHRequest } from '@utils/hooks/api/useGHReleases'
+import { useMDNSScanner } from '@utils/hooks/api/useMDNSScanner'
 import { checkPermission } from '@utils/hooks/notifications'
 import { generateWebsocketClients } from '@utils/hooks/websocket'
 
@@ -32,12 +33,15 @@ export const handleAppBoot = () => {
                 localStorage.setItem('settings', JSON.stringify(config))
             })
             .catch((e) => console.error(e))
-        setTimeout(() => invoke('close_splashscreen'), 500)
+        setTimeout(() => invoke('close_splashscreen'), 25000)
     })
 
-    // TODO: call these after the MDNS service is up and running and discoveres the camera's
-    checkPermission()
+    // TODO: call generateWebSocketClients() after the MDNS service is up and running and discoveres the camera's
+    useMDNSScanner('_openiristracker._tcp', 5)
     generateWebsocketClients()
+
+    // TODO: check notif perms and request GH data
+    checkPermission()
     doGHRequest()
 }
 
@@ -74,22 +78,3 @@ export const handleSound = async (
         return
     }
 }
-
-//! Not supported in Edge yet - but will be eventually (https://developer.microsoft.com/en-us/microsoft-edge/platform/status/selectaudiooutput/)
-/* export const handleAudioDevices = async () => {
-    if (!navigator.mediaDevices.selectAudioOutput) {
-        console.log('selectAudioOutput() not supported.')
-        return
-    }
-    const devices = await navigator.mediaDevices.enumerateDevices()
-    const audioDevices = devices.filter((device) => device.kind === 'audioinput')
-
-    navigator.mediaDevices
-        .selectAudioOutput()
-        .then((device) => {
-            console.log(`${device.kind}: ${device.label} id = ${device.deviceId}`)
-        })
-        .catch((err) => {
-            console.error(`${err.name}: ${err.message}`)
-        })
-} */
