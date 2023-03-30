@@ -3,6 +3,13 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.29](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.28...v1.0.0-SolidJSGUI.29) (2023-03-30)
+
+
+### 🧑‍💻 Code Refactoring
+
+* make mdnsscanning at boot optional ([19a250e](https://github.com/RedHawk989/EyeTrackVR/commit/19a250ea54ea6769f564c09459752faeb5b5d97b))
+
 ## [1.0.0-SolidJSGUI.28](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.27...v1.0.0-SolidJSGUI.28) (2023-03-30)
 
 
