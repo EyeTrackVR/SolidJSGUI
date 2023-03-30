@@ -17,6 +17,9 @@ const SettingsPage = () => {
                 setHideHeaderButtons(false)
                 navigate('/')
             }}
+            onClickCircleCrop={() => {
+                console.log('on click circle crop')
+            }}
             onChangeCameraAddress={() => {
                 console.log('change camera address')
             }}

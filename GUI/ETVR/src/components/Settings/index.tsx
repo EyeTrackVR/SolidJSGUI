@@ -1,14 +1,15 @@
+import icons from '@assets/images'
+import { RANGE_INPUT_FORMAT } from '@src/static/types/enums'
+import { CameraStatus } from '@store/camera/camera'
 import CameraAddress from './CameraAddress/CameraAddress'
 import CameraCalibrationSettings from './CameraCalibrationSettings'
 import CameraConnectionStatus from './CameraConnectionStatus/CameraInfo'
 import CameraSettings from './CameraSettings'
 import CamerasModal from './CamerasModal'
-import icons from '@assets/images'
-import { RANGE_INPUT_FORMAT } from '@src/static/types/enums'
-import { CameraStatus } from '@store/camera/camera'
 
 export interface IProps {
     onChange: (format: string, value: number) => void
+    onClickCircleCrop: () => void
     onClick: (selected: string) => void
     onClickBack: () => void
     onClickCalibrate: () => void
@@ -25,7 +26,7 @@ const Settings = (props: IProps) => {
         <div>
             <div class="pt-12">
                 <div>
-                    <div class="flex  cursor-pointer" onClick={() => props.onClickBack()}>
+                    <div class="flex cursor-pointer" onClick={() => props.onClickBack()}>
                         <div class="mr-3">
                             <img src={icons.arrow} alt="img" class=" w-full h-full m-auto" />
                         </div>
@@ -75,6 +76,9 @@ const Settings = (props: IProps) => {
                         </div>
                         <div>
                             <CameraSettings
+                                onClickCircleCrop={() => {
+                                    props.onClickCircleCrop()
+                                }}
                                 formats={Object.keys(RANGE_INPUT_FORMAT)}
                                 onChange={(format, value) => {
                                     props.onChange(format, value)
