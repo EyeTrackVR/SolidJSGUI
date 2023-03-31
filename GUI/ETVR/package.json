@@ -70,6 +70,7 @@
     "solid-spinner": "^0.1.9",
     "solid-transition-group": "^0.0.12",
     "solidjs-icons": "^1.0.11",
+    "solidjs-use": "^1.2.0",
     "tauri-plugin-store-api": "https://github.com/tauri-apps/tauri-plugin-store",
     "tauri-plugin-upload-api": "https://github.com/tauri-apps/tauri-plugin-upload",
     "undici": "^5.11.0",

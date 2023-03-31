@@ -10,6 +10,7 @@ export const FirmwareList = () => {
     const boardNames = firmwareAssets().map((item) => item.name)
     const [value, setValue] = createSignal(defaultValue)
 
+    // TODO: call api to download firmware assets
     const handleSubmit = (e: SubmitEvent) => {
         e.preventDefault()
         console.log('[Firmware Select]: ', value())

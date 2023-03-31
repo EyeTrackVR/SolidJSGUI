@@ -1362,6 +1362,18 @@
   resolved "https://registry.yarnpkg.com/@solid-primitives/utils/-/utils-5.5.2.tgz#873276d5bfedf7709d6268b1bee4f1a0897e85fa"
   integrity sha512-L52ig3eHKU6CqbPCKJIb4lweBuINHBOERcE1duApyKozEN8+zCqEKwD1Qo9ljKeEzJTBGWClxNpwEiNTUWTGvg==
 
+"@solidjs-use/shared@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@solidjs-use/shared/-/shared-1.2.0.tgz#8c30b710a6b87febf1998ad6146d5530c02e739d"
+  integrity sha512-HkGJl6c3XDlusLFJw+4JKUCiW6PZ1xw+brMZdyGMfDbr+RQZXrLfu61WbGhVpY5BPy/+P93gS4+WKpBhOqkz6Q==
+  dependencies:
+    "@solidjs-use/solid-to-vue" "1.2.0"
+
+"@solidjs-use/solid-to-vue@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@solidjs-use/solid-to-vue/-/solid-to-vue-1.2.0.tgz#a4a9d2289677d2d8145b8e235a1762c2774313f9"
+  integrity sha512-ZmIThxUeX+D40ck0bviDEhta2WSpJd2AQYFF+rjO8zQmgySifeeiEc0Kn/Sp1BMHbLMcLboPYdOnT+6E1E9OLg==
+
 "@solidjs/meta@^0.28.0":
   version "0.28.2"
   resolved "https://registry.yarnpkg.com/@solidjs/meta/-/meta-0.28.2.tgz#384881e96bc38278f950f8af5f5313675e6d0b8c"
@@ -1466,11 +1478,6 @@
     "@tauri-apps/cli-win32-ia32-msvc" "1.2.3"
     "@tauri-apps/cli-win32-x64-msvc" "1.2.3"
 
-"@thisbeyond/solid-select@^0.13.0":
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/@thisbeyond/solid-select/-/solid-select-0.13.0.tgz#eadda942bd85929c89d97c198c398ffd4da8a9f5"
-  integrity sha512-eION+Xf8TGLs1NZrvRo1NRKOl4plYMbY7UswHhh5bEUY8oMltjrBhUWF0hzaFViEc1zZpkCQyafaD89iofG6Tg==
-
 "@types/babel-types@*", "@types/babel-types@^7.0.0":
   version "7.0.11"
   resolved "https://registry.yarnpkg.com/@types/babel-types/-/babel-types-7.0.11.tgz#263b113fa396fac4373188d73225297fb86f19a9"
@@ -1530,6 +1537,11 @@
   version "7.3.13"
   resolved "https://registry.yarnpkg.com/@types/semver/-/semver-7.3.13.tgz#da4bfd73f49bd541d28920ab0e2bf0ee80f71c91"
   integrity sha512-21cFJr9z3g5dW8B0CVI9g2O9beqaThGQ6ZFBqHfwhzLDKUxaqTIy3vnfah/UPkfOiF2pLq+tGz+W8RyCskuslw==
+
+"@types/web-bluetooth@^0.0.16":
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/@types/web-bluetooth/-/web-bluetooth-0.0.16.tgz#1d12873a8e49567371f2a75fe3e7f7edca6662d8"
+  integrity sha512-oh8q2Zc32S6gd/j50GowEjKLoOVOwHP/bWVjKJInBwQqdOYMdPrf1oVlelTlyfFK3CKxL1uahMDAr+vy8T7yMQ==
 
 "@typescript-eslint/eslint-plugin@^5.46.1":
   version "5.48.0"
@@ -4690,6 +4702,14 @@ solidjs-icons@^1.0.11:
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/solidjs-icons/-/solidjs-icons-1.0.11.tgz#6673e3435248430907f14da7a548306d2487fa53"
   integrity sha512-rIrcbaOV1UaHwBf4ChAyaofLig2DwN4b90noj8DcO4Rowb1DdpXuOZrYR4eBiQHVrDmeYAU6ysmhXCWow8jFcQ==
+
+solidjs-use@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/solidjs-use/-/solidjs-use-1.2.0.tgz#4af60b49c25d7c0be4058c5984535c9599de3ac6"
+  integrity sha512-Ylx/ggV/eQ9CMHDux29XKh+23yLmEh+seu/FAbRO41cQzKqi1X/038xSyQwWulPHRGrFBxEggPVQ0WmotTtquA==
+  dependencies:
+    "@solidjs-use/shared" "1.2.0"
+    "@types/web-bluetooth" "^0.0.16"
 
 source-map-js@^1.0.2:
   version "1.0.2"
