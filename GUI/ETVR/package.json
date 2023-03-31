@@ -51,7 +51,7 @@
   },
   "dependencies": {
     "@builder.io/partytown": "^0.7.3",
-    "@kobalte/core": "^0.6.0",
+    "@kobalte/core": "^0.8.2",
     "@kobalte/tailwindcss": "^0.4.1",
     "@solid-primitives/i18n": "^1.1.2",
     "@solid-primitives/map": "^0.3.1",
@@ -59,7 +59,6 @@
     "@solidjs/router": "^0.7.0",
     "@stitches/core": "^1.2.8",
     "@tailwindcss/typography": "^0.5.8",
-    "@thisbeyond/solid-select": "^0.13.0",
     "clsx": "^1.2.1",
     "localforage": "^1.10.0",
     "moment": "^2.29.3",
