@@ -3,6 +3,13 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.30](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.29...v1.0.0-SolidJSGUI.30) (2023-03-31)
+
+
+### 🍕 Features
+
+* setup firmwre selector ([d386984](https://github.com/RedHawk989/EyeTrackVR/commit/d386984c4914eec5d2de1d6394b0cbfe44c96b31))
+
 ## [1.0.0-SolidJSGUI.29](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.28...v1.0.0-SolidJSGUI.29) (2023-03-30)
 
 
