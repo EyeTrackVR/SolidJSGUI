@@ -3,6 +3,18 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.34](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.33...v1.0.0-SolidJSGUI.34) (2023-04-01)
+
+
+### 🍕 Features
+
+* implement loader handler ([86c918a](https://github.com/RedHawk989/EyeTrackVR/commit/86c918ac14818a270a1f762134436fdfd5bfbdb1))
+
+
+### 🐛 Bug Fixes
+
+* change name of Loader to CircularLoader ([81d206e](https://github.com/RedHawk989/EyeTrackVR/commit/81d206e7b5ebb664717b0280df0bf240c19830b4))
+
 ## [1.0.0-SolidJSGUI.33](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.32...v1.0.0-SolidJSGUI.33) (2023-04-01)
 
 
