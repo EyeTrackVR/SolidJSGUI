@@ -1,13 +1,10 @@
-import { onMount, Show } from 'solid-js'
+import { Show } from 'solid-js'
 import { OrangeLoader } from '@components/Loader'
 import { showCameraView } from '@store/ui/selectors'
-import { initWebSocket } from '@utils/hooks/websocket'
+
+// TODO: Grab selected camera from store, connect if not connected, and display video stream on  component mounted
 
 const WebSocketHandler = () => {
-    onMount(async () => {
-        initWebSocket()
-    })
-
     return (
         <div class={'w-full h-full'}>
             <Show

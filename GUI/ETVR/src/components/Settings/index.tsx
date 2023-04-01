@@ -54,7 +54,7 @@ const Settings = (props: IProps) => {
                                         placeholder="Setup camera address"
                                         id="camera-address"
                                         required={true}
-                                        type='text'
+                                        type="text"
                                         onChange={(value) => {
                                             props.onChangeCameraAddress(value)
                                         }}

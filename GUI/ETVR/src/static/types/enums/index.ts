@@ -34,27 +34,9 @@ export enum ENotificationAction {
     APP = 'APP',
 }
 
-export enum RTCMessageType {
-    VIDEO_OFFER = 'VIDEO_OFFER',
-    VIDEO_ANSWER = 'VIDEO_ANSWER',
-    NEW_ICE_CANDIDATE = 'NEW_ICE_CANDIDATE',
-    CAMERA_ERROR = 'CAMERA_ERROR',
-    CLOSE_CAMERA_STREAM = 'CLOSE_CAMERA_STREAM',
-}
-
-export enum RTCState {
-    CONNECTING = 'CONNECTING',
-    OPEN = 'OPEN',
-    CLOSING = 'CLOSING',
-    CLOSED = 'CLOSED',
-    ERROR = 'ERROR',
-    DISCONNECTED = 'DISCONNECTED',
-    CONNECTED = 'CONNECTED',
-}
-
 export enum RANGE_INPUT_FORMAT {
     EYE_POSITION_SCALAR = 'Eye position scalar',
-    THRESHOLD = 'Thresshold',
+    THRESHOLD = 'Threshold',
     ROTATION = 'Rotation',
 }
 
