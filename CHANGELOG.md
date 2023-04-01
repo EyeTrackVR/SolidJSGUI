@@ -3,6 +3,13 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.33](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.32...v1.0.0-SolidJSGUI.33) (2023-04-01)
+
+
+### 🧑‍💻 Code Refactoring
+
+* migrate entire websocket stack to solid-use ([a1827a1](https://github.com/RedHawk989/EyeTrackVR/commit/a1827a15e8f63aebdea67dd43cf73671259b911b))
+
 ## [1.0.0-SolidJSGUI.32](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.31...v1.0.0-SolidJSGUI.32) (2023-04-01)
 
 
