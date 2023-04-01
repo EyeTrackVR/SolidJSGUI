@@ -3,6 +3,13 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.32](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.31...v1.0.0-SolidJSGUI.32) (2023-04-01)
+
+
+### 🧑‍💻 Code Refactoring
+
+* begin porting eventListeners to solid-use ([a3580b3](https://github.com/RedHawk989/EyeTrackVR/commit/a3580b3e244b2497f1101aea7790de5362be6c3d))
+
 ## [1.0.0-SolidJSGUI.31](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.30...v1.0.0-SolidJSGUI.31) (2023-03-31)
 
 
