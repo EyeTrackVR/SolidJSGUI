@@ -1,6 +1,7 @@
 import { exit } from '@tauri-apps/api/process'
 import { invoke } from '@tauri-apps/api/tauri'
 import { appWindow } from '@tauri-apps/api/window'
+import { useEventListener } from 'solidjs-use'
 import { ExitCodes } from '@static/types/enums'
 import { enableNotificationsSounds } from '@store/app/settings/selectors'
 import { getActiveWindows } from '@store/app/windows/selectors'
@@ -13,27 +14,27 @@ import { generateWebsocketClients } from '@utils/hooks/websocket'
 export const handleTitlebar = (main = false) => {
     const titlebar = document.getElementsByClassName('titlebar')
     if (titlebar) {
-        document
-            .getElementById('titlebar-minimize')
-            ?.addEventListener('click', () => appWindow.minimize())
-        document
-            .getElementById('titlebar-maximize')
-            ?.addEventListener('click', () => appWindow.toggleMaximize())
-        document
-            .getElementById('titlebar-close')
-            ?.addEventListener('click', () => (main ? handleAppExit() : appWindow.close()))
+        useEventListener(document.getElementById('titlebar-minimize'), 'click', () => {
+            appWindow.minimize()
+        })
+        useEventListener(document.getElementById('titlebar-maximize'), 'click', () => {
+            appWindow.toggleMaximize()
+        })
+        useEventListener(document.getElementById('titlebar-close'), 'click', () => {
+            main ? handleAppExit() : appWindow.close()
+        })
     }
 }
 
 export const handleAppBoot = () => {
-    document.addEventListener('DOMContentLoaded', () => {
+    useEventListener(document, 'DOMContentLoaded', () => {
         invoke('get_user')
             .then((config) => {
                 console.log(config)
                 localStorage.setItem('settings', JSON.stringify(config))
             })
             .catch((e) => console.error(e))
-        setTimeout(() => invoke('close_splashscreen'), 25000)
+        setTimeout(() => invoke('close_splashscreen'), 15000)
     })
 
     // TODO: call generateWebSocketClients() after the MDNS service is up and running and discoveres the camera's

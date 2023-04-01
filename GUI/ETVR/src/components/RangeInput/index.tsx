@@ -1,4 +1,5 @@
-import { createEffect, createSignal } from 'solid-js'
+import { createEffect, createSignal, onCleanup } from 'solid-js'
+import { useEventListener } from 'solidjs-use'
 import { BULLET_POSITION_ADJUSTMENT, getBulletPosition } from '@src/utils'
 import { RANGE_INPUT_FORMAT } from '@static/types/enums'
 import './styles.css'
@@ -23,7 +24,7 @@ const RangeInput = (props: IProps) => {
             const range = rangeSliderRef as HTMLInputElement
             const bullet = rangeBulletRef as HTMLSpanElement
 
-            range.addEventListener('input', () => {
+            const cleanup = useEventListener(range, 'input', () => {
                 setRangeValue(+range.value)
                 const bulletPosition = getBulletPosition(range)
                 const sliderWidth = rangeSliderWidth() || range.clientWidth
@@ -34,11 +35,16 @@ const RangeInput = (props: IProps) => {
                 bullet.style.left =
                     bulletPosition * (sliderWidth - BULLET_POSITION_ADJUSTMENT) + 'px'
             })
+
+            return () => {
+                console.log('[RangeInput - range input]: cleaning up')
+                cleanup()
+            }
         })
     })
 
     createEffect(() => {
-        window.addEventListener('resize', () => {
+        const cleanup = useEventListener(window, 'resize', () => {
             setTimeout(() => {
                 if (uiHasMoved() === window.innerWidth) return
                 if (!rangeSliderRef || !rangeBulletRef) return
@@ -57,6 +63,10 @@ const RangeInput = (props: IProps) => {
                 setUiHasMoved(window.innerWidth)
                 setRangeSliderWidth(sliderWidth)
             })
+        })
+        onCleanup(() => {
+            console.log('[RangeInput - window resize]: cleaning up')
+            cleanup()
         })
     })
 

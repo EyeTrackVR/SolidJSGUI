@@ -2,6 +2,7 @@ import { EraseButton } from '@components/Button/EraseButton'
 import { OpenDocs } from '@components/Button/OpenDocs'
 import { WebSerial } from '@components/Button/WebSerial'
 import { FirmwareList } from '@components/FirmwareList'
+import { Form } from '@components/Form'
 import { useDownloadFirmware } from '@hooks/api/useDownloadFirmware'
 import { handleSound } from '@hooks/app'
 
@@ -28,6 +29,7 @@ const AppSettings = () => {
             <WebSerial />
             <OpenDocs />
             <FirmwareList />
+            <Form />
         </div>
     )
 }

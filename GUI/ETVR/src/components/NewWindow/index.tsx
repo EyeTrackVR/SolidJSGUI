@@ -1,34 +1,37 @@
-import { children, createSignal, createEffect, Show, onMount } from 'solid-js'
+import { children, createSignal, createEffect, Show, onMount, onCleanup } from 'solid-js'
 import { Portal } from 'solid-js/web'
-import { menuOpenStatus } from '@src/store/ui/selectors'
-import { setMenu, type INewMenu } from '@src/store/ui/ui'
+import { onClickOutside, useEventListener } from 'solidjs-use'
+import { menuOpenStatus } from '@store/ui/selectors'
+import { setMenu, type INewMenu } from '@store/ui/ui'
 import './styles.css'
 
 const NewMenu = (props: INewMenu) => {
     const [ref, setRef] = createSignal<HTMLElement>()
     const Children = children(() => props.children)
-    const clickOutside = (e: MouseEvent) => {
-        if (e.target instanceof HTMLElement) {
-            if (ref() && (ref()?.contains(e.target) || ref()?.isSameNode(e.target))) return
-            console.log('clicked outside')
-            setMenu(null)
-        }
-    }
+
     onMount(() => {
         if (props.ref) {
-            props.ref.addEventListener('contextmenu', (e) => {
+            useEventListener(props.ref, 'contextmenu', (e) => {
                 e.preventDefault()
-                setMenu({ x: e.clientX, y: e.clientY })
-                //console.log(menuOpenStatus)
+                setMenu({ x: e['x'], y: e['y'] })
+                console.log('[Context Window]: opening menu')
+                //console.log('[Context Window]: ', e)
             })
         }
     })
     createEffect(() => {
-        if (menuOpenStatus()) {
-            document.addEventListener('click', clickOutside)
-            return
-        }
-        document.removeEventListener('click', clickOutside)
+        if (!menuOpenStatus()) return
+
+        const cleanup = useEventListener('click', () => {
+            onClickOutside(ref, () => {
+                setMenu(null)
+            })
+        })
+
+        onCleanup(() => {
+            console.log('[Context Window]: cleaning up')
+            cleanup()
+        })
     })
     return (
         <div>

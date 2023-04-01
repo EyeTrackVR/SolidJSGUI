@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from '@solidjs/router'
 import Settings from '@components/Settings'
-import { CameraStatus } from '@src/store/camera/camera'
+import { CameraStatus } from '@store/camera/camera'
 import './styles.css'
-import { setHideHeaderButtons } from '@src/store/ui/ui'
+import { setHideHeaderButtons } from '@store/ui/ui'
 
 const SettingsPage = () => {
     const navigate = useNavigate()

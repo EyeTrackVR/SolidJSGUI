@@ -1,9 +1,9 @@
-import CameraAddress from './CameraAddress/CameraAddress'
 import CameraCalibrationSettings from './CameraCalibrationSettings'
 import CameraConnectionStatus from './CameraConnectionStatus/CameraInfo'
 import CameraSettings from './CameraSettings'
 import CamerasModal from './CamerasModal'
 import icons from '@assets/images'
+import { Input } from '@components/Input'
 import { RANGE_INPUT_FORMAT } from '@src/static/types/enums'
 import { CameraStatus } from '@store/camera/camera'
 
@@ -49,9 +49,12 @@ const Settings = (props: IProps) => {
                         {props.createNewCamera ? (
                             <div>
                                 <div class="mb-5">
-                                    <CameraAddress
+                                    <Input
                                         header="Camera address"
                                         placeholder="Setup camera address"
+                                        id="camera-address"
+                                        required={true}
+                                        type='text'
                                         onChange={(value) => {
                                             props.onChangeCameraAddress(value)
                                         }}
