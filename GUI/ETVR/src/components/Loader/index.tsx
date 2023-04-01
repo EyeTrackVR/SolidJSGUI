@@ -12,7 +12,7 @@ interface CustomLoaderProps {
     unit?: string
 }
 
-const Loader = (props: LoaderProps) => {
+const CircularLoader = (props: LoaderProps) => {
     return (
         <div class="spinner">
             <svg
@@ -39,7 +39,7 @@ const Loader = (props: LoaderProps) => {
 export const OrangeLoader = (props: CustomLoaderProps) => {
     return (
         <div class="flex justify-center items-center">
-            <Loader
+            <CircularLoader
                 gradient="orange"
                 gradientMid="rgba(255, 153, 0, 0.594)"
                 gradientBot="rgba(255, 153, 0, 0.144)"
@@ -49,4 +49,4 @@ export const OrangeLoader = (props: CustomLoaderProps) => {
     )
 }
 
-export default Loader
+export default CircularLoader
