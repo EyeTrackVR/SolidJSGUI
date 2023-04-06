@@ -14,7 +14,7 @@ const Camera = (props: IProps) => {
             onClick={() => props.onClick()}>
             <div class="responsive-flex-container w-full h-full flex items-center flex-row">
                 <div class="responsive-iframe-container flex items-center h-full w-full ">
-                    <div class="h-full w-full">
+                    <div class="h-full w-full ">
                         <WebSocketHandler status={props.status} />
                     </div>
                 </div>

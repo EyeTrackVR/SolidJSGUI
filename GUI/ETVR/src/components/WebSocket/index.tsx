@@ -1,5 +1,5 @@
 import { Show } from 'solid-js'
-import { OrangeLoader } from '@components/Loader'
+import { OrangeLoader, MagentaLoader } from '@components/Loader'
 import { CameraStatus } from '@store/camera/camera'
 import { showCameraView } from '@store/ui/selectors'
 
@@ -13,19 +13,17 @@ export const LoaderHandler = (props: IWsProps) => {
     return (
         <>
             <Show when={props.status == CameraStatus.LOADING}>
-                <OrangeLoader width={100} unit={'%'} />
+                <OrangeLoader width={100} height={100} unit={'%'} />
             </Show>
             <Show when={props.status == CameraStatus.ACTIVE}>
-                <OrangeLoader width={100} unit={'%'} />
+                <OrangeLoader width={100} height={100} unit={'%'} />
             </Show>
-            <Show when={props.status == CameraStatus.DISABLED}>
-                <OrangeLoader width={100} unit={'%'} />
-            </Show>
-            <Show when={props.status == CameraStatus.FAILED}>
-                <OrangeLoader width={100} unit={'%'} />
+            <Show
+                when={props.status == CameraStatus.DISABLED || props.status == CameraStatus.FAILED}>
+                <MagentaLoader width={50} height={50} unit={'%'} />
             </Show>
             <Show when={props.status == CameraStatus.NONE}>
-                <OrangeLoader width={100} unit={'%'} />
+                <OrangeLoader width={100} height={100} unit={'%'} />
             </Show>
         </>
     )
@@ -39,7 +37,7 @@ const WebSocketHandler = (props: IWsProps) => {
                 fallback={() => (
                     <div
                         class={
-                            'text-[#FFFF] flex justify-center bg-[#2b2f38]   rounded-t-xl min-[1750px]:rounded-xl w-full h-full'
+                            'text-[#FFFF] flex justify-center items-center bg-[#2b2f38] rounded-t-xl min-[1750px]:rounded-xl w-full h-full'
                         }>
                         <LoaderHandler status={props.status} />
                     </div>
