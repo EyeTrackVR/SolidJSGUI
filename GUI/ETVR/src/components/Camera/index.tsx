@@ -1,10 +1,10 @@
 import WebSocketHandler from '@components/WebSocket'
-import { firmwareVersion } from '@src/store/api/selectors'
 import { ActiveStatus } from '@src/utils'
 import { ICamera } from '@store/camera/camera'
 import './index.css'
 export interface IProps extends ICamera {
     onClick: () => void
+    firmwareVersion: string
 }
 
 const Camera = (props: IProps) => {
@@ -58,7 +58,7 @@ const Camera = (props: IProps) => {
                     </div>
                     <div>
                         <div class="flex justify-end text-white text-xs">
-                            <p>{firmwareVersion() || 'v0.0.0'}</p>
+                            <p>{props.firmwareVersion || 'v0.0.0'}</p>
                         </div>
                     </div>
                 </div>

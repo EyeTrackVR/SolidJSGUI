@@ -6,17 +6,19 @@ interface LoaderProps {
     gradientBot: string
     width: string
     height: string
+    id?: string
 }
 
 interface CustomLoaderProps {
     width: number
     height: number
     unit?: string
+    id?: string
 }
 
 export const XLoader = (props: LoaderProps) => {
     return (
-        <div class="spinner">
+        <div class="spinner" id={props.id}>
             <svg
                 viewBox="0 0 100 100"
                 fill="none"
@@ -83,6 +85,7 @@ export const MagentaLoader = (props: CustomLoaderProps) => {
     return (
         <div class="flex justify-center items-center">
             <XLoader
+                id={props.id}
                 gradient="magenta"
                 gradientMid="rgba(255, 0, 255, 0.594)"
                 gradientBot="rgba(255, 0, 255, 0.144)"

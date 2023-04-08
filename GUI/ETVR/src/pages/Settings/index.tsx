@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from '@solidjs/router'
-import Settings from '@components/Settings'
-import { CameraStatus } from '@store/camera/camera'
-import './styles.css'
+import { selectedCamera } from '@src/store/camera/selectors'
+import Settings from '@src/views/Settings'
 import { setHideHeaderButtons } from '@store/ui/ui'
 
 const SettingsPage = () => {
@@ -35,7 +34,7 @@ const SettingsPage = () => {
             onClick={(selected) => {
                 console.log(selected)
             }}
-            cameraStatus={CameraStatus.ACTIVE}
+            cameraStatus={selectedCamera().status}
         />
     )
 }

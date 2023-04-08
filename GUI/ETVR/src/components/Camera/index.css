@@ -48,3 +48,7 @@ video {
         aspect-ratio: 1/1;
     }
 }
+
+#magenta path {
+    transform: translate(17%, 12.5%) scale(0.8);
+}

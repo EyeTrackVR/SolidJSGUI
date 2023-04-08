@@ -20,7 +20,7 @@ export const LoaderHandler = (props: IWsProps) => {
             </Show>
             <Show
                 when={props.status == CameraStatus.DISABLED || props.status == CameraStatus.FAILED}>
-                <MagentaLoader width={50} height={50} unit={'%'} />
+                <MagentaLoader width={100} height={100} unit={'%'} id="magenta" />
             </Show>
             <Show when={props.status == CameraStatus.NONE}>
                 <OrangeLoader width={100} height={100} unit={'%'} />
