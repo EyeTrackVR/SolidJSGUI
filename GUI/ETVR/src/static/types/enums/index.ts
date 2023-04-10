@@ -40,6 +40,11 @@ export enum RANGE_INPUT_FORMAT {
     ROTATION = 'Rotation',
 }
 
+export enum RANGE_INPUT_FORMAT_APP_SETTINGS {
+    MIN_FREQUENCY_CUTOFF = 'Min frequency cutoff',
+    SPEED_COEFFICIENT = 'Speed coefficient',
+}
+
 // TODO: add more exit codes related to potential areas of failure in the app
 export enum ExitCodes {
     USER_EXIT = 0,
