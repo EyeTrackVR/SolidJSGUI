@@ -34,10 +34,14 @@ export const handleAppBoot = () => {
                 localStorage.setItem('settings', JSON.stringify(config))
             })
             .catch((e) => console.error(e))
+        invoke('handle_save_window_state').then(() => {
+            console.log('[App Boot]: saved window state')
+        })
+
         setTimeout(() => invoke('close_splashscreen'), 15000)
     })
 
-    // TODO: call generateWebSocketClients() after the MDNS service is up and running and discoveres the camera's
+    // TODO: call generateWebSocketClients() after the MDNS service is up and running and discovers the camera's
     useMDNSScanner('_openiristracker._tcp', 5)
     // addCameras()
     generateWebsocketClients()
@@ -53,6 +57,9 @@ export const handleAppExit = async () => {
     // stopWebsocketClients()
     // saveSettings()
     // stopPythonBackend()
+    invoke('handle_save_window_state').then(() => {
+        console.log('[App Close]: saved window state')
+    })
     getActiveWindows().forEach((w) => removeWindow(w.window))
     appWindow.close()
     await exit(ExitCodes.USER_EXIT)

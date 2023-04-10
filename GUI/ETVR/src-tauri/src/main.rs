@@ -19,7 +19,7 @@ use tauri::{
 use log::{debug, error, info, warn};
 use serde::{Deserialize, Serialize};
 //use tauri_plugin_store;
-//use tauri_plugin_window_state;
+use tauri_plugin_window_state::{AppHandleExt, StateFlags};
 use whoami::username;
 use zip_extract::ZipExtractError;
 
@@ -156,11 +156,23 @@ async fn unzip_archive(archive_path: String, target_dir: String) -> Result<Strin
     .expect("Failed to extract archive");
 
   // erase the archive
-  //TODO: remove JS api for remove file andadd rust api for remove file here when it is available through tauri
+  //TODO: remove JS api for remove file and add rust api for remove file here when it is available through tauri
 
   // ! Using std:: is BAD practice, but it is the only way to get this to work for now
   //std::fs::remove_file(archive_path).expect("Failed to remove archive");
   Ok(archive_path)
+}
+
+#[tauri::command]
+async fn handle_save_window_state<R: tauri::Runtime>(
+  app: tauri::AppHandle<R>,
+  window: tauri::Window<R>,
+) -> Result<(), String> {
+  app
+    .save_window_state(StateFlags::all())
+    .expect("[Window State]: Failed to save window state");
+
+  Ok(())
 }
 
 fn main() {
@@ -178,7 +190,7 @@ fn main() {
   let tray = SystemTray::new().with_menu(tray_menu);
 
   tauri::Builder::default()
-    //Note: This is a workaround for a bug in tauri that causes the window to not resize properly inducing a noticable lag
+    //Note: This is a workaround for a bug in tauri that causes the window to not resize properly inducing a noticeable lag
     // ! https://github.com/tauri-apps/tauri/issues/6322#issuecomment-1448141495
     .on_window_event(|e| {
       if let WindowEvent::Resized(_) = e.event() {
@@ -190,9 +202,10 @@ fn main() {
       run_mdns_query,
       get_user,
       do_rest_request,
-      unzip_archive
+      unzip_archive,
+      handle_save_window_state
     ])
-    // allow only one instance and propgate args and cwd to existing instance
+    // allow only one instance and propagate args and cwd to existing instance
     .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
       app
         .emit_all("new-instance", Some(SingleInstancePayload { args, cwd }))
@@ -239,7 +252,7 @@ fn main() {
         dbg!("system tray received a double click");
       }
       SystemTrayEvent::MenuItemClick { id, .. } => match id.as_str() {
-        "quit" => {
+        /*  "quit" => {
           let app = app.clone();
           let window = app.get_window("main").expect("failed to get window");
           // ask the user if they want to quit
@@ -254,7 +267,7 @@ fn main() {
               }
             },
           );
-        }
+        } */
         "hide" => {
           let window = app.get_window("main").expect("failed to get window");
           window.hide().unwrap();
