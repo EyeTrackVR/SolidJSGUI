@@ -11,8 +11,44 @@ const AppSettingsPage = () => {
     const downloadAsset = useDownloadFirmware()
     return (
         <div class="flex justify-center items-center content-center flex-col pt-[100px] text-white">
-            <AppSettings />
-            Coming Soon
+            <AppSettings
+                onClickFlipLeftXAxis={() => {
+                    console.log('onClickFlipLeftXAxis')
+                }}
+                onClickFlipRightXAxis={() => {
+                    console.log('onClickFlipRightXAxis')
+                }}
+                onClickFlipYAxis={() => {
+                    console.log('onClickFlipYAxis')
+                }}
+                onClickDualEyeFalloff={() => {
+                    console.log('onClickDualEyeFalloff')
+                }}
+                onClickSyncBlinks={() => {
+                    console.log('onClickSyncBlinks')
+                }}
+                onClickBlobFallback={() => {
+                    console.log('onClickBlobFallback')
+                }}
+                onChange={(format, value) => {
+                    console.log(format, value)
+                }}
+                onChangeAddress={() => {
+                    console.log('onChangeAddress')
+                }}
+                onChangeOSCPort={() => {
+                    console.log('onChangeOSCPort')
+                }}
+                onChangeOSCReciverPort={() => {
+                    console.log('onChangeOSCReciverPort')
+                }}
+                onChangeOSCRecenterPort={() => {
+                    console.log('onChangeOSCRecenterPort')
+                }}
+                onChangeOSCRecalibrateAddress={() => {
+                    console.log('onChangeOSCRecalibrateAddress')
+                }}
+            />
             <button
                 class="rounded-[8px] bg-blue-700 p-2 text-white mt-1 hover:bg-blue-600 focus:bg-blue-500"
                 onClick={() => downloadAsset('esp32AIThinker')}>

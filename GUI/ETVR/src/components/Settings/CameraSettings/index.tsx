@@ -3,7 +3,7 @@ import RangeInput from '@components/RangeInput'
 import { RANGE_INPUT_FORMAT } from '@src/static/types/enums'
 
 export interface IProps {
-    onChange: (format: RANGE_INPUT_FORMAT, value: number) => void
+    onChange: (format: string, value: number) => void
     onClickCircleCrop: () => void
     formats: string[]
 }
@@ -12,7 +12,7 @@ const CameraSettings = (props: IProps) => {
     return (
         <div
             class="flex grow rounded-xl
-         flex-col pl-4 pr-4 pb-4 pt-4 bg-[#333742]">
+            flex-col pl-4 pr-4 pb-4 pt-4 bg-[#333742]">
             <div>
                 <div class="flex justify-between">
                     <div>

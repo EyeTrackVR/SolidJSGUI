@@ -1,12 +1,13 @@
+import { BULLET_POSITION_ADJUSTMENT, getBulletPosition } from '@src/utils'
 import { createEffect, createSignal, onCleanup } from 'solid-js'
 import { useEventListener } from 'solidjs-use'
-import { BULLET_POSITION_ADJUSTMENT, getBulletPosition } from '@src/utils'
-import { RANGE_INPUT_FORMAT } from '@static/types/enums'
 import './styles.css'
 
 export interface IProps {
-    onChange: (format: RANGE_INPUT_FORMAT, value: number) => void
-    format: RANGE_INPUT_FORMAT
+    onChange: (format: string, value: number) => void
+    format: string
+
+    disablePercent?: boolean
 }
 
 const RangeInput = (props: IProps) => {
@@ -73,7 +74,8 @@ const RangeInput = (props: IProps) => {
     return (
         <div>
             <span ref={rangeBulletRef} class="rs-label">
-                {rangeValue()}%
+                {rangeValue()}
+                {!props.disablePercent ? '%' : ' '}
             </span>
             <div>
                 <input

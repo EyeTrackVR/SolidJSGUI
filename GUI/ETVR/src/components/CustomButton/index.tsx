@@ -6,7 +6,7 @@ export interface IProps {
 
 const CustomButton = (props: IProps) => {
     return (
-        <div class="flex w-full h-full flex-col">
+        <div class="flex w-full h-full flex-col ">
             <div class="h-full w-full">
                 <img
                     src={props.img}
@@ -20,7 +20,7 @@ const CustomButton = (props: IProps) => {
                     'justify-content': 'center',
                     'align-items': 'flex-end',
                 }}
-                class=" pt-2 h-full w-full text-white text-xl max-md:text-xs max-lg:text-sm max-xl:text-base">
+                class="pt-2 h-full w-full text-white text-xl max-md:text-xs max-lg:text-sm max-xl:text-base">
                 <p>{props.name}</p>
             </div>
         </div>
