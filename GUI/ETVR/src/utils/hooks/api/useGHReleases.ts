@@ -21,7 +21,11 @@ interface IGHRelease {
 }
 
 const setGHData = (data: IGHRelease, update: boolean) => {
-    setFirmwareVersion(data['name'])
+    if (data['name'] === undefined) {
+        setFirmwareVersion(data['version'])
+    } else {
+        setFirmwareVersion(data['name'])
+    }
     const assets = data['assets']
     const download_urls = assets.map((asset) => asset.browser_download_url)
 

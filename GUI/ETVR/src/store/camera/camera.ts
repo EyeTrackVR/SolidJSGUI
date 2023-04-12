@@ -1,5 +1,6 @@
 import { createMemo } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
+import { mdnsData } from '@store/mdns/selectors'
 
 export enum CameraStatus {
     ACTIVE = 'ACTIVE',
@@ -73,7 +74,7 @@ interface ICameraStore {
 }
 
 export const defaultState: ICameraStore = {
-    cameras: tempCameraComponents,
+    cameras: [],
     selectedCamera: {
         status: CameraStatus.NONE,
         type: CameraType.NONE,
@@ -89,6 +90,19 @@ export const setAddCamera = (camera: ICamera) => {
     setState(
         produce((s) => {
             s.cameras.push(camera)
+        }),
+    )
+}
+export const setAddCameraMDNS = (address: string) => {
+    setState(
+        produce((s) => {
+            s.cameras.push({
+                status: CameraStatus.LOADING,
+                type: CameraType.WIRELESS,
+                address,
+                activeCameraSection: '',
+                ws: {},
+            })
         }),
     )
 }
