@@ -108,6 +108,15 @@ export const setCameraStatus = (camera: ICamera, status: CameraStatus) => {
     )
 }
 
+export const setCameraWS = (camera: ICamera, ws: object) => {
+    setState(
+        produce((s) => {
+            s.cameras = s.cameras.filter((c: { address: string }) => c.address !== camera.address)
+            s.cameras.push({ ...camera, ws })
+        }),
+    )
+}
+
 export const setSelectedCamera = (camera: ICamera) => {
     setState(
         produce((s) => {

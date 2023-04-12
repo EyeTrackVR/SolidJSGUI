@@ -1,7 +1,7 @@
 import { useWebSocket } from 'solidjs-use'
 import { addNotification, ENotificationType } from '@hooks/notifications'
 import { getGlobalNotificationsType } from '@store/app/settings/selectors'
-import { CameraStatus, setCameraStatus } from '@store/camera/camera'
+import { CameraStatus, setCameraStatus, setCameraWS } from '@store/camera/camera'
 import { cameras } from '@store/camera/selectors'
 import { isEmpty } from '@utils/index'
 const PORT = 7856
@@ -32,7 +32,7 @@ export const generateWebsocketClients = () => {
                     pongTimeout: 1000,
                 },
             })
-            camera.ws = { status, data, send, open, close }
+            setCameraWS(camera, { status, data, send, open, close })
             return
         }
     })
