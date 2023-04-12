@@ -3,6 +3,15 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.41](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.40...v1.0.0-SolidJSGUI.41) (2023-04-12)
+
+
+### 🐛 Bug Fixes
+
+* create websockets after cameras detected ([3798630](https://github.com/RedHawk989/EyeTrackVR/commit/379863033d7c68cfe6504a29140e064cea71631d))
+* mdns adding a broken address at boot ([b20b059](https://github.com/RedHawk989/EyeTrackVR/commit/b20b05996b91d08281a47939381ce011fdc977d5))
+* mdns bug causing multiple device discovery failure ([830447d](https://github.com/RedHawk989/EyeTrackVR/commit/830447de5b8a8e3307f9d121b78d3650842f7e91))
+
 ## [1.0.0-SolidJSGUI.40](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.39...v1.0.0-SolidJSGUI.40) (2023-04-12)
 
 
