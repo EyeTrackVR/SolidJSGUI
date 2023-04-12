@@ -12,9 +12,7 @@ const AppSettingsPage = () => {
     return (
         <div class="flex justify-center items-center content-center flex-col pt-[100px] text-white">
             <AppSettings
-                onClickFlipLeftXAxis={() => {
-                    console.log('onClickFlipLeftXAxis')
-                }}
+                onClickFlipLeftXAxis={() => console.log('onClickFlipLeftXAxis')}
                 onClickFlipRightXAxis={() => {
                     console.log('onClickFlipRightXAxis')
                 }}
@@ -39,8 +37,8 @@ const AppSettingsPage = () => {
                 onChangeOSCPort={() => {
                     console.log('onChangeOSCPort')
                 }}
-                onChangeOSCReciverPort={() => {
-                    console.log('onChangeOSCReciverPort')
+                onChangeOSCReceiverPort={() => {
+                    console.log('onChangeOSCReceiverPort')
                 }}
                 onChangeOSCRecenterPort={() => {
                     console.log('onChangeOSCRecenterPort')

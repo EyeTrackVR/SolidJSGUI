@@ -1,6 +1,6 @@
-import { BULLET_POSITION_ADJUSTMENT, getBulletPosition } from '@src/utils'
 import { createEffect, createSignal, onCleanup } from 'solid-js'
 import { useEventListener } from 'solidjs-use'
+import { BULLET_POSITION_ADJUSTMENT, getBulletPosition } from '@src/utils'
 import './styles.css'
 
 export interface IProps {

@@ -4,7 +4,7 @@ export interface IProps {
     onClick: () => void
 }
 
-const TrackingAlghoritmSettings = (props: IProps) => {
+const TrackingAlgorithmSettings = (props: IProps) => {
     return (
         <div class="flex flex-col justify-end w-full m-auto">
             <div>
@@ -29,4 +29,4 @@ const TrackingAlghoritmSettings = (props: IProps) => {
     )
 }
 
-export default TrackingAlghoritmSettings
+export default TrackingAlgorithmSettings

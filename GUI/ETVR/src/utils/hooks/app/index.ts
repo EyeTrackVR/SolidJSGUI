@@ -34,6 +34,9 @@ export const handleAppBoot = () => {
                 localStorage.setItem('settings', JSON.stringify(config))
             })
             .catch((e) => console.error(e))
+
+        // check if the window state is saved and restore it if it is
+
         invoke('handle_save_window_state').then(() => {
             console.log('[App Boot]: saved window state')
         })

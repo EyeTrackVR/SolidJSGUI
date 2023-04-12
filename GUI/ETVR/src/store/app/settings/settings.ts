@@ -1,6 +1,6 @@
-import { ENotificationAction } from '@static/types/enums'
 import { createMemo } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
+import { ENotificationAction } from '@static/types/enums'
 
 export interface IAppSettingsStore {
     enableNotificationsSounds: boolean

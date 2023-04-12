@@ -3,7 +3,7 @@ import { Input } from '@components/Input'
 export interface IProps {
     onChangeAddress: (value: string) => void
     onChangeOSCPort: (value: string) => void
-    onChangeOSCReciverPort: (value: string) => void
+    onChangeOSCReceiverPort: (value: string) => void
     onChangeOSCRecenterPort: (value: string) => void
     onChangeOSCRecalibrateAddress: (value: string) => void
 }
@@ -39,7 +39,7 @@ const OscSettings = (props: IProps) => {
             <div>
                 <Input
                     onChange={(value) => {
-                        props.onChangeOSCReciverPort(value)
+                        props.onChangeOSCReceiverPort(value)
                     }}
                     placeholder="9001"
                     header="OSC receiver port"

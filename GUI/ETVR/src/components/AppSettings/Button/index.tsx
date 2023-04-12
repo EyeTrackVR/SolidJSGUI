@@ -1,5 +1,5 @@
-import { classNames } from '@src/utils'
 import { createMemo, createSignal } from 'solid-js'
+import { classNames } from '@src/utils'
 
 export interface IProps {
     styles?: string

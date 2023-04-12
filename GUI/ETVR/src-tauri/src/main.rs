@@ -19,7 +19,7 @@ use tauri::{
 use log::{debug, error, info, warn};
 use serde::{Deserialize, Serialize};
 //use tauri_plugin_store;
-use tauri_plugin_window_state::{AppHandleExt, StateFlags};
+use tauri_plugin_window_state::{AppHandleExt, StateFlags, WindowExt};
 use whoami::username;
 use zip_extract::ZipExtractError;
 
@@ -175,6 +175,18 @@ async fn handle_save_window_state<R: tauri::Runtime>(
   Ok(())
 }
 
+#[tauri::command]
+async fn handle_load_window_state<R: tauri::Runtime>(
+  app: tauri::AppHandle<R>,
+  window: tauri::Window<R>,
+) -> Result<(), String> {
+  window
+    .restore_state(StateFlags::all())
+    .expect("[Window State]: Failed to restore window state");
+
+  Ok(())
+}
+
 fn main() {
   let quit = CustomMenuItem::new("quit".to_string(), "Quit");
   let hide = CustomMenuItem::new("hide".to_string(), "Hide");
@@ -203,7 +215,8 @@ fn main() {
       get_user,
       do_rest_request,
       unzip_archive,
-      handle_save_window_state
+      handle_save_window_state,
+      handle_load_window_state
     ])
     // allow only one instance and propagate args and cwd to existing instance
     .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {

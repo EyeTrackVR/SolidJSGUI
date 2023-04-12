@@ -1,6 +1,6 @@
+import { For } from 'solid-js'
 import RangeInput from '@components/RangeInput'
 import { RANGE_INPUT_FORMAT_APP_SETTINGS } from '@src/static/types/enums'
-import { For } from 'solid-js'
 
 export interface IProps {
     onChange: (format: string, value: number) => void

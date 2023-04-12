@@ -1,5 +1,5 @@
-import icons from '@assets/images'
 import Button from '../Button'
+import icons from '@assets/images'
 import '../index.css'
 
 export interface IProps {

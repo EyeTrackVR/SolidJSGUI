@@ -1,10 +1,12 @@
 {
     "folders": [
         {
-            "path": "."
+            "name": "ETVR GUI",
+            "path": "./GUI/ETVR"
         },
         {
-            "path": "../assets"
+            "name": "ETVR Assets",
+            "path": "./GUI/assets"
         }
     ],
     "settings": {
