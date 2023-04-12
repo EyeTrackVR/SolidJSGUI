@@ -25,8 +25,9 @@ export const useMDNSScanner = (serviceType: string, scanTime: number) => {
             for (let i = 0; i < size; i++) {
                 // grab the unknown key and use it to access the res.urls object
                 const key = Object.keys(response.names)[i]
-                console.log('[MDNS Scanner]: adding camera', key)
-                setAddCameraMDNS(response.names[key])
+                console.log('[MDNS Scanner]: adding camera', response.names[key])
+                const address = `http://${response.names[key]}.local`
+                setAddCameraMDNS(address)
             }
         })
         .catch((e) => {
