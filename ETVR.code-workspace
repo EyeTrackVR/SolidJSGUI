@@ -1,77 +1,79 @@
 {
-    "folders": [
-        {
-            "name": "ETVR GUI",
-            "path": "./GUI/ETVR"
-        },
-        {
-            "name": "ETVR Assets",
-            "path": "./GUI/assets"
-        }
-    ],
-    "settings": {
-        "files.autoSave": "afterDelay",
-        "rust-analyzer.checkOnSave.enable": true,
-        "rust-analyzer.checkOnSave.command": "clippy",
-        "rust-analyzer.checkOnSave.allTargets": true,
-        "rust-analyzer.files.watcher": "client",
-        "rust-analyzer.files.excludeDirs": [
-            "**/target",
-            "**/node_modules",
-            "**/dist",
-            "**/build",
-            "**/public",
-            "**/assets",
-            "**/src-tauri/target",
-            "**/scripts",
-            "**/src/components",
-            "**/src/interfaces",
-            "**/src/pages",
-            "**/src/static",
-            "**/src/styles",
-            "**/src/utils"
-        ],
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
-        "[toml]": {
-            "editor.defaultFormatter": "tamasfe.even-better-toml"
-        },
-        "[jsonc]": {
-            "editor.defaultFormatter": "esbenp.prettier-vscode"
-        },
-        "[javascript]": {
-            "editor.defaultFormatter": "esbenp.prettier-vscode"
-        },
-        "[typescript]": {
-            "editor.defaultFormatter": "esbenp.prettier-vscode"
-        },
-        "liveServer.settings.multiRootWorkspaceName": "ETVR",
-        "[typescriptreact]": {
-            "editor.defaultFormatter": "esbenp.prettier-vscode"
-        },
-        "[css]": {
-            "editor.defaultFormatter": "vscode.css-language-features"
-        },
-        "powershell.cwd": "c:\\Users\\zacar\\Documents\\GitHub\\EyeTrackVR\\GUI\\ETVR",
-        "[shellscript]": {
-            "editor.defaultFormatter": "shakram02.bash-beautify"
-        },
-        "cSpell.words": [
-            "APPCONFIG",
-            "APPDATA",
-            "clippy",
-            "clsx",
-            "dnsquery",
-            "esbenp",
-            "kobalte",
-            "nanos",
-            "notif",
-            "partytown",
-            "shakram",
-            "solidjs",
-            "soundfile",
-            "tamasfe",
-            "undici",
-            "vorbis"
-        ]
+  "folders": [
+    {
+      "name": "ETVR GUI",
+      "path": "./GUI/ETVR"
+    },
+    {
+      "name": "ETVR Assets",
+      "path": "./GUI/assets"
     }
+  ],
+  "settings": {
+    "files.autoSave": "afterDelay",
+    "rust-analyzer.checkOnSave.enable": true,
+    "rust-analyzer.checkOnSave.command": "clippy",
+    "rust-analyzer.checkOnSave.allTargets": true,
+    "rust-analyzer.files.watcher": "client",
+    "rust-analyzer.files.excludeDirs": [
+      "**/target",
+      "**/node_modules",
+      "**/dist",
+      "**/build",
+      "**/public",
+      "**/assets",
+      "**/src-tauri/target",
+      "**/scripts",
+      "**/src/components",
+      "**/src/interfaces",
+      "**/src/pages",
+      "**/src/static",
+      "**/src/styles",
+      "**/src/utils"
+    ],
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[toml]": {
+      "editor.defaultFormatter": "tamasfe.even-better-toml"
+    },
+    "[jsonc]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "liveServer.settings.multiRootWorkspaceName": "ETVR",
+    "[typescriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[css]": {
+      "editor.defaultFormatter": "vscode.css-language-features"
+    },
+    "powershell.cwd": "c:\\Users\\zacar\\Documents\\GitHub\\EyeTrackVR\\GUI\\ETVR",
+    "[shellscript]": {
+      "editor.defaultFormatter": "shakram02.bash-beautify"
+    },
+    "cSpell.words": [
+      "APPCONFIG",
+      "APPDATA",
+      "clippy",
+      "clsx",
+      "dnsquery",
+      "esbenp",
+      "fullname",
+      "hashset",
+      "kobalte",
+      "nanos",
+      "notif",
+      "partytown",
+      "shakram",
+      "solidjs",
+      "soundfile",
+      "tamasfe",
+      "undici",
+      "vorbis"
+    ]
+  }
 }

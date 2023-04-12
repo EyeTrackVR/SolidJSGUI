@@ -8,9 +8,9 @@ export enum MdnsStatus {
     FAILED = 'FAILED',
 }
 
-interface IMdnsResponse {
+export interface IMdnsResponse {
     ips: string[]
-    urls: string[]
+    names: string[]
 }
 
 interface IMdnsStore {
@@ -22,7 +22,7 @@ export const defaultState: IMdnsStore = {
     mdnsStatus: MdnsStatus.DISABLED,
     mdnsData: {
         ips: [],
-        urls: [],
+        names: [],
     },
 }
 

@@ -89,18 +89,16 @@ async fn get_user() -> Result<String, String> {
 /// - `service_type` The service type to query for
 /// - `scan_time` The number of seconds to query for
 #[tauri::command]
-async fn run_mdns_query(service_type: String, scan_time: u64) -> Result<String, String> {
+async fn run_mdns_query(
+  service_type: String,
+  scan_time: u64,
+) -> Result<m_dnsquery::MdnsData, String> {
   println!("Starting MDNS query to find devices");
-  let base_url = Arc::new(Mutex::new(HashMap::new()));
-  let thread_arc = base_url.clone();
-  let mut mdns: m_dnsquery::Mdns = m_dnsquery::Mdns {
-    base_url: thread_arc,
-    names: Vec::new(),
-    ip: Vec::new(),
-  };
+  let mut mdns: m_dnsquery::Mdns = m_dnsquery::Mdns::new();
+  let mut mdns_data = m_dnsquery::MdnsData::new();
   let ref_mdns = &mut mdns;
   println!("MDNS Service Thread acquired lock");
-  m_dnsquery::run_query(ref_mdns, service_type, scan_time)
+  m_dnsquery::run_query(ref_mdns, service_type, &mut mdns_data, scan_time)
     .await
     .expect("Error in mDNS query");
   println!("MDNS query complete");
@@ -108,13 +106,14 @@ async fn run_mdns_query(service_type: String, scan_time: u64) -> Result<String, 
     "MDNS query results: {:#?}",
     m_dnsquery::get_urls(&*ref_mdns)
   ); // get's an array of the base urls found
-  let json = m_dnsquery::generate_json(&*ref_mdns)
-    .await
-    .expect("Failed to generate JSON object"); // generates a json file with the base urls found
-                                               //tokio::fs::write("config/config.json", json)
-                                               //    .await
-                                               //    .expect("Failed to write JSON file");
-  Ok(json)
+  Ok(mdns_data)
+  //let json = m_dnsquery::generate_json(&*ref_mdns)
+  //  .await
+  //  .expect("Failed to generate JSON object"); // generates a json file with the base urls found
+  //                                             //tokio::fs::write("config/config.json", json)
+  //                                             //    .await
+  //                                             //    .expect("Failed to write JSON file");
+  //println!("MDNS query complete {:#?}", json);
 }
 
 #[tauri::command]

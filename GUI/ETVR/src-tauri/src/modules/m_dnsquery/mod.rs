@@ -18,6 +18,43 @@ pub struct Mdns {
   pub ip: Vec<String>,
 }
 
+/// A struct to hold the mDNS query results and pass them to the front end
+/// - `names`: a vector of the names of the devices found
+/// - `ip`: a vector of the ip addresses of the devices found
+#[derive(Debug, Serialize)]
+pub struct MdnsData {
+  pub names: Vec<String>,
+  pub ips: Vec<String>,
+}
+
+impl Mdns {
+  /// A function to create a new Mdns struct
+  /// ## Returns
+  /// A new Mdns struct
+  pub fn new() -> Mdns {
+    Mdns {
+      base_url: Arc::new(Mutex::new(HashMap::new())),
+      names: Vec::new(),
+      ip: Vec::new(),
+    }
+  }
+}
+
+impl MdnsData {
+  /// A function to create a new MdnsData struct
+  /// ## Arguments
+  /// - `names`: a vector of the names of the devices found
+  /// - `ip`: a vector of the ip addresses of the devices found
+  /// ## Returns
+  /// A new MdnsData struct
+  pub fn new() -> MdnsData {
+    MdnsData {
+      names: Vec::new(),
+      ips: Vec::new(),
+    }
+  }
+}
+
 /// Runs a mDNS query for X seconds
 /// ## Arguments
 /// - `mdns` A mutable reference to the Mdns struct
@@ -40,6 +77,7 @@ pub struct Mdns {
 pub async fn run_query(
   instance: &mut Mdns,
   mut service_type: String,
+  mdns_data: &mut MdnsData,
   scan_time: u64,
 ) -> Result<(), Box<dyn std::error::Error>> {
   let mdns =
@@ -82,10 +120,13 @@ pub async fn run_query(
           name = name.trim_end_matches(".local");
           instance.names.push(name.to_string());
           let ip = info.get_addresses();
-          // grab the ip adress' from the hashset and add them to the vector
+          // grab the ip address' from the hashset and add them to the vector
           for i in ip {
             instance.ip.push(i.to_string());
           }
+          //* add the name and ip to the MdnsData struct
+          mdns_data.names = instance.names.clone();
+          mdns_data.ips = instance.ip.clone();
         }
         other_event => {
           println!(
@@ -162,7 +203,7 @@ pub fn get_urls(instance: &Mdns) -> Vec<String> {
   urls
 }
 
-pub async fn generate_json(instance: &Mdns) -> Result<String, Box<dyn std::error::Error>> {
+/* pub async fn generate_json(instance: &Mdns) -> Result<String, Box<dyn std::error::Error>> {
   let data = get_urls(instance);
   //let mut json: serde_json::Value = serde_json::from_str("{}").unwrap();
   let mut json: Option<serde_json::Value> = None;
@@ -195,4 +236,4 @@ pub async fn generate_json(instance: &Mdns) -> Result<String, Box<dyn std::error
   // return the json object as a string
 
   Ok(to_string_json)
-}
+} */
