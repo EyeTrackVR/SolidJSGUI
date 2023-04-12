@@ -44,10 +44,12 @@ export const handleAppBoot = () => {
         setTimeout(() => invoke('close_splashscreen'), 15000)
     })
 
-    // TODO: call generateWebSocketClients() after the MDNS service is up and running and discovers the camera's
-    useMDNSScanner('_openiristracker._tcp', 5)
-    // addCameras()
-    generateWebsocketClients()
+    useMDNSScanner('_openiristracker._tcp', 5).then(() => {
+        // TODO: pass the mdns res object to the Python backend - then start the websocket clients after the backend is ready
+        // passMdnsResToPythonBackend().then(() => {
+        generateWebsocketClients()
+        //})
+    })
 
     // TODO: check notif perms and request GH data
     checkPermission()
