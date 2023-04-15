@@ -2,10 +2,12 @@ import { Show } from 'solid-js'
 import { OrangeLoader, MagentaLoader } from '@components/Loader'
 import { CameraStatus } from '@store/camera/camera'
 import { showCameraView } from '@store/ui/selectors'
+import { classNames } from '@src/utils'
 
 // TODO: Grab selected camera from store, connect if not connected, and display video stream on component mounted
 interface IWsProps {
     status: CameraStatus
+    styles?: string
 }
 
 // TODO: Make other loader components for other statuses
@@ -36,9 +38,10 @@ const WebSocketHandler = (props: IWsProps) => {
                 when={showCameraView()}
                 fallback={() => (
                     <div
-                        class={
-                            'text-[#FFFF] flex justify-center items-center bg-[#2b2f38] rounded-t-xl min-[1750px]:rounded-xl w-full h-full'
-                        }>
+                        class={classNames(
+                            props.styles,
+                            'text-[#FFFF] flex justify-center items-center bg-[#2b2f38] rounded-t-xl min-[1750px]:rounded-xl w-full h-full',
+                        )}>
                         <LoaderHandler status={props.status} />
                     </div>
                 )}>

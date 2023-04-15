@@ -1,5 +1,3 @@
-import { Button } from '@kobalte/core'
-import { FaSolidGear } from 'solid-icons/fa'
 import WebSocketHandler from '@components/WebSocket'
 import { ICamera } from '@src/store/camera/camera'
 import { ActiveStatus, CapitalizeFirstLetter } from '@src/utils'
@@ -7,50 +5,35 @@ export interface IList extends ICamera {
     onClick: () => void
 }
 
+/* <div class="flex items-center w-[500px]"> */
+
 const List = (props: IList) => {
     return (
-        <div class="grid grid-flow-col auto-cols-fr pl-[12px] pt-[12px] pb-[12px] rounded-[10px] mb-[20px] bg-[#333742] text-white">
-            <div class="flex items-center w-[500px]">
-                <div>
-                    <div class="text-[#FFFF] bg-[#2b2f38] w-[60px] h-[60px] rounded-[5px] flex justify-center content-center items-center">
-                        <div class="h-full w-full">
-                            <WebSocketHandler status={props.status} />
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="flex items-center justify-center text-left pl-[10px] sm:pr-[100px] md:max-2xl:pb-[40px] 2xl:pb-[40px]">
-                        <div class="sm:hidden md:hidden lg:hidden xl:hidden mr-[8px] sm:mr-[100px]">
-                            <p>{props.address}</p>
-                        </div>
-                        <Button.Root class="" aria-label="Settings" onClick={() => props.onClick()}>
-                            <FaSolidGear size={15} />
-                        </Button.Root>
-                    </div>
-                    <div class="md:hidden lg:hidden xl:hidden flex items-center">
-                        <div
-                            class="ml-[6px] w-[10px] h-[10px] rounded-full"
-                            style={{ background: ActiveStatus(props.status) }}
-                        />
-                        <div class="text-left pl-[10px] pr-[10px]">
-                            <p>{CapitalizeFirstLetter(props.status.toLocaleLowerCase())}</p>
-                        </div>
-                    </div>
+        <div
+            class="h-full border-2 border-[#333742] cursor-pointer hover:border-[#817DF7] grid grid-flow-col auto-cols-fr pl-[12px] pr-[12px] pt-[12px] pb-[12px] rounded-[10px] mb-[20px] bg-[#333742] text-white"
+            onClick={() => props.onClick()}>
+            <div class="text-[#FFFF]  w-[60px] h-[60px] rounded-[5px] flex justify-center content-center items-center">
+                <div class="h-full w-full">
+                    <WebSocketHandler status={props.status} styles="rounded-b-lg rounded-t-lg" />
                 </div>
             </div>
-            <div class="max-sm:hidden flex items-center justify-center ">
-                <p class="text-left w-[150px] m-auto  max-md:text-right">{props.address}</p>
+            <div class="text-[#FFFF] max-sm:justify-end flex justify-start content-center items-center">
+                <p class="text-ellipsis overflow-hidden whitespace-nowrap text-base">
+                    {props.address}
+                </p>
             </div>
-            <div class="flex items-center text-left w-[150px] m-auto max-md:hidden">
+            <div class="text-[#FFFF] max-sm:hidden flex max-md:justify-end justify-start content-center items-center">
+                <p class="text-ellipsis overflow-hidden whitespace-nowrap text-base">
+                    {CapitalizeFirstLetter(props.type.toLocaleLowerCase())}
+                </p>
+            </div>
+            <div class="max-md:hidden text-[#FFFF] text-left flex justify-end content-center items-center ">
                 <div
-                    class="ml-[6px] w-[10px] h-[10px] rounded-full"
+                    class="ml-[6px] h-[10px] rounded-full mr-[10px] w-[10px]"
                     style={{ background: ActiveStatus(props.status) }}
                 />
-                <p class="pl-2">{CapitalizeFirstLetter(props.status.toLocaleLowerCase())}</p>
-            </div>
-            <div class="flex items-center justify-center max-sm:hidden">
-                <p class="text-left w-[150px] m-auto  max-md:text-right">
-                    {CapitalizeFirstLetter(props.type.toLocaleLowerCase())}
+                <p class="text-ellipsis overflow-hidden whitespace-nowrap text-base">
+                    {CapitalizeFirstLetter(props.status.toLocaleLowerCase())}
                 </p>
             </div>
         </div>

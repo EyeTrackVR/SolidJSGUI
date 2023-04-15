@@ -1,13 +1,14 @@
-import { createSignal, For } from 'solid-js'
 import icons from '@assets/images'
 import Camera from '@components/Camera'
 import CreateCamera from '@components/Camera/CreateCamera'
 import CustomSlideAnimation from '@components/CustomSlideAnimation'
 import CustomPopover from '@components/Header/CustomPopover'
+import CreateListCamera from '@components/List/CreateListCamera'
 import List from '@components/List/List'
 import ListHeader from '@components/List/ListHeader/ListHeader'
 import { POPOVER_ID } from '@static/types/enums'
 import { ICamera } from '@store/camera/camera'
+import { createSignal, For } from 'solid-js'
 import './index.css'
 
 export interface IProps {
@@ -98,6 +99,11 @@ const Home = (props: IProps) => {
                                         </div>
                                     )}
                                 </For>
+                                <div>
+                                    <CreateListCamera
+                                        onClick={() => props.onClickNavigateCreateCamera()}
+                                    />
+                                </div>
                             </div>
                         </div>
                     )}

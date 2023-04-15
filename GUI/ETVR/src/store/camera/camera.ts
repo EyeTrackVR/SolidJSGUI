@@ -1,6 +1,5 @@
 import { createMemo } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
-import { mdnsData } from '@store/mdns/selectors'
 
 export enum CameraStatus {
     ACTIVE = 'ACTIVE',
@@ -22,51 +21,6 @@ export interface ICamera {
     activeCameraSection: string
     ws: object
 }
-
-const tempCameraComponents: ICamera[] = [
-    {
-        status: CameraStatus.LOADING,
-        type: CameraType.WIRELESS,
-        address: '192.168.0.204',
-        activeCameraSection: 'Left Eye',
-        ws: {},
-    },
-    {
-        status: CameraStatus.LOADING,
-        type: CameraType.WIRELESS,
-        address: '192.168.0.232',
-        activeCameraSection: 'Right Eye',
-        ws: {},
-    },
-    {
-        status: CameraStatus.LOADING,
-        type: CameraType.WIRELESS,
-        address: '192.168.0.234',
-        activeCameraSection: 'Right Eye',
-        ws: {},
-    },
-    {
-        status: CameraStatus.LOADING,
-        type: CameraType.WIRELESS,
-        address: '192.168.0.204',
-        activeCameraSection: 'Left Eye',
-        ws: {},
-    },
-    {
-        status: CameraStatus.LOADING,
-        type: CameraType.WIRELESS,
-        address: '192.168.0.232',
-        activeCameraSection: 'Right Eye',
-        ws: {},
-    },
-    {
-        status: CameraStatus.LOADING,
-        type: CameraType.WIRELESS,
-        address: '192.168.0.234',
-        activeCameraSection: 'Right Eye',
-        ws: {},
-    },
-]
 
 interface ICameraStore {
     cameras: ICamera[]
