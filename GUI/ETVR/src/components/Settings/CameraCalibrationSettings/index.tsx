@@ -12,7 +12,7 @@ const CameraCalibrationSettings = (props: IProps) => {
         <div class="flex justify-evenly">
             <div class="w-full bg-[#333742] hover:bg-[#0071FE] rounded-lg p-2 cursor-pointer m-2">
                 <CustomButton
-                    name={'Calibrate '}
+                    name="Calibrate"
                     img={icons.calibrateIcon}
                     onClick={() => {
                         props.onClickCalibrate()
@@ -21,19 +21,19 @@ const CameraCalibrationSettings = (props: IProps) => {
             </div>
             <div class="w-full bg-[#333742] hover:bg-[#0071FE] rounded-lg p-2 cursor-pointer m-2">
                 <CustomButton
-                    name={'Recenter '}
+                    name="Recenter"
                     img={icons.recenterIcon}
                     onClick={() => {
-                        props.onClickCalibrate()
+                        props.onClickRecenter()
                     }}
                 />
             </div>
             <div class="w-full bg-[#333742] hover:bg-[#0071FE] rounded-lg p-2 cursor-pointer m-2">
                 <CustomButton
-                    name={'Cropping mode'}
+                    name="Cropping mode"
                     img={icons.croppingIcon}
                     onClick={() => {
-                        props.onClickCalibrate()
+                        props.onClickCroppingMode()
                     }}
                 />
             </div>

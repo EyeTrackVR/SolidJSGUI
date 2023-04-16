@@ -29,7 +29,7 @@ const SettingsPage = () => {
                 console.log('onClickRecenter')
             }}
             onClickCroppingMode={() => {
-                console.log('onClickCroppingMode')
+                navigate('/cropSettings')
             }}
             onClick={(selected) => {
                 console.log(selected)

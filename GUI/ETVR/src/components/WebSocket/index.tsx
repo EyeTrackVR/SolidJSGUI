@@ -33,7 +33,7 @@ export const LoaderHandler = (props: IWsProps) => {
 
 const WebSocketHandler = (props: IWsProps) => {
     return (
-        <div class={'w-full h-full'}>
+        <div class="w-full h-full">
             <Show
                 when={showCameraView()}
                 fallback={() => (
