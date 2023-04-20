@@ -1,9 +1,7 @@
-use futures_util::future::ok;
+
 use log::{debug, error, info, warn};
 use reqwest::Client;
-use serde::Deserialize;
 use serde_json::{Map, Value};
-use std::collections::hash_map::HashMap;
 use std::io::Read;
 
 /// A struct to hold the REST client
@@ -121,7 +119,7 @@ release_id: 0,
 new_release: false,
 assets: [],
 */
-///! DEPRICATED - but it works ....
+///! DEPRECATED - but it works ....
 pub async fn run_gh_release_assets() -> Result<String, String> {
   info!("Starting GitHub release client");
   let gh_response = run_gh_release_latest().await;

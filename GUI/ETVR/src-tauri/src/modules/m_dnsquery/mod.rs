@@ -1,9 +1,8 @@
 //! A mdns query client.
 
-use log::{error, info};
+use log::{error};
 use mdns_sd::{ServiceDaemon, ServiceEvent};
-use serde::{Deserialize, Serialize};
-use serde_json;
+use serde::{Serialize};
 use std::collections::hash_map::HashMap;
 use std::sync::{Arc, Mutex};
 
@@ -159,10 +158,10 @@ pub async fn run_query(
 /// // Get the base urls map
 ///let urls_map = m_dnsquery::get_url_map(ref_mdns);
 /// ```
-pub fn get_url_map(instance: &mut Mdns) -> &mut MdnsMap {
+/* pub fn get_url_map(instance: &mut Mdns) -> &mut MdnsMap {
   println!("Base URL: {:?}", &instance.base_url);
   &mut instance.base_url
-}
+} */
 
 /// Returns a vector of the base urls found
 /// ## Arguments

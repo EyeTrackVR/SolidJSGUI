@@ -1,8 +1,8 @@
 import { Show } from 'solid-js'
 import { OrangeLoader, MagentaLoader } from '@components/Loader'
+import { classNames } from '@src/utils'
 import { CameraStatus } from '@store/camera/camera'
 import { showCameraView } from '@store/ui/selectors'
-import { classNames } from '@src/utils'
 
 // TODO: Grab selected camera from store, connect if not connected, and display video stream on component mounted
 interface IWsProps {
