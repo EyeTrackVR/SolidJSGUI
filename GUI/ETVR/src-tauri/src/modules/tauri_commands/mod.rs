@@ -80,6 +80,7 @@ pub async fn close_splashscreen(window: tauri::Window) {
     .unwrap();
 }
 
+/// TODO: refactor to use tauri::fs and tauri::path
 #[tauri::command]
 pub async fn unzip_archive(archive_path: String, target_dir: String) -> Result<String, String> {
   // The third parameter allows you to strip away toplevel directories.
