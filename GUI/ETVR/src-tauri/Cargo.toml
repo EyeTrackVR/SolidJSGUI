@@ -15,7 +15,7 @@ whoami = "1.2.3"
 sysinfo = "0.28.4"
 sprintf = "0.1.3"
 lazy_static = "1.4.0"
-log = "0.4.14"
+log = "^0.4.14"
 env_logger = "0.10.0"
 futures-util = "0.3.25"
 mdns-sd = "0.7.2"
@@ -38,6 +38,10 @@ git = "https://github.com/tauri-apps/tauri-plugin-single-instance/"
 branch = "dev"
 
 [dependencies.tauri-plugin-upload]
+git = "https://github.com/tauri-apps/plugins-workspace"
+branch = "dev"
+
+[dependencies.tauri-plugin-log]
 git = "https://github.com/tauri-apps/plugins-workspace"
 branch = "dev"
 

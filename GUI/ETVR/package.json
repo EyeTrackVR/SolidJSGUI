@@ -50,7 +50,6 @@
     "vite-plugin-solid": "^2.5.0"
   },
   "dependencies": {
-    "babel-preset-solid": "^1.7.3",
     "@builder.io/partytown": "^0.7.3",
     "@kobalte/core": "^0.8.2",
     "@kobalte/tailwindcss": "^0.4.1",
@@ -60,6 +59,7 @@
     "@solidjs/router": "^0.7.0",
     "@stitches/core": "^1.2.8",
     "@tailwindcss/typography": "^0.5.8",
+    "babel-preset-solid": "^1.7.3",
     "clsx": "^1.2.1",
     "localforage": "^1.10.0",
     "moment": "^2.29.3",
@@ -72,6 +72,7 @@
     "solid-transition-group": "^0.0.12",
     "solidjs-icons": "^1.0.11",
     "solidjs-use": "^1.2.0",
+    "tauri-plugin-log-api": "https://github.com/tauri-apps/tauri-plugin-log",
     "tauri-plugin-store-api": "https://github.com/tauri-apps/tauri-plugin-store",
     "tauri-plugin-upload-api": "https://github.com/tauri-apps/tauri-plugin-upload",
     "undici": "^5.11.0",

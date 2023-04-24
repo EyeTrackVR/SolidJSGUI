@@ -92,6 +92,11 @@ fn main() {
     .plugin(tauri_plugin_upload::init())
     // save window position and size between sessions
     .plugin(tauri_plugin_window_state::Builder::default().build())
+    .plugin(tauri_plugin_log::Builder::default().targets([
+            tauri_plugin_log::LogTarget::LogDir,
+            tauri_plugin_log::LogTarget::Stdout,
+            tauri_plugin_log::LogTarget::Webview,
+        ]).build())
     .setup(|app| {
       let window = app
         .get_window("main")
