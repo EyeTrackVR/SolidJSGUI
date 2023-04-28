@@ -3715,8 +3715,8 @@ dependencies = [
 
 [[package]]
 name = "tauri-plugin-log"
-version = "0.1.0"
-source = "git+https://github.com/tauri-apps/plugins-workspace?branch=dev#eb55671f2717e2261f9f13c9ba345d383daf1a20"
+version = "0.0.0"
+source = "git+https://github.com/tauri-apps/plugins-workspace?branch=dev#46f4a949c93fbefcbf9d0e2d77e72d637876669d"
 dependencies = [
  "byte-unit",
  "fern",
@@ -3740,8 +3740,8 @@ dependencies = [
 
 [[package]]
 name = "tauri-plugin-store"
-version = "0.1.0"
-source = "git+https://github.com/tauri-apps/plugins-workspace?branch=dev#eb55671f2717e2261f9f13c9ba345d383daf1a20"
+version = "0.0.0"
+source = "git+https://github.com/tauri-apps/plugins-workspace?branch=dev#46f4a949c93fbefcbf9d0e2d77e72d637876669d"
 dependencies = [
  "log",
  "serde",
@@ -3752,8 +3752,8 @@ dependencies = [
 
 [[package]]
 name = "tauri-plugin-upload"
-version = "0.1.0"
-source = "git+https://github.com/tauri-apps/plugins-workspace?branch=dev#eb55671f2717e2261f9f13c9ba345d383daf1a20"
+version = "0.0.0"
+source = "git+https://github.com/tauri-apps/plugins-workspace?branch=dev#46f4a949c93fbefcbf9d0e2d77e72d637876669d"
 dependencies = [
  "futures-util",
  "log",
@@ -3770,7 +3770,7 @@ dependencies = [
 [[package]]
 name = "tauri-plugin-window-state"
 version = "0.1.0"
-source = "git+https://github.com/tauri-apps/plugins-workspace?branch=dev#eb55671f2717e2261f9f13c9ba345d383daf1a20"
+source = "git+https://github.com/tauri-apps/plugins-workspace?branch=dev#46f4a949c93fbefcbf9d0e2d77e72d637876669d"
 dependencies = [
  "bincode",
  "bitflags 2.1.0",
