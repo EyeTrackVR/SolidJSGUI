@@ -3,6 +3,22 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.44](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.43...v1.0.0-SolidJSGUI.44) (2023-04-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* CHANGE
+
+### 🍕 Features
+
+* added proper logging tauri plugin ([a70651b](https://github.com/RedHawk989/EyeTrackVR/commit/a70651bfd9fdcd8b2d10f1c28e4461845a47971f))
+
+
+### 🐛 Bug Fixes
+
+* breaking bug with solid-js/router ([84bafca](https://github.com/RedHawk989/EyeTrackVR/commit/84bafca2ab61588a98617106dd18a3c8a028232a))
+
 ## [1.0.0-SolidJSGUI.43](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.42...v1.0.0-SolidJSGUI.43) (2023-04-23)
 
 
