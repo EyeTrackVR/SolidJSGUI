@@ -2,12 +2,26 @@ import { removeFile, readTextFile, BaseDirectory, writeTextFile } from '@tauri-a
 import { getClient, ResponseType } from '@tauri-apps/api/http'
 import { appConfigDir, join } from '@tauri-apps/api/path'
 import { invoke, convertFileSrc } from '@tauri-apps/api/tauri'
-import { createContext, useContext, createMemo, type Component, Accessor } from 'solid-js'
+import {
+    createContext,
+    useContext,
+    createMemo,
+    createSignal,
+    createEffect,
+    type Component,
+    Accessor,
+} from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
 import { download } from 'tauri-plugin-upload-api'
 import { useAppNotificationsContext } from '../notifications'
 import type { Context } from '@static/types'
-import { AppStoreAPI, IEndpoint, IGHAsset, IGHRelease } from '@src/static/types/interfaces'
+import {
+    AppStoreAPI,
+    IEndpoint,
+    IGHAsset,
+    IGHRelease,
+    IRestProps,
+} from '@src/static/types/interfaces'
 import { ENotificationType, RESTStatus, RESTType } from '@static/types/enums'
 
 interface AppAPIContext {
@@ -32,6 +46,10 @@ interface AppAPIContext {
     /********************************* hooks *************************************/
     downloadAsset?: (firmware: string) => Promise<void>
     doGHRequest: () => void
+    useRequestHook: () => Promise<{
+        data: Accessor<object>
+        doRequest: (props: IRestProps) => void
+    }>
 }
 
 const AppAPIContext = createContext<AppAPIContext>()
@@ -127,7 +145,6 @@ export const AppAPIProvider: Component<Context> = (props) => {
     //#endregion
 
     //#region hooks
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const getRelease = async (firmware: string) => {
         const appConfigDirPath = await appConfigDir()
         if (firmware === '') {
@@ -236,7 +253,7 @@ export const AppAPIProvider: Component<Context> = (props) => {
     }
 
     // TODO: Implement a way to read if the merged-firmware.bin file and manifest.json file exists in the app config directory and if it does, then use that instead of downloading the firmware from github
-    // Note: If both files are present, we should early return and set a UI store value that will be used to display a message to the user that they can use the firmware that is already downloadedand show an optional button to erase the firmware
+    // Note: If both files are present, we should early return and set a UI store value that will be used to display a message to the user that they can use the firmware that is already downloaded and show an optional button to erase the firmware
 
     //TODO: Add notifications to all the console.log statements
 
@@ -246,13 +263,18 @@ export const AppAPIProvider: Component<Context> = (props) => {
         } else {
             setFirmwareVersion(data['name'])
         }
-        const assets = data['assets']
-        const download_urls = assets.map((asset) => asset.browser_download_url)
+        const assets: Array<{
+            browser_download_url: string
+            name: string
+        }> = data['assets']
+        const download_urls = assets.map(
+            (asset: { browser_download_url: string }) => asset.browser_download_url,
+        )
 
-        const firmware_assets = assets.map((asset) => asset.name)
+        const firmware_assets = assets.map((asset: { name: string }) => asset.name)
 
         // split the firmware_assets array of strings on the first dash and return the first element of the array
-        const boardName = firmware_assets.map((asset) => asset.split('-')[0])
+        const boardName = firmware_assets.map((asset: string) => asset.split('-')[0])
 
         // set the board name in the store
         for (let i = 0; i < boardName.length; i++) {
@@ -398,8 +420,54 @@ export const AppAPIProvider: Component<Context> = (props) => {
                 console.error('[Tauri Runtime Error - http client]:', err)
             })
     }
+
+    const useRequestHook = async () => {
+        const [data, setData] = createSignal({})
+        const doRequest = (props: IRestProps) => {
+            createEffect(() => {
+                let endpoint: string = getEndpoints().get(props.endpointName)?.url ?? ''
+                const camera = cameras().find(
+                    (camera: { address: string }) => camera.address === props.deviceName,
+                )
+                if (!camera) {
+                    setRESTStatus(RESTStatus.NO_CAMERA)
+                    console.log('No camera found at that address')
+                    return
+                }
+
+                if (props.args) {
+                    endpoint += props.args
+                }
+                setRESTStatus(RESTStatus.LOADING)
+                invoke('do_rest_request', {
+                    endpoint: endpoint,
+                    deviceName: camera?.address,
+                    method: getEndpoints().get(props.endpointName)?.type,
+                })
+                    .then((response) => {
+                        if (typeof response === 'string') {
+                            setRESTStatus(RESTStatus.ACTIVE)
+                            const parsedResponse = JSON.parse(response)
+                            setData((prevData) => ({
+                                ...prevData,
+                                ...parsedResponse,
+                            }))
+                        }
+                    })
+                    .catch((err) => {
+                        setRESTStatus(RESTStatus.FAILED)
+                        console.log(err)
+                    })
+                    .finally(() => {
+                        setRESTStatus(RESTStatus.COMPLETE)
+                    })
+            })
+        }
+        return { data, doRequest }
+    }
     //#endregion
 
+    //#region API Provider
     return (
         <AppAPIContext.Provider
             value={{
@@ -420,10 +488,12 @@ export const AppAPIProvider: Component<Context> = (props) => {
                 getEndpoint,
                 downloadAsset,
                 doGHRequest,
+                useRequestHook,
             }}>
             {props.children}
         </AppAPIContext.Provider>
     )
+    //#endregion
 }
 
 export const useAppAPIContext = () => {

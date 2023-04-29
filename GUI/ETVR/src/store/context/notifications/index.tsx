@@ -19,8 +19,8 @@ interface AppNotificationsContext {
     getEnableNotifications: Accessor<boolean>
     getGlobalNotificationsType: Accessor<ENotificationAction>
     getNotifications: Accessor<ToasterStore<Notifications> | undefined>
-    setEnableNotifications: (flag: boolean) => void
-    setEnableNotificationsSounds: (flag: boolean) => void
+    setEnableNotifications: (flag: boolean | undefined) => void
+    setEnableNotificationsSounds: (flag: boolean | undefined) => void
     setGlobalNotificationsType: (type: ENotificationAction) => void
     handleSound: (soundfile_mp: string, soundfile_ogg?: string, soundfile_ma?: string) => void
     notify: (title: string, body: string | undefined) => void
@@ -39,18 +39,18 @@ export const AppNotificationProvider: Component<Context> = (props) => {
 
     const [state, setState] = createStore<AppStoreNotifications>(defaultState)
 
-    const setEnableNotificationsSounds = (flag: boolean) => {
+    const setEnableNotificationsSounds = (flag: boolean | undefined) => {
         setState(
             produce((s) => {
-                s.enableNotificationsSounds = flag
+                s.enableNotificationsSounds = flag || false
             }),
         )
     }
 
-    const setEnableNotifications = (flag: boolean) => {
+    const setEnableNotifications = (flag: boolean | undefined) => {
         setState(
             produce((s) => {
-                s.enableNotifications = flag
+                s.enableNotifications = flag || false
             }),
         )
     }
@@ -136,7 +136,6 @@ export const AppNotificationProvider: Component<Context> = (props) => {
 
     const checkPermission = async () => {
         let permissionGranted = await isPermissionGranted()
-
         if (!permissionGranted) {
             const permission = await requestPermission()
             permissionGranted = permission === 'granted'

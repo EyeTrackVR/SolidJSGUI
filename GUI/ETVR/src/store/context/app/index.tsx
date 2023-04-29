@@ -9,8 +9,8 @@ interface AppContext {
     getEnableMDNS: Accessor<boolean>
     getScanForCamerasOnStartup: Accessor<boolean>
     getStopAlgoBackend: Accessor<boolean>
-    setEnableMDNS: (flag: boolean) => void
-    setScanForCamerasOnStartup: (flag: boolean) => void
+    setEnableMDNS: (flag: boolean | undefined) => void
+    setScanForCamerasOnStartup: (flag: boolean | undefined) => void
     setStopAlgoBackend: (flag: boolean) => void
 }
 
@@ -24,18 +24,18 @@ export const AppProvider: Component<Context> = (props) => {
 
     const [state, setState] = createStore<AppStore>(defaultState)
 
-    const setEnableMDNS = (flag: boolean) => {
+    const setEnableMDNS = (flag: boolean | undefined) => {
         setState(
             produce((s) => {
-                s.enableMDNS = flag
+                s.enableMDNS = flag || false
             }),
         )
     }
 
-    const setScanForCamerasOnStartup = (flag: boolean) => {
+    const setScanForCamerasOnStartup = (flag: boolean | undefined) => {
         setState(
             produce((s) => {
-                s.scanForCamerasOnStartup = flag
+                s.scanForCamerasOnStartup = flag || false
             }),
         )
     }

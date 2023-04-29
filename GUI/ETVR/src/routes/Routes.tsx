@@ -40,16 +40,16 @@ const AppRoutes = () => {
                 console.log('loading settings')
                 const activeUserName =
                     typeof settings.user === 'string' ? settings.user : 'stranger'
-                setConnectedUser(activeUserName)
 
-                setEnableNotifications(settings.enableNotifications ?? false)
-                setEnableNotificationsSounds(settings.enableNotificationsSounds ?? false)
+                setConnectedUser(activeUserName)
+                setEnableNotifications(settings.enableNotifications)
+                setEnableNotificationsSounds(settings.enableNotificationsSounds)
                 setGlobalNotificationsType(
                     settings.globalNotificationsType ?? ENotificationAction.APP,
                 )
 
-                setEnableMDNS(settings.enableMDNS ?? false)
-                setScanForCamerasOnStartup(settings.scanForCamerasOnStartup ?? false)
+                setEnableMDNS(settings.enableMDNS)
+                setScanForCamerasOnStartup(settings.scanForCamerasOnStartup)
             }
         })
 
@@ -76,7 +76,7 @@ const AppRoutes = () => {
                 enableMDNS: getEnableMDNS(),
                 scanForCamerasOnStartup: getScanForCamerasOnStartup(),
             }
-            console.log('saving settings')
+            console.log('saving settings', settings)
             set('settings', settings)
         })
     })

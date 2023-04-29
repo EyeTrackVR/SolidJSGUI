@@ -82,6 +82,12 @@ export interface IGHRelease {
     url: string
 }
 
+export interface IRestProps {
+    endpointName: string
+    deviceName: string
+    args?: string
+}
+
 //*  App Store Interfaces  */
 
 export interface AppStore {
