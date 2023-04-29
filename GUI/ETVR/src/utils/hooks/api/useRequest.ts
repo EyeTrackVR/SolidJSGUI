@@ -1,8 +1,9 @@
 import { invoke } from '@tauri-apps/api/tauri'
 import { createSignal, createEffect } from 'solid-js'
-import { setRestStatus, RESTStatus } from '@src/store/api/restAPI'
-import { endpoints } from '@src/store/api/selectors'
+import type { IEndpoint } from '@src/static/types/interfaces'
+import { RESTStatus } from '@src/static/types/enums'
 import { cameras } from '@src/store/camera/selectors'
+import { useAppAPIContext } from '@src/store/context/api'
 
 interface IProps {
     endpointName: string
@@ -11,11 +12,25 @@ interface IProps {
 }
 
 export const useRequestHook = async () => {
+    const { getEndpoints, setRESTStatus } = useAppAPIContext()
+
+    let endpoints: Map<string, IEndpoint> = new Map()
+    let setRestStatus: (status: RESTStatus) => void = () => {
+        return
+    }
+
+    if (getEndpoints) {
+        endpoints = getEndpoints()
+    }
+
+    if (setRESTStatus) {
+        setRestStatus = setRESTStatus
+    }
+
     const [data, setData] = createSignal({})
-    const _endpoints = endpoints()
     const doRequest = (props: IProps) => {
         createEffect(() => {
-            let endpoint: string = _endpoints.get(props.endpointName)?.url ?? ''
+            let endpoint: string = endpoints.get(props.endpointName)?.url ?? ''
             const camera = cameras().find((camera) => camera.address === props.deviceName)
             if (!camera) {
                 setRestStatus(RESTStatus.NO_CAMERA)
@@ -30,7 +45,7 @@ export const useRequestHook = async () => {
             invoke('do_rest_request', {
                 endpoint: endpoint,
                 deviceName: camera?.address,
-                method: _endpoints.get(props.endpointName)?.type,
+                method: endpoints.get(props.endpointName)?.type,
             })
                 .then((response) => {
                     if (typeof response === 'string') {

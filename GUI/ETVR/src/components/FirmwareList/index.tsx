@@ -2,12 +2,25 @@ import { Select } from '@kobalte/core'
 import { FaSolidCheck } from 'solid-icons/fa'
 import { HiSolidSelector } from 'solid-icons/hi'
 import { createSignal } from 'solid-js'
-import { firmwareAssets, firmwareVersion } from '@store/api/selectors'
+import { useAppAPIContext } from '@src/store/context/api'
 import './styles.css'
 
 export const FirmwareList = () => {
-    const defaultValue = firmwareAssets().find((item) => item.name === 'esp32AIThinker')?.name
-    const boardNames = firmwareAssets().map((item) => item.name)
+    const [firmwareVersion, setFirmwareVersion] = createSignal('')
+
+    const { getFirmwareAssets, getFirmwareVersion } = useAppAPIContext()
+
+    let defaultValue = ''
+    let boardNames: string[] = []
+
+    if (getFirmwareAssets) {
+        defaultValue =
+            getFirmwareAssets().find((item) => item.name === 'esp32AIThinker')?.name || ''
+        boardNames = getFirmwareAssets().map((item) => item.name)
+    }
+
+    if (getFirmwareVersion) setFirmwareVersion(getFirmwareVersion())
+
     const [value, setValue] = createSignal(defaultValue)
 
     // TODO: call api to download firmware assets

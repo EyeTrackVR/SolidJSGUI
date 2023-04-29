@@ -1,8 +1,8 @@
 
-use log::{debug, error, info, warn};
+use log::{ error, info};
 use reqwest::Client;
-use serde_json::{Map, Value};
-use std::io::Read;
+//use serde_json::{Map, Value};
+//use std::io::Read;
 
 /// A struct to hold the REST client
 /// ## Fields
@@ -93,7 +93,7 @@ pub async fn run_rest_client(
   Ok(request_response)
 }
 
-async fn run_gh_release_latest() -> Result<String, String> {
+/* async fn run_gh_release_latest() -> Result<String, String> {
   info!("Starting GitHub release client");
   let endpoint = "/releases/latest";
   let device_name = "https://api.github.com/repos/lorow/OpenIris";
@@ -243,4 +243,4 @@ pub async fn run_gh_release_assets() -> Result<String, String> {
     Err(e) => println!("JSON parse failed: {}", e),
   }
   Ok("[Github Release]: Grabbed Newest Github Asset Config".to_string())
-}
+} */

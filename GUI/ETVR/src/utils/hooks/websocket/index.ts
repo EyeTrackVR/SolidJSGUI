@@ -1,9 +1,8 @@
 import { useWebSocket } from 'solidjs-use'
-import { addNotification, ENotificationType } from '@hooks/notifications'
-import { getGlobalNotificationsType } from '@store/app/settings/selectors'
 import { CameraStatus, setCameraStatus, setCameraWS } from '@store/camera/camera'
 import { cameras } from '@store/camera/selectors'
 import { isEmpty } from '@utils/index'
+
 const PORT = 7856
 const LOCAL_HOST = 'wss://127.0.0.1'
 
@@ -18,12 +17,11 @@ export const generateWebsocketClients = () => {
                     delay: 1000,
                     onFailed() {
                         setCameraStatus(camera, CameraStatus.FAILED)
-                        addNotification({
+                       /*  addNotification({
                             type: ENotificationType.ERROR,
-                            action: getGlobalNotificationsType(),
                             title: 'Websocket Connection Failed',
                             message: `[WebSocket Handler]: Failed to connect to ${camera.address}`,
-                        })
+                        }) */
                     },
                 },
                 heartbeat: {

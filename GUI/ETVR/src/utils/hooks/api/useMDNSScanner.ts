@@ -1,10 +1,11 @@
 import { invoke } from '@tauri-apps/api/tauri'
 import { setAddCameraMDNS } from '@src/store/camera/camera'
-import { enableMDNS } from '@store/app/settings/selectors'
+import { useAppContext } from '@src/store/context/app'
 import { setMdnsStatus, setMdnsData, MdnsStatus, type IMdnsResponse } from '@store/mdns/mdns'
 
 export const useMDNSScanner = async (serviceType: string, scanTime: number) => {
-    if (!enableMDNS()) return
+    const { getEnableMDNS } = useAppContext()
+    if (!getEnableMDNS()) return
     if (serviceType === '' || scanTime === 0) {
         return []
     }

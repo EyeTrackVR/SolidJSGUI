@@ -61,7 +61,6 @@
     "@tailwindcss/typography": "^0.5.8",
     "babel-preset-solid": "^1.7.3",
     "clsx": "^1.2.1",
-    "localforage": "^1.10.0",
     "moment": "^2.29.3",
     "solid-form-handler": "^1.0.0-alpha.5",
     "solid-headless": "^0.13.0",

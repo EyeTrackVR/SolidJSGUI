@@ -1,7 +1,7 @@
 import { Component, For, Match, Switch } from 'solid-js'
-import { ISkeletonHandlerProps, ISkeletonProps } from '@static/types/interfaces'
+import { SkeletonHandlerProps, SkeletonProps } from '@static/types/interfaces'
 
-const Skeleton: Component<ISkeletonProps> = (props: ISkeletonProps) => {
+const Skeleton: Component<SkeletonProps> = (props) => {
     return (
         <div class="animate-pulse">
             <div class={`bg-gray-800 ${props.class}`} />
@@ -9,7 +9,7 @@ const Skeleton: Component<ISkeletonProps> = (props: ISkeletonProps) => {
     )
 }
 
-const SkeletonHandler: Component<ISkeletonHandlerProps> = (props: ISkeletonHandlerProps) => {
+const SkeletonHandler: Component<SkeletonHandlerProps> = (props) => {
     return (
         <Switch fallback={<div>Loading ...</div>}>
             <Match when={props.render}>

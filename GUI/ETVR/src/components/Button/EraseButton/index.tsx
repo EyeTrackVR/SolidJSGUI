@@ -2,10 +2,12 @@ import { ask } from '@tauri-apps/api/dialog'
 import { removeFile } from '@tauri-apps/api/fs'
 import { appConfigDir, join } from '@tauri-apps/api/path'
 import Button from '..'
-import { addNotification, ENotificationType } from '@hooks/notifications'
-import { getGlobalNotificationsType } from '@store/app/settings/selectors'
+import { ENotificationType } from '@src/static/types/enums'
+import { useAppNotificationsContext } from '@store/context/notifications'
 
 export const EraseButton = () => {
+    const { addNotification } = useAppNotificationsContext()
+
     const erase = async () => {
         const appConfigPath = await appConfigDir()
         const firmwarePath = await join(appConfigPath, 'merged-firmware.bin')
@@ -32,7 +34,6 @@ export const EraseButton = () => {
                                     title: 'ETVR Firmware Assets Erased',
                                     message:
                                         'The firmware assets have been erased from your system.',
-                                    action: getGlobalNotificationsType(),
                                     type: ENotificationType.SUCCESS,
                                 })
                             })
@@ -42,7 +43,6 @@ export const EraseButton = () => {
                                     title: 'ETVR Firmware Assets Erase Failed',
                                     message:
                                         'The firmware assets could not be erased from your system.',
-                                    action: getGlobalNotificationsType(),
                                     type: ENotificationType.ERROR,
                                 })
                             })

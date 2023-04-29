@@ -1,27 +1,30 @@
 import { ENotificationAction, ENotificationType } from '../enums'
+import type { RESTStatus, RESTType } from '@static/types/enums'
+import type { WebviewWindow } from '@tauri-apps/api/window'
+import type { ToasterStore } from 'solid-headless'
 import type { JSXElement } from 'solid-js'
 
 //* Component Interfaces
-export interface Iinternal {
+export interface Internal {
     errorMsg?: string
     error?: boolean
 }
 
-export interface Iinputs {
-    input: (props?: Iinternal) => JSXElement
+export interface Inputs {
+    input: (props?: Internal) => JSXElement
 }
 
-export interface ISkeletonHandlerProps {
+export interface SkeletonHandlerProps {
     render?: boolean
-    items?: ISkeletonProps[]
+    items?: SkeletonProps[]
     children?: JSXElement
 }
 
-export interface ISkeletonProps {
+export interface SkeletonProps {
     class: string
 }
 
-export interface ICardProps {
+export interface CardProps {
     children?: JSXElement
     src?: string
     title?: string
@@ -32,14 +35,69 @@ export interface ICardProps {
     backgroundColor?: string
 }
 
-export interface INotificationAction {
+export interface NotificationAction {
     callbackOS(): void
     callbackApp(): void
 }
 
-export interface INotifications {
+export interface Notifications {
     title: string
     message: string
-    action: ENotificationAction
     type: ENotificationType
+}
+
+export interface IWindow {
+    label: string
+    window: WebviewWindow
+}
+
+export interface IEndpoint {
+    url: string
+    type: RESTType
+}
+
+export interface IRest {
+    status: RESTStatus
+    device: string
+    response: object
+}
+
+export interface IGHAsset {
+    name: string
+    browser_download_url: string
+}
+
+export interface IGHRest {
+    status: RESTStatus
+    assets: IGHAsset[]
+    version: string
+}
+
+export interface IGHRelease {
+    data: object
+    headers: object
+    rawHeaders: object
+    ok: boolean
+    status: number
+    url: string
+}
+
+//*  App Store Interfaces  */
+
+export interface AppStore {
+    enableMDNS: boolean
+    scanForCamerasOnStartup: boolean
+    stopAlgoBackend: boolean
+}
+
+export interface AppStoreNotifications {
+    notifications?: ToasterStore<Notifications>
+    enableNotificationsSounds: boolean
+    enableNotifications: boolean
+    globalNotificationsType: ENotificationAction
+}
+
+export interface AppStoreAPI {
+    restAPI: IRest
+    ghAPI: IGHRest
 }

@@ -1,6 +1,5 @@
 import { WebviewWindow, getCurrent } from '@tauri-apps/api/window'
 import Button from '..'
-import { addWindow } from '@store/app/windows/windows'
 
 export const OpenDocs = () => {
     const openDocs = () => {
@@ -21,7 +20,6 @@ export const OpenDocs = () => {
             })
             webview.once('tauri://created', () => {
                 console.log('WebView Window Created')
-                addWindow(webview.label, webview)
                 webview.show()
             })
         })

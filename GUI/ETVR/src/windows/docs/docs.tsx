@@ -2,7 +2,7 @@
 import { Router } from '@solidjs/router'
 import { onMount, Suspense } from 'solid-js'
 import { render } from 'solid-js/web'
-import { handleTitlebar } from '@utils/hooks/app'
+import { handleTitlebar } from '@src/utils/hooks/app'
 import '@styles/docs-imports.css'
 
 const App = () => {

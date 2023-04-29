@@ -1,11 +1,13 @@
 import { Toaster, ToasterStore, Transition, useToaster } from 'solid-headless'
 import { createEffect, createSignal, For, onCleanup } from 'solid-js'
 import CustomToast from './CustomToast'
-import { INotifications } from '@static/types/interfaces'
-import { notifications, showNotifications } from '@store/ui/selectors'
+import { useAppNotificationsContext } from '@src/store/context/notifications'
+import { Notifications } from '@static/types/interfaces'
 
 const ToastNotificationWindow = () => {
-    const notifs = useToaster(notifications() as ToasterStore<INotifications>)
+    const { getNotifications, getEnableNotifications } = useAppNotificationsContext()
+
+    const notifs = useToaster(getNotifications() as ToasterStore<Notifications>)
 
     const [isOpen, setIsOpen] = createSignal(false)
     const closeNotifs = () => {
@@ -13,13 +15,13 @@ const ToastNotificationWindow = () => {
     }
 
     const clearNotifs = () => {
-        notifications()?.clear()
+        getNotifications()?.clear()
     }
 
     createEffect(() => {
-        if (showNotifications()) {
+        if (getEnableNotifications()) {
             if (notifs().length > 0) {
-                console.log('[Notifications]: Notifcations Added', notifs().length)
+                console.log('[Notifications]: Notifications Added', notifs().length)
                 setIsOpen(true)
             }
             const timeout = setTimeout(() => {

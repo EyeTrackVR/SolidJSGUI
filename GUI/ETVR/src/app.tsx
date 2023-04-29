@@ -1,5 +1,6 @@
 import { lazy, onMount, Suspense } from 'solid-js'
-import { handleAppBoot, handleTitlebar } from '@utils/hooks/app'
+import { handleAppBoot, handleTitlebar } from '@src/utils/hooks/app'
+import { AppProvider } from '@store/context/app'
 
 const AppRoutes = lazy(() => import('@routes/Routes'))
 const NewWindow = lazy(() => import('@components/NewWindow'))
@@ -16,11 +17,13 @@ const App = () => {
     return (
         <div class="App overflow-y-auto items-center">
             <Suspense>
-                <AppRoutes />
-                <NewWindow ref={ref} name="test">
-                    <ExampleMenu />
-                </NewWindow>
-                <ToastNotificationWindow />
+                <AppProvider>
+                    <AppRoutes />
+                    <NewWindow ref={ref} name="test">
+                        <ExampleMenu />
+                    </NewWindow>
+                    <ToastNotificationWindow />
+                </AppProvider>
             </Suspense>
         </div>
     )

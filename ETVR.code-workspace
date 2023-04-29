@@ -60,13 +60,19 @@
       "APPDATA",
       "clippy",
       "clsx",
+      "Coeff",
       "dnsquery",
       "esbenp",
+      "eyetrack",
       "fullname",
       "hashset",
+      "hookable",
+      "Iinternal",
       "kobalte",
       "nanos",
       "notif",
+      "notififcation",
+      "notifs",
       "partytown",
       "reqwest",
       "shakram",
@@ -74,7 +80,8 @@
       "soundfile",
       "tamasfe",
       "undici",
-      "vorbis"
+      "vorbis",
+      "webserial"
     ]
   }
 }

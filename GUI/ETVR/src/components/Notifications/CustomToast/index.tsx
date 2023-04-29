@@ -3,18 +3,20 @@ import { AiOutlineCheckCircle } from 'solid-icons/ai'
 import { FiAlertTriangle, FiAlertOctagon } from 'solid-icons/fi'
 import { IoAlertCircleSharp } from 'solid-icons/io'
 import { createSignal, Component, Show } from 'solid-js'
+import type { Notifications } from '@static/types/interfaces'
 import CloseIcon from '@components/CloseIcon'
-import { type INotifications } from '@static/types/interfaces'
-import { notifications } from '@store/ui/selectors'
-import { ENotificationType } from '@utils/hooks/notifications'
+import { useAppNotificationsContext } from '@src/store/context/notifications'
+import { ENotificationType } from '@static/types/enums'
 
 interface ToastProps {
     id: string
-    notif: INotifications
+    notif: Notifications
 }
 
 const CustomToast: Component<ToastProps> = (props) => {
     const [isOpen, setIsOpen] = createSignal(true)
+
+    const { getNotifications } = useAppNotificationsContext()
 
     const dismiss = () => {
         setIsOpen(false)
@@ -31,7 +33,7 @@ const CustomToast: Component<ToastProps> = (props) => {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-50"
             afterLeave={() => {
-                notifications()?.remove(props.id)
+                getNotifications()?.remove(props.id)
             }}>
             <Toast class="flex justify-between items-center">
                 <Alert class="bg-slate-600 flex grow flex-row items-center justify-center text-xl text-bold text-gray-50 p-4">
