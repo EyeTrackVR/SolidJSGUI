@@ -3,6 +3,29 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.45](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.44...v1.0.0-SolidJSGUI.45) (2023-04-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* CHANGES
+
+### 🧑‍💻 Code Refactoring
+
+* begin migration to Context API ([2a9dea1](https://github.com/RedHawk989/EyeTrackVR/commit/2a9dea10f2537ffc3620fa43441d96e6e741859a))
+* continue refactoring for context api ([274a7d0](https://github.com/RedHawk989/EyeTrackVR/commit/274a7d08fd2fd992673f94c6ae4b61819f7f86de))
+
+
+### 🍕 Features
+
+* added the ultimate logging setup ([c36c990](https://github.com/RedHawk989/EyeTrackVR/commit/c36c990661a10054491179fbbf95196ca394900f))
+
+
+### 🐛 Bug Fixes
+
+* fix up stream de-sync ([af95746](https://github.com/RedHawk989/EyeTrackVR/commit/af957467412f8f101a152f21f58de7d65d152f65))
+* fix websocket component fallback ([7338e3a](https://github.com/RedHawk989/EyeTrackVR/commit/7338e3ab307404252bb734802fc0f56ef6116a32))
+
 ## [1.0.0-SolidJSGUI.44](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.43...v1.0.0-SolidJSGUI.44) (2023-04-28)
 
 
