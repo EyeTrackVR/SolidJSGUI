@@ -1,11 +1,11 @@
-import { Show } from 'solid-js'
+import { Switch, Match, Show } from 'solid-js'
 import { OrangeLoader, MagentaLoader } from '@components/Loader'
 import { classNames } from '@src/utils'
 import { CameraStatus } from '@store/camera/camera'
 import { showCameraView } from '@store/ui/selectors'
 
 // TODO: Grab selected camera from store, connect if not connected, and display video stream on component mounted
-interface IWsProps {
+type IWsProps = {
     status: CameraStatus
     styles?: string
 }
@@ -13,21 +13,21 @@ interface IWsProps {
 // TODO: Make other loader components for other statuses
 export const LoaderHandler = (props: IWsProps) => {
     return (
-        <>
-            <Show when={props.status == CameraStatus.LOADING}>
+        <Switch>
+            <Match when={props.status == CameraStatus.LOADING}>
                 <OrangeLoader width={100} height={100} unit={'%'} />
-            </Show>
-            <Show when={props.status == CameraStatus.ACTIVE}>
+            </Match>
+            <Match when={props.status == CameraStatus.ACTIVE}>
                 <OrangeLoader width={100} height={100} unit={'%'} />
-            </Show>
-            <Show
+            </Match>
+            <Match
                 when={props.status == CameraStatus.DISABLED || props.status == CameraStatus.FAILED}>
                 <MagentaLoader width={100} height={100} unit={'%'} id="magenta" />
-            </Show>
-            <Show when={props.status == CameraStatus.NONE}>
+            </Match>
+            <Match when={props.status == CameraStatus.NONE}>
                 <OrangeLoader width={100} height={100} unit={'%'} />
-            </Show>
-        </>
+            </Match>
+        </Switch>
     )
 }
 
@@ -36,7 +36,7 @@ const WebSocketHandler = (props: IWsProps) => {
         <div class="w-full h-full">
             <Show
                 when={showCameraView()}
-                fallback={() => (
+                fallback={
                     <div
                         class={classNames(
                             props.styles,
@@ -44,7 +44,7 @@ const WebSocketHandler = (props: IWsProps) => {
                         )}>
                         <LoaderHandler status={props.status} />
                     </div>
-                )}>
+                }>
                 <video class="bg-black rounded-t-xl w-full h-full" autoplay>
                     <source src="" type="video/mp4" />
                 </video>
