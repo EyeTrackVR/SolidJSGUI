@@ -39,16 +39,16 @@ pub async fn run_mdns_query(
   service_type: String,
   scan_time: u64,
 ) -> Result<m_dnsquery::MdnsData, String> {
-  println!("Starting MDNS query to find devices");
+  info!("Starting MDNS query to find devices");
   let mut mdns: m_dnsquery::Mdns = m_dnsquery::Mdns::new();
   let mut mdns_data = m_dnsquery::MdnsData::new();
   let ref_mdns = &mut mdns;
-  println!("MDNS Service Thread acquired lock");
+  info!("MDNS Service Thread acquired lock");
   m_dnsquery::run_query(ref_mdns, service_type, &mut mdns_data, scan_time)
     .await
     .expect("Error in mDNS query");
-  println!("MDNS query complete");
-  println!(
+  info!("MDNS query complete");
+  info!(
     "MDNS query results: {:#?}",
     m_dnsquery::get_urls(&*ref_mdns)
   ); // get's an array of the base urls found
@@ -129,7 +129,7 @@ pub fn handle_debug<R: tauri::Runtime>(
 ) -> Result<log::LevelFilter, String> {
   // read the Store file
   let stores = app.state::<tauri_plugin_store::StoreCollection<R>>();
-  let path = std::path::PathBuf::from(".app-settings.etvr");
+  let path = std::path::PathBuf::from(".app-settings.bin");
   // match the store value to a LogFilter
   let mut debug_state: String = String::new();
   with_store(app.clone(), stores, path, |store| {

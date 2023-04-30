@@ -4,7 +4,7 @@
 import { Store } from 'tauri-plugin-store-api'
 import type { PersistentSettings } from '@src/static/types'
 
-const persistentStore = new Store('.app-settings.etvr')
+const persistentStore = new Store('.app-settings.bin')
 
 export const usePersistentStore = () => {
     const save = async () => {

@@ -1,6 +1,6 @@
 //! A mdns query client.
 
-use log::error;
+use log::{error, info};
 use mdns_sd::{ServiceDaemon, ServiceEvent};
 use serde::Serialize;
 use std::collections::hash_map::HashMap;
@@ -92,7 +92,7 @@ pub async fn run_query(
     if let Ok(event) = receiver.recv_async().await {
       match event {
         ServiceEvent::ServiceResolved(info) => {
-          println!(
+          info!(
             "At {:?}: Resolved a new service: {} IP: {:#?}:{:#?} Hostname: {:#?}",
             now.elapsed(),
             info.get_fullname(),
@@ -102,13 +102,13 @@ pub async fn run_query(
           );
           //* split the fullname by '.' and take the first element
           let name = info.get_hostname();
-          println!("Service name: {}", name);
+          info!("Service name: {}", name);
           //* remove the period at the end of the name
           let mut name = name.trim_end_matches('.');
           //* append name to 'http://' to get the base url
           let mut base_url = String::from("http://");
           base_url.push_str(name);
-          println!("Base URL: {}", base_url);
+          info!("Base URL: {}", base_url);
           //* add the base url to the hashmap
           instance
             .base_url
@@ -128,7 +128,7 @@ pub async fn run_query(
           mdns_data.ips = instance.ip.clone();
         }
         other_event => {
-          println!(
+          info!(
             "At {:?} : Received other event: {:?}",
             now.elapsed(),
             &other_event
@@ -138,7 +138,8 @@ pub async fn run_query(
     }
   }
   std::thread::sleep(std::time::Duration::from_nanos(1));
-  mdns.stop_browse(&service_type).map_err(|e| e.to_string())?;
+  //mdns.stop_browse(&service_type).map_err(|e| e.to_string())?;
+  info!("Stopping mDNS query daemon -  refresh to restart");
   mdns.shutdown().map_err(|e| e.to_string())?;
   Ok(())
 }

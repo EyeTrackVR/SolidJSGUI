@@ -60,8 +60,6 @@ const AppRoutes = () => {
             generateWebsocketClients()
             //})
         })
-
-        // TODO: check notif perms and request GH data
         checkPermission()
         doGHRequest()
     })
@@ -75,6 +73,7 @@ const AppRoutes = () => {
                 enableNotificationsSounds: getEnableNotificationsSounds(),
                 globalNotificationsType: getGlobalNotificationsType(),
                 enableMDNS: getEnableMDNS(),
+                // TODO: expose the debug levels to the user
                 debugMode: 'info',
                 scanForCamerasOnStartup: getScanForCamerasOnStartup(),
             }
