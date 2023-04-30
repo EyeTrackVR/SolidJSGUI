@@ -1,8 +1,11 @@
+use log::debug;
+use log::{error, info, warn};
 use tauri::{self, Manager};
+
+use tauri_plugin_store::with_store;
+
 use tauri_plugin_window_state::{AppHandleExt, StateFlags, WindowExt};
 use whoami::username;
-
-use log::info;
 
 use crate::modules::m_dnsquery;
 use crate::modules::rest_client;
@@ -119,4 +122,49 @@ pub async fn handle_load_window_state<R: tauri::Runtime>(
     .expect("[Window State]: Failed to restore window state");
 
   Ok(())
+}
+
+pub fn handle_debug<R: tauri::Runtime>(
+  app: tauri::AppHandle<R>,
+) -> Result<log::LevelFilter, String> {
+  // read the Store file
+  let stores = app.state::<tauri_plugin_store::StoreCollection<R>>();
+  let path = std::path::PathBuf::from(".app-settings.etvr");
+  // match the store value to a LogFilter
+  let mut debug_state: String = String::new();
+  with_store(app.clone(), stores, path, |store| {
+    let settings = store.get("settings");
+    debug!("Settings: {:?}", settings);
+    if let Some(json) = settings {
+      let _serde_json = serde_json::from_value::<serde_json::Value>(json.clone());
+      debug!("Serde JSON: {:?}", _serde_json);
+      let serde_json_result = match _serde_json {
+        Ok(serde_json) => serde_json,
+        Err(err) => {
+          error!("Error configuring JSON config file: {}", err);
+          return Err(tauri_plugin_store::Error::Json(err));
+        }
+      };
+      let temp = &serde_json_result["debugMode"];
+      debug!("Debug: {:?}", temp);
+      debug_state = serde_json::from_value::<String>(temp.clone()).unwrap();
+    } else {
+      debug_state = serde_json::json!({}).to_string();
+    }
+    info!("Debug state: {}", debug_state);
+    Ok(())
+  })
+  .expect("Failed to get store");
+  // set the log level
+  let log_level = match debug_state.as_str() {
+    "off" => log::LevelFilter::Off,
+    "error" => log::LevelFilter::Error,
+    "warn" => log::LevelFilter::Warn,
+    "info" => log::LevelFilter::Info,
+    "debug" => log::LevelFilter::Debug,
+    "trace" => log::LevelFilter::Trace,
+    _ => log::LevelFilter::Info,
+  };
+  // return the result
+  Ok(log_level)
 }

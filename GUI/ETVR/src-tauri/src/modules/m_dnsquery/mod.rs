@@ -1,8 +1,8 @@
 //! A mdns query client.
 
-use log::{error};
+use log::error;
 use mdns_sd::{ServiceDaemon, ServiceEvent};
-use serde::{Serialize};
+use serde::Serialize;
 use std::collections::hash_map::HashMap;
 use std::sync::{Arc, Mutex};
 
@@ -87,7 +87,7 @@ pub async fn run_query(
   let now = std::time::Instant::now();
   //* listen for event then stop the event loop after 5 seconds.
   // while let Ok(event) = receiver.recv() {}
-  while now.elapsed().as_secs() < scan_time {
+  while now.elapsed().as_secs() <= scan_time {
     //* let event = receiver.recv().expect("Failed to receive event");
     if let Ok(event) = receiver.recv_async().await {
       match event {
@@ -137,6 +137,9 @@ pub async fn run_query(
       }
     }
   }
+  std::thread::sleep(std::time::Duration::from_nanos(1));
+  mdns.stop_browse(&service_type).map_err(|e| e.to_string())?;
+  mdns.shutdown().map_err(|e| e.to_string())?;
   Ok(())
 }
 

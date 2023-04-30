@@ -2,6 +2,7 @@ import { useRoutes } from '@solidjs/router'
 import { createEffect, onMount } from 'solid-js'
 import { useEventListener } from 'solidjs-use'
 import { routes } from '.'
+import type { PersistentSettings } from '@src/static/types'
 import Header from '@components/Header'
 import { ENotificationAction } from '@src/static/types/enums'
 import { useAppAPIContext } from '@src/store/context/api'
@@ -68,12 +69,13 @@ const AppRoutes = () => {
     createEffect(() => {
         useEventListener(window, 'blur', () => {
             // save the app settings to the persistent store
-            const settings = {
+            const settings: PersistentSettings = {
                 user: connectedUserName(),
                 enableNotifications: getEnableNotifications(),
                 enableNotificationsSounds: getEnableNotificationsSounds(),
                 globalNotificationsType: getGlobalNotificationsType(),
                 enableMDNS: getEnableMDNS(),
+                debugMode: 'info',
                 scanForCamerasOnStartup: getScanForCamerasOnStartup(),
             }
             console.log('saving settings', settings)

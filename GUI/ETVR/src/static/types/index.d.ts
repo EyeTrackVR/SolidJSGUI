@@ -54,6 +54,7 @@ type PersistentSettings = {
     enableNotifications?: boolean
     globalNotificationsType?: ENotificationAction
     enableMDNS?: boolean
+    debugMode?: 'off' | 'error' | 'warn' | 'info' | 'debug' | 'trace'
     scanForCamerasOnStartup?: boolean
     cameraSettings?: CameraSettings
     algorithmSettings?: AlgorithmSettings

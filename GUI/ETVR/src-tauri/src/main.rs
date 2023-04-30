@@ -77,7 +77,7 @@ fn main() {
       tauri_commands::do_rest_request,
       tauri_commands::unzip_archive,
       tauri_commands::handle_save_window_state,
-      tauri_commands::handle_load_window_state
+      tauri_commands::handle_load_window_state,
     ])
     // allow only one instance and propagate args and cwd to existing instance
     .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
@@ -93,21 +93,29 @@ fn main() {
     // save window position and size between sessions
     .plugin(tauri_plugin_window_state::Builder::default().build())
     // log to file, stdout and webview console support
-    .plugin(
-      tauri_plugin_log::Builder::default()
-        .targets([
-          tauri_plugin_log::LogTarget::LogDir,
-          tauri_plugin_log::LogTarget::Stdout,
-          tauri_plugin_log::LogTarget::Webview,
-        ])
-        .build(),
-    )
-    .setup(|app| {
+    .setup(move |app| {
       let window = app
         .get_window("main")
         .unwrap_or_else(|| panic!("Failed to get window {}", "main"));
       //set_shadow(&window, true).expect("Unsupported platform!");
       window.hide().unwrap();
+
+      let app_handle = app.handle();
+
+      app_handle
+        .plugin(
+          tauri_plugin_log::Builder::default()
+            .targets([
+              tauri_plugin_log::LogTarget::LogDir,
+              tauri_plugin_log::LogTarget::Stdout,
+              tauri_plugin_log::LogTarget::Webview,
+            ])
+            .filter(|metadata| metadata.target() != "polling::iocp")
+            .level(tauri_commands::handle_debug(app_handle.clone()).unwrap())
+            .build(),
+        )
+        .expect("Failed to initialize logger");
+
       Ok(())
     })
     .system_tray(tray)
