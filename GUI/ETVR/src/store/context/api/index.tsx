@@ -441,7 +441,7 @@ export const AppAPIProvider: Component<Context> = (props) => {
      * @description Uploads a firmware to a device
      * @param firmwareName The name of the firmware file
      * @param device The device to upload the firmware to
-     * 
+     *
      */
     const useOTA = async (firmwareName: string, device: string) => {
         let endpoints: Map<string, IEndpoint> = new Map()

@@ -1,13 +1,15 @@
 import { children, createSignal, createEffect, Show, onMount, onCleanup } from 'solid-js'
 import { Portal } from 'solid-js/web'
 import { onClickOutside, useEventListener } from 'solidjs-use'
-import { menuOpenStatus } from '@store/ui/selectors'
-import { setMenu, type INewMenu } from '@store/ui/ui'
+import type { NewMenu } from '@static/types/interfaces'
+import { useAppUIContext } from '@src/store/context/ui'
 import './styles.css'
 
-const NewMenu = (props: INewMenu) => {
+const NewMenu = (props: NewMenu) => {
     const [ref, setRef] = createSignal<HTMLElement>()
     const Children = children(() => props.children)
+
+    const { menuOpenStatus, setMenu } = useAppUIContext()
 
     onMount(() => {
         if (props.ref) {
@@ -45,7 +47,7 @@ const NewMenu = (props: INewMenu) => {
                             top: `${menuOpenStatus()?.y ?? 0}px`,
                             left: `${menuOpenStatus()?.x ?? 0}px`,
                         }}>
-                        {Children()}
+                        <Children />
                     </div>
                 </Portal>
             </Show>

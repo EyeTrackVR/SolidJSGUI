@@ -10,9 +10,8 @@ import { useAppContext } from '@src/store/context/app'
 import { useAppCameraContext } from '@src/store/context/camera'
 import { useAppMDNSContext } from '@src/store/context/mdns'
 import { useAppNotificationsContext } from '@src/store/context/notifications'
+import { useAppUIContext } from '@src/store/context/ui'
 import { usePersistentStore } from '@src/store/tauriStore'
-import { connectedUserName, hideHeaderButtons } from '@src/store/ui/selectors'
-import { setConnectedUser, setHideHeaderButtons } from '@src/store/ui/ui'
 import { generateWebsocketClients } from '@src/utils/hooks/websocket'
 
 const AppRoutes = () => {
@@ -39,9 +38,11 @@ const AppRoutes = () => {
         addNotification,
     } = useAppNotificationsContext()
 
+    const { connectedUserName, setConnectedUser, hideHeaderButtons, setHideHeaderButtons } =
+        useAppUIContext()
+
     onMount(() => {
         // load the app settings from the persistent store and assign to the global state
-
         get('settings').then((settings) => {
             if (settings) {
                 console.log('loading settings')

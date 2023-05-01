@@ -1,13 +1,15 @@
 import { useNavigate, useParams } from '@solidjs/router'
+import { useAppUIContext } from '@src/store/context/ui'
 import Settings from '@src/views/Settings'
 import { useAppCameraContext } from '@store/context/camera'
-import { setHideHeaderButtons } from '@store/ui/ui'
 
 const SettingsPage = () => {
     const navigate = useNavigate()
     const params = useParams()
 
     const { getSelectedCamera } = useAppCameraContext()
+
+    const { setHideHeaderButtons } = useAppUIContext()
 
     return (
         <Settings

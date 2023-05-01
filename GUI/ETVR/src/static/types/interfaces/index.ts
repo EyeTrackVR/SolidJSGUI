@@ -4,6 +4,7 @@ import {
     ENotificationAction,
     ENotificationType,
     MdnsStatus,
+    loaderType,
 } from '../enums'
 import type { RESTStatus, RESTType } from '@static/types/enums'
 import type { WebviewWindow } from '@tauri-apps/api/window'
@@ -107,6 +108,23 @@ export interface MdnsResponse {
     names: string[]
 }
 
+export interface MenuOpen {
+    x: number
+    y: number
+}
+
+export interface NewMenu {
+    children: JSXElement
+    ref: HTMLElement | null
+    name: string
+}
+
+export interface ModalMenu {
+    children: JSXElement
+    title?: string
+    initialFocus?: string
+}
+
 //*  App Store Interfaces  */
 
 export interface AppStore {
@@ -135,4 +153,15 @@ export interface AppStoreCamera {
 export interface AppStoreMdns {
     mdnsStatus: MdnsStatus
     mdnsData: MdnsResponse
+}
+
+export interface UiStore {
+    loader?: { [key in loaderType]: boolean }
+    connecting?: boolean
+    openModal?: boolean
+    menuOpen?: MenuOpen | null
+    showCameraView?: boolean
+    connectedUser: string
+    showNotifications?: boolean
+    hideHeaderButtons: boolean
 }

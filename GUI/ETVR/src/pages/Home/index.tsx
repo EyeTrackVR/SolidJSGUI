@@ -1,13 +1,13 @@
 import { useNavigate } from '@solidjs/router'
 import { useAppAPIContext } from '@src/store/context/api'
+import { useAppUIContext } from '@src/store/context/ui'
 import Home from '@src/views/Home'
 import { useAppCameraContext } from '@store/context/camera'
-import { setHideHeaderButtons } from '@store/ui/ui'
 
 const HomePage = () => {
     const { getFirmwareVersion, setRESTDevice } = useAppAPIContext()
-
     const { getCameras, setSelectedCamera, resetSelectedCamera } = useAppCameraContext()
+    const { setHideHeaderButtons } = useAppUIContext()
 
     let firmwareVersion = '0.0.0'
     let setRestDevice: (device: string) => void = () => {

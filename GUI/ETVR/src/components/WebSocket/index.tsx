@@ -1,8 +1,8 @@
 import { Switch, Match, Show } from 'solid-js'
 import { OrangeLoader, MagentaLoader } from '@components/Loader'
+import { useAppUIContext } from '@src/store/context/ui'
 import { classNames } from '@src/utils'
 import { CameraStatus } from '@static/types/enums'
-import { showCameraView } from '@store/ui/selectors'
 
 // TODO: Grab selected camera from store, connect if not connected, and display video stream on component mounted
 type IWsProps = {
@@ -32,6 +32,8 @@ export const LoaderHandler = (props: IWsProps) => {
 }
 
 const WebSocketHandler = (props: IWsProps) => {
+    const { showCameraView } = useAppUIContext()
+
     return (
         <div class="w-full h-full">
             <Show

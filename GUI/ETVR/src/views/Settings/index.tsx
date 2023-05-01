@@ -1,11 +1,10 @@
-import { CameraStatus } from '@src/store/camera/camera'
 import icons from '@assets/images'
 import { Input } from '@components/Input'
 import CameraCalibrationSettings from '@components/Settings/CameraCalibrationSettings'
 import CameraConnectionStatus from '@components/Settings/CameraConnectionStatus/CameraInfo'
 import CameraSettings from '@components/Settings/CameraSettings'
 import CamerasModal from '@components/Settings/CamerasModal'
-import { RANGE_INPUT_FORMAT } from '@src/static/types/enums'
+import { CameraStatus, RANGE_INPUT_FORMAT } from '@src/static/types/enums'
 import './styles.css'
 
 export interface IProps {

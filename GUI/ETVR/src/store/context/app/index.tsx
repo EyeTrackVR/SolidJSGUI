@@ -4,6 +4,7 @@ import { AppAPIProvider } from '../api'
 import { AppCameraProvider } from '../camera'
 import { AppMdnsProvider } from '../mdns'
 import { AppNotificationProvider } from '../notifications'
+import { AppUIProvider } from '../ui'
 import type { Context } from '@static/types'
 import type { AppStore } from '@static/types/interfaces'
 
@@ -65,13 +66,15 @@ export const AppProvider: Component<Context> = (props) => {
                 setScanForCamerasOnStartup,
                 setStopAlgoBackend,
             }}>
-            <AppNotificationProvider>
-                <AppCameraProvider>
-                    <AppAPIProvider>
-                        <AppMdnsProvider>{props.children}</AppMdnsProvider>
-                    </AppAPIProvider>
-                </AppCameraProvider>
-            </AppNotificationProvider>
+            <AppUIProvider>
+                <AppNotificationProvider>
+                    <AppCameraProvider>
+                        <AppAPIProvider>
+                            <AppMdnsProvider>{props.children}</AppMdnsProvider>
+                        </AppAPIProvider>
+                    </AppCameraProvider>
+                </AppNotificationProvider>
+            </AppUIProvider>
         </AppContext.Provider>
     )
 }
