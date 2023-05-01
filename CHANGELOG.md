@@ -3,6 +3,13 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.47](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.46...v1.0.0-SolidJSGUI.47) (2023-05-01)
+
+
+### 🧑‍💻 Code Refactoring
+
+* move OTA hook to api context ([15be16f](https://github.com/RedHawk989/EyeTrackVR/commit/15be16f15a86ede609946746fc870a41754dc8f1))
+
 ## [1.0.0-SolidJSGUI.46](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.45...v1.0.0-SolidJSGUI.46) (2023-05-01)
 
 
