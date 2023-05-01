@@ -3,6 +3,18 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.46](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.45...v1.0.0-SolidJSGUI.46) (2023-05-01)
+
+
+### 🐛 Bug Fixes
+
+* ignoreCase on windows ([669ec97](https://github.com/RedHawk989/EyeTrackVR/commit/669ec972ab520580076bad83018be2250974f104))
+
+
+### 🧑‍💻 Code Refactoring
+
+* continue migration to context api ([a552868](https://github.com/RedHawk989/EyeTrackVR/commit/a552868c27ef40932e5215ee19a97e0981d97b86))
+
 ## [1.0.0-SolidJSGUI.45](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.44...v1.0.0-SolidJSGUI.45) (2023-04-30)
 
 
