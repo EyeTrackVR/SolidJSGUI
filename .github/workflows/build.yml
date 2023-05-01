@@ -72,12 +72,11 @@ jobs:
           npm install -g typescript
 
       - name: Install dependencies (Yarn)
-        run: cd GUI/ETVR && yarn
+        run: cd GUI/ETVR && pnpm install
 
       - uses: JonasKruckenberg/tauri-build@v1.2.3
         id: tauri_build
         with:
-          tauri_dir: GUI/ETVR
           target: ${{ matrix.platform.rust_target }}
 
       - uses: actions/upload-artifact@v3
