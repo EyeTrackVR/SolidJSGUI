@@ -64,15 +64,16 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
-          npm install -g typescript
           npm install -g pnpm
+          npm install -g typescript          
 
       - name: install dependencies (windows only)
         if: matrix.platform == 'windows-latest'
         run: |
           npm install -g typescript
+          npm install -g pnpm
 
-      - name: Install dependencies (Yarn)
+      - name: Install dependencies (PNPM)
         run: | 
           cd GUI/ETVR
           pnpm install
