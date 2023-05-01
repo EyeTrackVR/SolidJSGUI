@@ -3,6 +3,22 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.48](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.47...v1.0.0-SolidJSGUI.48) (2023-05-01)
+
+
+### 🧑‍💻 Code Refactoring
+
+* migrate to pnpm instead of yarn ([e9e47e1](https://github.com/RedHawk989/EyeTrackVR/commit/e9e47e1f0942be0232ae83e6bb9c228046c6a9e2))
+* migrate to pnpm instead of yarn ([932f8fd](https://github.com/RedHawk989/EyeTrackVR/commit/932f8fdfee267926ee8a5056b10dcba6c4f50238))
+* port UI store to context API ([13f2057](https://github.com/RedHawk989/EyeTrackVR/commit/13f205780e6ff1dc7839ff6ba68bc10be5a4d0df))
+* rename types to d.ts files ([eaa439c](https://github.com/RedHawk989/EyeTrackVR/commit/eaa439c673d191e708d2d5b9a1ce1ae2c9527f0f))
+
+
+### 🐛 Bug Fixes
+
+* ci related to pnpm ([9d0970a](https://github.com/RedHawk989/EyeTrackVR/commit/9d0970ac04ced9ab434994c5845f3196e9b4a2b4))
+* ci related to pnpm ([e949f69](https://github.com/RedHawk989/EyeTrackVR/commit/e949f693133d3fa6c80854c5d178454f68a48de4))
+
 ## [1.0.0-SolidJSGUI.47](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.46...v1.0.0-SolidJSGUI.47) (2023-05-01)
 
 
