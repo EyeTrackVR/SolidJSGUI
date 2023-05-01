@@ -1,9 +1,11 @@
 import { useNavigate } from '@solidjs/router'
-import { selectedCamera } from '@src/store/camera/selectors'
 import CropSettings from '@src/views/CropSettings'
+import { useAppCameraContext } from '@store/context/camera'
 
 const CropSettingsPage = () => {
     const navigate = useNavigate()
+
+    const { getSelectedCamera } = useAppCameraContext()
 
     return (
         <CropSettings
@@ -13,7 +15,7 @@ const CropSettingsPage = () => {
             onClickSaveCrop={() => {
                 navigate('/settings/true')
             }}
-            cameraConnectingStatus={selectedCamera().status}
+            cameraConnectingStatus={getSelectedCamera().status}
         />
     )
 }

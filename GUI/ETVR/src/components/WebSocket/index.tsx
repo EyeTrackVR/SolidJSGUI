@@ -1,7 +1,7 @@
 import { Switch, Match, Show } from 'solid-js'
 import { OrangeLoader, MagentaLoader } from '@components/Loader'
 import { classNames } from '@src/utils'
-import { CameraStatus } from '@store/camera/camera'
+import { CameraStatus } from '@static/types/enums'
 import { showCameraView } from '@store/ui/selectors'
 
 // TODO: Grab selected camera from store, connect if not connected, and display video stream on component mounted

@@ -3,6 +3,19 @@ export enum CAMERA_VIEW_MODE {
     GRIP = 'GRIP',
 }
 
+export enum CameraStatus {
+    ACTIVE = 'ACTIVE',
+    DISABLED = 'DISABLED',
+    LOADING = 'LOADING',
+    FAILED = 'FAILED',
+    NONE = 'NONE',
+}
+
+export enum CameraType {
+    WIRELESS = 'WIRELESS',
+    NONE = 'NONE',
+}
+
 export enum POPOVER_ID {
     GRIP = 'grip-popover',
     LIST = 'list-popover',
@@ -67,4 +80,11 @@ export enum RESTType {
     POST = 'POST',
     PUT = 'PUT',
     DELETE = 'DELETE',
+}
+
+export enum MdnsStatus {
+    ACTIVE = 'ACTIVE',
+    DISABLED = 'DISABLED',
+    LOADING = 'LOADING',
+    FAILED = 'FAILED',
 }

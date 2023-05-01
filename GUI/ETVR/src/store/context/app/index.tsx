@@ -1,6 +1,8 @@
 import { createContext, useContext, createMemo, type Component, Accessor } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
 import { AppAPIProvider } from '../api'
+import { AppCameraProvider } from '../camera'
+import { AppMdnsProvider } from '../mdns'
 import { AppNotificationProvider } from '../notifications'
 import type { Context } from '@static/types'
 import type { AppStore } from '@static/types/interfaces'
@@ -64,7 +66,11 @@ export const AppProvider: Component<Context> = (props) => {
                 setStopAlgoBackend,
             }}>
             <AppNotificationProvider>
-                <AppAPIProvider>{props.children}</AppAPIProvider>
+                <AppCameraProvider>
+                    <AppAPIProvider>
+                        <AppMdnsProvider>{props.children}</AppMdnsProvider>
+                    </AppAPIProvider>
+                </AppCameraProvider>
             </AppNotificationProvider>
         </AppContext.Provider>
     )

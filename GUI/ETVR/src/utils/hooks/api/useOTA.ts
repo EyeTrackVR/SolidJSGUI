@@ -1,7 +1,7 @@
+import { cameras } from '@src/store/camera/selectors'
 import { appConfigDir, join } from '@tauri-apps/api/path'
 import { upload } from 'tauri-plugin-upload-api'
 import type { IEndpoint } from '@src/static/types/interfaces'
-import { cameras } from '@src/store/camera/selectors'
 import { useAppAPIContext } from '@src/store/context/api'
 
 /**

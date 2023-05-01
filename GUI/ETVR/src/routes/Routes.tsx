@@ -7,11 +7,12 @@ import Header from '@components/Header'
 import { ENotificationAction } from '@src/static/types/enums'
 import { useAppAPIContext } from '@src/store/context/api'
 import { useAppContext } from '@src/store/context/app'
+import { useAppCameraContext } from '@src/store/context/camera'
+import { useAppMDNSContext } from '@src/store/context/mdns'
 import { useAppNotificationsContext } from '@src/store/context/notifications'
 import { usePersistentStore } from '@src/store/tauriStore'
 import { connectedUserName, hideHeaderButtons } from '@src/store/ui/selectors'
 import { setConnectedUser, setHideHeaderButtons } from '@src/store/ui/ui'
-import { useMDNSScanner } from '@src/utils/hooks/api/useMDNSScanner'
 import { generateWebsocketClients } from '@src/utils/hooks/websocket'
 
 const AppRoutes = () => {
@@ -19,6 +20,10 @@ const AppRoutes = () => {
     const { get, set } = usePersistentStore()
 
     const { doGHRequest } = useAppAPIContext()
+
+    const { useMDNSScanner } = useAppMDNSContext()
+
+    const { setCameraWS, setCameraStatus, getCameras } = useAppCameraContext()
 
     const { setEnableMDNS, setScanForCamerasOnStartup, getEnableMDNS, getScanForCamerasOnStartup } =
         useAppContext()
@@ -31,6 +36,7 @@ const AppRoutes = () => {
         getEnableNotifications,
         getGlobalNotificationsType,
         checkPermission,
+        addNotification,
     } = useAppNotificationsContext()
 
     onMount(() => {
@@ -57,7 +63,7 @@ const AppRoutes = () => {
         useMDNSScanner('_openiristracker._tcp', 5).then(() => {
             // TODO: pass the mdns res object to the Python backend - then start the websocket clients after the backend is ready
             // passMdnsResToPythonBackend().then(() => {
-            generateWebsocketClients()
+            generateWebsocketClients(getCameras, addNotification, setCameraWS, setCameraStatus)
             //})
         })
         checkPermission()

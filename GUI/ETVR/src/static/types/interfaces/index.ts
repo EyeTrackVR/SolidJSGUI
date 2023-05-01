@@ -1,4 +1,10 @@
-import { ENotificationAction, ENotificationType } from '../enums'
+import {
+    CameraStatus,
+    CameraType,
+    ENotificationAction,
+    ENotificationType,
+    MdnsStatus,
+} from '../enums'
 import type { RESTStatus, RESTType } from '@static/types/enums'
 import type { WebviewWindow } from '@tauri-apps/api/window'
 import type { ToasterStore } from 'solid-headless'
@@ -88,6 +94,19 @@ export interface IRestProps {
     args?: string
 }
 
+export interface Camera {
+    status: CameraStatus
+    type: CameraType
+    address: string
+    activeCameraSection: string
+    ws: object
+}
+
+export interface MdnsResponse {
+    ips: string[]
+    names: string[]
+}
+
 //*  App Store Interfaces  */
 
 export interface AppStore {
@@ -106,4 +125,14 @@ export interface AppStoreNotifications {
 export interface AppStoreAPI {
     restAPI: IRest
     ghAPI: IGHRest
+}
+
+export interface AppStoreCamera {
+    cameras: Camera[]
+    selectedCamera: Camera
+}
+
+export interface AppStoreMdns {
+    mdnsStatus: MdnsStatus
+    mdnsData: MdnsResponse
 }

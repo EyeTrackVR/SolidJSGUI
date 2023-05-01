@@ -2,17 +2,10 @@ import { removeFile, readTextFile, BaseDirectory, writeTextFile } from '@tauri-a
 import { getClient, ResponseType } from '@tauri-apps/api/http'
 import { appConfigDir, join } from '@tauri-apps/api/path'
 import { invoke, convertFileSrc } from '@tauri-apps/api/tauri'
-import {
-    createContext,
-    useContext,
-    createMemo,
-    createSignal,
-    createEffect,
-    type Component,
-    Accessor,
-} from 'solid-js'
+import { createContext, useContext, createMemo, type Component, Accessor } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
 import { download } from 'tauri-plugin-upload-api'
+import { useAppCameraContext } from '../camera'
 import { useAppNotificationsContext } from '../notifications'
 import type { Context } from '@static/types'
 import {
@@ -20,7 +13,6 @@ import {
     IEndpoint,
     IGHAsset,
     IGHRelease,
-    IRestProps,
 } from '@src/static/types/interfaces'
 import { ENotificationType, RESTStatus, RESTType } from '@static/types/enums'
 
@@ -45,16 +37,15 @@ interface AppAPIContext {
     getEndpoint?: (key: string) => IEndpoint | undefined
     /********************************* hooks *************************************/
     downloadAsset?: (firmware: string) => Promise<void>
-    doGHRequest: () => void
-    useRequestHook: () => Promise<{
-        data: Accessor<object>
-        doRequest: (props: IRestProps) => void
-    }>
+    doGHRequest: () => Promise<void>
+    useRequestHook: (endpointName: string, deviceName: string, args: string) => Promise<void>
 }
 
 const AppAPIContext = createContext<AppAPIContext>()
 export const AppAPIProvider: Component<Context> = (props) => {
     const { addNotification } = useAppNotificationsContext()
+    const { getCameras } = useAppCameraContext()
+
     const ghEndpoint = 'https://api.github.com/repos/lorow/OpenIris/releases/latest'
     const endpointsMap: Map<string, IEndpoint> = new Map<string, IEndpoint>([
         ['ping', { url: ':81/control/command/ping', type: RESTType.GET }],
@@ -244,10 +235,10 @@ export const AppAPIProvider: Component<Context> = (props) => {
 
     /**
      * @description A hook that will return the data from the github release endpoint and a function that will download the asset from the github release endpoint
-     * @returns  {(firmware: string) => Promise<void>} data - The data returned from the github release endpoint
+     * @returns  {Promise<void>} data - The data returned from the github release endpoint
      * @returns  {function} downloadAsset - The function that will download the asset from the github release endpoint
      */
-    const downloadAsset = async (firmware: string) => {
+    const downloadAsset = async (firmware: string): Promise<void> => {
         const response = await getRelease(firmware)
         console.log('[Github Release]: Download Response: ', response)
     }
@@ -321,149 +312,133 @@ export const AppAPIProvider: Component<Context> = (props) => {
      * .then(() => console.log('Request sent'))
      * .catch((err) => console.error(err))
      */
-    const doGHRequest = () => {
-        getClient()
-            .then((client) => {
-                setGHRestStatus(RESTStatus.ACTIVE)
-                setGHRestStatus(RESTStatus.LOADING)
-                client
-                    .get<IGHRelease>(getGHEndpoint(), {
-                        timeout: 30,
-                        // the expected response type
-                        responseType: ResponseType.JSON,
+    const doGHRequest = async () => {
+        try {
+            const client = await getClient()
+
+            setGHRestStatus(RESTStatus.ACTIVE)
+            setGHRestStatus(RESTStatus.LOADING)
+
+            try {
+                const response = await client.get<IGHRelease>(getGHEndpoint(), {
+                    timeout: 30,
+                    // the expected response type
+                    responseType: ResponseType.JSON,
+                })
+
+                if (response.ok) console.log('[OpenIris Version]: ', response.data['name'])
+
+                try {
+                    const config = await readTextFile('config.json', {
+                        dir: BaseDirectory.AppConfig,
                     })
-                    .then((response) => {
-                        if (response.ok) console.log('[OpenIris Version]: ', response.data['name'])
-                        readTextFile('config.json', { dir: BaseDirectory.AppConfig })
-                            .then((config) => {
-                                const config_json = JSON.parse(config)
-                                console.log(config_json)
-                                if (response instanceof Object) {
-                                    if (response.ok) {
-                                        if (config !== '') {
-                                            if (response.data['name'] !== config_json.version) {
-                                                // update config
-                                                setGHData(response.data, true)
-                                                console.log(
-                                                    '[Config Exists]: Config Exists and is out of date - Updating',
-                                                )
-                                                setGHRestStatus(RESTStatus.COMPLETE)
-                                                return
-                                            }
-                                        }
-                                        console.log(
-                                            '[Config Exists]: Config Exists and is up to date',
-                                        )
-                                        setGHData(response.data, false)
-                                        return
-                                    }
-                                }
-                                console.warn('[Config Exists]: Most likely rate limited')
-                                setGHData(config_json, false)
+                    const config_json = JSON.parse(config)
+                    console.log(config_json)
+                    if (response instanceof Object && response.ok) {
+                        if (config !== '') {
+                            if (response.data['name'] !== config_json.version) {
+                                // update config
+                                setGHData(response.data, true)
+                                console.log(
+                                    '[Config Exists]: Config Exists and is out of date - Updating',
+                                )
                                 setGHRestStatus(RESTStatus.COMPLETE)
-                            })
-                            .catch((err) => {
-                                setGHRestStatus(RESTStatus.NO_CONFIG)
-                                if (response.ok) {
-                                    console.error(
-                                        '[Config Read Error]:',
-                                        err,
-                                        'Creating config.json',
-                                    )
-                                    setGHData(response.data, true)
-                                    setGHRestStatus(RESTStatus.COMPLETE)
-                                }
-                            })
-                    })
-                    .catch((err) => {
-                        setGHRestStatus(RESTStatus.FAILED)
-                        console.error('[Github Release Error]:', err)
-                        readTextFile('config.json', { dir: BaseDirectory.AppConfig })
-                            .then((config) => {
-                                const config_json = JSON.parse(config)
-                                console.log('[OpenIris Version]: ', config_json.version)
-                                console.log(config_json)
-                                if (config !== '') {
-                                    console.log('[Config Exists]: Config Exists and is up to date')
-                                    setGHData(config_json, false)
-                                    return
-                                }
-                                setGHRestStatus(RESTStatus.NO_CONFIG)
-                            })
-                            .catch((err) => {
-                                setGHRestStatus(RESTStatus.NO_CONFIG)
-                                console.error('[Config Read Error]:', err)
-                            })
-                        // check if the error is a rate limit error
-                        /* if (err instanceof Object) {
-                        if (err.response instanceof Object) {
-                            if (err.response.status === 403) {
-                                // rate limit error
-                                // check if the rate limit reset time is in the future
-                                // if it is, set the rate limit reset time
-                                // if it isn't, set the rate limit reset time to 0
-                                const rate_limit_reset = err.response.headers['x-ratelimit-reset']
-                                const rate_limit_reset_time = new Date(rate_limit_reset * 1000)
-                                const now = new Date()
-                                if (rate_limit_reset_time > now) {
-                                    setRateLimitReset(rate_limit_reset_time)
-                                    return
-                                }
-                                setRateLimitReset(new Date(0))
+                                return
                             }
                         }
-                    } */
-                    })
-            })
-            .catch((err) => {
+                        console.log('[Config Exists]: Config Exists and is up to date')
+                        setGHData(response.data, false)
+                        return
+                    }
+                    console.warn('[Config Exists]: Most likely rate limited')
+                    setGHData(config_json, false)
+                    setGHRestStatus(RESTStatus.COMPLETE)
+                } catch (error) {
+                    setGHRestStatus(RESTStatus.NO_CONFIG)
+                    if (response.ok) {
+                        console.error('[Config Read Error]:', error, 'Creating config.json')
+                        setGHData(response.data, true)
+                        setGHRestStatus(RESTStatus.COMPLETE)
+                    }
+                }
+            } catch (error) {
                 setGHRestStatus(RESTStatus.FAILED)
-                console.error('[Tauri Runtime Error - http client]:', err)
-            })
-    }
-
-    const useRequestHook = async () => {
-        const [data, setData] = createSignal({})
-        const doRequest = (props: IRestProps) => {
-            createEffect(() => {
-                let endpoint: string = getEndpoints().get(props.endpointName)?.url ?? ''
-                const camera = cameras().find(
-                    (camera: { address: string }) => camera.address === props.deviceName,
-                )
-                if (!camera) {
-                    setRESTStatus(RESTStatus.NO_CAMERA)
-                    console.log('No camera found at that address')
+                console.error('[Github Release Error]:', error)
+                const config = await readTextFile('config.json', {
+                    dir: BaseDirectory.AppConfig,
+                })
+                if (!config) {
+                    setGHRestStatus(RESTStatus.NO_CONFIG)
+                    console.error('[Config Read Error]:', config)
+                }
+                const config_json = JSON.parse(config)
+                console.log('[OpenIris Version]: ', config_json.version)
+                console.log(config_json)
+                if (config !== '') {
+                    console.log('[Config Exists]: Config Exists and is up to date')
+                    setGHData(config_json, false)
                     return
                 }
-
-                if (props.args) {
-                    endpoint += props.args
-                }
-                setRESTStatus(RESTStatus.LOADING)
-                invoke('do_rest_request', {
-                    endpoint: endpoint,
-                    deviceName: camera?.address,
-                    method: getEndpoints().get(props.endpointName)?.type,
-                })
-                    .then((response) => {
-                        if (typeof response === 'string') {
-                            setRESTStatus(RESTStatus.ACTIVE)
-                            const parsedResponse = JSON.parse(response)
-                            setData((prevData) => ({
-                                ...prevData,
-                                ...parsedResponse,
-                            }))
-                        }
-                    })
-                    .catch((err) => {
-                        setRESTStatus(RESTStatus.FAILED)
-                        console.log(err)
-                    })
-                    .finally(() => {
-                        setRESTStatus(RESTStatus.COMPLETE)
-                    })
-            })
+                setGHRestStatus(RESTStatus.NO_CONFIG)
+                // check if the error is a rate limit error
+                /* if (err instanceof Object) {
+                            if (err.response instanceof Object) {
+                                if (err.response.status === 403) {
+                                    // rate limit error
+                                    // check if the rate limit reset time is in the future
+                                    // if it is, set the rate limit reset time
+                                    // if it isn't, set the rate limit reset time to 0
+                                    const rate_limit_reset = err.response.headers['x-ratelimit-reset']
+                                    const rate_limit_reset_time = new Date(rate_limit_reset * 1000)
+                                    const now = new Date()
+                                    if (rate_limit_reset_time > now) {
+                                        setRateLimitReset(rate_limit_reset_time)
+                                        return
+                                    }
+                                    setRateLimitReset(new Date(0))
+                                }
+                            }
+                        } */
+            }
+        } catch (error) {
+            setGHRestStatus(RESTStatus.FAILED)
+            console.error('[Tauri Runtime Error - http client]:', error)
+            return
         }
-        return { data, doRequest }
+    }
+
+    const useRequestHook = async (endpointName: string, deviceName: string, args: string) => {
+        let endpoint: string = getEndpoints().get(endpointName)?.url ?? ''
+        const camera = getCameras().find(
+            (camera: { address: string }) => camera.address === deviceName,
+        )
+        if (!camera) {
+            setRESTStatus(RESTStatus.NO_CAMERA)
+            console.log('No camera found at that address')
+            return
+        }
+
+        if (args) {
+            endpoint += args
+        }
+        setRESTStatus(RESTStatus.LOADING)
+
+        try {
+            const response = await invoke('do_rest_request', {
+                endpoint: endpoint,
+                deviceName: camera?.address,
+                method: getEndpoints().get(endpointName)?.type,
+            })
+            if (typeof response === 'string') {
+                setRESTStatus(RESTStatus.ACTIVE)
+                const parsedResponse = JSON.parse(response)
+                setRESTResponse(parsedResponse)
+            }
+            setRESTStatus(RESTStatus.COMPLETE)
+        } catch (error) {
+            setRESTStatus(RESTStatus.FAILED)
+            console.error('[]:', error)
+        }
     }
     //#endregion
 

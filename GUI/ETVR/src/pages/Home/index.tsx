@@ -1,12 +1,13 @@
 import { useNavigate } from '@solidjs/router'
 import { useAppAPIContext } from '@src/store/context/api'
 import Home from '@src/views/Home'
-import { resetSelectedCamera, setSelectedCamera } from '@store/camera/camera'
-import { cameras } from '@store/camera/selectors'
+import { useAppCameraContext } from '@store/context/camera'
 import { setHideHeaderButtons } from '@store/ui/ui'
 
 const HomePage = () => {
     const { getFirmwareVersion, setRESTDevice } = useAppAPIContext()
+
+    const { getCameras, setSelectedCamera, resetSelectedCamera } = useAppCameraContext()
 
     let firmwareVersion = '0.0.0'
     let setRestDevice: (device: string) => void = () => {
@@ -26,7 +27,7 @@ const HomePage = () => {
     return (
         <Home
             firmwareVersion={firmwareVersion}
-            cameras={cameras()}
+            cameras={getCameras()}
             onClickNavigateCamera={(camera) => {
                 navigate('/settings/false', { replace: true })
                 setSelectedCamera(camera)

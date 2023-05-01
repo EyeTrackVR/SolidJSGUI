@@ -1,6 +1,6 @@
 import icons from '@assets/images'
 import WebSocketHandler from '@components/WebSocket'
-import { CameraStatus } from '@src/store/camera/camera'
+import { CameraStatus } from '@src/static/types/enums'
 import './index.css'
 
 export interface IProps {

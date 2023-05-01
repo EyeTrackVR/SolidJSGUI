@@ -1,13 +1,13 @@
 import WebSocketHandler from '@components/WebSocket'
 import { ActiveStatus } from '@src/utils'
-import { ICamera } from '@store/camera/camera'
+import { Camera } from '@static/types/interfaces'
 import './index.css'
-export interface IProps extends ICamera {
+export interface IProps extends Camera {
     onClick: () => void
     firmwareVersion: string
 }
 
-const Camera = (props: IProps) => {
+const CameraComponent = (props: IProps) => {
     return (
         <div
             class="responsive-container m-auto justify-between items-center pr-3 pl-3 py-3 h-full min-h-[222px] pb-3 rounded-xl bg-[#333742] flex border-2 border-[#333742] hover:border-[#817DF7] hover:cursor-pointer"
@@ -67,4 +67,4 @@ const Camera = (props: IProps) => {
     )
 }
 
-export default Camera
+export default CameraComponent

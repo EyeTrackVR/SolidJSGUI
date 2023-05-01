@@ -1,6 +1,6 @@
-import { createSignal, For } from 'solid-js'
+import { createSignal, For, Switch, Match } from 'solid-js'
 import icons from '@assets/images'
-import Camera from '@components/Camera'
+import CameraComponent from '@components/Camera'
 import CreateCamera from '@components/Camera/CreateCamera'
 import CustomSlideAnimation from '@components/CustomSlideAnimation'
 import CustomPopover from '@components/Header/CustomPopover'
@@ -8,13 +8,13 @@ import CreateListCamera from '@components/List/CreateListCamera'
 import List from '@components/List/List'
 import ListHeader from '@components/List/ListHeader/ListHeader'
 import { POPOVER_ID } from '@static/types/enums'
-import { ICamera } from '@store/camera/camera'
+import { Camera } from '@static/types/interfaces'
 import './index.css'
 
 export interface IProps {
-    onClickNavigateCamera: (camera: ICamera) => void
+    onClickNavigateCamera: (camera: Camera) => void
     onClickNavigateCreateCamera: () => void
-    cameras: ICamera[]
+    cameras: Camera[]
     firmwareVersion: string
 }
 
@@ -64,49 +64,54 @@ const Home = (props: IProps) => {
                     </div>
                 </div>
                 <div>
-                    {displayMode() === POPOVER_ID.GRIP ? (
-                        <div>
-                            <div class="camera_grid">
-                                <For each={props.cameras}>
-                                    {(camera) => (
-                                        <Camera
-                                            firmwareVersion={props.firmwareVersion}
-                                            {...camera}
-                                            onClick={() => props.onClickNavigateCamera(camera)}
-                                        />
-                                    )}
-                                </For>
-                                <div>
-                                    <CreateCamera
-                                        onClick={() => props.onClickNavigateCreateCamera()}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    ) : (
-                        <div>
+                    <Switch>
+                        <Match when={displayMode() === POPOVER_ID.GRIP}>
                             <div>
-                                <ListHeader />
-                            </div>
-                            <div>
-                                <For each={props.cameras}>
-                                    {(camera) => (
-                                        <div>
-                                            <List
+                                <div class="camera_grid">
+                                    <For each={props.cameras}>
+                                        {(camera) => (
+                                            <CameraComponent
+                                                firmwareVersion={props.firmwareVersion}
                                                 {...camera}
                                                 onClick={() => props.onClickNavigateCamera(camera)}
                                             />
-                                        </div>
-                                    )}
-                                </For>
-                                <div>
-                                    <CreateListCamera
-                                        onClick={() => props.onClickNavigateCreateCamera()}
-                                    />
+                                        )}
+                                    </For>
+                                    <div>
+                                        <CreateCamera
+                                            onClick={() => props.onClickNavigateCreateCamera()}
+                                        />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    )}
+                        </Match>
+                        <Match when={displayMode() === POPOVER_ID.LIST}>
+                            <div>
+                                <div>
+                                    <ListHeader />
+                                </div>
+                                <div>
+                                    <For each={props.cameras}>
+                                        {(camera) => (
+                                            <div>
+                                                <List
+                                                    {...camera}
+                                                    onClick={() =>
+                                                        props.onClickNavigateCamera(camera)
+                                                    }
+                                                />
+                                            </div>
+                                        )}
+                                    </For>
+                                    <div>
+                                        <CreateListCamera
+                                            onClick={() => props.onClickNavigateCreateCamera()}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </Match>
+                    </Switch>
                 </div>
             </div>
         </div>
