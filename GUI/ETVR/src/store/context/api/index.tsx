@@ -4,16 +4,11 @@ import { appConfigDir, join } from '@tauri-apps/api/path'
 import { invoke, convertFileSrc } from '@tauri-apps/api/tauri'
 import { createContext, useContext, createMemo, type Component, Accessor } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
-import { download } from 'tauri-plugin-upload-api'
+import { download, upload } from 'tauri-plugin-upload-api'
 import { useAppCameraContext } from '../camera'
 import { useAppNotificationsContext } from '../notifications'
 import type { Context } from '@static/types'
-import {
-    AppStoreAPI,
-    IEndpoint,
-    IGHAsset,
-    IGHRelease,
-} from '@src/static/types/interfaces'
+import { AppStoreAPI, IEndpoint, IGHAsset, IGHRelease } from '@src/static/types/interfaces'
 import { ENotificationType, RESTStatus, RESTType } from '@static/types/enums'
 
 interface AppAPIContext {
@@ -39,6 +34,7 @@ interface AppAPIContext {
     downloadAsset?: (firmware: string) => Promise<void>
     doGHRequest: () => Promise<void>
     useRequestHook: (endpointName: string, deviceName: string, args: string) => Promise<void>
+    useOTA: (firmwareName: string, device: string) => Promise<void>
 }
 
 const AppAPIContext = createContext<AppAPIContext>()
@@ -440,6 +436,30 @@ export const AppAPIProvider: Component<Context> = (props) => {
             console.error('[]:', error)
         }
     }
+
+    /**
+     * @description Uploads a firmware to a device
+     * @param firmwareName The name of the firmware file
+     * @param device The device to upload the firmware to
+     * 
+     */
+    const useOTA = async (firmwareName: string, device: string) => {
+        let endpoints: Map<string, IEndpoint> = new Map()
+
+        if (getEndpoints) {
+            endpoints = getEndpoints()
+        }
+
+        const ota: string = endpoints.get('ota')?.url ?? ''
+        const camera = getCameras().find((camera) => camera.address === device)
+        if (!camera) {
+            console.log('No camera found at that address')
+            return
+        }
+        const server = camera.address + ota
+        const path = await join(await appConfigDir(), firmwareName + '.bin')
+        await upload(server, path)
+    }
     //#endregion
 
     //#region API Provider
@@ -464,6 +484,7 @@ export const AppAPIProvider: Component<Context> = (props) => {
                 downloadAsset,
                 doGHRequest,
                 useRequestHook,
+                useOTA,
             }}>
             {props.children}
         </AppAPIContext.Provider>

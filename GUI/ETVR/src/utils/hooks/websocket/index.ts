@@ -17,6 +17,7 @@ export const generateWebsocketClients = (
         setCameraStatus(camera, CameraStatus.LOADING)
         if (isEmpty(camera.ws)) {
             setCameraStatus(camera, CameraStatus.NONE)
+            // FIXME: Fix this - use routes instead of diff ports
             const { status, data, send, open, close } = useWebSocket(`${LOCAL_HOST}:${PORT + i}`, {
                 autoReconnect: {
                     retries: 3,
