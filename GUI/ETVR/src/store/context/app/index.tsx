@@ -14,7 +14,7 @@ interface AppContext {
     getScanForCamerasOnStartup: Accessor<boolean>
     getStopAlgoBackend: Accessor<boolean>
     setEnableMDNS: (flag: boolean | undefined) => void
-    setDebugMode: (mode: DebugMode) => void
+    setDebugMode: (mode: DebugMode | undefined) => void
     setScanForCamerasOnStartup: (flag: boolean | undefined) => void
     setStopAlgoBackend: (flag: boolean) => void
 }
@@ -30,10 +30,10 @@ export const AppProvider: Component<Context> = (props) => {
 
     const [state, setState] = createStore<AppStore>(defaultState)
 
-    const setDebugMode = (mode: DebugMode) => {
+    const setDebugMode = (mode: DebugMode | undefined) => {
         setState(
             produce((s) => {
-                s.debugMode = mode
+                s.debugMode = mode || 'info'
             }),
         )
     }

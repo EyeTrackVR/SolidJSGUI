@@ -22,6 +22,7 @@ const AppRoutes: Component = () => {
     const { setCameraWS, setCameraStatus, getCameras } = useAppCameraContext()
     const {
         setEnableMDNS,
+        setDebugMode,
         setScanForCamerasOnStartup,
         getEnableMDNS,
         getScanForCamerasOnStartup,
@@ -56,6 +57,7 @@ const AppRoutes: Component = () => {
                 )
 
                 setEnableMDNS(settings.enableMDNS)
+                setDebugMode(settings.debugMode)
                 setScanForCamerasOnStartup(settings.scanForCamerasOnStartup)
             }
         })
