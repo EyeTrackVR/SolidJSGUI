@@ -1,9 +1,9 @@
+import { createEffect, createSignal, onCleanup, onMount } from 'solid-js'
+import { useEventListener } from 'solidjs-use'
 import icons from '@assets/images'
 import WebSocketHandler from '@components/WebSocket'
 import { CameraStatus } from '@src/static/types/enums'
 import { DEFAULT_CANVAS_BOX_POSITION } from '@src/utils'
-import { createEffect, createSignal, onCleanup, onMount } from 'solid-js'
-import { useEventListener } from 'solidjs-use'
 
 export interface IProps {
     onClickBack: () => void
@@ -40,13 +40,26 @@ const CropSettings = (props: IProps) => {
         const onMouseUp = (e: MouseEvent) => {
             const target = e.target as HTMLInputElement
             if (target.nodeName !== 'CANVAS') return
+
+            // draw blue circle at the top-left and bottom-right vertex of the box
+
+            if (!isMouseDown() || target.nodeName !== 'CANVAS' || !context || !canvasRef) {
+                return
+            }
+
             setIsMouseDown(false)
+            const { x, y } = getMousePosition(canvasRef, e)
+
+            //* draw blue circle at mouse position
+            context.beginPath()
+            context.arc(x, y, 5, 0, 2 * Math.PI)
+            context.fillStyle = '#0071fe'
+            context.fill()
         }
 
         const onMouseDown = (e: MouseEvent) => {
             const target = e.target as HTMLInputElement
             if (target.nodeName !== 'CANVAS' || !canvasRef) return
-
             setIsMouseDown(true)
             mousePosition = getMousePosition(canvasRef, e)
         }
@@ -64,10 +77,26 @@ const CropSettings = (props: IProps) => {
 
             if (height === 0) return
 
+            //* clear canvas
             context.clearRect(0, 0, canvasRef.width, canvasRef.height)
-            context.fillStyle = 'rgba(0, 1, 0, 0.35)'
-            context.fillRect(mousePosition.x, mousePosition.y, width, height)
+            
+            //* set the rectangles properties
+            context.shadowColor = '#000000'
+            context.shadowBlur = 1
+            context.lineJoin = 'round'
+            context.lineWidth = 1
+            context.strokeStyle = '#0071fe'
+            
+            //* draw the rectangle
+            context.strokeRect(mousePosition.x, mousePosition.y, width, height)
+            
+            //* draw blue circle at mouse position
+            context.beginPath()
+            context.arc(mousePosition.x, mousePosition.y, 5, 0, 2 * Math.PI)
+            context.fillStyle = '#0071fe'
+            context.fill()
 
+            //* assign the box position to the state
             setBoxPosition({
                 x: mousePosition.x,
                 y: mousePosition.y,
