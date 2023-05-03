@@ -12,7 +12,9 @@ const CropSettingsPage = () => {
             onClickBack={() => {
                 navigate('/settings/true')
             }}
-            onClickSaveCrop={() => {
+            onClickSaveCrop={(boxPosition) => {
+                console.log(boxPosition)
+                // TODO: do the rest with boxPosition , need to divide by 2
                 navigate('/settings/true')
             }}
             cameraConnectingStatus={getSelectedCamera().status}
