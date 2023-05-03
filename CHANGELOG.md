@@ -3,6 +3,13 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.50](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.49...v1.0.0-SolidJSGUI.50) (2023-05-03)
+
+
+### 🍕 Features
+
+* make cropping selection more modern ([06417b5](https://github.com/RedHawk989/EyeTrackVR/commit/06417b5978de2ec548a376c2db9630fe9718004c))
+
 ## [1.0.0-SolidJSGUI.49](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.48...v1.0.0-SolidJSGUI.49) (2023-05-03)
 
 
