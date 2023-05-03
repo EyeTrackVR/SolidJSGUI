@@ -17,16 +17,16 @@ import { generateWebsocketClients } from '@src/utils/hooks/websocket'
 const AppRoutes: Component = () => {
     const Path = useRoutes(routes)
     const { get, set } = usePersistentStore()
-
     const { doGHRequest } = useAppAPIContext()
-
     const { useMDNSScanner } = useAppMDNSContext()
-
     const { setCameraWS, setCameraStatus, getCameras } = useAppCameraContext()
-
-    const { setEnableMDNS, setScanForCamerasOnStartup, getEnableMDNS, getScanForCamerasOnStartup } =
-        useAppContext()
-
+    const {
+        setEnableMDNS,
+        setScanForCamerasOnStartup,
+        getEnableMDNS,
+        getScanForCamerasOnStartup,
+        getDebugMode,
+    } = useAppContext()
     const {
         setEnableNotifications,
         setEnableNotificationsSounds,
@@ -37,7 +37,6 @@ const AppRoutes: Component = () => {
         checkPermission,
         addNotification,
     } = useAppNotificationsContext()
-
     const { connectedUserName, setConnectedUser, hideHeaderButtons, setHideHeaderButtons } =
         useAppUIContext()
 
@@ -81,7 +80,7 @@ const AppRoutes: Component = () => {
                 globalNotificationsType: getGlobalNotificationsType(),
                 enableMDNS: getEnableMDNS(),
                 // TODO: expose the debug levels to the user
-                debugMode: 'info',
+                debugMode: getDebugMode(),
                 scanForCamerasOnStartup: getScanForCamerasOnStartup(),
             }
             console.log('saving settings', settings)

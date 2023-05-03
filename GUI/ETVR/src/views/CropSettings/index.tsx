@@ -71,17 +71,17 @@ const CropSettings = (props: IProps) => {
 
             //* clear canvas
             context.clearRect(0, 0, canvasRef.width, canvasRef.height)
-            
+
             //* set the rectangles properties
             context.shadowColor = '#000000'
             context.shadowBlur = 1
             context.lineJoin = 'round'
             context.lineWidth = 1
             context.strokeStyle = '#0071fe'
-            
+
             //* draw the rectangle
             context.strokeRect(mousePosition.x, mousePosition.y, width, height)
-            
+
             //* draw blue circle at mouse position
             context.beginPath()
             context.arc(mousePosition.x, mousePosition.y, 5, 0, 2 * Math.PI)

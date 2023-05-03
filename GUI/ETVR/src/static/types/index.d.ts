@@ -35,6 +35,8 @@ type OSCSettings = {
     recPort: number
 }
 
+type DebugMode = 'off' | 'error' | 'warn' | 'info' | 'debug' | 'trace'
+
 /**
  * @description This is the type that is passed to the localForage instance to handle persistent data within the app.
  * @typedef {Object} PersistentSettings
@@ -54,7 +56,7 @@ type PersistentSettings = {
     enableNotifications?: boolean
     globalNotificationsType?: ENotificationAction
     enableMDNS?: boolean
-    debugMode?: 'off' | 'error' | 'warn' | 'info' | 'debug' | 'trace'
+    debugMode?: DebugMode
     scanForCamerasOnStartup?: boolean
     cameraSettings?: CameraSettings
     algorithmSettings?: AlgorithmSettings

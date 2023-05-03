@@ -1,7 +1,7 @@
 import { EraseButton } from '@components/Button/EraseButton'
 import { OpenDocs } from '@components/Button/OpenDocs'
 import { WebSerial } from '@components/Button/WebSerial'
-import FirmwareList from '@components/FirmwareList'
+import FirmwareList from '@components/Selection/FirmwareList'
 import Form from '@components/Form'
 import { useAppAPIContext } from '@src/store/context/api'
 import { useAppNotificationsContext } from '@src/store/context/notifications'

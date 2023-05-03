@@ -1,8 +1,8 @@
 .context-menu {
-    @apply text-white fixed flex flex-col bg-[#313131] p-3 gap-3 w-fit rounded-lg z-[999];
+    @apply text-white fixed flex flex-col bg-[#313131] p-3 gap-3 w-fit rounded-lg ;
 }
 
-.context-menu button {
+/* .context-menu button {
     appearance: none;
     outline: none;
     border: none;
@@ -16,7 +16,7 @@
 
 .context-menu button:hover {
     background-color: #515151;
-}
+} */
 
 .context-menu-labels {
     margin-bottom: -10px;

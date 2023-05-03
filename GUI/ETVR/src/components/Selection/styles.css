@@ -35,7 +35,7 @@
 }
 
 .select__content {
-    @apply fixed bg-[#333742] rounded-md shadow-sm transform origin-[var(--kb-select-content-transform-origin)] duration-300 ease-in-out animate-[contentHide_250ms_ease-in_forwards];
+    @apply fixed bg-[#333742] rounded-md shadow-sm transform origin-[var(--kb-select-content-transform-origin)] duration-300 ease-in-out animate-[contentHide_250ms_ease-in_forwards] z-[999];
 }
 
 .select__content[data-expanded] {

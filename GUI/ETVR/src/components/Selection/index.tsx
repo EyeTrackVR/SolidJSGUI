@@ -10,16 +10,22 @@ interface SelectionProps {
     placeholder: string
     defaultValue?: string
     description?: string
+    onValueChange?: (value: string) => void
 }
 
 const Selection: Component<SelectionProps> = (props) => {
     const [value, setValue] = createSignal(props.defaultValue)
 
+    const handleChange = (value: string) => {
+        setValue(value)
+        if (props.onValueChange) props.onValueChange(value)
+    }
+
     return (
         <Select.Root
             name={props.name}
             value={value()}
-            onValueChange={setValue}
+            onValueChange={handleChange}
             defaultValue={props.defaultValue}
             options={props.options}
             placeholder={props.placeholder}

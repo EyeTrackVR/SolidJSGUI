@@ -6,6 +6,7 @@ import {
     MdnsStatus,
     loaderType,
 } from '../enums'
+import type { DebugMode } from '@static/types'
 import type { RESTStatus, RESTType } from '@static/types/enums'
 import type { WebviewWindow } from '@tauri-apps/api/window'
 import type { ToasterStore } from 'solid-headless'
@@ -128,6 +129,7 @@ export interface ModalMenu {
 //*  App Store Interfaces  */
 
 export interface AppStore {
+    debugMode: DebugMode
     enableMDNS: boolean
     scanForCamerasOnStartup: boolean
     stopAlgoBackend: boolean

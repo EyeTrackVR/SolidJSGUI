@@ -4,7 +4,7 @@ import { AppProvider } from '@store/context/app'
 
 const AppRoutes = lazy(() => import('@routes/Routes'))
 const NewContextMenu = lazy(() => import('@components/NewMenu'))
-const ExampleMenu = lazy(() => import('@components/NewMenu/Example'))
+const ExampleMenu = lazy(() => import('@components/NewMenu/DevTools'))
 const ToastNotificationWindow = lazy(() => import('@components/Notifications'))
 
 const App = () => {

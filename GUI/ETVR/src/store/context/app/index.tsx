@@ -5,14 +5,16 @@ import { AppCameraProvider } from '../camera'
 import { AppMdnsProvider } from '../mdns'
 import { AppNotificationProvider } from '../notifications'
 import { AppUIProvider } from '../ui'
-import type { Context } from '@static/types'
+import type { Context, DebugMode } from '@static/types'
 import type { AppStore } from '@static/types/interfaces'
 
 interface AppContext {
+    getDebugMode: Accessor<DebugMode>
     getEnableMDNS: Accessor<boolean>
     getScanForCamerasOnStartup: Accessor<boolean>
     getStopAlgoBackend: Accessor<boolean>
     setEnableMDNS: (flag: boolean | undefined) => void
+    setDebugMode: (mode: DebugMode) => void
     setScanForCamerasOnStartup: (flag: boolean | undefined) => void
     setStopAlgoBackend: (flag: boolean) => void
 }
@@ -20,12 +22,21 @@ interface AppContext {
 const AppContext = createContext<AppContext>()
 export const AppProvider: Component<Context> = (props) => {
     const defaultState: AppStore = {
+        debugMode: 'off',
         enableMDNS: true,
         scanForCamerasOnStartup: true,
         stopAlgoBackend: false,
     }
 
     const [state, setState] = createStore<AppStore>(defaultState)
+
+    const setDebugMode = (mode: DebugMode) => {
+        setState(
+            produce((s) => {
+                s.debugMode = mode
+            }),
+        )
+    }
 
     const setEnableMDNS = (flag: boolean | undefined) => {
         setState(
@@ -52,6 +63,7 @@ export const AppProvider: Component<Context> = (props) => {
     }
 
     const appState = createMemo(() => state)
+    const getDebugMode = createMemo(() => appState().debugMode)
     const getEnableMDNS = createMemo(() => appState().enableMDNS)
     const getScanForCamerasOnStartup = createMemo(() => appState().scanForCamerasOnStartup)
     const getStopAlgoBackend = createMemo(() => appState().stopAlgoBackend)
@@ -60,9 +72,11 @@ export const AppProvider: Component<Context> = (props) => {
         <AppContext.Provider
             value={{
                 getEnableMDNS,
+                getDebugMode,
                 getScanForCamerasOnStartup,
                 getStopAlgoBackend,
                 setEnableMDNS,
+                setDebugMode,
                 setScanForCamerasOnStartup,
                 setStopAlgoBackend,
             }}>
