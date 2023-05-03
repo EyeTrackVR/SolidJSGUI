@@ -1,12 +1,13 @@
-import { Button } from '@kobalte/core'
+import { Button, Switch } from '@kobalte/core'
+
 
 const ExampleMenu = () => {
     return (
         <div>
-            <h1 class="text-lg">Sub Menu</h1>
+            <h1 class="text-lg">Dev Menu</h1>
             <hr class="divider" />
             <label class="context-menu-labels" for="test-button">
-                Test Button
+                Enable Dev Tools
             </label>
             <Button.Root
                 id="test-button"

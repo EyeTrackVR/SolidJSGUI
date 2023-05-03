@@ -1,5 +1,5 @@
 .context-menu {
-    @apply text-white fixed flex flex-col bg-[#313131] p-3 gap-3 w-fit rounded-sm z-[999];
+    @apply text-white fixed flex flex-col bg-[#313131] p-3 gap-3 w-fit rounded-lg z-[999];
 }
 
 .context-menu button {

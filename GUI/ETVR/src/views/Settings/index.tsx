@@ -1,5 +1,5 @@
 import icons from '@assets/images'
-import { Input } from '@components/Input'
+import Input from '@components/Input'
 import CameraCalibrationSettings from '@components/Settings/CameraCalibrationSettings'
 import CameraConnectionStatus from '@components/Settings/CameraConnectionStatus/CameraInfo'
 import CameraSettings from '@components/Settings/CameraSettings'

@@ -3,8 +3,8 @@ import { handleAppBoot, handleTitlebar } from '@src/utils/hooks/app'
 import { AppProvider } from '@store/context/app'
 
 const AppRoutes = lazy(() => import('@routes/Routes'))
-const NewWindow = lazy(() => import('@components/NewWindow'))
-const ExampleMenu = lazy(() => import('@components/NewWindow/Example'))
+const NewContextMenu = lazy(() => import('@components/NewMenu'))
+const ExampleMenu = lazy(() => import('@components/NewMenu/Example'))
 const ToastNotificationWindow = lazy(() => import('@components/Notifications'))
 
 const App = () => {
@@ -19,9 +19,9 @@ const App = () => {
             <Suspense>
                 <AppProvider>
                     <AppRoutes />
-                    <NewWindow ref={ref} name="test">
+                    <NewContextMenu ref={ref} name="test">
                         <ExampleMenu />
-                    </NewWindow>
+                    </NewContextMenu>
                     <ToastNotificationWindow />
                 </AppProvider>
             </Suspense>

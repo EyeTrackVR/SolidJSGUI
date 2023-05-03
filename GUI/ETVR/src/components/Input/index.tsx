@@ -1,4 +1,6 @@
-export interface IProps {
+import type { Component } from 'solid-js'
+
+interface Props {
     onChange: (value: string) => void
     placeholder: string
     header: string
@@ -7,7 +9,7 @@ export interface IProps {
     required?: boolean
 }
 
-export const Input = (props: IProps) => {
+const Input: Component<Props> = (props) => {
     return (
         <div class="flex grow rounded-xl flex-col pl-3 pr-3 pb-3 pt-3 bg-[#333742] text-white">
             <div>
@@ -35,3 +37,5 @@ export const Input = (props: IProps) => {
         </div>
     )
 }
+
+export default Input

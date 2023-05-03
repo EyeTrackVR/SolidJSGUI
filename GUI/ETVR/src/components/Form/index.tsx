@@ -1,9 +1,15 @@
-import { Input } from '@components/Input'
+import Input from '@components/Input'
 
-export const Form = () => {
+const Form = () => {
     const handleChange = (value: string) => {
         console.log(value)
     }
+
+    /* // TODO: call api to download firmware assets
+    const handleSubmit = (e: SubmitEvent) => {
+        e.preventDefault()
+        console.log(`${props.name} [Select]: `, value())
+    } */
 
     return (
         <div>
@@ -56,3 +62,5 @@ export const Form = () => {
         </div>
     )
 }
+
+export default Form

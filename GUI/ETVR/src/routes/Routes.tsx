@@ -1,5 +1,5 @@
 import { useRoutes } from '@solidjs/router'
-import { createEffect, onMount } from 'solid-js'
+import { type Component, createEffect, onMount } from 'solid-js'
 import { useEventListener } from 'solidjs-use'
 import { routes } from '.'
 import type { PersistentSettings } from '@src/static/types'
@@ -14,7 +14,7 @@ import { useAppUIContext } from '@src/store/context/ui'
 import { usePersistentStore } from '@src/store/tauriStore'
 import { generateWebsocketClients } from '@src/utils/hooks/websocket'
 
-const AppRoutes = () => {
+const AppRoutes: Component = () => {
     const Path = useRoutes(routes)
     const { get, set } = usePersistentStore()
 
