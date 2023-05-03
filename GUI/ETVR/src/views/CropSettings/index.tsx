@@ -39,17 +39,9 @@ const CropSettings = (props: IProps) => {
 
         const onMouseUp = (e: MouseEvent) => {
             const target = e.target as HTMLInputElement
-            if (target.nodeName !== 'CANVAS') return
-
-            // draw blue circle at the top-left and bottom-right vertex of the box
-
-            if (!isMouseDown() || target.nodeName !== 'CANVAS' || !context || !canvasRef) {
-                return
-            }
-
+            if (target.nodeName !== 'CANVAS' || !context || !canvasRef) return
             setIsMouseDown(false)
             const { x, y } = getMousePosition(canvasRef, e)
-
             //* draw blue circle at mouse position
             context.beginPath()
             context.arc(x, y, 5, 0, 2 * Math.PI)
