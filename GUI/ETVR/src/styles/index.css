@@ -99,7 +99,7 @@ body {
 .main-div {
     height: 100vh;
     overflow: hidden;
-    border-radius: 1rem;
+    border-radius: 0.4rem;
     /* Clothoid Gradient */
     background: linear-gradient(247.32deg, #282830 0%, #181c28 100%);
 }
