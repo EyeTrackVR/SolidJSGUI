@@ -3,6 +3,13 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.54](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.53...v1.0.0-SolidJSGUI.54) (2023-05-04)
+
+
+### 🍕 Features
+
+* add support for native windows shadows ([d808ad8](https://github.com/RedHawk989/EyeTrackVR/commit/d808ad80b6a483427b6be7416ed41e14ca5ed9c3))
+
 ## [1.0.0-SolidJSGUI.53](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.52...v1.0.0-SolidJSGUI.53) (2023-05-03)
 
 
