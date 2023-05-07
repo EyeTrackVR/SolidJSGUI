@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from '@solidjs/router'
+import { debug } from 'tauri-plugin-log-api'
 import { useAppUIContext } from '@src/store/context/ui'
 import Settings from '@src/views/Settings'
 import { useAppCameraContext } from '@store/context/camera'
@@ -15,28 +16,28 @@ const SettingsPage = () => {
         <Settings
             createNewCamera={params.flag === 'true'}
             camerasUrl={['.', '.', '.']}
-            onChange={(value) => console.log(value)}
+            onChange={(value) => debug(value)}
             onClickBack={() => {
                 setHideHeaderButtons(false)
                 navigate('/')
             }}
             onClickCircleCrop={() => {
-                console.log('on click circle crop')
+                debug('on click circle crop')
             }}
             onChangeCameraAddress={() => {
-                console.log('change camera address')
+                debug('change camera address')
             }}
             onClickCalibrate={() => {
-                console.log('onClickCalibrate')
+                debug('onClickCalibrate')
             }}
             onClickRecenter={() => {
-                console.log('onClickRecenter')
+                debug('onClickRecenter')
             }}
             onClickCroppingMode={() => {
                 navigate('/cropSettings')
             }}
             onClick={(selected) => {
-                console.log(selected)
+                debug(selected)
             }}
             cameraStatus={getSelectedCamera().status}
         />

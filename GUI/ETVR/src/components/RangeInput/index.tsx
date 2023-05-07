@@ -1,12 +1,12 @@
 import { createEffect, createSignal, onCleanup } from 'solid-js'
 import { useEventListener } from 'solidjs-use'
+import { debug } from 'tauri-plugin-log-api'
 import { BULLET_POSITION_ADJUSTMENT, getBulletPosition } from '@src/utils'
 import './styles.css'
 
 export interface IProps {
     onChange: (format: string, value: number) => void
     format: string
-
     disablePercent?: boolean
 }
 
@@ -38,12 +38,11 @@ const RangeInput = (props: IProps) => {
             })
 
             return () => {
-                console.log('[RangeInput - range input]: cleaning up')
+                debug('[RangeInput - range input]: cleaning up')
                 cleanup()
             }
         })
     })
-
     createEffect(() => {
         const cleanup = useEventListener(window, 'resize', () => {
             setTimeout(() => {
@@ -66,7 +65,7 @@ const RangeInput = (props: IProps) => {
             })
         })
         onCleanup(() => {
-            console.log('[RangeInput - window resize]: cleaning up')
+            debug('[RangeInput - window resize]: cleaning up')
             cleanup()
         })
     })

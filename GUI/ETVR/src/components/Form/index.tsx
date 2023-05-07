@@ -1,8 +1,10 @@
+import { debug } from 'tauri-plugin-log-api'
 import Input from '@components/Input'
+
 
 const Form = () => {
     const handleChange = (value: string) => {
-        console.log(value)
+        debug(`[Form - HandleChange]: ${value}`)
     }
 
     /* // TODO: call api to download firmware assets

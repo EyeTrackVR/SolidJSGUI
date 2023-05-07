@@ -1,5 +1,5 @@
 import { lazy, onMount, Suspense } from 'solid-js'
-import { handleAppBoot, handleTitlebar } from '@src/utils/hooks/app'
+import { useAppContextMain } from './store/context/main'
 import { AppProvider } from '@store/context/app'
 
 const AppRoutes = lazy(() => import('@routes/Routes'))
@@ -8,6 +8,8 @@ const ExampleMenu = lazy(() => import('@components/NewMenu/DevTools'))
 const ToastNotificationWindow = lazy(() => import('@components/Notifications'))
 
 const App = () => {
+    const { handleTitlebar, handleAppBoot } = useAppContextMain()
+
     const ref = document.getElementById('titlebar')
     onMount(() => {
         handleTitlebar(true)

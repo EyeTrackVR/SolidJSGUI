@@ -1,5 +1,5 @@
 //import { Button, Switch } from '@kobalte/core'
-
+import { debug } from 'tauri-plugin-log-api'
 import CustomButton from '@components/CustomButton'
 import DebugMode from '@components/Selection/Debug'
 
@@ -21,7 +21,7 @@ const ExampleMenu = () => {
                 name="test-button"
                 img="Test Button"
                 onClick={() => {
-                    console.log('Test Button Clicked')
+                    debug('Test Button Clicked')
                 }}
             />
             <hr class="divider" />

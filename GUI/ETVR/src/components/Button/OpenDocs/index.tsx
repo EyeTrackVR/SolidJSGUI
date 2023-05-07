@@ -1,11 +1,12 @@
 import { WebviewWindow, getCurrent } from '@tauri-apps/api/window'
+import { debug } from 'tauri-plugin-log-api'
 import Button from '..'
 
 export const OpenDocs = () => {
     const openDocs = () => {
         const currentMainWindow = getCurrent()
         currentMainWindow.innerPosition().then((position) => {
-            console.log(position)
+            debug(`[OpenDocs]: Window Position${position.x}, ${position.y}`)
             const webview = new WebviewWindow('eyetrack-docs', {
                 url: 'src/windows/docs/index.html',
                 resizable: true,
@@ -19,7 +20,7 @@ export const OpenDocs = () => {
                 transparent: true,
             })
             webview.once('tauri://created', () => {
-                console.log('WebView Window Created')
+                debug('WebView Window Created')
                 webview.show()
             })
         })

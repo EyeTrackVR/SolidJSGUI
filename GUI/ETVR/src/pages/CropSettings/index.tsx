@@ -1,4 +1,5 @@
 import { useNavigate } from '@solidjs/router'
+import { debug } from 'tauri-plugin-log-api'
 import CropSettings from '@src/views/CropSettings'
 import { useAppCameraContext } from '@store/context/camera'
 
@@ -13,7 +14,7 @@ const CropSettingsPage = () => {
                 navigate('/settings/true')
             }}
             onClickSaveCrop={(boxPosition) => {
-                console.log(boxPosition)
+                debug(`[Crop Settings]: ${JSON.stringify(boxPosition)}`)
                 // TODO: do the rest with boxPosition , need to divide by 2
                 navigate('/settings/true')
             }}

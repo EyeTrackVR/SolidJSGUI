@@ -1,6 +1,7 @@
 import { appDataDir, join } from '@tauri-apps/api/path'
 import { convertFileSrc } from '@tauri-apps/api/tauri'
 import { createEffect, createSignal } from 'solid-js'
+import { debug } from 'tauri-plugin-log-api'
 
 declare module 'solid-js' {
     // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -14,14 +15,13 @@ declare module 'solid-js' {
 
 const WebSerial = () => {
     const [manifest, setManifest] = createSignal<string>('')
-
     createEffect(() => {
         appDataDir().then((appDataDirPath) => {
-            //console.log('[WebSerial]: appDataDirPath', appDataDirPath)
+            debug(`[WebSerial]: appDataDirPath ${appDataDirPath}`)
             join(appDataDirPath, 'manifest.json').then((manifestfilePath) => {
-                //console.log('[WebSerial]: manifestfilePath', manifestfilePath)
+                debug(`[WebSerial]: manifestfilePath ${manifestfilePath}`)
                 const url = convertFileSrc(manifestfilePath)
-                //console.log('[WebSerial]: url', url)
+                debug(`[WebSerial]: url ${url}`)
                 setManifest(url)
             })
         })
@@ -31,7 +31,6 @@ const WebSerial = () => {
         const deviceFirmware = improvInfo.firmware.toLowerCase()
         return manifestFirmware.includes(deviceFirmware)
     }
-
     return (
         <div>
             <esp-web-install-button overrides={checkSameFirmware} manifest={manifest()}>

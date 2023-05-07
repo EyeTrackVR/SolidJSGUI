@@ -1,9 +1,9 @@
 import { invoke } from '@tauri-apps/api/tauri'
 import { createContext, useContext, createMemo, type Component, Accessor } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
+import { debug, error } from 'tauri-plugin-log-api'
 import { useAppContext } from '../app'
 import { useAppCameraContext } from '../camera'
-
 import type { Context } from '@static/types'
 import type { AppStoreMdns, MdnsResponse } from '@static/types/interfaces'
 import { MdnsStatus } from '@static/types/enums'
@@ -53,8 +53,7 @@ export const AppMdnsProvider: Component<Context> = (props) => {
         if (serviceType === '' || scanTime === 0) {
             return []
         }
-        console.log('[MDNS Scanner]: scanning for', serviceType, scanTime)
-
+        debug(`[MDNS Scanner]: scanning for ${serviceType} for ${scanTime} seconds`)
         setMdnsStatus(MdnsStatus.LOADING)
 
         try {
@@ -63,7 +62,7 @@ export const AppMdnsProvider: Component<Context> = (props) => {
                 scanTime,
             })
 
-            console.log('[MDNS Scanner]: res', res)
+            debug(`[MDNS Scanner]: response - ${res}`)
             const response = res as MdnsResponse
             setMdnsStatus(MdnsStatus.ACTIVE)
             setMdnsData(response)
@@ -72,12 +71,12 @@ export const AppMdnsProvider: Component<Context> = (props) => {
             for (let i = 0; i < size; i++) {
                 // grab the unknown key and use it to access the res.urls object
                 const key = Object.keys(response.names)[i]
-                console.log('[MDNS Scanner]: adding camera', response.names[key])
+                debug('[MDNS Scanner]: adding camera', response.names[key])
                 const address = `http://${response.names[key]}.local`
                 setAddCameraMDNS(address)
             }
-        } catch (error) {
-            console.error('[MDNS Scanner]: error', error)
+        } catch (err) {
+            error(`[MDNS Scanner]: error ${err}`)
             setMdnsStatus(MdnsStatus.FAILED)
         }
     }

@@ -1,6 +1,7 @@
 import { useRoutes } from '@solidjs/router'
 import { type Component, createEffect, onMount } from 'solid-js'
 import { useEventListener } from 'solidjs-use'
+import { debug } from 'tauri-plugin-log-api'
 import { routes } from '.'
 import type { PersistentSettings } from '@src/static/types'
 import Header from '@components/Header'
@@ -45,7 +46,7 @@ const AppRoutes: Component = () => {
         // load the app settings from the persistent store and assign to the global state
         get('settings').then((settings) => {
             if (settings) {
-                console.log('loading settings')
+                debug('loading settings')
                 const activeUserName =
                     typeof settings.user === 'string' ? settings.user : 'stranger'
 
@@ -85,7 +86,7 @@ const AppRoutes: Component = () => {
                 debugMode: getDebugMode(),
                 scanForCamerasOnStartup: getScanForCamerasOnStartup(),
             }
-            console.log('saving settings', settings)
+            debug(`[Routes]: Saving Settings - ${JSON.stringify(settings)}`)
             set('settings', settings)
         })
     })

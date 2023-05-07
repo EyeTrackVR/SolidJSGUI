@@ -1,6 +1,7 @@
 import { ask } from '@tauri-apps/api/dialog'
 import { removeFile } from '@tauri-apps/api/fs'
 import { appConfigDir, join } from '@tauri-apps/api/path'
+import { error, debug } from 'tauri-plugin-log-api'
 import Button from '..'
 import { ENotificationType } from '@src/static/types/enums'
 import { useAppNotificationsContext } from '@store/context/notifications'
@@ -29,7 +30,7 @@ export const EraseButton = () => {
                     if (res) {
                         erase()
                             .then(() => {
-                                console.log('[Erasing Firmware Assets]: Erased')
+                                debug('[Erasing Firmware Assets]: Erased')
                                 addNotification({
                                     title: 'ETVR Firmware Assets Erased',
                                     message:
@@ -38,7 +39,7 @@ export const EraseButton = () => {
                                 })
                             })
                             .catch((err) => {
-                                console.error(err)
+                                error(err)
                                 addNotification({
                                     title: 'ETVR Firmware Assets Erase Failed',
                                     message:

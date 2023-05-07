@@ -1,11 +1,12 @@
 import { WebviewWindow, getCurrent } from '@tauri-apps/api/window'
+import { debug } from 'tauri-plugin-log-api'
 import Button from '..'
 
 export const WebSerial = () => {
     const openWebSerial = () => {
         const currentMainWindow = getCurrent()
         currentMainWindow.innerPosition().then((position) => {
-            console.log(position)
+            debug(`[]: ${position.x}, ${position.y}`)
             const webview = new WebviewWindow('eyetrack-webserial', {
                 url: 'src/windows/webserial/index.html',
                 resizable: true,
@@ -19,7 +20,7 @@ export const WebSerial = () => {
                 transparent: true,
             })
             webview.once('tauri://created', () => {
-                console.log('WebView Window Created')
+                debug('WebView Window Created')
                 webview.show()
             })
         })

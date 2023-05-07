@@ -1,4 +1,5 @@
 import { type Component } from 'solid-js'
+import { debug } from 'tauri-plugin-log-api'
 import type { DebugMode } from '@src/static/types'
 import Selection from '@components/Selection'
 import { useAppContext } from '@src/store/context/app'
@@ -17,7 +18,7 @@ const DebugModeMenu: Component = () => {
             defaultValue={defaultValue}
             description={`Current Debug Mode: ${getDebugMode()}`}
             onValueChange={(value) => {
-                console.log(value)
+                debug(value)
                 setDebugMode(value as DebugMode)
             }}
         />

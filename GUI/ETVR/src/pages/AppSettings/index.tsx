@@ -1,8 +1,9 @@
+import { debug } from 'tauri-plugin-log-api'
 import { EraseButton } from '@components/Button/EraseButton'
 import { OpenDocs } from '@components/Button/OpenDocs'
 import { WebSerial } from '@components/Button/WebSerial'
-import FirmwareList from '@components/Selection/FirmwareList'
 import Form from '@components/Form'
+import FirmwareList from '@components/Selection/FirmwareList'
 import { useAppAPIContext } from '@src/store/context/api'
 import { useAppNotificationsContext } from '@src/store/context/notifications'
 import AppSettings from '@src/views/AppSettings'
@@ -19,46 +20,46 @@ const AppSettingsPage = () => {
     return (
         <div class="flex justify-center items-center content-center flex-col pt-[100px] text-white">
             <AppSettings
-                onClickFlipLeftXAxis={() => console.log('onClickFlipLeftXAxis')}
+                onClickFlipLeftXAxis={() => debug('[AppSettings]: onClickFlipLeftXAxis')}
                 onClickFlipRightXAxis={() => {
-                    console.log('onClickFlipRightXAxis')
+                    debug('[AppSettings]: onClickFlipRightXAxis')
                 }}
                 onClickFlipYAxis={() => {
-                    console.log('onClickFlipYAxis')
+                    debug('[AppSettings]: onClickFlipYAxis')
                 }}
                 onClickDualEyeFalloff={() => {
-                    console.log('onClickDualEyeFalloff')
+                    debug('[AppSettings]: onClickDualEyeFalloff')
                 }}
                 onClickSyncBlinks={() => {
-                    console.log('onClickSyncBlinks')
+                    debug('[AppSettings]: onClickSyncBlinks')
                 }}
                 onClickBlobFallback={() => {
-                    console.log('onClickBlobFallback')
+                    debug('[AppSettings]: onClickBlobFallback')
                 }}
                 onChange={(format, value) => {
-                    console.log(format, value)
+                    debug(`[AppSettings]: ${format} ${value}`)
                 }}
                 onChangeAddress={() => {
-                    console.log('onChangeAddress')
+                    debug('[AppSettings]: onChangeAddress')
                 }}
                 onChangeOSCPort={() => {
-                    console.log('onChangeOSCPort')
+                    debug('[AppSettings]: onChangeOSCPort')
                 }}
                 onChangeOSCReceiverPort={() => {
-                    console.log('onChangeOSCReceiverPort')
+                    debug('[AppSettings]: onChangeOSCReceiverPort')
                 }}
                 onChangeOSCRecenterPort={() => {
-                    console.log('onChangeOSCRecenterPort')
+                    debug('[AppSettings]: onChangeOSCRecenterPort')
                 }}
                 onChangeOSCRecalibrateAddress={() => {
-                    console.log('onChangeOSCRecalibrateAddress')
+                    debug('[AppSettings]: onChangeOSCRecalibrateAddress')
                 }}
             />
             <button
                 class="rounded-[8px] bg-blue-700 p-2 text-white mt-1 hover:bg-blue-600 focus:bg-blue-500"
                 onClick={() => {
                     download('esp32AIThinker')
-                    console.log('[Download Asset]: Downloading...')
+                    debug('[Download Asset]: Downloading...')
                 }}>
                 Download Release Asset
             </button>
@@ -66,7 +67,7 @@ const AppSettingsPage = () => {
                 class="rounded-[8px] bg-blue-700 p-2 text-white mt-1 hover:bg-blue-600 focus:bg-blue-500"
                 onClick={() => {
                     handleSound('EyeTrackApp_Audio_start.wav')
-                    console.log('[Audio Handler]: Sound Played')
+                    debug('[Audio Handler]: Sound Played')
                 }}>
                 Play Sound
             </button>

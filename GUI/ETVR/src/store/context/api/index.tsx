@@ -4,6 +4,7 @@ import { appConfigDir, join } from '@tauri-apps/api/path'
 import { invoke, convertFileSrc } from '@tauri-apps/api/tauri'
 import { createContext, useContext, createMemo, type Component, Accessor } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
+import { debug, error, warn } from 'tauri-plugin-log-api'
 import { download, upload } from 'tauri-plugin-upload-api'
 import { useAppCameraContext } from '../camera'
 import { useAppNotificationsContext } from '../notifications'
@@ -140,39 +141,39 @@ export const AppAPIProvider: Component<Context> = (props) => {
                 message: 'A firmware must be selected before downloading',
                 type: ENotificationType.WARNING,
             })
-            console.log('[Github Release]: No firmware selected')
+            debug('[Github Release]: No firmware selected')
             return
         }
 
-        console.log('[Github Release]: App Config Dir: ', appConfigDirPath)
+        debug(`[Github Release]: App Config Dir: ${appConfigDirPath}`)
 
         // check if the firmware chosen matches the one names in the firmwareAssets array of objects
         const firmwareAsset = getFirmwareAssets().find((asset) => asset.name === firmware)
 
-        console.log('[Github Release]: Firmware Asset: ', firmwareAsset)
+        debug(`[Github Release]: Firmware Asset: ${firmwareAsset}`)
 
         if (firmwareAsset) {
-            console.log('[Github Release]: Downloading firmware: ', firmware)
-            console.log('[Github Release]: Firmware URL: ', firmwareAsset)
+            debug(`[Github Release]: Downloading firmware: ${firmware}`)
+            debug(`[Github Release]: Firmware URL: ${firmwareAsset}`)
 
             // parse out the file name from the firmwareAsset.url and append it to the appConfigDirPath
             const fileName =
                 firmwareAsset.browser_download_url.split('/')[
                     firmwareAsset.browser_download_url.split('/').length - 1
                 ]
-            //console.log('[Github Release]: File Name: ', fileName)
+            //debug('[Github Release]: File Name: ', fileName)
             // ${appConfigDirPath}${fileName}
             const path = await join(appConfigDirPath, fileName)
-            console.log('[Github Release]: Path: ', path)
+            debug(`[Github Release]: Path: ${path}`)
             // get the latest release
             const response = await download(
                 firmwareAsset.browser_download_url,
                 path,
                 (progress, total) => {
-                    console.log(`[Github Release]: Downloaded ${progress} of ${total} bytes`)
+                    debug(`[Github Release]: Downloaded ${progress} of ${total} bytes`)
                 },
             )
-            console.log('[Github Release]: Download Response: ', response)
+            debug(`[Github Release]: Download Response: ${response}`)
 
             addNotification({
                 title: 'ETVR Firmware Downloaded',
@@ -186,7 +187,7 @@ export const AppAPIProvider: Component<Context> = (props) => {
             })
             await removeFile(path)
 
-            console.log('[Github Release]: Unzip Response: ', res)
+            debug(`[Github Release]: Unzip Response: ${res}`)
 
             const manifest = await readTextFile('manifest.json', { dir: BaseDirectory.AppConfig })
 
@@ -202,9 +203,9 @@ export const AppAPIProvider: Component<Context> = (props) => {
                             appConfigDirPath,
                             config_json['builds'][i]['parts'][j]['path'],
                         )
-                        console.log('[Github Release]: Firmware Path: ', firmwarePath)
+                        debug(`[Github Release]: Firmware Path: ${firmwarePath}`)
                         const firmwareSrc = convertFileSrc(firmwarePath)
-                        console.log('[Github Release]: Firmware Src: ', firmwareSrc)
+                        debug(`[Github Release]: Firmware Src: ${firmwareSrc}`)
                         config_json['builds'][i]['parts'][j]['path'] = firmwareSrc
                     }
                 }
@@ -214,16 +215,16 @@ export const AppAPIProvider: Component<Context> = (props) => {
                     dir: BaseDirectory.AppConfig,
                 })
                     .then(() => {
-                        console.log('[Manifest Updated]: Manifest Updated Successfully')
+                        debug('[Manifest Updated]: Manifest Updated Successfully')
                     })
                     .finally(() => {
-                        console.log('[Manifest Updated]: Finished')
+                        debug('[Manifest Updated]: Finished')
                     })
                     .catch((err) => {
-                        console.error('[Manifest Update Error]: ', err)
+                        error(`[Manifest Update Error]: ${err}`)
                     })
 
-                console.log('[Github Release]: Manifest: ', config_json)
+                debug('[Github Release]: Manifest: ', config_json)
                 return
             }
         }
@@ -236,13 +237,13 @@ export const AppAPIProvider: Component<Context> = (props) => {
      */
     const downloadAsset = async (firmware: string): Promise<void> => {
         const response = await getRelease(firmware)
-        console.log('[Github Release]: Download Response: ', response)
+        debug(`[Github Release]: Download Response: ${response}`)
     }
 
     // TODO: Implement a way to read if the merged-firmware.bin file and manifest.json file exists in the app config directory and if it does, then use that instead of downloading the firmware from github
     // Note: If both files are present, we should early return and set a UI store value that will be used to display a message to the user that they can use the firmware that is already downloaded and show an optional button to erase the firmware
 
-    //TODO: Add notifications to all the console.log statements
+    //TODO: Add notifications to all the debug statements
 
     const setGHData = (data: IGHRelease, update: boolean) => {
         if (data['name'] === undefined) {
@@ -265,8 +266,8 @@ export const AppAPIProvider: Component<Context> = (props) => {
 
         // set the board name in the store
         for (let i = 0; i < boardName.length; i++) {
-            //console.log('[Github Release]: Board Name: ', boardName[i])
-            //console.log('[Github Release]: URLs: ', download_urls[i])
+            //debug('[Github Release]: Board Name: ', boardName[i])
+            //debug('[Github Release]: URLs: ', download_urls[i])
             setFirmwareAssets({ name: boardName[i], browser_download_url: download_urls[i] })
         }
 
@@ -282,14 +283,14 @@ export const AppAPIProvider: Component<Context> = (props) => {
                 },
             )
                 .then(() => {
-                    console.log(
+                    debug(
                         update
                             ? '[Config Updated]: Config Updated Successfully'
                             : '[Config Created]: Config Created Successfully',
                     )
                 })
                 .catch((err) => {
-                    console.error('[Config Creation Error]:', err)
+                    error('[Config Creation Error]:', err)
                 })
         }
     }
@@ -305,8 +306,8 @@ export const AppAPIProvider: Component<Context> = (props) => {
      * @example
      * import { doGHRequest } from './github'
      * doGHRequest()
-     * .then(() => console.log('Request sent'))
-     * .catch((err) => console.error(err))
+     * .then(() => debug('Request sent'))
+     * .catch((err) => error(err))
      */
     const doGHRequest = async () => {
         try {
@@ -322,56 +323,56 @@ export const AppAPIProvider: Component<Context> = (props) => {
                     responseType: ResponseType.JSON,
                 })
 
-                if (response.ok) console.log('[OpenIris Version]: ', response.data['name'])
+                if (response.ok) debug('[OpenIris Version]: ', response.data['name'])
 
                 try {
                     const config = await readTextFile('config.json', {
                         dir: BaseDirectory.AppConfig,
                     })
                     const config_json = JSON.parse(config)
-                    console.log(config_json)
+                    debug(config_json)
                     if (response instanceof Object && response.ok) {
                         if (config !== '') {
                             if (response.data['name'] !== config_json.version) {
                                 // update config
                                 setGHData(response.data, true)
-                                console.log(
+                                debug(
                                     '[Config Exists]: Config Exists and is out of date - Updating',
                                 )
                                 setGHRestStatus(RESTStatus.COMPLETE)
                                 return
                             }
                         }
-                        console.log('[Config Exists]: Config Exists and is up to date')
+                        debug('[Config Exists]: Config Exists and is up to date')
                         setGHData(response.data, false)
                         return
                     }
-                    console.warn('[Config Exists]: Most likely rate limited')
+                    warn('[Config Exists]: Most likely rate limited')
                     setGHData(config_json, false)
                     setGHRestStatus(RESTStatus.COMPLETE)
-                } catch (error) {
+                } catch (err) {
                     setGHRestStatus(RESTStatus.NO_CONFIG)
                     if (response.ok) {
-                        console.error('[Config Read Error]:', error, 'Creating config.json')
+                        error(`[Config Read Error]: ${err} Creating config.json`)
                         setGHData(response.data, true)
                         setGHRestStatus(RESTStatus.COMPLETE)
                     }
                 }
-            } catch (error) {
+            } catch (err) {
                 setGHRestStatus(RESTStatus.FAILED)
-                console.error('[Github Release Error]:', error)
+                error(`[Github Release Error]: ${err}`)
                 const config = await readTextFile('config.json', {
                     dir: BaseDirectory.AppConfig,
                 })
                 if (!config) {
                     setGHRestStatus(RESTStatus.NO_CONFIG)
-                    console.error('[Config Read Error]:', config)
+                    error(`[Config Read Error]: Config does not exist ${err}`)
                 }
                 const config_json = JSON.parse(config)
-                console.log('[OpenIris Version]: ', config_json.version)
-                console.log(config_json)
+                debug('[OpenIris Version]: ', config_json.version)
+                debug(config_json)
                 if (config !== '') {
-                    console.log('[Config Exists]: Config Exists and is up to date')
+                    debug('[Config Exists]: Config Exists and is up to date')
                     setGHData(config_json, false)
                     return
                 }
@@ -396,9 +397,9 @@ export const AppAPIProvider: Component<Context> = (props) => {
                             }
                         } */
             }
-        } catch (error) {
+        } catch (err) {
             setGHRestStatus(RESTStatus.FAILED)
-            console.error('[Tauri Runtime Error - http client]:', error)
+            error(`[Tauri Runtime Error - http client]: ${err}`)
             return
         }
     }
@@ -410,7 +411,7 @@ export const AppAPIProvider: Component<Context> = (props) => {
         )
         if (!camera) {
             setRESTStatus(RESTStatus.NO_CAMERA)
-            console.log('No camera found at that address')
+            debug('No camera found at that address')
             return
         }
 
@@ -431,9 +432,9 @@ export const AppAPIProvider: Component<Context> = (props) => {
                 setRESTResponse(parsedResponse)
             }
             setRESTStatus(RESTStatus.COMPLETE)
-        } catch (error) {
+        } catch (err) {
             setRESTStatus(RESTStatus.FAILED)
-            console.error('[]:', error)
+            error(`[REST Request]: ${err}`)
         }
     }
 
@@ -453,7 +454,7 @@ export const AppAPIProvider: Component<Context> = (props) => {
         const ota: string = endpoints.get('ota')?.url ?? ''
         const camera = getCameras().find((camera) => camera.address === device)
         if (!camera) {
-            console.log('No camera found at that address')
+            debug('No camera found at that address')
             return
         }
         const server = camera.address + ota

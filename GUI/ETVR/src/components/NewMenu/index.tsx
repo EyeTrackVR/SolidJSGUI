@@ -1,6 +1,7 @@
 import { createSignal, createEffect, Show, onMount, onCleanup, type Component } from 'solid-js'
 import { Portal } from 'solid-js/web'
 import { onClickOutside, useEventListener } from 'solidjs-use'
+import { debug } from 'tauri-plugin-log-api'
 import type { NewMenu } from '@static/types/interfaces'
 import { useAppUIContext } from '@src/store/context/ui'
 import './styles.css'
@@ -14,8 +15,8 @@ const NewContextMenu: Component<NewMenu> = (props) => {
             useEventListener(props.ref, 'contextmenu', (e) => {
                 e.preventDefault()
                 setMenu({ x: e['x'], y: e['y'] })
-                console.log('[Context Window]: opening menu')
-                //console.log('[Context Window]: ', e)
+                debug('[Context Window]: opening menu')
+                //debug('[Context Window]: ', e)
             })
         }
     })
@@ -29,7 +30,7 @@ const NewContextMenu: Component<NewMenu> = (props) => {
         })
 
         onCleanup(() => {
-            console.log('[Context Window]: cleaning up')
+            debug('[Context Window]: cleaning up')
             cleanup()
         })
     })
