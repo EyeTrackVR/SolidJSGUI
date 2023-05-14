@@ -9,7 +9,6 @@ const ToastNotificationWindow = lazy(() => import('@components/Notifications'))
 
 const App = () => {
     const { handleTitlebar, handleAppBoot } = useAppContextMain()
-
     const ref = document.getElementById('titlebar')
     onMount(() => {
         handleTitlebar(true)

@@ -1,4 +1,4 @@
-import * as path from 'path'
+import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import solidPlugin from 'vite-plugin-solid'
 
@@ -7,18 +7,18 @@ export default defineConfig({
     envPrefix: ['VITE_', 'TAURI_'],
     resolve: {
         alias: {
-            '@interfaces': path.resolve(__dirname, './src/interfaces'),
-            '@components': path.resolve(__dirname, './src/components'),
-            '@routes': path.resolve(__dirname, './src/routes'),
-            '@pages': path.resolve(__dirname, './src/pages'),
-            '@styles': path.resolve(__dirname, './src/styles'),
-            '@config': path.resolve(__dirname, './src/config'),
-            '@src': path.resolve(__dirname, './src'),
-            '@assets': path.resolve(__dirname, './assets'),
-            '@hooks': path.resolve(__dirname, './src/utils/hooks'),
-            '@store': path.resolve(__dirname, './src/store'),
-            '@static': path.resolve(__dirname, './src/static'),
-            '@utils': path.resolve(__dirname, './src/utils'),
+            '@interfaces': resolve(__dirname, './src/interfaces'),
+            '@components': resolve(__dirname, './src/components'),
+            '@routes': resolve(__dirname, './src/routes'),
+            '@pages': resolve(__dirname, './src/pages'),
+            '@styles': resolve(__dirname, './src/styles'),
+            '@config': resolve(__dirname, './src/config'),
+            '@src': resolve(__dirname, './src'),
+            '@assets': resolve(__dirname, './assets'),
+            '@hooks': resolve(__dirname, './src/utils/hooks'),
+            '@store': resolve(__dirname, './src/store'),
+            '@static': resolve(__dirname, './src/static'),
+            '@utils': resolve(__dirname, './src/utils'),
         },
     },
     plugins: [solidPlugin()],
@@ -30,9 +30,9 @@ export default defineConfig({
     build: {
         rollupOptions: {
             input: {
-                main: path.resolve(__dirname, 'index.html'),
-                docs: path.resolve(__dirname, 'src/windows/docs/index.html'),
-                webserial: path.resolve(__dirname, 'src/windows/webserial/index.html'),
+                main: resolve(__dirname, 'index.html'),
+                docs: resolve(__dirname, 'src/windows/docs/index.html'),
+                webserial: resolve(__dirname, 'src/windows/webserial/index.html'),
             },
         },
         // Tauri supports es2021
