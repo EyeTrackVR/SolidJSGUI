@@ -7,6 +7,10 @@
     {
       "name": "ETVR Assets",
       "path": "./GUI/assets"
+    },
+    {
+      "name": "Repo Root",
+      "path": "."
     }
   ],
   "settings": {
