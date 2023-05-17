@@ -1,13 +1,12 @@
-import { createEffect, createSignal, onCleanup, onMount } from 'solid-js'
+import { createEffect, createSignal, onMount } from 'solid-js'
 import { useEventListener } from 'solidjs-use'
-import icons from '@assets/images'
 import WebSocketHandler from '@components/WebSocket'
 import { CameraStatus } from '@src/static/types/enums'
+import { IBoxPosition } from '@src/static/types/interfaces'
 import { DEFAULT_CANVAS_BOX_POSITION } from '@src/utils'
 
 export interface IProps {
-    onClickBack: () => void
-    onClickSaveCrop: (boxPosition: { x: number; y: number; width: number; height: number }) => void
+    onClickSaveCrop: (boxPosition: IBoxPosition) => void
     cameraConnectingStatus: CameraStatus
 }
 
@@ -119,45 +118,31 @@ const CropSettings = (props: IProps) => {
 
     return (
         <div>
-            <div class="pt-12">
-                <div>
-                    <div class="flex cursor-pointer pb-5" onClick={() => props.onClickBack()}>
-                        <div class="mr-3">
-                            <img src={icons.arrow} alt="img" class="w-full h-full m-auto" />
+            <div>
+                <div class=" flex justify-center flex-col gap-5">
+                    <div class="m-auto w-full">
+                        <div class="m-auto relative h-[480px] w-[480px] bg-[#333742] rounded-xl p-4">
+                            <canvas
+                                class="absolute z-10"
+                                ref={canvasRef}
+                                width={canvasSize().width}
+                                height={canvasSize().height}
+                            />
+                            <div class="w-full h-full" ref={videoSize}>
+                                <WebSocketHandler
+                                    status={CameraStatus.ACTIVE}
+                                    styles="rounded-xl"
+                                />
+                            </div>
                         </div>
                         <div>
-                            <p class="text-left text-white text-lg text-upper uppercase max-lg:text-sm ">
-                                go back to home
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class=" flex justify-center flex-col gap-5">
-                        <div class="m-auto h-[480px] w-[480px]">
-                            <div class="m-auto relative  h-full w-full bg-[#333742] rounded-xl p-4">
-                                <canvas
-                                    class="absolute z-10"
-                                    ref={canvasRef}
-                                    width={canvasSize().width}
-                                    height={canvasSize().height}
-                                />
-                                <div class="w-full h-full" ref={videoSize}>
-                                    <WebSocketHandler
-                                        status={CameraStatus.ACTIVE}
-                                        styles="rounded-xl"
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <div class="pt-4 flex justify-end">
-                                    <div>
-                                        <button
-                                            onClick={() => props.onClickSaveCrop(boxPosition())}
-                                            class="bg-[#0071FE] text-base pt-3 pb-3 pl-[64px] pr-[64px] rounded-xl text-white ">
-                                            Save crop
-                                        </button>
-                                    </div>
+                            <div class="pt-5 flex justify-end">
+                                <div>
+                                    <button
+                                        onClick={() => props.onClickSaveCrop(boxPosition())}
+                                        class="bg-[#0071FE] text-base pt-3 pb-3 pl-[64px] pr-[64px] rounded-xl text-white">
+                                        Save crop
+                                    </button>
                                 </div>
                             </div>
                         </div>

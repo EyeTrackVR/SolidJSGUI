@@ -4,7 +4,14 @@ import CameraCalibrationSettings from '@components/Settings/CameraCalibrationSet
 import CameraConnectionStatus from '@components/Settings/CameraConnectionStatus/CameraInfo'
 import CameraSettings from '@components/Settings/CameraSettings'
 import CamerasModal from '@components/Settings/CamerasModal'
-import { CameraStatus, RANGE_INPUT_FORMAT } from '@src/static/types/enums'
+import {
+    CameraCalibrationButtonType,
+    CameraStatus,
+    RANGE_INPUT_FORMAT,
+} from '@src/static/types/enums'
+import { IBoxPosition } from '@src/static/types/interfaces'
+import { Show } from 'solid-js'
+import CropSettings from '../CropSettings'
 import './styles.css'
 
 export interface IProps {
@@ -12,13 +19,15 @@ export interface IProps {
     onClickCircleCrop: () => void
     onClick: (selected: string) => void
     onClickBack: () => void
-    onClickCalibrate: () => void
-    onClickRecenter: () => void
-    onClickCroppingMode: () => void
+    onClickCalibrate: (isButtonActive: boolean) => void
+    onClickRecenter: (isButtonActive: boolean) => void
+    onClickCroppingMode: (isButtonActive: boolean) => void
+    onClickSaveCrop: (boxPosition: IBoxPosition) => void
     onChangeCameraAddress: (value: string) => void
     cameraStatus: CameraStatus
     camerasUrl: string[]
     createNewCamera: boolean
+    isButtonActive: { [key in CameraCalibrationButtonType]: boolean }
 }
 
 const Settings = (props: IProps) => {
@@ -37,7 +46,7 @@ const Settings = (props: IProps) => {
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-center gap-5">
+                <div class="flex justify-center flex-col items-center lg:items-start lg:flex-row gap-5 ">
                     <div class="mt-5 max-w-[700px] w-full ">
                         {!props.createNewCamera ? (
                             <div>
@@ -55,9 +64,7 @@ const Settings = (props: IProps) => {
                                         id="camera-address"
                                         required={true}
                                         type="text"
-                                        onChange={(value) => {
-                                            props.onChangeCameraAddress(value)
-                                        }}
+                                        onChange={props.onChangeCameraAddress}
                                     />
                                 </div>
                             </div>
@@ -65,31 +72,33 @@ const Settings = (props: IProps) => {
                         <div>
                             <div class="mb-5">
                                 <CameraCalibrationSettings
-                                    onClickCalibrate={() => {
-                                        props.onClickCalibrate()
-                                    }}
-                                    onClickRecenter={() => {
-                                        props.onClickRecenter()
-                                    }}
-                                    onClickCroppingMode={() => {
-                                        props.onClickCroppingMode()
-                                    }}
+                                    isButtonActive={props.isButtonActive}
+                                    onClickCalibrate={props.onClickCalibrate}
+                                    onClickRecenter={props.onClickRecenter}
+                                    onClickCroppingMode={props.onClickCroppingMode}
                                 />
                             </div>
                         </div>
-                        <div>
-                            <CameraSettings
-                                onClickCircleCrop={() => {
-                                    props.onClickCircleCrop()
-                                }}
-                                formats={Object.keys(RANGE_INPUT_FORMAT)}
-                                onChange={(format, value) => {
-                                    props.onChange(format, value)
-                                }}
-                            />
-                        </div>
+                        <Show
+                            when={props.isButtonActive[CameraCalibrationButtonType.CROPPING_MODE]}
+                            fallback={
+                                <div>
+                                    <CameraSettings
+                                        onClickCircleCrop={props.onClickCircleCrop}
+                                        formats={Object.keys(RANGE_INPUT_FORMAT)}
+                                        onChange={props.onChange}
+                                    />
+                                </div>
+                            }>
+                            <div>
+                                <CropSettings
+                                    onClickSaveCrop={props.onClickSaveCrop}
+                                    cameraConnectingStatus={props.cameraStatus}
+                                />
+                            </div>
+                        </Show>
                     </div>
-                    <div class="mt-5 max-w-[500px] w-full">
+                    <div class=" lg:mt-5 max-w-[700px] w-full">
                         <CamerasModal camerasUrl={props.camerasUrl} />
                     </div>
                 </div>
