@@ -15,7 +15,7 @@ import recenterIcon from './svg/recenterIcon.svg'
 import reload from './svg/rotate-right-solid.svg'
 import synchronize from './svg/synchronize.svg'
 
-const icons = {
+const icons: { [key: string]: string } = {
     flipIconInactive: flipIconInactive,
     flipIconActive: flipIconActive,
     calibrateIcon: calibrateIcon,
