@@ -15,6 +15,11 @@ export enum CameraType {
     WIRELESS = 'WIRELESS',
     NONE = 'NONE',
 }
+export enum CameraCalibrationButtonType {
+    CALIBRATE = 'Calibrate',
+    RECENTER = 'Recenter',
+    CROPPING_MODE = 'Cropping mode',
+}
 
 export enum POPOVER_ID {
     GRIP = 'grip-popover',

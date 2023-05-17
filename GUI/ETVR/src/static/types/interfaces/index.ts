@@ -167,3 +167,10 @@ export interface UiStore {
     showNotifications?: boolean
     hideHeaderButtons: boolean
 }
+
+export interface IBoxPosition {
+    x: number
+    y: number
+    width: number
+    height: number
+}
