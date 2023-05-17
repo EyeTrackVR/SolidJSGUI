@@ -1,42 +1,36 @@
 import icons from '@assets/images'
 import CustomButton from '@components/CustomButton/index'
+import { CameraCalibrationButtonType } from '@src/static/types/enums'
 
 export interface IProps {
-    onClickCalibrate: () => void
-    onClickRecenter: () => void
-    onClickCroppingMode: () => void
+    onClickCalibrate: (isButtonActive: boolean) => void
+    onClickRecenter: (isButtonActive: boolean) => void
+    onClickCroppingMode: (isButtonActive: boolean) => void
+    isButtonActive: { [key in CameraCalibrationButtonType]: boolean }
 }
 
 const CameraCalibrationSettings = (props: IProps) => {
     return (
         <div class="flex justify-evenly">
-            <div class="w-full bg-[#333742] hover:bg-[#0071FE] rounded-lg p-2 cursor-pointer m-2">
-                <CustomButton
-                    name="Calibrate"
-                    img={icons.calibrateIcon}
-                    onClick={() => {
-                        props.onClickCalibrate()
-                    }}
-                />
-            </div>
-            <div class="w-full bg-[#333742] hover:bg-[#0071FE] rounded-lg p-2 cursor-pointer m-2">
-                <CustomButton
-                    name="Recenter"
-                    img={icons.recenterIcon}
-                    onClick={() => {
-                        props.onClickRecenter()
-                    }}
-                />
-            </div>
-            <div class="w-full bg-[#333742] hover:bg-[#0071FE] rounded-lg p-2 cursor-pointer m-2">
-                <CustomButton
-                    name="Cropping mode"
-                    img={icons.croppingIcon}
-                    onClick={() => {
-                        props.onClickCroppingMode()
-                    }}
-                />
-            </div>
+            <CustomButton
+                isButtonActive={props.isButtonActive[CameraCalibrationButtonType.CALIBRATE]}
+                name={CameraCalibrationButtonType.CALIBRATE}
+                img={icons.calibrateIcon}
+                onClick={props.onClickCalibrate}
+            />
+            <CustomButton
+                isButtonActive={props.isButtonActive[CameraCalibrationButtonType.RECENTER]}
+                name={CameraCalibrationButtonType.RECENTER}
+                img={icons.recenterIcon}
+                onClick={props.onClickRecenter}
+            />
+            <CustomButton
+                isButtonActive={props.isButtonActive[CameraCalibrationButtonType.CROPPING_MODE]}
+                name={CameraCalibrationButtonType.CROPPING_MODE}
+                enableActiveMode={true}
+                img={icons.croppingIcon}
+                onClick={props.onClickCroppingMode}
+            />
         </div>
     )
 }
