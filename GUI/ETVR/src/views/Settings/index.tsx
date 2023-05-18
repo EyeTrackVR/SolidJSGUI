@@ -1,3 +1,5 @@
+import { Show } from 'solid-js'
+import CropSettings from '../CropSettings'
 import icons from '@assets/images'
 import Input from '@components/Input'
 import CameraCalibrationSettings from '@components/Settings/CameraCalibrationSettings'
@@ -10,8 +12,6 @@ import {
     RANGE_INPUT_FORMAT,
 } from '@src/static/types/enums'
 import { IBoxPosition } from '@src/static/types/interfaces'
-import { Show } from 'solid-js'
-import CropSettings from '../CropSettings'
 import './styles.css'
 
 export interface IProps {

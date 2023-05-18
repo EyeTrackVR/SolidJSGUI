@@ -1,7 +1,6 @@
 import { debug } from 'tauri-plugin-log-api'
 import Input from '@components/Input'
 
-
 const Form = () => {
     const handleChange = (value: string) => {
         debug(`[Form - HandleChange]: ${value}`)

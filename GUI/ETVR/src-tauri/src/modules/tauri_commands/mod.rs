@@ -1,5 +1,5 @@
 use log::debug;
-use log::{error, info, warn};
+use log::{error, info};
 use tauri::{self, Manager};
 
 use tauri_plugin_store::with_store;

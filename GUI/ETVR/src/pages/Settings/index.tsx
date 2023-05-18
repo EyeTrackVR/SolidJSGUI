@@ -1,11 +1,11 @@
 import { useNavigate, useParams } from '@solidjs/router'
+import { createSignal } from 'solid-js'
+import { debug } from 'tauri-plugin-log-api'
 import { CameraCalibrationButtonType } from '@src/static/types/enums'
 import { IBoxPosition } from '@src/static/types/interfaces'
 import { useAppUIContext } from '@src/store/context/ui'
 import Settings from '@src/views/Settings'
 import { useAppCameraContext } from '@store/context/camera'
-import { createSignal } from 'solid-js'
-import { debug } from 'tauri-plugin-log-api'
 
 const SettingsPage = () => {
     const [isButtonActive, setIsButtonActive] = createSignal({
