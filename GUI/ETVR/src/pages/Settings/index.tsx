@@ -18,7 +18,6 @@ const SettingsPage = () => {
     const params = useParams()
 
     const { getSelectedCamera } = useAppCameraContext()
-    const { setHideHeaderButtons } = useAppUIContext()
 
     const onClickCroppingMode = (isActive: boolean) => {
         setIsButtonActive({
@@ -42,7 +41,6 @@ const SettingsPage = () => {
             camerasUrl={['.', '.', '.']}
             onChange={(value) => debug(value)}
             onClickBack={() => {
-                setHideHeaderButtons(false)
                 navigate('/')
             }}
             onClickCircleCrop={() => {

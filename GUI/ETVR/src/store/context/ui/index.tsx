@@ -1,8 +1,8 @@
-import { createContext, useContext, createMemo, type Component, Accessor } from 'solid-js'
-import { createStore, produce } from 'solid-js/store'
+import { MenuOpen, UiStore } from '@src/static/types/interfaces'
 import type { Context } from '@static/types'
-import { UiStore, MenuOpen } from '@src/static/types/interfaces'
 import { loaderType } from '@static/types/enums'
+import { Accessor, createContext, createMemo, useContext, type Component } from 'solid-js'
+import { createStore, produce } from 'solid-js/store'
 
 interface AppUIContext {
     connectingStatus: Accessor<boolean | undefined>
@@ -12,9 +12,7 @@ interface AppUIContext {
     connectedUserName: Accessor<string>
     showCameraView: Accessor<boolean | undefined>
     showNotifications: Accessor<boolean | undefined>
-    hideHeaderButtons: Accessor<boolean>
     setMenu: (menuOpen: MenuOpen | null) => void
-    setHideHeaderButtons: (flag: boolean) => void
     setConnecting: (connecting: boolean) => void
     setOpenModal: (openModal: boolean) => void
     setConnectedUser: (userName: string) => void
@@ -32,7 +30,6 @@ export const AppUIProvider: Component<Context> = (props) => {
         connectedUser: '',
         showCameraView: false,
         showNotifications: true,
-        hideHeaderButtons: false,
     }
 
     const [state, setState] = createStore<UiStore>(defaultState)
@@ -41,14 +38,6 @@ export const AppUIProvider: Component<Context> = (props) => {
         setState(
             produce((s) => {
                 s.menuOpen = menuOpen || null
-            }),
-        )
-    }
-
-    const setHideHeaderButtons = (flag: boolean) => {
-        setState(
-            produce((s) => {
-                s.hideHeaderButtons = flag
             }),
         )
     }
@@ -102,7 +91,6 @@ export const AppUIProvider: Component<Context> = (props) => {
     const connectedUserName = createMemo(() => uiState().connectedUser)
     const showCameraView = createMemo(() => uiState().showCameraView)
     const showNotifications = createMemo(() => uiState().showNotifications)
-    const hideHeaderButtons = createMemo(() => uiState().hideHeaderButtons)
 
     return (
         <AppUIContext.Provider
@@ -114,9 +102,7 @@ export const AppUIProvider: Component<Context> = (props) => {
                 connectedUserName,
                 showCameraView,
                 showNotifications,
-                hideHeaderButtons,
                 setMenu,
-                setHideHeaderButtons,
                 setConnecting,
                 setOpenModal,
                 setConnectedUser,

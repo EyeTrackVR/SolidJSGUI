@@ -165,7 +165,6 @@ export interface UiStore {
     showCameraView?: boolean
     connectedUser: string
     showNotifications?: boolean
-    hideHeaderButtons: boolean
 }
 
 export interface IBoxPosition {

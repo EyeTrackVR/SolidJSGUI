@@ -7,7 +7,6 @@ import { useAppCameraContext } from '@store/context/camera'
 const HomePage = () => {
     const { getFirmwareVersion, setRESTDevice } = useAppAPIContext()
     const { getCameras, setSelectedCamera, resetSelectedCamera } = useAppCameraContext()
-    const { setHideHeaderButtons } = useAppUIContext()
 
     let firmwareVersion = '0.0.0'
     let setRestDevice: (device: string) => void = () => {
@@ -32,11 +31,9 @@ const HomePage = () => {
                 navigate('/settings/false', { replace: true })
                 setSelectedCamera(camera)
                 setRestDevice(camera.address)
-                setHideHeaderButtons(true)
             }}
             onClickNavigateCreateCamera={() => {
                 navigate('/settings/true', { replace: true })
-                setHideHeaderButtons(true)
                 resetSelectedCamera()
             }}
         />
