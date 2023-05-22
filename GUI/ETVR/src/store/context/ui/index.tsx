@@ -1,8 +1,8 @@
-import { MenuOpen, UiStore } from '@src/static/types/interfaces'
-import type { Context } from '@static/types'
-import { loaderType } from '@static/types/enums'
 import { Accessor, createContext, createMemo, useContext, type Component } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
+import type { Context } from '@static/types'
+import { MenuOpen, UiStore } from '@src/static/types/interfaces'
+import { loaderType } from '@static/types/enums'
 
 interface AppUIContext {
     connectingStatus: Accessor<boolean | undefined>
