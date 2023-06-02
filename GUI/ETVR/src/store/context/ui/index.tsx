@@ -22,7 +22,7 @@ interface AppUIContext {
 
 const AppUIContext = createContext<AppUIContext>()
 export const AppUIProvider: Component<Context> = (props) => {
-    const defaultState = {
+    const defaultState: UiStore = {
         loader: { [loaderType.MDNS_CONNECTING]: false, [loaderType.REST_CLIENT]: false },
         connecting: false,
         openModal: false,

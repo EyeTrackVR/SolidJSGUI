@@ -1,6 +1,6 @@
 import { Select } from '@kobalte/core'
 import { FaSolidCheck } from 'solid-icons/fa'
-import { HiSolidSelector } from 'solid-icons/hi'
+import { TbSelector } from 'solid-icons/tb'
 import { type Component, createSignal } from 'solid-js'
 import './styles.css'
 
@@ -25,11 +25,10 @@ const Selection: Component<SelectionProps> = (props) => {
         <Select.Root
             name={props.name}
             value={value()}
-            onValueChange={handleChange}
+            onChange={handleChange}
             defaultValue={props.defaultValue}
             options={props.options}
             placeholder={props.placeholder}
-            valueComponent={(props) => props.item.rawValue}
             itemComponent={(props) => (
                 <Select.Item item={props.item} class="select__item">
                     <Select.ItemLabel>{props.item.rawValue}</Select.ItemLabel>
@@ -39,9 +38,11 @@ const Selection: Component<SelectionProps> = (props) => {
                 </Select.Item>
             )}>
             <Select.Trigger class="select__trigger" aria-label="ESP_Boards">
-                <Select.Value class="select__value" />
+                <Select.Value class="select__value">
+                    {(state) => state.selectedOption() as Element}
+                </Select.Value>
                 <Select.Icon class="select__icon">
-                    <HiSolidSelector />
+                    <TbSelector />
                 </Select.Icon>
             </Select.Trigger>
             <Select.Description>{props.description}</Select.Description>
