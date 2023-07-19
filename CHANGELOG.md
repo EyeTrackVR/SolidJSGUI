@@ -3,6 +3,18 @@
 [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 > All notable changes to this project will be documented in this file
 
+## [1.0.0-SolidJSGUI.61](https://github.com/EyeTrackVR/EyeTrackVR/compare/v1.0.0-SolidJSGUI.60...v1.0.0-SolidJSGUI.61) (2023-07-19)
+
+
+### 🐛 Bug Fixes
+
+* fix kobalte api ([b8d0d64](https://github.com/EyeTrackVR/EyeTrackVR/commit/b8d0d640a5b2fc0eb953e46e52cbeb329d91b739))
+
+
+### 🧑‍💻 Code Refactoring
+
+* update deps and format code ([7de00c9](https://github.com/EyeTrackVR/EyeTrackVR/commit/7de00c9abed9a93c3c6dcf319b62f60188d9e0ed))
+
 ## [1.0.0-SolidJSGUI.60](https://github.com/RedHawk989/EyeTrackVR/compare/v1.0.0-SolidJSGUI.59...v1.0.0-SolidJSGUI.60) (2023-06-02)
 
 
