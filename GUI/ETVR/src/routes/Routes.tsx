@@ -1,6 +1,7 @@
 import { useLocation, useNavigate, useRoutes } from '@solidjs/router'
+import { isEqual } from 'lodash'
 import { createEffect, onMount, type Component, createSignal } from 'solid-js'
-import { useEventListener } from 'solidjs-use'
+import { useEventListener, useInterval } from 'solidjs-use'
 import { debug } from 'tauri-plugin-log-api'
 import { routes } from '.'
 import type { PersistentSettings } from '@src/static/types'
@@ -66,6 +67,7 @@ const AppRoutes: Component = () => {
                 setScanForCamerasOnStartup(settings.scanForCamerasOnStartup)
             }
         })
+        checkPermission()
         doGHRequest()
         useMDNSScanner('_openiristracker._tcp', 5).then(() => {
             // TODO: pass the mdns res object to the Python backend - then start the websocket clients after the backend is ready
@@ -73,23 +75,42 @@ const AppRoutes: Component = () => {
             generateWebsocketClients(getCameras, addNotification, setCameraWS, setCameraStatus)
             //})
         })
-        checkPermission()
     })
 
-    createEffect(() => {
-        useEventListener(window, 'blur', () => {
-            // save the app settings to the persistent store
-            const settings: PersistentSettings = {
-                user: connectedUserName(),
-                enableNotifications: getEnableNotifications(),
-                enableNotificationsSounds: getEnableNotificationsSounds(),
-                globalNotificationsType: getGlobalNotificationsType(),
-                enableMDNS: getEnableMDNS(),
-                debugMode: getDebugMode(),
-                scanForCamerasOnStartup: getScanForCamerasOnStartup(),
+    const createSettingsObject = () => {
+        const settings: PersistentSettings = {
+            user: connectedUserName(),
+            enableNotifications: getEnableNotifications(),
+            enableNotificationsSounds: getEnableNotificationsSounds(),
+            globalNotificationsType: getGlobalNotificationsType(),
+            enableMDNS: getEnableMDNS(),
+            debugMode: getDebugMode(),
+            scanForCamerasOnStartup: getScanForCamerasOnStartup(),
+        }
+        return settings
+    }
+
+    const handleSaveSettings = async () => {
+        // check if the settings have changed and save to the store if they have
+        get('settings').then((storedSettings) => {
+            if (!isEqual(storedSettings, createSettingsObject())) {
+                debug(`[Routes]: Saving Settings - ${JSON.stringify(createSettingsObject())}`)
+                set('settings', createSettingsObject())
             }
-            debug(`[Routes]: Saving Settings - ${JSON.stringify(settings)}`)
-            set('settings', settings)
+        })
+    }
+
+    createEffect(() => {
+        const { resume, pause } = useInterval(30000, {
+            controls: true,
+            callback: handleSaveSettings,
+        })
+
+        useEventListener(window, 'blur', () => {
+            pause()
+            debug(`[Routes]: Saving Settings - ${JSON.stringify(createSettingsObject())}`)
+            set('settings', createSettingsObject())
+            resume()
         })
     })
 
