@@ -14,7 +14,9 @@ const FirmwareList: Component = () => {
         defaultValue =
             getFirmwareAssets().find((item) => item.name === 'esp32AIThinker')?.name || ''
         boardNames = getFirmwareAssets().map((item) => item.name)
+        console.log(getFirmwareAssets())
     }
+
 
     if (getFirmwareVersion) setFirmwareVersion(getFirmwareVersion())
 

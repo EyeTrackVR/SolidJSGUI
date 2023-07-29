@@ -1,5 +1,5 @@
 import { removeFile, readTextFile, BaseDirectory, writeTextFile } from '@tauri-apps/api/fs'
-import { getClient, ResponseType } from '@tauri-apps/api/http'
+import { getClient, fetch, ResponseType } from '@tauri-apps/api/http'
 import { appConfigDir, join } from '@tauri-apps/api/path'
 import { invoke, convertFileSrc } from '@tauri-apps/api/tauri'
 import { createContext, useContext, createMemo, type Component, Accessor } from 'solid-js'
@@ -43,7 +43,7 @@ export const AppAPIProvider: Component<Context> = (props) => {
     const { addNotification } = useAppNotificationsContext()
     const { getCameras } = useAppCameraContext()
 
-    const ghEndpoint = 'https://api.github.com/repos/lorow/OpenIris/releases/latest'
+    const ghEndpoint = 'https://api.github.com/repos/EyeTrackVR/OpenIris/releases/latest'
     const endpointsMap: Map<string, IEndpoint> = new Map<string, IEndpoint>([
         ['ping', { url: ':81/control/command/ping', type: RESTType.GET }],
         ['save', { url: ':81/control/command/save', type: RESTType.GET }],
@@ -135,7 +135,7 @@ export const AppAPIProvider: Component<Context> = (props) => {
     //#region hooks
     const getRelease = async (firmware: string) => {
         const appConfigDirPath = await appConfigDir()
-        if (firmware === '') {
+        if (firmware === '' || firmware.length === 0) {
             addNotification({
                 title: 'Please Select a Firmware',
                 message: 'A firmware must be selected before downloading',
@@ -251,6 +251,7 @@ export const AppAPIProvider: Component<Context> = (props) => {
         } else {
             setFirmwareVersion(data['name'])
         }
+        debug(JSON.stringify(data))
         const assets: Array<{
             browser_download_url: string
             name: string
@@ -266,8 +267,8 @@ export const AppAPIProvider: Component<Context> = (props) => {
 
         // set the board name in the store
         for (let i = 0; i < boardName.length; i++) {
-            //debug('[Github Release]: Board Name: ', boardName[i])
-            //debug('[Github Release]: URLs: ', download_urls[i])
+            debug(`[Github Release]: Board Name: ', ${boardName[i]}`)
+            debug(`[Github Release]: URLs:, ${download_urls[i]}`)
             setFirmwareAssets({ name: boardName[i], browser_download_url: download_urls[i] })
         }
 
@@ -316,21 +317,41 @@ export const AppAPIProvider: Component<Context> = (props) => {
             setGHRestStatus(RESTStatus.ACTIVE)
             setGHRestStatus(RESTStatus.LOADING)
 
+            debug(`[Github Release]: Github Endpoint ${getGHEndpoint()}`)
+
             try {
                 const response = await client.get<IGHRelease>(getGHEndpoint(), {
                     timeout: 30,
                     // the expected response type
+                    headers: {
+                        'User-Agent': 'EyeTrackVR',
+                    },
                     responseType: ResponseType.JSON,
                 })
 
-                if (response.ok) debug('[OpenIris Version]: ', response.data['name'])
+                /* const response = await fetch<IGHRelease>(getGHEndpoint(), {
+                    method: 'GET',
+                    timeout: 30,
+                    headers: {
+                        'User-Agent': 'Other',
+                    },
+                    responseType: ResponseType.JSON,
+                }) */
+
+                debug(JSON.stringify(response))
+
+                if (!response.ok) {
+                    debug('[Github Release Error]: Cannot Access Github API Endpoint')
+                    return
+                }
+                debug('[OpenIris Version]: ', response.data['name'])
 
                 try {
                     const config = await readTextFile('config.json', {
                         dir: BaseDirectory.AppConfig,
                     })
                     const config_json = JSON.parse(config)
-                    debug(config_json)
+                    debug(JSON.stringify(config_json))
                     if (response instanceof Object && response.ok) {
                         if (config !== '') {
                             if (response.data['name'] !== config_json.version) {

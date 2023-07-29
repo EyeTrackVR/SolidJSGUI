@@ -66,6 +66,7 @@ const AppRoutes: Component = () => {
                 setScanForCamerasOnStartup(settings.scanForCamerasOnStartup)
             }
         })
+        doGHRequest()
         useMDNSScanner('_openiristracker._tcp', 5).then(() => {
             // TODO: pass the mdns res object to the Python backend - then start the websocket clients after the backend is ready
             // passMdnsResToPythonBackend().then(() => {
@@ -73,7 +74,6 @@ const AppRoutes: Component = () => {
             //})
         })
         checkPermission()
-        doGHRequest()
     })
 
     createEffect(() => {

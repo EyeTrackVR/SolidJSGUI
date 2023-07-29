@@ -51,7 +51,7 @@
         "request": true,
         "scope": [
           "http://127.0.0.1:7856/*",
-          "https://api.github.com/repos/lorow/OpenIris/*"
+          "https://api.github.com/repos/EyeTrackVR/OpenIris/*"
         ]
       },
       "notification": {
