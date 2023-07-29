@@ -1,9 +1,4 @@
 import { debug } from 'tauri-plugin-log-api'
-import { EraseButton } from '@components/Button/EraseButton'
-import { OpenDocs } from '@components/Button/OpenDocs'
-import { WebSerial } from '@components/Button/WebSerial'
-import Form from '@components/Form'
-import FirmwareList from '@components/Selection/FirmwareList'
 import { useAppAPIContext } from '@src/store/context/api'
 import { useAppNotificationsContext } from '@src/store/context/notifications'
 import AppSettings from '@src/views/AppSettings'
@@ -54,28 +49,18 @@ const AppSettingsPage = () => {
                 onChangeOSCRecalibrateAddress={() => {
                     debug('[AppSettings]: onChangeOSCRecalibrateAddress')
                 }}
-            />
-            <button
-                class="rounded-[8px] bg-blue-700 p-2 text-white mt-1 hover:bg-blue-600 focus:bg-blue-500"
-                onClick={() => {
+                onNetworkSettingsChange={(format) => {
+                    debug(`[AppSettings]: ${format}`)
+                }}
+                onClickDownload={() => {
                     download('esp32AIThinker')
                     debug('[Download Asset]: Downloading...')
-                }}>
-                Download Release Asset
-            </button>
-            <button
-                class="rounded-[8px] bg-blue-700 p-2 text-white mt-1 hover:bg-blue-600 focus:bg-blue-500"
-                onClick={() => {
+                }}
+                onClickPlaySound={() => {
                     handleSound('EyeTrackApp_Audio_start.wav')
                     debug('[Audio Handler]: Sound Played')
-                }}>
-                Play Sound
-            </button>
-            <EraseButton />
-            <WebSerial />
-            <OpenDocs />
-            <FirmwareList />
-            <Form />
+                }}
+            />
         </div>
     )
 }
