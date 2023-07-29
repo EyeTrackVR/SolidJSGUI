@@ -1,5 +1,7 @@
+import DeveloperSettings from '@components/AppSettings/DeveloperSettings/DeveloperSettings'
 import FilterParameters from '@components/AppSettings/FilterParameters'
 import GeneralSettings from '@components/AppSettings/GeneralSettings'
+import NetworkSettings from '@components/AppSettings/NetworkSettings/NetworkSettings'
 import OscSettings from '@components/AppSettings/OscSettings'
 import TrackingAlgorithmSettings from '@components/AppSettings/TrackingAlgorithmSettings'
 import { RANGE_INPUT_FORMAT_APP_SETTINGS } from '@src/static/types/enums'
@@ -17,6 +19,9 @@ export interface IProps {
     onChangeOSCReceiverPort: (value: string) => void
     onChangeOSCRecenterPort: (value: string) => void
     onChangeOSCRecalibrateAddress: (value: string) => void
+    onNetworkSettingsChange: (value: string) => void
+    onClickDownload: () => void
+    onClickPlaySound: () => void
 }
 
 const AppSettings = (props: IProps) => {
@@ -68,6 +73,19 @@ const AppSettings = (props: IProps) => {
                     onChangeOSCRecalibrateAddress={(value) => {
                         props.onChangeOSCRecalibrateAddress(value)
                     }}
+                />
+            </div>
+            <div class="w-full pb-12">
+                <NetworkSettings
+                    onChange={(value) => {
+                        props.onNetworkSettingsChange(value)
+                    }}
+                />
+            </div>
+            <div class="w-full pb-12">
+                <DeveloperSettings
+                    onClickDownload={props.onClickDownload}
+                    onClickPlaySound={props.onClickPlaySound}
                 />
             </div>
         </div>
