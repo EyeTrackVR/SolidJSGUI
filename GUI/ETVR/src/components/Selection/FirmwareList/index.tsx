@@ -1,4 +1,5 @@
 import { type Component, createSignal } from 'solid-js'
+import { debug } from 'tauri-plugin-log-api'
 import Selection from '@components/Selection'
 import { useAppAPIContext } from '@src/store/context/api'
 
@@ -14,7 +15,7 @@ const FirmwareList: Component = () => {
         defaultValue =
             getFirmwareAssets().find((item) => item.name === 'esp32AIThinker')?.name || ''
         boardNames = getFirmwareAssets().map((item) => item.name)
-        console.log(getFirmwareAssets())
+        debug(`${getFirmwareAssets()}`)
     }
 
 

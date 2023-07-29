@@ -1,4 +1,5 @@
 import { resolve } from 'path'
+import { optimizeLodashImports } from '@optimize-lodash/rollup-plugin'
 import { defineConfig } from 'vite'
 import solidPlugin from 'vite-plugin-solid'
 
@@ -21,7 +22,7 @@ export default defineConfig({
             '@utils': resolve(__dirname, './src/utils'),
         },
     },
-    plugins: [solidPlugin()],
+    plugins: [solidPlugin(), optimizeLodashImports()],
     server: {
         port: 3000,
         host: true,
