@@ -18,7 +18,6 @@ const FirmwareList: Component = () => {
         debug(`${getFirmwareAssets()}`)
     }
 
-
     if (getFirmwareVersion) setFirmwareVersion(getFirmwareVersion())
 
     return (

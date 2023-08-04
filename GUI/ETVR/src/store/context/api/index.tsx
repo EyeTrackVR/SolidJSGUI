@@ -1,5 +1,5 @@
 import { removeFile, readTextFile, BaseDirectory, writeTextFile } from '@tauri-apps/api/fs'
-import { getClient, fetch, ResponseType } from '@tauri-apps/api/http'
+import { getClient, ResponseType } from '@tauri-apps/api/http'
 import { appConfigDir, join } from '@tauri-apps/api/path'
 import { invoke, convertFileSrc } from '@tauri-apps/api/tauri'
 import { createContext, useContext, createMemo, type Component, Accessor } from 'solid-js'
