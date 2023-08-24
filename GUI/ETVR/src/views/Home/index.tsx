@@ -27,8 +27,8 @@ const Home = (props: IProps) => {
                 <div>
                     <div class="flex items-center justify-between pb-8">
                         <div>
-                            <div class="flex items-center ">
-                                <h1 class=" text-3xl font-bold tracking-[0.02em] text-white">
+                            <div class="flex items-center">
+                                <h1 class="text-3xl font-bold tracking-[0.02em] text-white">
                                     CAMERAS
                                 </h1>
                             </div>

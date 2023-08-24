@@ -47,7 +47,7 @@ const Settings = (props: IProps) => {
                     </div>
                 </div>
                 <div class="flex justify-center flex-col items-center lg:items-start lg:flex-row gap-5 ">
-                    <div class="mt-5 max-w-[700px] w-full ">
+                    <div class="mt-5 max-w-[700px] w-full">
                         {!props.createNewCamera ? (
                             <div>
                                 <div class="mb-5">
@@ -98,7 +98,7 @@ const Settings = (props: IProps) => {
                             </div>
                         </Show>
                     </div>
-                    <div class=" lg:mt-5 max-w-[700px] w-full">
+                    <div class="lg:mt-5 max-w-[700px] w-full">
                         <CamerasModal camerasUrl={props.camerasUrl} />
                     </div>
                 </div>
