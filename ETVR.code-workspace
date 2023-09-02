@@ -82,6 +82,7 @@
       "notififcation",
       "notifs",
       "partytown",
+      "pyinstaller",
       "ratelimit",
       "reqwest",
       "shakram",
@@ -91,6 +92,9 @@
       "typecheck",
       "undici",
       "Unlisten",
+      "uvicorn",
+      "venv",
+      "virtualenv",
       "vorbis",
       "webserial",
       "Xmark"
