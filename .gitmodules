@@ -1,0 +1,3 @@
+[submodule "ETVR-Backend"]
+	path = ETVR-Backend
+	url = https://github.com/EyeTrackVR/ETVR-Backend
