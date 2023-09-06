@@ -85,6 +85,7 @@
       "pyinstaller",
       "ratelimit",
       "reqwest",
+      "rustc",
       "shakram",
       "solidjs",
       "soundfile",
