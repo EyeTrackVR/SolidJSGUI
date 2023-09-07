@@ -19,6 +19,7 @@ log = "^0.4.20"
 futures-util = "0.3.28"
 mdns-sd = "0.7.4"
 zip-extract = "0.1.2"
+command-group = "2.1.0"
 
 [dependencies.serde]
 version = "1.0"

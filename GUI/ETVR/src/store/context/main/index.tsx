@@ -36,6 +36,8 @@ export const AppContextMainProvider: Component<Context> = (props) => {
             // stopPythonBackend()
             await exit(ExitCodes.USER_EXIT)
         }
+        // TODO: call REST api to stop the backend
+        console.log('[App Exit]: Starting Python Backend')
         await appWindow.close()
     }
 
@@ -61,6 +63,10 @@ export const AppContextMainProvider: Component<Context> = (props) => {
 
             setTimeout(() => invoke('close_splashscreen'), 15000)
         })
+
+        //TODO: Start mdns and websocket clients only after the backend is ready
+        // TODO: call REST api to start the backend
+        console.log('[App Boot]: Starting Python Backend')
     }
 
     const handleTitlebar = (main = false) => {

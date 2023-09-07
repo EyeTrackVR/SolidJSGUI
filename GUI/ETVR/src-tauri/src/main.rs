@@ -8,10 +8,12 @@ use std::fs::metadata;
 #[cfg(target_os = "linux")]
 use std::path::PathBuf;
 
+use std::io::{self, Write};
+
 //use tauri::*;
 use tauri::{
-  self, CustomMenuItem, Manager, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem,
-  WindowEvent,
+  self, CustomMenuItem, Manager, RunEvent, SystemTray, SystemTrayEvent, SystemTrayMenu,
+  SystemTrayMenuItem, WindowEvent,
 };
 
 use serde::{Deserialize, Serialize};
@@ -19,6 +21,7 @@ use serde::{Deserialize, Serialize};
 
 // use custom modules
 mod modules;
+use modules::python_backend;
 use modules::tauri_commands;
 
 #[derive(Clone, Serialize)]
@@ -49,6 +52,8 @@ enum TrayState {
 } */
 
 fn main() {
+  let mut backend = python_backend::Backend::default();
+
   let quit = CustomMenuItem::new("quit".to_string(), "Quit");
   let hide = CustomMenuItem::new("hide".to_string(), "Hide");
   let show = CustomMenuItem::new("show".to_string(), "Show");
@@ -172,6 +177,26 @@ fn main() {
       },
       _ => {}
     })
-    .run(tauri::generate_context!())
-    .expect("error while running tauri application");
+    .build(tauri::generate_context!())
+    .expect("[App Boot]: error while running tauri application")
+    .run(move |_app, event| match event {
+      RunEvent::Ready => {
+        /* let window = app
+        .get_window("main")
+        .expect("[App Boot]: Failed to get window"); */
+
+        let child = python_backend::start_backend().expect("Failed to start backend.");
+
+        //let output = child.wait_with_output().expect("Failed to read stdout");
+        //io::stdout().write_all(&output.stdout).unwrap();
+
+        _ = backend.0.insert(child);
+      }
+      RunEvent::ExitRequested { .. } => {
+        if let Some(child) = backend.0.take() {
+          python_backend::stop_backend(child).expect("[App Exit]: Failed to shutdown backend.");
+        }
+      }
+      _ => {}
+    });
 }
