@@ -13,7 +13,7 @@ import { AppStoreAPI, IEndpoint, IGHAsset, IGHRelease } from '@src/static/types/
 import { ENotificationType, RESTStatus, RESTType } from '@static/types/enums'
 
 interface AppAPIContext {
-    /********************************* gh rest *************************************/
+    //********************************* gh rest *************************************/
     getGHRestStatus?: Accessor<RESTStatus>
     getFirmwareAssets?: Accessor<IGHAsset[]>
     getFirmwareVersion?: Accessor<string>
@@ -21,17 +21,17 @@ interface AppAPIContext {
     setGHRestStatus?: (status: RESTStatus) => void
     setFirmwareAssets?: (assets: IGHAsset) => void
     setFirmwareVersion?: (version: string) => void
-    /********************************* rest *************************************/
+    //********************************* rest *************************************/
     getRESTStatus?: Accessor<RESTStatus>
     getRESTDevice?: Accessor<string>
     getRESTResponse?: Accessor<object>
     setRESTStatus?: (status: RESTStatus) => void
     setRESTDevice?: (device: string) => void
     setRESTResponse?: (response: object) => void
-    /********************************* endpoints *************************************/
+    //********************************* endpoints *************************************/
     getEndpoints?: Accessor<Map<string, IEndpoint>>
     getEndpoint?: (key: string) => IEndpoint | undefined
-    /********************************* hooks *************************************/
+    //********************************* hooks *************************************/
     downloadAsset?: (firmware: string) => Promise<void>
     doGHRequest: () => Promise<void>
     useRequestHook: (endpointName: string, deviceName: string, args: string) => Promise<void>
@@ -45,6 +45,7 @@ export const AppAPIProvider: Component<Context> = (props) => {
 
     const ghEndpoint = 'https://api.github.com/repos/EyeTrackVR/OpenIris/releases/latest'
     const endpointsMap: Map<string, IEndpoint> = new Map<string, IEndpoint>([
+        //* ESP Specific Endpoints */
         ['ping', { url: ':81/control/command/ping', type: RESTType.GET }],
         ['save', { url: ':81/control/command/save', type: RESTType.GET }],
         ['resetConfig', { url: ':81/control/command/resetConfig', type: RESTType.GET }],
@@ -56,6 +57,14 @@ export const AppAPIProvider: Component<Context> = (props) => {
         ['wifi', { url: ':81/control/command/wifi', type: RESTType.POST }],
         ['wifiStrength', { url: ':81/control/command/wifiStrength', type: RESTType.POST }],
         ['ota', { url: ':81/update', type: RESTType.POST }],
+        //* Backend Specific Endpoints */
+        //Note: The port may change, so we should make this dynamic using UPnP or something similar
+        ['start', { url: ':8000/etvr/start', type: RESTType.GET }],
+        ['stop', { url: ':8000/etvr/stop', type: RESTType.GET }],
+        ['status', { url: ':8000/etvr/status', type: RESTType.GET }],
+        ['config', { url: ':8000/etvr/config', type: RESTType.GET || RESTType.POST }],
+        ['cameraLStatus', { url: ':8000/etvr/camera_l/status', type: RESTType.GET }],
+        ['cameraRStatus', { url: ':8000/etvr/camera_r/status', type: RESTType.GET }],
     ])
 
     const defaultState: AppStoreAPI = {
@@ -74,7 +83,8 @@ export const AppAPIProvider: Component<Context> = (props) => {
     const [state, setState] = createStore<AppStoreAPI>(defaultState)
     const apiState = createMemo(() => state)
 
-    /********************************* gh rest *************************************/
+    // TODO:  Migrate all github related functions to the rust backend
+    //********************************* gh rest *************************************/
     //#region gh rest
     const setGHRestStatus = (status: RESTStatus) => {
         setState(
@@ -102,7 +112,7 @@ export const AppAPIProvider: Component<Context> = (props) => {
     const getFirmwareVersion = createMemo(() => apiState().ghAPI.version)
     const getGHEndpoint = createMemo(() => ghEndpoint)
     //#endregion
-    /********************************* rest *************************************/
+    //********************************* rest *************************************/
     //#region rest
     const setRESTStatus = (status: RESTStatus) => {
         setState(
