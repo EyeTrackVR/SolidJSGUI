@@ -5,7 +5,7 @@ import { createEffect, onMount, type Component, createSignal } from 'solid-js'
 import { useEventListener, useInterval } from 'solidjs-use'
 import { debug } from 'tauri-plugin-log-api'
 import { routes } from '.'
-import type { BackendConfigPOSTBody, PersistentSettings } from '@src/static/types'
+import type { BackendConfig, PersistentSettings } from '@src/static/types'
 import Header from '@components/Header'
 import { ENotificationAction, ENotificationType } from '@src/static/types/enums'
 import { useAppAPIContext } from '@src/store/context/api'
@@ -102,7 +102,7 @@ const AppRoutes: Component = () => {
             const client = await getClient()
 
             if (getEndpoint) {
-                const backend_body: BackendConfigPOSTBody = {
+                const backend_body: BackendConfig = {
                     left_eye: {
                         capture_source: 'http://localhost:8080',
                     },

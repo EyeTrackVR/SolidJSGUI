@@ -1,9 +1,26 @@
-import type { ENotificationAction } from './enums'
+import type { ENotificationAction, OSCEndpoint, DevicePosition } from './enums'
 import type { JSXElement } from 'solid-js'
 
 type Context = {
     [key: string]: JSXElement
 }
+
+type BackendDevice = {
+    enabled: boolean
+    position: DevicePosition
+    capture_source: string
+    threshold: number
+    focal_length: number
+    rotation_angle: number
+    flip_x_axis: boolean
+    flip_y_axis: boolean
+    roi_x: number
+    roi_y: number
+    roi_w: number
+    roi_h: number
+}
+
+type AlgorithmOrder = 'BLOB' | 'HSRAC' | 'RANSAC' | 'HSF'
 
 //********************************* Settings *************************************/
 type CameraSettings = {
@@ -16,8 +33,10 @@ type CameraSettings = {
 }
 
 type AlgorithmSettings = {
+    algorithm_order: AlgorithmOrder[]
     blob: {
         enabled: boolean
+        threshold: number
         minArea: number
         maxArea: number
     }
@@ -30,10 +49,14 @@ type FilterParams = {
 
 type OSCSettings = {
     address: string
-    recenterAddress: string
-    recalibrateAddress: string
-    port: number
-    recPort: number
+    mirrorEyes: boolean
+    syncBlink: boolean
+    enableSending: boolean
+    sendingPort: number
+    enableReceiving: boolean
+    receiverPort: number
+    vrchatNativeTracking: boolean
+    endpoints: OSCEndpoint[]
 }
 
 //********************************* Config *************************************/
@@ -78,22 +101,12 @@ type PersistentSettings = {
 }
 
 /**
- * @description Backend Config POST body
+ * @description Backend Config
  */
-type BackendConfigPOSTBody = {
-    version?: number
-    debug?: boolean
-    left_eye: {
-        enabled?: boolean
-        capture_source?: string
-    }
-    right_eye: {
-        enabled?: boolean
-        capture_source?: string
-        threshold?: number
-        focal_length?: number
-        rotation_angle?: number
-        flip_x_axis?: boolean
-        flip_y_axis?: boolean
-    }
+type BackendConfig = {
+    version: number | string
+    debug: DebugMode
+    osc: OSCSettings
+    devices: BackendDevice[]
+    algorithm: AlgorithmSettings
 }

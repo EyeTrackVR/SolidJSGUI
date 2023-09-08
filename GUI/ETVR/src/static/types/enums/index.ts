@@ -1,3 +1,4 @@
+//********************************* Camera *************************************/
 export enum CAMERA_VIEW_MODE {
     LIST = 'LIST',
     GRIP = 'GRIP',
@@ -20,6 +21,8 @@ export enum CameraCalibrationButtonType {
     RECENTER = 'Recenter',
     CROPPING_MODE = 'Cropping mode',
 }
+
+//********************************* UI *************************************/
 
 export enum POPOVER_ID {
     GRIP = 'grip-popover',
@@ -64,7 +67,9 @@ export enum RANGE_INPUT_FORMAT_APP_SETTINGS {
     SPEED_COEFFICIENT = 'Speed coefficient',
 }
 
-// TODO: add more exit codes related to potential areas of failure in the app
+//********************************* Network and App *************************************/
+
+// TODO = add more exit codes related to potential areas of failure in the app
 export enum ExitCodes {
     USER_EXIT = 0,
     ERROR = 1,
@@ -92,4 +97,22 @@ export enum MdnsStatus {
     DISABLED = 'DISABLED',
     LOADING = 'LOADING',
     FAILED = 'FAILED',
+}
+
+//********************************* Settings *************************************/
+export enum OSCEndpoint {
+    Eyes_Y = '/avatar/parameters/EyesY',
+    Left_Eye_X = '/avatar/parameters/LeftEyeX',
+    Right_Eye_X = '/avatar/parameters/RightEyeX',
+    Recenter = '/avatar/parameters/etvr_recenter',
+    Sync_Blink = '/avatar/parameters/etvr_sync_blink',
+    Recalibrate = '/avatar/parameters/etvr_recalibrate',
+    Left_Eye_Blink = '/avatar/parameters/LeftEyeLidExpandedSqueeze',
+    Right_Eye_Blink = '/avatar/parameters/RightEyeLidExpandedSqueeze',
+}
+
+export enum DevicePosition {
+    LEFT_EYE = 'left_eye',
+    RIGHT_EYE = 'right_eye',
+    MOUTH = 'mouth',
 }
