@@ -46,7 +46,8 @@
                 "all": true,
                 "request": true,
                 "scope": [
-                    "http://127.0.0.1:7856/*",
+                    "http://127.0.0.1:8000/*",
+                    "http://localhost:8000/*",
                     "https://api.github.com/repos/EyeTrackVR/OpenIris/*"
                 ]
             },

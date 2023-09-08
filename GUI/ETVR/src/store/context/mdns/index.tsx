@@ -13,7 +13,10 @@ interface AppMDNSContext {
     getMdnsData: Accessor<MdnsResponse>
     setMdnsStatus: (status: MdnsStatus) => void
     setMdnsData: (data: MdnsResponse) => void
-    useMDNSScanner: (serviceType: string, scanTime: number) => Promise<never[] | undefined>
+    useMDNSScanner: (
+        serviceType: string,
+        scanTime: number,
+    ) => Promise<object | MdnsResponse | undefined>
 }
 
 const AppMDNSContext = createContext<AppMDNSContext>()
@@ -51,7 +54,7 @@ export const AppMdnsProvider: Component<Context> = (props) => {
     const useMDNSScanner = async (serviceType: string, scanTime: number) => {
         if (!getEnableMDNS()) return
         if (serviceType === '' || scanTime === 0) {
-            return []
+            return { error: 'serviceType or scanTime is empty' }
         }
         debug(`[MDNS Scanner]: scanning for ${serviceType} for ${scanTime} seconds`)
         setMdnsStatus(MdnsStatus.LOADING)
@@ -75,9 +78,11 @@ export const AppMdnsProvider: Component<Context> = (props) => {
                 const address = `http://${response.names[key]}.local`
                 setAddCameraMDNS(address)
             }
+            return response
         } catch (err) {
             error(`[MDNS Scanner]: error ${err}`)
             setMdnsStatus(MdnsStatus.FAILED)
+            return { error: err }
         }
     }
 

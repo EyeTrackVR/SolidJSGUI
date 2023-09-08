@@ -34,7 +34,11 @@ interface AppAPIContext {
     //********************************* hooks *************************************/
     downloadAsset?: (firmware: string) => Promise<void>
     doGHRequest: () => Promise<void>
-    useRequestHook: (endpointName: string, deviceName: string, args: string) => Promise<void>
+    useRequestHook: (
+        endpointName: string,
+        deviceName?: string,
+        args?: string,
+    ) => Promise<object | undefined>
     useOTA: (firmwareName: string, device: string) => Promise<void>
 }
 
@@ -62,7 +66,8 @@ export const AppAPIProvider: Component<Context> = (props) => {
         ['start', { url: ':8000/etvr/start', type: RESTType.GET }],
         ['stop', { url: ':8000/etvr/stop', type: RESTType.GET }],
         ['status', { url: ':8000/etvr/status', type: RESTType.GET }],
-        ['config', { url: ':8000/etvr/config', type: RESTType.GET || RESTType.POST }],
+        ['config', { url: ':8000/etvr/config', type: RESTType.POST }],
+        ['configEdit', { url: ':8000/etvr/config', type: RESTType.GET }],
         ['cameraLStatus', { url: ':8000/etvr/camera_l/status', type: RESTType.GET }],
         ['cameraRStatus', { url: ':8000/etvr/camera_r/status', type: RESTType.GET }],
     ])
@@ -435,15 +440,23 @@ export const AppAPIProvider: Component<Context> = (props) => {
         }
     }
 
-    const useRequestHook = async (endpointName: string, deviceName: string, args: string) => {
-        let endpoint: string = getEndpoints().get(endpointName)?.url ?? ''
-        const camera = getCameras().find(
-            (camera: { address: string }) => camera.address === deviceName,
-        )
-        if (!camera) {
-            setRESTStatus(RESTStatus.NO_CAMERA)
-            debug('No camera found at that address')
-            return
+    const useRequestHook = async (endpointName: string, deviceName?: string, args?: string) => {
+        let endpoint: string = getEndpoint(endpointName)?.url ?? ''
+
+        const method: RESTType = getEndpoint(endpointName)?.type ?? RESTType.GET
+
+        if (typeof deviceName != 'undefined') {
+            const camera = getCameras().find(
+                (camera: { address: string }) => camera.address === deviceName,
+            )
+            if (!camera) {
+                setRESTStatus(RESTStatus.NO_CAMERA)
+                debug('No camera found at that address')
+                return
+            }
+            deviceName = camera.address
+        } else {
+            deviceName = '127.0.0.1'
         }
 
         if (args) {
@@ -453,19 +466,22 @@ export const AppAPIProvider: Component<Context> = (props) => {
 
         try {
             const response = await invoke('do_rest_request', {
-                endpoint: endpoint,
-                deviceName: camera?.address,
-                method: getEndpoints().get(endpointName)?.type,
+                endpoint,
+                deviceName,
+                method,
             })
+            let parsedResponse: object = {}
             if (typeof response === 'string') {
                 setRESTStatus(RESTStatus.ACTIVE)
-                const parsedResponse = JSON.parse(response)
+                parsedResponse = JSON.parse(response)
                 setRESTResponse(parsedResponse)
             }
             setRESTStatus(RESTStatus.COMPLETE)
+            return parsedResponse
         } catch (err) {
             setRESTStatus(RESTStatus.FAILED)
             error(`[REST Request]: ${err}`)
+            return { error: err }
         }
     }
 
@@ -476,12 +492,7 @@ export const AppAPIProvider: Component<Context> = (props) => {
      *
      */
     const useOTA = async (firmwareName: string, device: string) => {
-        let endpoints: Map<string, IEndpoint> = new Map()
-
-        if (getEndpoints) {
-            endpoints = getEndpoints()
-        }
-
+        const endpoints: Map<string, IEndpoint> = getEndpoints()
         const ota: string = endpoints.get('ota')?.url ?? ''
         const camera = getCameras().find((camera) => camera.address === device)
         if (!camera) {

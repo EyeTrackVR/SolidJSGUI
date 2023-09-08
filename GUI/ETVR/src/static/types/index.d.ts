@@ -81,19 +81,19 @@ type PersistentSettings = {
  * @description Backend Config POST body
  */
 type BackendConfigPOSTBody = {
-    version: number
-    debug: boolean
+    version?: number
+    debug?: boolean
     left_eye: {
-        enabled: boolean
-        capture_source: string
+        enabled?: boolean
+        capture_source?: string
     }
     right_eye: {
-        enabled: boolean
-        capture_source: string
-        threshold: number
-        focal_length: number
-        rotation_angle: number
-        flip_x_axis: boolean
-        flip_y_axis: boolean
+        enabled?: boolean
+        capture_source?: string
+        threshold?: number
+        focal_length?: number
+        rotation_angle?: number
+        flip_x_axis?: boolean
+        flip_y_axis?: boolean
     }
 }

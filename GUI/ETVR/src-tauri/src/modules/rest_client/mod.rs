@@ -1,5 +1,4 @@
-
-use log::{ error, info};
+use log::{error, info};
 use reqwest::Client;
 //use serde_json::{Map, Value};
 //use std::io::Read;
@@ -203,7 +202,7 @@ pub async fn run_gh_release_assets() -> Result<String, String> {
 
         // if the id is the same, return and do nothing
 
-        // if the id is different, update the config file with the new id and assets array 
+        // if the id is different, update the config file with the new id and assets array
         // parse the json config file
         let config: serde_json::Value = serde_json::from_str(&data).map_err(|e| e.to_string())?;
         debug!("[Github Release]: Current Config: {:?}", config);
