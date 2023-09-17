@@ -2,6 +2,7 @@ import { removeFile, readTextFile, BaseDirectory, writeTextFile } from '@tauri-a
 import { getClient, ResponseType } from '@tauri-apps/api/http'
 import { appConfigDir, join } from '@tauri-apps/api/path'
 import { invoke, convertFileSrc } from '@tauri-apps/api/tauri'
+import { identity, pipe } from 'fp-ts/lib/function'
 import { createContext, useContext, createMemo, type Component, Accessor } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
 import { debug, error, warn } from 'tauri-plugin-log-api'
@@ -9,36 +10,39 @@ import { download, upload } from 'tauri-plugin-upload-api'
 import { useAppCameraContext } from '../camera'
 import { useAppNotificationsContext } from '../notifications'
 import type { Context } from '@static/types'
-import { AppStoreAPI, IEndpoint, IGHAsset, IGHRelease } from '@src/static/types/interfaces'
-import { ENotificationType, RESTStatus, RESTType } from '@static/types/enums'
+import { O } from '@static/types'
+import {
+    ENotificationType,
+    RESTStatus,
+    RESTType,
+    ESPEndpoints,
+    BackendEndpoints,
+} from '@static/types/enums'
+import { AppStoreAPI, IEndpoint, IGHAsset, IGHRelease } from '@static/types/interfaces'
 
 interface AppAPIContext {
     //********************************* gh rest *************************************/
-    getGHRestStatus?: Accessor<RESTStatus>
-    getFirmwareAssets?: Accessor<IGHAsset[]>
-    getFirmwareVersion?: Accessor<string>
-    getGHEndpoint?: Accessor<string>
-    setGHRestStatus?: (status: RESTStatus) => void
-    setFirmwareAssets?: (assets: IGHAsset) => void
-    setFirmwareVersion?: (version: string) => void
+    getGHRestStatus: Accessor<RESTStatus>
+    getFirmwareAssets: Accessor<IGHAsset[]>
+    getFirmwareVersion: Accessor<string>
+    getGHEndpoint: Accessor<string>
+    setGHRestStatus: (status: RESTStatus) => void
+    setFirmwareAssets: (assets: IGHAsset) => void
+    setFirmwareVersion: (version: string) => void
     //********************************* rest *************************************/
-    getRESTStatus?: Accessor<RESTStatus>
-    getRESTDevice?: Accessor<string>
-    getRESTResponse?: Accessor<object>
-    setRESTStatus?: (status: RESTStatus) => void
-    setRESTDevice?: (device: string) => void
-    setRESTResponse?: (response: object) => void
+    getRESTStatus: Accessor<RESTStatus>
+    getRESTDevice: Accessor<string>
+    getRESTResponse: Accessor<object>
+    setRESTStatus: (status: RESTStatus) => void
+    setRESTDevice: (device: string) => void
+    setRESTResponse: (response: object) => void
     //********************************* endpoints *************************************/
-    getEndpoints?: Accessor<Map<string, IEndpoint>>
-    getEndpoint?: (key: string) => IEndpoint | undefined
+    getEndpoints: Accessor<Map<string, IEndpoint>>
+    getEndpoint: (key: string) => IEndpoint
     //********************************* hooks *************************************/
-    downloadAsset?: (firmware: string) => Promise<void>
+    downloadAsset: (firmware: string) => Promise<void>
     doGHRequest: () => Promise<void>
-    useRequestHook: (
-        endpointName: string,
-        deviceName?: string,
-        args?: string,
-    ) => Promise<object | undefined>
+    useRequestHook: (endpointName: string, deviceName?: string, args?: string) => Promise<object>
     useOTA: (firmwareName: string, device: string) => Promise<void>
 }
 
@@ -50,26 +54,35 @@ export const AppAPIProvider: Component<Context> = (props) => {
     const ghEndpoint = 'https://api.github.com/repos/EyeTrackVR/OpenIris/releases/latest'
     const endpointsMap: Map<string, IEndpoint> = new Map<string, IEndpoint>([
         //* ESP Specific Endpoints */
-        ['ping', { url: ':81/control/command/ping', type: RESTType.GET }],
-        ['save', { url: ':81/control/command/save', type: RESTType.GET }],
-        ['resetConfig', { url: ':81/control/command/resetConfig', type: RESTType.GET }],
-        ['rebootDevice', { url: ':81/control/command/rebootDevice', type: RESTType.GET }],
-        ['restartCamera', { url: ':81/control/command/restartCamera', type: RESTType.GET }],
-        ['getStoredConfig', { url: ':81/control/command/getStoredConfig', type: RESTType.GET }],
-        ['setTxPower', { url: ':81/control/command/setTxPower', type: RESTType.POST }],
-        ['setDevice', { url: ':81/control/command/setDevice', type: RESTType.POST }],
-        ['wifi', { url: ':81/control/command/wifi', type: RESTType.POST }],
-        ['wifiStrength', { url: ':81/control/command/wifiStrength', type: RESTType.POST }],
-        ['ota', { url: ':81/update', type: RESTType.POST }],
+        ['ota', { url: `:81${ESPEndpoints.OTA}`, type: RESTType.POST }],
+        ['ping', { url: `:81${ESPEndpoints.PING}`, type: RESTType.GET }],
+        ['save', { url: `:81${ESPEndpoints.SAVE}`, type: RESTType.GET }],
+        ['wifi', { url: `:81${ESPEndpoints.WIFI}`, type: RESTType.POST }],
+        ['setDevice', { url: `:81${ESPEndpoints.SET_DEVICE}`, type: RESTType.POST }],
+        ['setTxPower', { url: `:81${ESPEndpoints.SET_TX_POWER}`, type: RESTType.POST }],
+        ['resetConfig', { url: `:81${ESPEndpoints.RESET_CONFIG}`, type: RESTType.GET }],
+        ['rebootDevice', { url: `:81${ESPEndpoints.REBOOT_DEVICE}`, type: RESTType.GET }],
+        ['wifiStrength', { url: `:81${ESPEndpoints.WIFI_STRENGTH}`, type: RESTType.POST }],
+        ['restartCamera', { url: `:81${ESPEndpoints.RESTART_CAMERA}`, type: RESTType.GET }],
+        ['getStoredConfig', { url: `:81${ESPEndpoints.GET_STORED_CONFIG}`, type: RESTType.GET }],
         //* Backend Specific Endpoints */
         //Note: The port may change, so we should make this dynamic using UPnP or something similar
-        ['start', { url: ':8000/etvr/start', type: RESTType.GET }],
-        ['stop', { url: ':8000/etvr/stop', type: RESTType.GET }],
-        ['status', { url: ':8000/etvr/status', type: RESTType.GET }],
-        ['config', { url: ':8000/etvr/config', type: RESTType.POST }],
-        ['configEdit', { url: ':8000/etvr/config', type: RESTType.GET }],
-        ['cameraLStatus', { url: ':8000/etvr/camera_l/status', type: RESTType.GET }],
-        ['cameraRStatus', { url: ':8000/etvr/camera_r/status', type: RESTType.GET }],
+        //? Default
+        ['stop', { url: `:8000${BackendEndpoints.STOP}`, type: RESTType.GET }],
+        ['start', { url: `:8000${BackendEndpoints.START}`, type: RESTType.GET }],
+        ['status', { url: `:8000${BackendEndpoints.STATUS}`, type: RESTType.GET }],
+        ['restart', { url: `:8000${BackendEndpoints.RESTART}`, type: RESTType.GET }],
+        //? Config
+        ['config', { url: `:8000${BackendEndpoints.CONFIG}`, type: RESTType.GET }],
+        ['configEdit', { url: `:8000${BackendEndpoints.CONFIG}`, type: RESTType.POST }],
+        ['configSave', { url: `:8000${BackendEndpoints.SAVE_CONFIG}`, type: RESTType.GET }],
+        ['configLoad', { url: `:8000${BackendEndpoints.LOAD_CONFIG}`, type: RESTType.GET }],
+        //? Trackers
+        ['tracker', { url: `:8000${BackendEndpoints.TRACKER}`, type: RESTType.GET }],
+        ['trackers', { url: `:8000${BackendEndpoints.TRACKERS}`, type: RESTType.GET }],
+        ['trackerEdit', { url: `:8000${BackendEndpoints.TRACKER}`, type: RESTType.POST }],
+        ['trackerCreate', { url: `:8000${BackendEndpoints.TRACKER}`, type: RESTType.PUT }],
+        ['trackerRemove', { url: `:8000${BackendEndpoints.TRACKER}`, type: RESTType.DELETE }],
     ])
 
     const defaultState: AppStoreAPI = {
@@ -144,7 +157,20 @@ export const AppAPIProvider: Component<Context> = (props) => {
     const getRESTDevice = createMemo(() => apiState().restAPI.device)
     const getRESTResponse = createMemo(() => apiState().restAPI.response)
     const getEndpoints = createMemo(() => endpointsMap)
-    const getEndpoint = (key: string) => endpointsMap.get(key)
+    const getEndpoint = (key: string) =>
+        pipe(
+            O.fromNullable(endpointsMap.get(key)),
+            O.match(
+                () => {
+                    error(`[Endpoints]: Endpoint ${key} does not exist`)
+                    return {
+                        url: '',
+                        type: RESTType.GET,
+                    }
+                },
+                (endpoint) => endpoint,
+            ),
+        )
     //#endregion
 
     //#region hooks
@@ -440,10 +466,13 @@ export const AppAPIProvider: Component<Context> = (props) => {
         }
     }
 
-    const useRequestHook = async (endpointName: string, deviceName?: string, args?: string) => {
-        let endpoint: string = getEndpoint(endpointName)?.url ?? ''
-
-        const method: RESTType = getEndpoint(endpointName)?.type ?? RESTType.GET
+    const RequestHook = async (
+        endpointName: string,
+        deviceName?: string,
+        args?: string,
+    ): Promise<O.Option<object>> => {
+        let endpoint: string = getEndpoint(endpointName).url
+        const method: RESTType = getEndpoint(endpointName).type
 
         if (typeof deviceName != 'undefined') {
             const camera = getCameras().find(
@@ -452,11 +481,11 @@ export const AppAPIProvider: Component<Context> = (props) => {
             if (!camera) {
                 setRESTStatus(RESTStatus.NO_CAMERA)
                 debug('No camera found at that address')
-                return
+                return O.none
             }
             deviceName = camera.address
         } else {
-            deviceName = '127.0.0.1'
+            deviceName = 'http://localhost'
         }
 
         if (args) {
@@ -477,12 +506,23 @@ export const AppAPIProvider: Component<Context> = (props) => {
                 setRESTResponse(parsedResponse)
             }
             setRESTStatus(RESTStatus.COMPLETE)
-            return parsedResponse
+            return O.some(parsedResponse)
         } catch (err) {
             setRESTStatus(RESTStatus.FAILED)
             error(`[REST Request]: ${err}`)
-            return { error: err }
+            return O.none
         }
+    }
+
+    const useRequestHook = async (endpointName: string, deviceName?: string, args?: string) => {
+        const res = await RequestHook(endpointName, deviceName, args)
+        return pipe(
+            res,
+            O.match(() => {
+                error('[REST Request]: No response')
+                return {}
+            }, identity),
+        )
     }
 
     /**

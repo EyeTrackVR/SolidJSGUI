@@ -1,29 +1,32 @@
+export * as O from 'fp-ts/Option'
 import type { ENotificationAction, OSCEndpoint, DevicePosition } from './enums'
 import type { JSXElement } from 'solid-js'
 
-type Context = {
+//********************************* Utility *************************************/
+export type Context = {
     [key: string]: JSXElement
 }
 
-type BackendDevice = {
-    enabled: boolean
+//********************************* Settings *************************************/
+
+export type BackendDevice = {
+    enabled?: boolean
     position: DevicePosition
-    capture_source: string
-    threshold: number
-    focal_length: number
-    rotation_angle: number
-    flip_x_axis: boolean
-    flip_y_axis: boolean
-    roi_x: number
-    roi_y: number
-    roi_w: number
-    roi_h: number
+    capture_source?: string
+    threshold?: number
+    focal_length?: number
+    rotation_angle?: number
+    flip_x_axis?: boolean
+    flip_y_axis?: boolean
+    roi_x?: number
+    roi_y?: number
+    roi_w?: number
+    roi_h?: number
 }
 
-type AlgorithmOrder = 'BLOB' | 'HSRAC' | 'RANSAC' | 'HSF'
+export type AlgorithmOrder = 'BLOB' | 'HSRAC' | 'RANSAC' | 'HSF'
 
-//********************************* Settings *************************************/
-type CameraSettings = {
+export type CameraSettings = {
     cameraId: string
     flipLeftX: boolean
     flipRightX: boolean
@@ -32,7 +35,7 @@ type CameraSettings = {
     circleCrop: boolean
 }
 
-type AlgorithmSettings = {
+export type AlgorithmSettings = {
     algorithm_order: AlgorithmOrder[]
     blob: {
         enabled: boolean
@@ -42,12 +45,12 @@ type AlgorithmSettings = {
     }
 }
 
-type FilterParams = {
+export type FilterParams = {
     minFreqCutOff: number
     speedCoeff: number
 }
 
-type OSCSettings = {
+export type OSCSettings = {
     address: string
     mirrorEyes: boolean
     syncBlink: boolean
@@ -63,7 +66,7 @@ type OSCSettings = {
 
 /**
  * @description Debug mode levels
- * @typedef {string} DebugMode
+ * @export typedef {string} DebugMode
  * @property {'off'} off
  * @property {'error'} error
  * @property {'warn'} warn
@@ -71,11 +74,11 @@ type OSCSettings = {
  * @property {'debug'} debug
  * @property {'trace'} trace
  */
-type DebugMode = 'off' | 'error' | 'warn' | 'info' | 'debug' | 'trace'
+export type DebugMode = 'off' | 'error' | 'warn' | 'info' | 'debug' | 'trace'
 
 /**
- * @description This is the type that is passed to the Tauri Store instance to handle persistent data within the app.
- * @typedef {Object} PersistentSettings
+ * @description This is the export type that is passed to the Tauri Store instance to handle persistent data within the app.
+ * @export typedef {Object} PersistentSettings
  * @property {boolean} enableNotificationsSounds
  * @property {boolean} enableNotifications
  * @property {ENotificationAction} globalNotificationsType
@@ -86,7 +89,7 @@ type DebugMode = 'off' | 'error' | 'warn' | 'info' | 'debug' | 'trace'
  * @property {FilterParams} filterParams
  * @property {OSCSettings} oscSettings
  */
-type PersistentSettings = {
+export type PersistentSettings = {
     user?: string
     enableNotificationsSounds?: boolean
     enableNotifications?: boolean
@@ -103,10 +106,10 @@ type PersistentSettings = {
 /**
  * @description Backend Config
  */
-type BackendConfig = {
-    version: number | string
-    debug: DebugMode
-    osc: OSCSettings
-    devices: BackendDevice[]
-    algorithm: AlgorithmSettings
+export type BackendConfig = {
+    version?: number | string
+    debug?: DebugMode
+    osc?: OSCSettings
+    devices?: BackendDevice[]
+    algorithm?: AlgorithmSettings
 }

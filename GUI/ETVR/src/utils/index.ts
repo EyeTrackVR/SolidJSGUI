@@ -49,6 +49,10 @@ export const classNames = (...classes: (string | boolean | undefined)[]): string
     return classes.filter(Boolean).join(' ')
 }
 
-export const isEmpty = (obj: object) => {
-    return Object.keys(obj).length === 0
+export const isEmpty = <T>(obj: object | Array<T>) => {
+    if (!Array.isArray(obj)) {
+        // ⇒ do not attempt to process array
+        return Object.keys(obj).length === 0
+    }
+    return !obj.length
 }

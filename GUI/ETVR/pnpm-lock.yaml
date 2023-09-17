@@ -38,6 +38,9 @@ dependencies:
   clsx:
     specifier: ^2.0.0
     version: 2.0.0
+  fp-ts:
+    specifier: ^2.16.1
+    version: 2.16.1
   lodash:
     specifier: ^4.17.21
     version: 4.17.21
@@ -3964,6 +3967,10 @@ packages:
     resolution: {integrity: sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow==}
     engines: {node: '>= 0.6'}
     dev: true
+
+  /fp-ts@2.16.1:
+    resolution: {integrity: sha512-by7U5W8dkIzcvDofUcO42yl9JbnHTEDBrzu3pt5fKT+Z4Oy85I21K80EYJYdjQGC2qum4Vo55Ag57iiIK4FYuA==}
+    dev: false
 
   /fraction.js@4.3.6:
     resolution: {integrity: sha512-n2aZ9tNfYDwaHhvFTkhFErqOMIb8uyzSQ+vGJBjZyanAKZVbGUQ1sngfk9FdkBw7G26O7AgNjLcecLffD1c7eg==}

@@ -1,4 +1,5 @@
 import { invoke } from '@tauri-apps/api/tauri'
+import { identity, pipe } from 'fp-ts/lib/function'
 import { createContext, useContext, createMemo, type Component, Accessor } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
 import { debug, error } from 'tauri-plugin-log-api'
@@ -6,6 +7,7 @@ import { useAppContext } from '../app'
 import { useAppCameraContext } from '../camera'
 import type { Context } from '@static/types'
 import type { AppStoreMdns, MdnsResponse } from '@static/types/interfaces'
+import { O } from '@static/types'
 import { MdnsStatus } from '@static/types/enums'
 
 interface AppMDNSContext {
@@ -13,10 +15,8 @@ interface AppMDNSContext {
     getMdnsData: Accessor<MdnsResponse>
     setMdnsStatus: (status: MdnsStatus) => void
     setMdnsData: (data: MdnsResponse) => void
-    useMDNSScanner: (
-        serviceType: string,
-        scanTime: number,
-    ) => Promise<object | MdnsResponse | undefined>
+    useMDNSScanner: (serviceType: string, scanTime: number) => Promise<MdnsResponse>
+    //useMDNSScanner: (serviceType: string, scanTime: number) => Promise<O.Option<MdnsResponse>>
 }
 
 const AppMDNSContext = createContext<AppMDNSContext>()
@@ -51,15 +51,22 @@ export const AppMdnsProvider: Component<Context> = (props) => {
         )
     }
 
-    const useMDNSScanner = async (serviceType: string, scanTime: number) => {
-        if (!getEnableMDNS()) return
-        if (serviceType === '' || scanTime === 0) {
-            return { error: 'serviceType or scanTime is empty' }
-        }
-        debug(`[MDNS Scanner]: scanning for ${serviceType} for ${scanTime} seconds`)
-        setMdnsStatus(MdnsStatus.LOADING)
-
+    const MDNSScanner = async (
+        serviceType: string,
+        scanTime: number,
+    ): Promise<O.Option<MdnsResponse>> => {
         try {
+            if (!getEnableMDNS()) {
+                error('[MDNS Scanner]: MDNS is disabled')
+                return O.none
+            }
+            if (serviceType === '' || scanTime === 0) {
+                error('[MDNS Scanner]: serviceType or scanTime is empty')
+                return O.none
+            }
+            debug(`[MDNS Scanner]: scanning for ${serviceType} for ${scanTime} seconds`)
+            setMdnsStatus(MdnsStatus.LOADING)
+
             const res = await invoke('run_mdns_query', {
                 serviceType,
                 scanTime,
@@ -78,12 +85,26 @@ export const AppMdnsProvider: Component<Context> = (props) => {
                 const address = `http://${response.names[key]}.local`
                 setAddCameraMDNS(address)
             }
-            return response
+            return O.some(response)
         } catch (err) {
             error(`[MDNS Scanner]: error ${err}`)
             setMdnsStatus(MdnsStatus.FAILED)
-            return { error: err }
+            return O.none
         }
+    }
+
+    const useMDNSScanner = async (serviceType: string, scanTime: number) => {
+        const res = await MDNSScanner(serviceType, scanTime)
+        return pipe(
+            res,
+            O.match(() => {
+                error('[MDNS Scanner]: no cameras found')
+                return {
+                    ips: [],
+                    names: [],
+                }
+            }, identity),
+        )
     }
 
     const mdnsState = createMemo(() => state)

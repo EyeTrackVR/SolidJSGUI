@@ -99,6 +99,37 @@ export enum MdnsStatus {
     FAILED = 'FAILED',
 }
 
+export enum BackendEndpoints {
+    //? Default
+    START = '/etvr/start',
+    STOP = '/etvr/stop',
+    RESTART = '/etvr/restart',
+    STATUS = '/etvr/status',
+    //? Config
+    CONFIG = '/etvr/config',
+    SAVE_CONFIG = '/etvr/save',
+    LOAD_CONFIG = '/etvr/load',
+    //? Trackers
+    TRACKERS = '/etvr/config/trackers',
+    TRACKER = '/etvr/config/tracker',
+}
+
+export enum ESPEndpoints {
+    //? Default
+    PING = '/control/command/ping',
+    SAVE = '/control/command/save',
+    RESET_CONFIG = '/control/command/resetConfig',
+    REBOOT_DEVICE = '/control/command/rebootDevice',
+    RESTART_CAMERA = '/control/command/restartCamera',
+    GET_STORED_CONFIG = '/control/command/getStoredConfig',
+    SET_TX_POWER = '/control/command/setTxPower',
+    SET_DEVICE = '/control/command/setDevice',
+    //? Network
+    WIFI = '/control/command/wifi',
+    WIFI_STRENGTH = '/control/command/wifiStrength',
+    OTA = '/update',
+}
+
 //********************************* Settings *************************************/
 export enum OSCEndpoint {
     Eyes_Y = '/avatar/parameters/EyesY',

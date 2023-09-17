@@ -12,6 +12,13 @@ import type { WebviewWindow } from '@tauri-apps/api/window'
 import type { ToasterStore } from 'solid-headless'
 import type { JSXElement } from 'solid-js'
 
+//* Utility Interfaces
+
+export interface ETVRError {
+    readonly _tag: 'ETVRError'
+    readonly error: string | number | unknown
+}
+
 //* Component Interfaces
 export interface Internal {
     errorMsg?: string

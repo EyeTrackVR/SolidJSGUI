@@ -8,8 +8,6 @@ use std::fs::metadata;
 #[cfg(target_os = "linux")]
 use std::path::PathBuf;
 
-use std::io::{self, Write};
-
 //use tauri::*;
 use tauri::{
   self, CustomMenuItem, Manager, RunEvent, SystemTray, SystemTrayEvent, SystemTrayMenu,
