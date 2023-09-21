@@ -52,6 +52,8 @@ export const AppAPIProvider: Component<Context> = (props) => {
     const { getCameras } = useAppCameraContext()
 
     const ghEndpoint = 'https://api.github.com/repos/EyeTrackVR/OpenIris/releases/latest'
+
+    // TODO: Use backend api schema to generate endpoints map and use that instead of hardcoding the endpoints
     const endpointsMap: Map<string, IEndpoint> = new Map<string, IEndpoint>([
         //* ESP Specific Endpoints */
         ['ota', { url: `:81${ESPEndpoints.OTA}`, type: RESTType.POST }],
