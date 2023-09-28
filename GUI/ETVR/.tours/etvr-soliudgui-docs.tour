@@ -1,0 +1,22 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "ETVR SoliudGUI Docs",
+  "steps": [
+    {
+      "file": "src/app.tsx",
+      "description": "Entry point to the project. Here is where the solid-js provider components are called, as well as the routes component.",
+      "line": 33
+    },
+    {
+      "file": "src/app.tsx",
+      "description": "The `App` component, included in [`main.tsx`](/src/main.tsx). \r\n\r\nFirst grab the `handleTitlebar` and `handleAppBoot` functions from the `AppMainContext` provider and then get a reference to the titlebar html element. These two functions are called on component mount to ensure that we can move the window around, that we have proper functioning window icons, and to handle all [app boot processes](/src/store/context/main/index.tsx).",
+      "line": 10
+    },
+    {
+      "file": "src/app.tsx",
+      "description": "Now we return the App component, which consists of the main App components.We wrap the main app logic in a `Suspense` to ensure that the specific background processes load properly before the app UI is loaded and we defer until the backend has finished loading.",
+      "line": 18
+    }
+  ],
+  "ref": "34069a21f5ff77bd7237f17eea0ddc640d8e9118"
+}
