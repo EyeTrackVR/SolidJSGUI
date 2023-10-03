@@ -1,4 +1,4 @@
-pub mod m_dnsquery;
+pub mod mdns_query;
+pub mod python_backend;
 pub mod rest_client;
 pub mod tauri_commands;
-pub mod python_backend;

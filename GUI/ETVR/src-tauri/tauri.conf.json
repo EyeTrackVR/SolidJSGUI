@@ -126,9 +126,7 @@
             "identifier": "com.eyetrackvr.dev",
             "longDescription": "",
             "resources": [],
-            "externalBin": [
-              "bin/ETVR"
-            ],
+            "externalBin": ["bin/ETVR"],
             "shortDescription": "",
             "targets": "all",
             "macOS": {
@@ -174,14 +172,15 @@
                 "transparent": true
             },
             {
-                "height": 600,
-                "width": 800,
+                "height": 370,
+                "width": 240,
                 "decorations": false,
                 "transparent": true,
                 "resizable": false,
                 "center": true,
-                "url": "splashscreen.html",
-                "label": "splashscreen"
+                "url": "src/windows/splashscreen/index.html",
+                "label": "splashscreen",
+                "alwaysOnTop": true
             }
         ],
         "systemTray": {

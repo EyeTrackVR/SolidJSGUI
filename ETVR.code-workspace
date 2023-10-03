@@ -90,6 +90,8 @@
       "shakram",
       "solidjs",
       "soundfile",
+      "spashscreen",
+      "specta",
       "tamasfe",
       "typecheck",
       "undici",
@@ -117,6 +119,10 @@
     "explorerExclude.backup": {},
     "[powershell]": {
       "editor.defaultFormatter": "ms-vscode.powershell"
-    }
+    },
+    "rust-analyzer.linkedProjects": [
+      ".\\src-tauri\\src\\lib\\splashscreen\\Cargo.toml",
+      ".\\src-tauri\\src\\lib\\splashscreen\\Cargo.toml"
+    ]
   }
 }

@@ -32,6 +32,7 @@ export default defineConfig({
         rollupOptions: {
             input: {
                 main: resolve(__dirname, 'index.html'),
+                splashscreen: resolve(__dirname, 'src/windows/splashscreen/index.html'),
                 docs: resolve(__dirname, 'src/windows/docs/index.html'),
                 webserial: resolve(__dirname, 'src/windows/webserial/index.html'),
             },

@@ -3,11 +3,12 @@ import { invoke } from '@tauri-apps/api/tauri'
 import { appWindow } from '@tauri-apps/api/window'
 import { createContext, useContext, createMemo, type Component, Accessor } from 'solid-js'
 import { useEventListener } from 'solidjs-use'
-import { attachConsole } from 'tauri-plugin-log-api'
+import { attachConsole, debug } from 'tauri-plugin-log-api'
 import type { Context } from '@static/types'
 import type { UnlistenFn } from '@tauri-apps/api/event'
 import { usePersistentStore } from '@src/store/tauriStore'
 import { ExitCodes } from '@static/types/enums'
+import { setFrontendReady } from '@static/types/tauri_bindings'
 
 interface AppContextMain {
     getDetachConsole: Accessor<Promise<UnlistenFn>>
@@ -44,6 +45,7 @@ export const AppContextMainProvider: Component<Context> = (props) => {
     const handleAppBoot = () => {
         const { set, get } = usePersistentStore()
 
+        console.log('[App Boot]: Frontend Initialization Starting')
         useEventListener(document, 'DOMContentLoaded', () => {
             invoke('get_user')
                 .then((config) => {
@@ -61,7 +63,16 @@ export const AppContextMainProvider: Component<Context> = (props) => {
                 console.log('[App Boot]: saved window state')
             })
 
-            setTimeout(() => invoke('close_splashscreen'), 15000)
+            setTimeout(() => {
+                setFrontendReady()
+                    .then(() => {
+                        debug('[App Boot]: Frontend Initialized')
+                        console.log('[App Boot]: Frontend Initialized')
+                    })
+                    .catch((e) => console.error(e))
+            }, 9000)
+
+            //setTimeout(() => invoke('close_splashscreen'), 15000)
         })
 
         //TODO: Start mdns and websocket clients only after the backend is ready

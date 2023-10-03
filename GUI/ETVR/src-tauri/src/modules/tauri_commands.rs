@@ -7,7 +7,7 @@ use tauri_plugin_store::with_store;
 use tauri_plugin_window_state::{AppHandleExt, StateFlags, WindowExt};
 use whoami::username;
 
-use crate::modules::m_dnsquery;
+use crate::modules::mdns_query;
 use crate::modules::rest_client;
 
 /* /// A function to show the main window
@@ -38,19 +38,19 @@ pub async fn get_user() -> Result<String, String> {
 pub async fn run_mdns_query(
   service_type: String,
   scan_time: u64,
-) -> Result<m_dnsquery::MdnsData, String> {
+) -> Result<mdns_query::MdnsData, String> {
   info!("Starting MDNS query to find devices");
-  let mut mdns: m_dnsquery::Mdns = m_dnsquery::Mdns::new();
-  let mut mdns_data = m_dnsquery::MdnsData::new();
+  let mut mdns: mdns_query::Mdns = mdns_query::Mdns::new();
+  let mut mdns_data = mdns_query::MdnsData::new();
   let ref_mdns = &mut mdns;
   info!("MDNS Service Thread acquired lock");
-  m_dnsquery::run_query(ref_mdns, service_type, &mut mdns_data, scan_time)
+  mdns_query::run_query(ref_mdns, service_type, &mut mdns_data, scan_time)
     .await
     .expect("Error in mDNS query");
   info!("MDNS query complete");
   info!(
     "MDNS query results: {:#?}",
-    m_dnsquery::get_urls(&*ref_mdns)
+    mdns_query::get_urls(&*ref_mdns)
   ); // get's an array of the base urls found
   Ok(mdns_data)
 }
@@ -69,19 +69,19 @@ pub async fn do_rest_request(
 }
 
 ///! This command must be async so that it doesn't run on the main thread.
-#[tauri::command]
-pub async fn close_splashscreen(window: tauri::Window) {
-  // Close splashscreen
-  if let Some(splashscreen) = window.get_window("splashscreen") {
-    splashscreen.close().expect("Failed to close splashscreen");
-  }
-  // Show main window
-  window
-    .get_window("main")
-    .expect("Failed to get main window")
-    .show()
-    .unwrap();
-}
+//#[tauri::command]
+//pub async fn close_splashscreen(window: tauri::Window) {
+//  // Close splashscreen
+//  if let Some(splashscreen) = window.get_window("splashscreen") {
+//    splashscreen.close().expect("Failed to close splashscreen");
+//  }
+//  // Show main window
+//  window
+//    .get_window("main")
+//    .expect("Failed to get main window")
+//    .show()
+//    .unwrap();
+//}
 
 /// TODO: refactor to use tauri::fs and tauri::path
 #[tauri::command]

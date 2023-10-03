@@ -20,6 +20,7 @@ use serde::{Deserialize, Serialize};
 // use custom modules
 mod modules;
 use modules::python_backend;
+
 use modules::tauri_commands;
 
 #[derive(Clone, Serialize)]
@@ -74,7 +75,7 @@ fn main() {
       }
     })
     .invoke_handler(tauri::generate_handler![
-      tauri_commands::close_splashscreen,
+      //tauri_commands::close_splashscreen,
       tauri_commands::run_mdns_query,
       tauri_commands::get_user,
       tauri_commands::do_rest_request,
@@ -93,15 +94,19 @@ fn main() {
     // persistent storage with file system
     .plugin(tauri_plugin_store::Builder::default().build())
     .plugin(tauri_plugin_upload::init())
+    // splashscreen support
+    .plugin(tauri_plugin_splashscreen::init())
     // save window position and size between sessions
     .plugin(tauri_plugin_window_state::Builder::default().build())
     // log to file, stdout and webview console support
     .setup(move |app| {
-      let window = app
-        .get_window("main")
-        .unwrap_or_else(|| panic!("Failed to get window {}", "main"));
+      //let window = app
+      //  .get_window("main")
+      //  .unwrap_or_else(|| panic!("Failed to get window {}", "main"));
       //set_shadow(&window, true).expect("Unsupported platform!");
-      window.hide().unwrap();
+      //window.hide().unwrap();
+
+      app.trigger_global("set-backend-ready", None);
 
       let app_handle = app.handle();
 
