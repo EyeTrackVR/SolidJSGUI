@@ -7,18 +7,25 @@
 use std::fs::metadata;
 #[cfg(target_os = "linux")]
 use std::path::PathBuf;
+use std::time::Duration;
 
-//use tauri::*;
-use tauri::{
-  self, CustomMenuItem, Manager, RunEvent, SystemTray, SystemTrayEvent, SystemTrayMenu,
-  SystemTrayMenuItem, WindowEvent,
-};
-
+use log::error;
 use serde::{Deserialize, Serialize};
+use tokio::time::sleep;
+
+//use sd_core::{Node, NodeError};
+
+use tauri::{self, ipc::RemoteDomainAccessScope, Manager, RunEvent, WindowEvent};
+
 //use tauri_plugin_store;
 
 // use custom modules
 mod modules;
+
+//mod modules::tauri_plugins;
+
+use modules::menu;
+
 use modules::python_backend;
 
 use modules::tauri_commands;
@@ -50,30 +57,33 @@ enum TrayState {
   Hidden,
 } */
 
-fn main() {
+#[tokio::main]
+async fn main() -> tauri::Result<()> {
   let mut backend = python_backend::Backend::default();
 
-  let quit = CustomMenuItem::new("quit".to_string(), "Quit");
-  let hide = CustomMenuItem::new("hide".to_string(), "Hide");
-  let show = CustomMenuItem::new("show".to_string(), "Show");
+  //let quit = CustomMenuItem::new("quit".to_string(), "Quit");
+  //let hide = CustomMenuItem::new("hide".to_string(), "Hide");
+  //let show = CustomMenuItem::new("show".to_string(), "Show");
+  //
+  //let tray_menu = SystemTrayMenu::new()
+  //  .add_item(quit)
+  //  .add_native_item(SystemTrayMenuItem::Separator)
+  //  .add_item(hide)
+  //  .add_native_item(SystemTrayMenuItem::Separator)
+  //  .add_item(show);
+  //
+  //let tray = SystemTray::new().with_menu(tray_menu);
+  let app = tauri::Builder::default();
 
-  let tray_menu = SystemTrayMenu::new()
-    .add_item(quit)
-    .add_native_item(SystemTrayMenuItem::Separator)
-    .add_item(hide)
-    .add_native_item(SystemTrayMenuItem::Separator)
-    .add_item(show);
+  //Note: This is a workaround for a bug in tauri that causes the window to not resize properly inducing a noticeable lag
+  // ! https://github.com/tauri-apps/tauri/issues/6322#issuecomment-1448141495
+  let app = app.on_window_event(|e| {
+    if let WindowEvent::Resized(_) = e.event() {
+      std::thread::sleep(std::time::Duration::from_nanos(1));
+    }
+  });
 
-  let tray = SystemTray::new().with_menu(tray_menu);
-
-  tauri::Builder::default()
-    //Note: This is a workaround for a bug in tauri that causes the window to not resize properly inducing a noticeable lag
-    // ! https://github.com/tauri-apps/tauri/issues/6322#issuecomment-1448141495
-    .on_window_event(|e| {
-      if let WindowEvent::Resized(_) = e.event() {
-        std::thread::sleep(std::time::Duration::from_nanos(1));
-      }
-    })
+  let app = app
     .invoke_handler(tauri::generate_handler![
       //tauri_commands::close_splashscreen,
       tauri_commands::run_mdns_query,
@@ -106,9 +116,36 @@ fn main() {
       //set_shadow(&window, true).expect("Unsupported platform!");
       //window.hide().unwrap();
 
+      //#[cfg(feature = "updater")]
+      //tauri::updater::builder(app.handle()).should_install(|_current, _latest| true);
+
       app.trigger_global("set-backend-ready", None);
 
       let app_handle = app.handle();
+
+      app.windows().iter().for_each(|(_, window)| {
+        tokio::spawn({
+          let window = window.clone();
+
+          async move {
+            sleep(Duration::from_secs(3)).await;
+            if !window.is_visible().unwrap_or(true) {
+              error!("[]:  Window did not emit `app_ready` event in time, showing it now.");
+
+              window.show().expect("Main window failed to show");
+            }
+          }
+        });
+
+        window.set_decorations(true).unwrap();
+      });
+
+      // Configure IPC for custom protocol
+      app.ipc_scope().configure_remote_access(
+        RemoteDomainAccessScope::new("localhost")
+          .allow_on_scheme("eyetrackvr")
+          .add_window("main"),
+      );
 
       app_handle
         .plugin(
@@ -126,80 +163,30 @@ fn main() {
 
       Ok(())
     })
-    .system_tray(tray)
-    .on_system_tray_event(move |app, event| match event {
-      SystemTrayEvent::LeftClick {
-        position: _,
-        size: _,
-        ..
-      } => {
-        dbg!("system tray received a left click");
-        let window = app.get_window("main").expect("failed to get window");
-        window.show().unwrap();
-      }
-      SystemTrayEvent::RightClick {
-        position: _,
-        size: _,
-        ..
-      } => {
-        dbg!("system tray received a right click");
-      }
-      SystemTrayEvent::DoubleClick {
-        position: _,
-        size: _,
-        ..
-      } => {
-        dbg!("system tray received a double click");
-      }
-      SystemTrayEvent::MenuItemClick { id, .. } => match id.as_str() {
-        /*  "quit" => {
-          let app = app.clone();
-          let window = app.get_window("main").expect("failed to get window");
-          // ask the user if they want to quit
-          ask(
-            Some(&window),
-            "EyeTrackVR",
-            "Are you sure that you want to close this window?",
-            move |answer| {
-              if answer {
-                // .close() cannot be called on the main thread
-                app.get_window("main").unwrap().close().unwrap();
-              }
-            },
-          );
-        } */
-        "hide" => {
-          let window = app.get_window("main").expect("failed to get window");
-          window.hide().unwrap();
-        }
-        "show" => {
-          let window = app.get_window("main").expect("failed to get window");
-          window.show().unwrap();
-        }
-        _ => {}
-      },
-      _ => {}
-    })
-    .build(tauri::generate_context!())
-    .expect("[App Boot]: error while running tauri application")
-    .run(move |_app, event| match event {
-      RunEvent::Ready => {
-        /* let window = app
-        .get_window("main")
-        .expect("[App Boot]: Failed to get window"); */
+    .system_tray(menu::create_system_tray())
+    .on_system_tray_event(menu::handle_menu_event)
+    .build(tauri::generate_context!())?;
 
-        let child = python_backend::start_backend().expect("Failed to start backend.");
+  app.run(move |_app, event| match event {
+    RunEvent::Ready => {
+      /* let window = app
+      .get_window("main")
+      .expect("[App Boot]: Failed to get window"); */
 
-        //let output = child.wait_with_output().expect("Failed to read stdout");
-        //io::stdout().write_all(&output.stdout).unwrap();
+      let child = python_backend::start_backend().expect("Failed to start backend.");
 
-        _ = backend.0.insert(child);
+      //let output = child.wait_with_output().expect("Failed to read stdout");
+      //io::stdout().write_all(&output.stdout).unwrap();
+
+      _ = backend.0.insert(child);
+    }
+    RunEvent::ExitRequested { .. } => {
+      if let Some(child) = backend.0.take() {
+        python_backend::stop_backend(child).expect("[App Exit]: Failed to shutdown backend.");
       }
-      RunEvent::ExitRequested { .. } => {
-        if let Some(child) = backend.0.take() {
-          python_backend::stop_backend(child).expect("[App Exit]: Failed to shutdown backend.");
-        }
-      }
-      _ => {}
-    });
+    }
+    _ => {}
+  });
+
+  Ok(())
 }

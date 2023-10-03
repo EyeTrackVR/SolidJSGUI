@@ -4,6 +4,8 @@ use tauri::{self, Manager};
 
 use tauri_plugin_store::with_store;
 
+//use specta::collect_types;
+//use tauri_specta::ts;
 use tauri_plugin_window_state::{AppHandleExt, StateFlags, WindowExt};
 use whoami::username;
 
@@ -20,10 +22,20 @@ pub fn show_main_window(window: tauri::Window) {
     .unwrap();
 } */
 
+macro_rules! tauri_handlers {
+	($($name:path),+) => {{
+		#[cfg(debug_assertions)]
+		tauri_specta::ts::export(specta::collect_types![$($name),+], "../../../src/static/types/tauri_types.ts").unwrap();
+
+		tauri::generate_handler![$($name),+]
+	}};
+}
+
 /// A command to get the user name from the system
 /// ## Returns
 /// - `user_name`: String - The user name of the current user
 #[tauri::command]
+#[specta::specta]
 pub async fn get_user() -> Result<String, String> {
   let user_name: String = username();
   info!("User name: {}", user_name);
@@ -35,6 +47,7 @@ pub async fn get_user() -> Result<String, String> {
 /// - `service_type` The service type to query for
 /// - `scan_time` The number of seconds to query for
 #[tauri::command]
+#[specta::specta]
 pub async fn run_mdns_query(
   service_type: String,
   scan_time: u64,
@@ -56,6 +69,7 @@ pub async fn run_mdns_query(
 }
 
 #[tauri::command]
+#[specta::specta]
 pub async fn do_rest_request(
   endpoint: String,
   device_name: String,
@@ -84,7 +98,8 @@ pub async fn do_rest_request(
 //}
 
 /// TODO: refactor to use tauri::fs and tauri::path
-#[tauri::command]
+#[tauri::command(async)]
+#[specta::specta]
 pub async fn unzip_archive(archive_path: String, target_dir: String) -> Result<String, String> {
   // The third parameter allows you to strip away toplevel directories.
   // If `archive` contained a single directory, its contents would be extracted instead.
@@ -102,7 +117,25 @@ pub async fn unzip_archive(archive_path: String, target_dir: String) -> Result<S
   Ok(archive_path)
 }
 
+/// TODO: implement a way to open the logs dir from the UI
+//#[tauri::command(async)]
+//#[specta::specta]
+//async fn open_logs_dir(node: tauri::State<'_, Arc<Node>>) -> Result<(), ()> {
+//	let logs_path = node.data_dir.join("logs");
+//
+//	#[cfg(target_os = "linux")]
+//	let open_result = sd_desktop_linux::open_file_path(&logs_path);
+//
+//	#[cfg(not(target_os = "linux"))]
+//	let open_result = opener::open(logs_path);
+//
+//	open_result.map_err(|err| {
+//		error!("Failed to open logs dir: {err}");
+//	})
+//}
+
 #[tauri::command]
+#[specta::specta]
 pub async fn handle_save_window_state<R: tauri::Runtime>(
   app: tauri::AppHandle<R>,
 ) -> Result<(), String> {
@@ -114,6 +147,7 @@ pub async fn handle_save_window_state<R: tauri::Runtime>(
 }
 
 #[tauri::command]
+#[specta::specta]
 pub async fn handle_load_window_state<R: tauri::Runtime>(
   window: tauri::Window<R>,
 ) -> Result<(), String> {
@@ -168,3 +202,18 @@ pub fn handle_debug<R: tauri::Runtime>(
   // return the result
   Ok(log_level)
 }
+
+/* pub fn specta_builder() {
+
+   #[cfg(debug_assertions)]
+    ts::export(collect_types![
+      run_mdns_query,
+      get_user,
+      do_rest_request,
+      unzip_archive,
+      handle_save_window_state,
+      handle_load_window_state,
+    ], "../src/bindings.ts").unwrap();
+  let specta_builder = ts::export().
+
+} */

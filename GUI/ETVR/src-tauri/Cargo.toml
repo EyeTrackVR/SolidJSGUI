@@ -108,10 +108,21 @@ members = ["src/lib/splashscreen"]
 [features]
 default = ["custom-protocol"]
 custom-protocol = ["tauri/custom-protocol"]
+updater = ["tauri/updater"]
 
 [build-dependencies.tauri-build]
 version = "1.4.1"
 features = []
+
+# //* If we need to implement OS specific commands, we can use these
+#[target.'cfg(target_os = "linux")'.dependencies]
+#sd-desktop-linux = { path = "./crates/linux" }
+#
+#[target.'cfg(target_os = "macos")'.dependencies]
+#sd-desktop-macos = { path = "./crates/macos" }
+#
+#[target.'cfg(target_os = "windows")'.dependencies]
+#sd-desktop-windows = { path = "./crates/windows" }
 
 [profile]
 [profile.dev]
