@@ -137,7 +137,7 @@ async fn main() -> tauri::Result<()> {
           }
         });
 
-        window.set_decorations(true).unwrap();
+        window.set_decorations(false).unwrap();
       });
 
       // Configure IPC for custom protocol
