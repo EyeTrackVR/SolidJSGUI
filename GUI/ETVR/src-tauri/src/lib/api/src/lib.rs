@@ -57,13 +57,13 @@ impl RESTClient {
 }
 
 #[derive(Debug)]
-pub struct APIPlugin<R: Runtime> {
-  pub app_handle: AppHandle<R>,
+pub struct APIPlugin {
+  pub app_handle: AppHandle<tauri::Wry>,
   pub rest_client: RESTClient,
 }
 
-impl<R: Runtime> APIPlugin<R> {
-  fn new(app_handle: AppHandle<R>) -> Self {
+impl APIPlugin {
+  fn new(app_handle: AppHandle) -> Self {
     let rest_client = RESTClient::new(None, None);
     Self {
       app_handle,
@@ -172,11 +172,11 @@ impl<R: Runtime> APIPlugin<R> {
 
 #[command(async)]
 #[specta::specta]
-async fn make_request<R: Runtime>(
+async fn make_request(
   endpoint: String,
   device_name: String,
   method: String,
-  state: State<'_, APIPlugin<R>>,
+  state: State<'_, APIPlugin>,
 ) -> Result<String, String> {
   info!("Starting REST request");
 
@@ -192,7 +192,7 @@ async fn make_request<R: Runtime>(
   Ok("Ok".to_string())
 }
 
-pub fn init<R: Runtime>() -> TauriPlugin<R> {
+pub fn init<R: Runtime>() -> TauriPlugin<tauri::Wry> {
   Builder::new("tauri_plugin_request_client")
     .setup(|app| {
       let plugin = APIPlugin::new(app.app_handle());
