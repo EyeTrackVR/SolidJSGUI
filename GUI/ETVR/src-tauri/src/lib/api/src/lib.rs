@@ -73,8 +73,8 @@ impl RESTClient {
 
 #[derive(Debug)]
 pub struct APIPlugin<R: Runtime> {
-  pub app_handle: Mutex<AppHandle<R>>,
-  pub rest_client: Mutex<RESTClient>,
+  pub app_handle: AppHandle<R>,
+  pub rest_client: RESTClient,
 }
 
 impl<R: Runtime> Deref for APIPlugin<R> {
@@ -92,42 +92,39 @@ impl<R: Runtime> DerefMut for APIPlugin<R> {
 }
 
 impl<R: Runtime> APIPlugin<R> {
-  fn new(app_handle: Mutex<AppHandle<R>>) -> Self {
-    let rest_client = Mutex::new(RESTClient::new(None, None));
+  fn new(app_handle: AppHandle<R>) -> Self {
+    let rest_client = RESTClient::new(None, None);
     Self {
       app_handle,
       rest_client,
     }
   }
 
-  fn set_base_url(&mut self, base_url: String) -> &mut Self {
-    self.rest_client.lock().unwrap().base_url = Mutex::new(base_url);
-
+  fn set_base_url(&self, base_url: String) -> &Self {
+    *self.rest_client.base_url.lock().unwrap() = base_url;
     self
   }
 
-  fn set_method(&mut self, method: String) -> &mut Self {
-    self.rest_client.lock().unwrap().method = Mutex::new(method);
+  fn set_method(&self, method: String) -> &Self {
+    *self.rest_client.method.lock().unwrap() = method;
     self
   }
 
   async fn request(&self) -> Result<()> {
     info!("Making REST request");
 
-    let shared_rest_client = *self.rest_client.lock().unwrap();
-    let shared_app_handle = *self.app_handle.lock().unwrap();
-
-    let base_url = shared_rest_client.base_url.lock().unwrap().clone();
+    let base_url = self.rest_client.base_url.lock().unwrap().clone();
 
     let response: String;
 
-    let method = shared_rest_client.method.lock().unwrap().clone();
+    let method = self.rest_client.method.lock().unwrap().clone();
 
     let method = method.as_str();
 
     let response = match method {
       "GET" => {
-        response = shared_rest_client
+        response = self
+          .rest_client
           .http_client
           .lock()
           .unwrap()
@@ -140,7 +137,8 @@ impl<R: Runtime> APIPlugin<R> {
         response
       }
       "POST" => {
-        response = shared_rest_client
+        response = self
+          .rest_client
           .http_client
           .lock()
           .unwrap()
@@ -161,8 +159,6 @@ impl<R: Runtime> APIPlugin<R> {
     };
     self
       .app_handle
-      .lock()
-      .unwrap()
       .trigger_global("request-response", Some(response));
     Ok(())
     // send a global event when the API is closed
@@ -205,12 +201,7 @@ async fn make_request<R: Runtime>(
   info!("Starting REST request");
   let full_url = format!("{}{}", device_name, endpoint);
 
-  state
-    .lock()
-    .unwrap()
-    .as_ref()
-    .set_base_url(full_url)
-    .set_method(method);
+  state.set_base_url(full_url).set_method(method);
 
   Ok("Ok".to_string())
 }
@@ -218,7 +209,7 @@ async fn make_request<R: Runtime>(
 pub fn init<R: Runtime>() -> TauriPlugin<R> {
   Builder::new("tauri_plugin_request_client")
     .setup(|app| {
-      let plugin = APIPlugin::new(Mutex::new(app.app_handle()));
+      let plugin = APIPlugin::new(app.app_handle());
       app.manage(plugin);
       Ok(())
     })
