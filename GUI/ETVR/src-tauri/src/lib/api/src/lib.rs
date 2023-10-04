@@ -1,20 +1,19 @@
+//#![recursion_limit = "512"]
+
 use tauri::{
   command,
   plugin::{Builder, TauriPlugin},
   AppHandle, Manager, Runtime, State,
 };
 
-use std::{
-  ops::{Deref, DerefMut},
-  sync::Mutex,
-};
+use std::sync::{Arc, Mutex};
 
 use log::{error, info};
 use reqwest::Client;
 use serde::{ser::Serializer, Serialize};
 use tauri_specta::*;
 
-type Result<T> = std::result::Result<T, Error>;
+type APIResult<T> = std::result::Result<T, Error>;
 
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
@@ -39,23 +38,9 @@ impl From<reqwest::Error> for Error {
 
 #[derive(Debug)]
 pub struct RESTClient {
-  pub http_client: Mutex<Client>,
-  pub base_url: Mutex<String>,
-  pub method: Mutex<String>,
-}
-
-impl Deref for RESTClient {
-  type Target = RESTClient;
-
-  fn deref(&self) -> &Self::Target {
-    self
-  }
-}
-
-impl DerefMut for RESTClient {
-  fn deref_mut(&mut self) -> &mut Self::Target {
-    self
-  }
+  pub http_client: Arc<tauri::async_runtime::Mutex<Client>>,
+  pub base_url: Arc<Mutex<String>>,
+  pub method: Arc<Mutex<String>>,
 }
 
 /// A function to create a new RESTClient instance
@@ -64,9 +49,9 @@ impl DerefMut for RESTClient {
 impl RESTClient {
   pub fn new(base_url: Option<String>, method: Option<String>) -> Self {
     Self {
-      http_client: Mutex::new(Client::new()),
-      base_url: Mutex::new(base_url.unwrap_or(String::new())),
-      method: Mutex::new(method.unwrap_or(String::new())),
+      http_client: Arc::new(tauri::async_runtime::Mutex::new(Client::new())),
+      base_url: Arc::new(Mutex::new(base_url.unwrap_or(String::new()))),
+      method: Arc::new(Mutex::new(method.unwrap_or(String::new()))),
     }
   }
 }
@@ -75,20 +60,6 @@ impl RESTClient {
 pub struct APIPlugin<R: Runtime> {
   pub app_handle: AppHandle<R>,
   pub rest_client: RESTClient,
-}
-
-impl<R: Runtime> Deref for APIPlugin<R> {
-  type Target = APIPlugin<R>;
-
-  fn deref(&self) -> &Self::Target {
-    self
-  }
-}
-
-impl<R: Runtime> DerefMut for APIPlugin<R> {
-  fn deref_mut(&mut self) -> &mut Self::Target {
-    self
-  }
 }
 
 impl<R: Runtime> APIPlugin<R> {
@@ -110,14 +81,22 @@ impl<R: Runtime> APIPlugin<R> {
     self
   }
 
-  async fn request(&self) -> Result<()> {
+  fn get_base_url(&self) -> String {
+    self.rest_client.base_url.lock().unwrap().clone()
+  }
+
+  fn get_method(&self) -> String {
+    self.rest_client.method.lock().unwrap().clone()
+  }
+
+  async fn request(&self) -> APIResult<()> {
     info!("Making REST request");
 
-    let base_url = self.rest_client.base_url.lock().unwrap().clone();
+    let base_url = self.get_base_url();
 
     let response: String;
 
-    let method = self.rest_client.method.lock().unwrap().clone();
+    let method = self.get_method();
 
     let method = method.as_str();
 
@@ -127,7 +106,7 @@ impl<R: Runtime> APIPlugin<R> {
           .rest_client
           .http_client
           .lock()
-          .unwrap()
+          .await
           .get(&base_url)
           .header("User-Agent", "EyeTrackVR")
           .send()
@@ -141,7 +120,7 @@ impl<R: Runtime> APIPlugin<R> {
           .rest_client
           .http_client
           .lock()
-          .unwrap()
+          .await
           .post(&base_url)
           .send()
           .await?
@@ -169,22 +148,23 @@ impl<R: Runtime> APIPlugin<R> {
   /// - `endpoint` The endpoint to query for
   /// - `device_name` The name of the device to query
   async fn run_rest_client(
-    &mut self,
+    &self,
     endpoint: String,
     device_name: String,
     method: String,
-  ) -> Result<()> {
+  ) -> APIResult<()> {
     info!("Starting REST client");
-    let full_url = format!("{}{}", device_name, endpoint);
 
-    //info!("Full url: {}", full_url);
+    let full_url = format!("{}{}", device_name, endpoint);
+    info!("[APIPlugin]: Full url: {}", full_url);
+    self.set_base_url(full_url).set_method(method);
 
     let request_result = self.request().await;
     match request_result {
       Ok(()) => {
-        println!("[REST Client]: Request response: Ok");
+        println!("[APIPlugin]: Request response: Ok");
       }
-      Err(e) => println!("[REST Client]: Request failed: {}", e),
+      Err(e) => println!("[APIPlugin]: Request failed: {}", e),
     }
     Ok(())
   }
@@ -197,11 +177,17 @@ async fn make_request<R: Runtime>(
   device_name: String,
   method: String,
   state: State<'_, APIPlugin<R>>,
-) -> Result<String> {
+) -> Result<String, String> {
   info!("Starting REST request");
-  let full_url = format!("{}{}", device_name, endpoint);
 
-  state.set_base_url(full_url).set_method(method);
+  let result = state.run_rest_client(endpoint, device_name, method).await;
+
+  match result {
+    Ok(()) => {
+      println!("[APIPlugin]: Request response: Ok");
+    }
+    Err(e) => println!("[APIPlugin]: Request failed: {}", e),
+  }
 
   Ok("Ok".to_string())
 }
