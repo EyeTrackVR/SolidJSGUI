@@ -125,7 +125,8 @@
     },
     "rust-analyzer.linkedProjects": [
       ".\\src-tauri\\src\\lib\\splashscreen\\Cargo.toml",
-      ".\\src-tauri\\src\\lib\\splashscreen\\Cargo.toml"
+      ".\\src-tauri\\src\\lib\\splashscreen\\Cargo.toml",
+      ".\\src-tauri\\src\\lib\\api\\Cargo.toml"
     ]
   }
 }
