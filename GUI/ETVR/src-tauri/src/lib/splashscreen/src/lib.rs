@@ -4,6 +4,10 @@ use tauri::{
   AppHandle, Manager, Runtime,
 };
 
+use etvr_utils::{errors::ETVResult, prelude::*};
+
+const PLUGIN_NAME: &str = "tauri-plugin-splashscreen";
+
 #[derive(Debug)]
 struct SplashScreenPlugin<R: Runtime> {
   app_handle: AppHandle<R>,
@@ -61,9 +65,28 @@ async fn set_frontend_ready<R: Runtime>(app: AppHandle<R>) {
   }
 }
 
+macro_rules! specta_builder {
+  ($e:expr, Runtime) => {
+    ts::builder()
+      .commands(collect_commands![
+        close_splashscreen::<$e>,
+        set_frontend_ready::<$e>
+      ])
+      .path(generate_plugin_path(PLUGIN_NAME))
+      .config(specta::ts::ExportConfig::default().formatter(specta::ts::prettier))
+    //.events(collect_events![RandomNumber])
+  };
+}
+
 pub fn init<R: Runtime>() -> TauriPlugin<R> {
+  let plugin_utils = specta_builder!(R, Runtime).into_plugin_utils(PLUGIN_NAME);
+
   Builder::new("splashscreen")
-    .setup(|app| {
+    .setup(move |app| {
+      let app = app.clone();
+
+      (plugin_utils.setup)(&app);
+
       let plugin = SplashScreenPlugin::new(app.app_handle());
       app.manage(plugin);
 
@@ -91,4 +114,22 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
       set_frontend_ready
     ])
     .build()
+}
+
+#[cfg(test)]
+mod test {
+  use super::*;
+
+  #[test]
+  fn export_types() {
+    println!("Exporting types for plugin: {}", PLUGIN_NAME);
+    println!("Export path: {}", generate_plugin_path(PLUGIN_NAME));
+
+    assert_eq!(
+      specta_builder!(tauri::Wry, Runtime)
+        .export_for_plugin(PLUGIN_NAME)
+        .ok(),
+      Some(())
+    );
+  }
 }

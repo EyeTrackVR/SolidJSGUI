@@ -106,9 +106,10 @@ async fn main() -> tauri::Result<()> {
     .plugin(tauri_plugin_upload::init())
     // splashscreen support
     .plugin(tauri_plugin_splashscreen::init())
+    // LocalHost REST Client
+    .plugin(tauri_plugin_request_client::init())
     // save window position and size between sessions
     .plugin(tauri_plugin_window_state::Builder::default().build())
-    // log to file, stdout and webview console support
     .setup(move |app| {
       //let window = app
       //  .get_window("main")
@@ -147,6 +148,7 @@ async fn main() -> tauri::Result<()> {
           .add_window("main"),
       );
 
+      // log to file, stdout and webview console support
       app_handle
         .plugin(
           tauri_plugin_log::Builder::default()

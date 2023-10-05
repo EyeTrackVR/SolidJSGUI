@@ -1,40 +1,14 @@
-//#![recursion_limit = "512"]
-
 use tauri::{
-  command,
   plugin::{Builder, TauriPlugin},
-  AppHandle, Manager, Runtime, State,
+  AppHandle, Manager, Runtime,
 };
 
+use reqwest::Client;
 use std::sync::{Arc, Mutex};
 
-use log::{error, info};
-use reqwest::Client;
-use serde::{ser::Serializer, Serialize};
-use tauri_specta::*;
+use etvr_utils::{errors::ETVResult, prelude::*};
 
-type APIResult<T> = std::result::Result<T, Error>;
-
-#[derive(Debug, thiserror::Error)]
-pub enum Error {
-  #[error(transparent)]
-  Io(#[from] std::io::Error),
-}
-
-impl Serialize for Error {
-  fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-  where
-    S: Serializer,
-  {
-    serializer.serialize_str(self.to_string().as_ref())
-  }
-}
-
-impl From<reqwest::Error> for Error {
-  fn from(e: reqwest::Error) -> Self {
-    Error::Io(std::io::Error::new(std::io::ErrorKind::Other, e))
-  }
-}
+const PLUGIN_NAME: &str = "tauri-plugin-request-client";
 
 #[derive(Debug)]
 pub struct RESTClient {
@@ -57,13 +31,13 @@ impl RESTClient {
 }
 
 #[derive(Debug)]
-pub struct APIPlugin {
-  pub app_handle: AppHandle<tauri::Wry>,
+pub struct APIPlugin<R: Runtime> {
+  pub app_handle: AppHandle<R>,
   pub rest_client: RESTClient,
 }
 
-impl APIPlugin {
-  fn new(app_handle: AppHandle) -> Self {
+impl<R: Runtime> APIPlugin<R> {
+  fn new(app_handle: AppHandle<R>) -> Self {
     let rest_client = RESTClient::new(None, None);
     Self {
       app_handle,
@@ -89,7 +63,7 @@ impl APIPlugin {
     self.rest_client.method.lock().unwrap().clone()
   }
 
-  async fn request(&self) -> APIResult<()> {
+  async fn request(&self) -> ETVResult<()> {
     info!("Making REST request");
 
     let base_url = self.get_base_url();
@@ -130,7 +104,7 @@ impl APIPlugin {
       }
       _ => {
         error!("Invalid method");
-        return Err(Error::Io(std::io::Error::new(
+        return Err(Error::IO(std::io::Error::new(
           std::io::ErrorKind::Other,
           "Invalid method",
         )));
@@ -152,7 +126,7 @@ impl APIPlugin {
     endpoint: String,
     device_name: String,
     method: String,
-  ) -> APIResult<()> {
+  ) -> ETVResult<()> {
     info!("Starting REST client");
 
     let full_url = format!("{}{}", device_name, endpoint);
@@ -170,35 +144,73 @@ impl APIPlugin {
   }
 }
 
-#[command(async)]
+#[tauri::command]
 #[specta::specta]
-async fn make_request(
+async fn make_request<R: Runtime>(
   endpoint: String,
   device_name: String,
   method: String,
-  state: State<'_, APIPlugin>,
-) -> Result<String, String> {
+  app_handle: AppHandle<R>,
+) -> Result<(), String> {
   info!("Starting REST request");
-
-  let result = state.run_rest_client(endpoint, device_name, method).await;
+  let result = app_handle
+    .state::<APIPlugin<R>>()
+    .run_rest_client(endpoint, device_name, method)
+    .await;
 
   match result {
     Ok(()) => {
       println!("[APIPlugin]: Request response: Ok");
+      Ok(())
     }
-    Err(e) => println!("[APIPlugin]: Request failed: {}", e),
+    Err(e) => {
+      println!("[APIPlugin]: Request failed: {}", e);
+      Err(e.to_string())
+    }
   }
-
-  Ok("Ok".to_string())
 }
 
-pub fn init<R: Runtime>() -> TauriPlugin<tauri::Wry> {
-  Builder::new("tauri_plugin_request_client")
-    .setup(|app| {
+macro_rules! specta_builder {
+  ($e:expr, Runtime) => {
+    ts::builder()
+      .commands(collect_commands![make_request::<$e>])
+      .path(generate_plugin_path(PLUGIN_NAME))
+      .config(specta::ts::ExportConfig::default().formatter(specta::ts::prettier))
+    //.events(collect_events![RandomNumber])
+  };
+}
+
+pub fn init<R: Runtime>() -> TauriPlugin<R> {
+  let plugin_utils = specta_builder!(R, Runtime).into_plugin_utils(PLUGIN_NAME);
+  Builder::new(PLUGIN_NAME)
+    .invoke_handler(plugin_utils.invoke_handler)
+    .setup(move |app| {
+      let app = app.clone();
+
+      (plugin_utils.setup)(&app);
+
       let plugin = APIPlugin::new(app.app_handle());
       app.manage(plugin);
       Ok(())
     })
     .invoke_handler(tauri::generate_handler![make_request])
     .build()
+}
+
+#[cfg(test)]
+mod test {
+  use super::*;
+
+  #[test]
+  fn export_types() {
+    println!("Exporting types for plugin: {}", PLUGIN_NAME);
+    println!("Export path: {}", generate_plugin_path(PLUGIN_NAME));
+
+    assert_eq!(
+      specta_builder!(tauri::Wry, Runtime)
+        .export_for_plugin(PLUGIN_NAME)
+        .ok(),
+      Some(())
+    );
+  }
 }

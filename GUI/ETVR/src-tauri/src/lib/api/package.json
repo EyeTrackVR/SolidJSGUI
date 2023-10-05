@@ -1,5 +1,5 @@
 {
-    "name": "tauri_plugin_request_client",
+    "name": "tauri-plugin-request-client",
     "private": true,
     "exports": {
         "./package.json": "./package.json",
@@ -9,12 +9,12 @@
             "default": "./dist/index.js"
         }
     },
-    "scripts": {
-        "post-install": "build",
-        "build": "pnpm tsc",
-        "codegen": "cargo test && pnpm build"
-    },
     "devDependencies": {
         "typescript": "^5.2.2"
+    },
+    "scripts": {
+        "specta:post-install": "pnpm specta:build",
+        "specta:build": "pnpm tsc",
+        "specta:gen": "cargo test && pnpm specta:build"
     }
 }

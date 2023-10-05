@@ -17,10 +17,12 @@ include = ["/src", "/README.md", "/LICENCE"]
 #rustdoc-args = ["--cfg", "docsrs"]
 
 [dependencies]
+reqwest = { workspace = true }
 serde = { workspace = true }
 tauri = { workspace = true }
 log = { workspace = true }
 specta = { workspace = true }
+dialoguer = { workspace = true }
 tauri-specta = { workspace = true }
 serde_json = "1.0"
 whoami = "1.4.1"
@@ -34,6 +36,9 @@ command-group = "2.1.0"
 
 [dependencies.tauri-plugin-splashscreen]
 path = "src/lib/splashscreen"
+
+[dependencies.tauri-plugin-request-client]
+path = "src/lib/api"
 
 [dependencies.tauri-plugin-window-state]
 git = "https://github.com/tauri-apps/plugins-workspace"
@@ -55,18 +60,17 @@ branch = "dev"
 git = "https://github.com/tauri-apps/plugins-workspace"
 branch = "dev"
 
-[dependencies.reqwest]
-workspace = true
-
 [dependencies.tokio]
 version = "1"
 features = ["full"]
 
 [workspace.dependencies]
+dialoguer = "0.11.0"
+log = "0.4.20"
 reqwest = { version = "0.11", features = ["json", "rustls-tls"] }
 serde = { version = "1.0.188", features = ["derive"] }
-specta = { version = "1.0.5", features = ["functions", "tauri"] }
-tauri-specta = { version = "1.0.2", features = ["javascript", "typescript"] }
+specta = { version = "2.0.0-rc.5", features = ["functions", "tauri"] }
+tauri-specta = { version = "2.0.0-rc.2", features = ["javascript", "typescript"] }
 tauri = { version = "1.4.1", features = [
     "process-exit",
     "protocol-asset",
@@ -100,10 +104,10 @@ tauri = { version = "1.4.1", features = [
     "window-unmaximize",
     "window-unminimize",
 ] }
-log = "0.4.20"
+
 
 [workspace]
-members = ["src/lib/splashscreen", "src/lib/api"]
+members = ["src/lib/splashscreen", "src/lib/api", "src/lib/util"]
 
 [features]
 default = ["custom-protocol"]

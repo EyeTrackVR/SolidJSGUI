@@ -1,0 +1,4 @@
+packages:
+  - "src-tauri/src/lib/api"
+  - "src-tauri/src/lib/splashscreen"
+  - "src-tauri/src/lib/utils"

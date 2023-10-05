@@ -56,6 +56,6 @@ fn etvr_backend() {
 }
 
 fn main() {
-  etvr_backend();
+  //etvr_backend();
   tauri_build::build()
 }
