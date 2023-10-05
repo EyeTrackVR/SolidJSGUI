@@ -1,3 +1,4 @@
+import { listen } from '@tauri-apps/api/event'
 import { removeFile, readTextFile, BaseDirectory, writeTextFile } from '@tauri-apps/api/fs'
 import { getClient, ResponseType } from '@tauri-apps/api/http'
 import { appConfigDir, join } from '@tauri-apps/api/path'
@@ -19,6 +20,7 @@ import {
     BackendEndpoints,
 } from '@static/types/enums'
 import { AppStoreAPI, IEndpoint, IGHAsset, IGHRelease } from '@static/types/interfaces'
+import { makeRequest } from 'tauri-plugin-request-client'
 
 interface AppAPIContext {
     //********************************* gh rest *************************************/
@@ -496,15 +498,16 @@ export const AppAPIProvider: Component<Context> = (props) => {
         setRESTStatus(RESTStatus.LOADING)
 
         try {
-            const response = await invoke('do_rest_request', {
-                endpoint,
-                deviceName,
-                method,
-            })
             let parsedResponse: object = {}
-            if (typeof response === 'string') {
+            const response = await makeRequest(endpoint, deviceName, method)
+            if (response.status === 'ok') {
                 setRESTStatus(RESTStatus.ACTIVE)
-                parsedResponse = JSON.parse(response)
+
+                const unlisten = await listen<string>('request-response', (event) => {
+                    parsedResponse = JSON.parse(event.payload)
+                })
+
+                unlisten()
                 setRESTResponse(parsedResponse)
             }
             setRESTStatus(RESTStatus.COMPLETE)

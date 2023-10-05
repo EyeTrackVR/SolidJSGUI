@@ -10,26 +10,6 @@ use tauri_plugin_window_state::{AppHandleExt, StateFlags, WindowExt};
 use whoami::username;
 
 use crate::modules::mdns_query;
-use crate::modules::rest_client;
-
-/* /// A function to show the main window
-#[tauri::command]
-pub fn show_main_window(window: tauri::Window) {
-  window
-    .get_window("main")
-    .expect("Failed to get main window")
-    .show()
-    .unwrap();
-} */
-
-macro_rules! tauri_handlers {
-	($($name:path),+) => {{
-		#[cfg(debug_assertions)]
-		tauri_specta::ts::export(specta::collect_types![$($name),+], "../../../src/static/types/tauri_types.ts").unwrap();
-
-		tauri::generate_handler![$($name),+]
-	}};
-}
 
 /// A command to get the user name from the system
 /// ## Returns
@@ -67,35 +47,6 @@ pub async fn run_mdns_query(
   ); // get's an array of the base urls found
   Ok(mdns_data)
 }
-
-#[tauri::command]
-#[specta::specta]
-pub async fn do_rest_request(
-  endpoint: String,
-  device_name: String,
-  method: String,
-) -> Result<String, String> {
-  info!("Starting REST request");
-  let response = rest_client::run_rest_client(endpoint, device_name, method)
-    .await
-    .expect("Error in REST request");
-  Ok(response)
-}
-
-///! This command must be async so that it doesn't run on the main thread.
-//#[tauri::command]
-//pub async fn close_splashscreen(window: tauri::Window) {
-//  // Close splashscreen
-//  if let Some(splashscreen) = window.get_window("splashscreen") {
-//    splashscreen.close().expect("Failed to close splashscreen");
-//  }
-//  // Show main window
-//  window
-//    .get_window("main")
-//    .expect("Failed to get main window")
-//    .show()
-//    .unwrap();
-//}
 
 /// TODO: refactor to use tauri::fs and tauri::path
 #[tauri::command(async)]
@@ -202,18 +153,3 @@ pub fn handle_debug<R: tauri::Runtime>(
   // return the result
   Ok(log_level)
 }
-
-/* pub fn specta_builder() {
-
-   #[cfg(debug_assertions)]
-    ts::export(collect_types![
-      run_mdns_query,
-      get_user,
-      do_rest_request,
-      unzip_archive,
-      handle_save_window_state,
-      handle_load_window_state,
-    ], "../src/bindings.ts").unwrap();
-  let specta_builder = ts::export().
-
-} */

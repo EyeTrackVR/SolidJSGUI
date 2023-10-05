@@ -13,3 +13,12 @@ pub struct W<T>(pub T);
 pub fn generate_plugin_path(plugin_name: &str) -> String {
   f!("{}{}.ts", EXPORT_PATH_ROOT, plugin_name)
 }
+
+macro_rules! tauri_handlers {
+	($($name:path),+) => {{
+		#[cfg(debug_assertions)]
+		tauri_specta::ts::export(specta::collect_types![$($name),+], "../../../src/static/types/tauri_types.ts").unwrap();
+
+		tauri::generate_handler![$($name),+]
+	}};
+}

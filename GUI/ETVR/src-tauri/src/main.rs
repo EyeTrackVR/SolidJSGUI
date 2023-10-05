@@ -88,7 +88,6 @@ async fn main() -> tauri::Result<()> {
       //tauri_commands::close_splashscreen,
       tauri_commands::run_mdns_query,
       tauri_commands::get_user,
-      tauri_commands::do_rest_request,
       tauri_commands::unzip_archive,
       tauri_commands::handle_save_window_state,
       tauri_commands::handle_load_window_state,
@@ -106,6 +105,7 @@ async fn main() -> tauri::Result<()> {
     .plugin(tauri_plugin_upload::init())
     // splashscreen support
     .plugin(tauri_plugin_splashscreen::init())
+    .plugin(tauri_plugin_request_client::init())
     // LocalHost REST Client
     .plugin(tauri_plugin_request_client::init())
     // save window position and size between sessions
