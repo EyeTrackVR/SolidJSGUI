@@ -498,18 +498,19 @@ export const AppAPIProvider: Component<Context> = (props) => {
         setRESTStatus(RESTStatus.LOADING)
 
         try {
+            setRESTStatus(RESTStatus.ACTIVE)
             let parsedResponse: object = {}
             const response = await makeRequest(endpoint, deviceName, method)
-            if (response.status === 'ok') {
-                setRESTStatus(RESTStatus.ACTIVE)
-
-                const unlisten = await listen<string>('request-response', (event) => {
-                    parsedResponse = JSON.parse(event.payload)
-                })
-
-                unlisten()
-                setRESTResponse(parsedResponse)
+            const unlisten = await listen<string>('request-response', (event) => {
+                parsedResponse = JSON.parse(event.payload)
+            })
+            if (response.status === 'error') {
+                setRESTStatus(RESTStatus.FAILED)
+                error(`[REST Request]: ${response.error}`)
+                return O.none
             }
+            unlisten()
+            setRESTResponse(parsedResponse)
             setRESTStatus(RESTStatus.COMPLETE)
             return O.some(parsedResponse)
         } catch (err) {
