@@ -79,13 +79,13 @@ macro_rules! specta_builder {
 }
 
 pub fn init<R: Runtime>() -> TauriPlugin<R> {
-  let plugin_utils = specta_builder!(R, Runtime).into_plugin_utils(PLUGIN_NAME);
+  //let plugin_utils = specta_builder!(R, Runtime).into_plugin_utils(PLUGIN_NAME);
 
-  Builder::new("splashscreen")
+  Builder::new(PLUGIN_NAME)
     .setup(move |app| {
       let app = app.clone();
 
-      (plugin_utils.setup)(&app);
+      //(plugin_utils.setup)(&app);
 
       let plugin = SplashScreenPlugin::new(app.app_handle());
       app.manage(plugin);
@@ -109,6 +109,7 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
       });
       Ok(())
     })
+    //.invoke_handler(plugin_utils.invoke_handler)
     .invoke_handler(tauri::generate_handler![
       close_splashscreen,
       set_frontend_ready

@@ -175,19 +175,20 @@ macro_rules! specta_builder {
     ts::builder()
       .commands(collect_commands![make_request::<$e>])
       .path(generate_plugin_path(PLUGIN_NAME))
-      .config(specta::ts::ExportConfig::default().formatter(specta::ts::prettier))
+      .config(specta::ts::ExportConfig::default()
+      .formatter(specta::ts::prettier))
     //.events(collect_events![RandomNumber])
   };
 }
 
 pub fn init<R: Runtime>() -> TauriPlugin<R> {
-  let plugin_utils = specta_builder!(R, Runtime).into_plugin_utils(PLUGIN_NAME);
+  //let plugin_utils = specta_builder!(R, Runtime).into_plugin_utils(PLUGIN_NAME);
   Builder::new(PLUGIN_NAME)
-    .invoke_handler(plugin_utils.invoke_handler)
+    //.invoke_handler(plugin_utils.invoke_handler)
     .setup(move |app| {
       let app = app.clone();
 
-      (plugin_utils.setup)(&app);
+      //(plugin_utils.setup)(&app);
 
       let plugin = APIPlugin::new(app.app_handle());
       app.manage(plugin);
