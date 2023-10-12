@@ -134,7 +134,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           sudo apt-get install -y jq
-          chmod +x ./repo-tools/scripts/prepareCMD.sh 
+          chmod +x ./github/repo-tools/scripts/prepareCMD.sh 
           semantic-release
 
   cleanup:
