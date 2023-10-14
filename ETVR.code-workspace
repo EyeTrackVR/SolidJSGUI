@@ -2,16 +2,16 @@
   "folders": [
     {
       "name": "ETVR GUI",
-      "path": "./GUI/ETVR"
-    },
-    {
-      "name": "ETVR Assets",
-      "path": "./GUI/assets"
+      "path": "./app"
     },
     {
       "name": "Repo Root",
       "path": "."
-    }
+    },
+    {
+      "name": "ETVR Assets",
+      "path": "./assets"
+    },
   ],
   "settings": {
     "files.autoSave": "afterDelay",
@@ -40,7 +40,7 @@
       "editor.defaultFormatter": "tamasfe.even-better-toml"
     },
     "[jsonc]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
+      "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
     },
     "[javascript]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode"
