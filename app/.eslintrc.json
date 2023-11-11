@@ -24,7 +24,7 @@
     "solid/reactivity": "warn",
     "solid/no-destructure": "warn",
     "solid/jsx-no-undef": "error",
-    "indent": ["error", 4],
+    "indent": ["error", 4 , { "SwitchCase": 1 }],
     "quotes": ["error", "single"],
     "semi": ["error", "never"],
     "arrow-body-style": "off",
